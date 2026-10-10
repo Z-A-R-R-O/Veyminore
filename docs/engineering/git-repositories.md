@@ -12,4 +12,4 @@ git push zetro <split-commit-sha>:main
 
 Replace `<split-commit-sha>` with the SHA printed by `git subtree split`. Never force-push the product mirror. If its remote branch has diverged, inspect it before integrating anything; do not overwrite independent work. Changes made directly in the ZETRO GitHub repository do not automatically appear in Veyminore.
 
-The product mirror is a source snapshot. The Veyminore root currently owns the pnpm workspace and lockfile, so use the parent checkout for the documented development and test commands until standalone product packaging is added.
+The product mirror has its own pnpm workspace and lockfile. After a ZETRO-only clone, run `pnpm install --frozen-lockfile`, `pnpm -r test`, and `pnpm typecheck` from its root. The parent monorepo retains its separate workspace and lockfile; run its commands from `E:\Veyminore`. CI workflows exist at both roots, so the subtree split carries ZETRO's standalone checks into its mirror.

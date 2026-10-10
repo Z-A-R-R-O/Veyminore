@@ -14,7 +14,11 @@ importers:
 
   products/zetro: {}
 
-  products/zetro/apps/agent-tools: {}
+  products/zetro/apps/agent-tools:
+    dependencies:
+      '@veyminore/zetro-antigravity':
+        specifier: workspace:*
+        version: link:../../packages/antigravity-adapter
 
   products/zetro/packages/antigravity-adapter:
     devDependencies:
