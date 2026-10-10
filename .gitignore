@@ -1,0 +1,23 @@
+# Dependencies and build output
+node_modules/
+.pnpm-store/
+.turbo/
+dist/
+build/
+.next/
+coverage/
+
+# Environment and local configuration
+.env
+.env.local
+.env.*.local
+!.env.example
+.agents/
+
+# Logs and OS/editor files
+*.log
+**/hook/journal.jsonl
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

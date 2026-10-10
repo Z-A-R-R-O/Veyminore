@@ -1,0 +1,9 @@
+packages:
+  - "products/*"
+  - "products/*/apps/*"
+  - "products/*/packages/*"
+  - "labs/experiments/*"
+  - "labs/prototypes/*"
+  - "packages/*"
+  - "templates/*"
+
