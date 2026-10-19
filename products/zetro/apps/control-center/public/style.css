@@ -664,7 +664,7 @@ header.app-header.collapsed:hover .top-dock-toggle .toggle-icon {
 }
 
 /* Main Content Area — With 60px top clearance for Fixed Top Bar */
-main{width:100%;max-width:1350px;padding:36px 46px 150px;margin-top:60px;flex:1;align-self:center}
+main{width:100%;max-width:1350px;padding:36px 46px 180px;margin-top:60px;flex:1;align-self:center}
 .eyebrow{font-size:10px;font-weight:750;letter-spacing:.15em;color:#6e7681}
 .hero{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:34px}
 .hero h1{font-size:46px;line-height:1.14;font-weight:650;letter-spacing:-.055em;margin:13px 0 14px;color:#ffffff}
@@ -731,7 +731,8 @@ dialog#worker-dialog::before,
 .plan-phase::after,
 dialog#worker-dialog::after,
 .card-nav__panel::after,
-.dock::after {
+.dock::after,
+.fleet-worker::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -758,14 +759,18 @@ dialog#worker-dialog::after,
 }
 
 .dock {
+  background: linear-gradient(180deg, #16181d 0%, #111215 100%) !important;
   isolation: isolate;
+  box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.95), 0 8px 24px -4px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
 }
 .dock > * {
   position: relative;
   z-index: 2;
 }
 .card-nav__panel {
+  background: linear-gradient(180deg, #16181d 0%, #111215 100%) !important;
   isolation: isolate;
+  box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.95), 0 8px 24px -4px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
 }
 .card-nav__panel > * {
   position: relative;
@@ -1557,7 +1562,7 @@ dialog::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);-webkit-b
 
 @media(max-width:1100px){
   header.app-header{padding:0 28px}
-  main{padding:32px 28px 140px}
+  main{padding:32px 28px 180px}
   .columns{grid-template-columns:minmax(0,1fr) 230px;gap:20px}
   .hero h1{font-size:40px}
   .worker-table td,.worker-table th{padding-left:18px;padding-right:18px}
@@ -1585,7 +1590,7 @@ dialog::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);-webkit-b
   .connection-text{display:none !important}
   .preview-text{display:none !important}
   .profile-info{display:none !important}
-  main{margin-top:52px;padding:28px 24px 150px}
+  main{margin-top:52px;padding:28px 24px 180px}
   .columns{grid-template-columns:1fr}
   .next-panel{display:none}
   .hero-right{gap:12px}
@@ -1609,7 +1614,7 @@ dialog::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);-webkit-b
   .preview-text{display:none !important}
   .profile{display:none !important}
   .header-preview-link{display:none !important}
-  main{padding:24px 14px 140px;margin-top:48px}
+  main{padding:24px 14px 180px;margin-top:48px}
   .hero{display:block;padding-bottom:25px}
   .hero h1{font-size:34px}
   .hero-right{align-items:flex-start;padding-top:20px}

@@ -5,11 +5,11 @@ import './CardNav.css';
 
 const THEMES = {
   dark: {
-    '--cn-panel': 'rgba(18, 20, 24, 0.94)',
+    '--cn-panel': '#121418',
     '--cn-solid': '#121418',
     '--cn-edge': 'rgba(255, 255, 255, 0.08)',
     '--cn-highlight': 'rgba(255, 255, 255, 0.08)',
-    '--cn-shadow': '0 24px 64px -16px rgba(0, 0, 0, 0.85), 0 8px 24px -4px rgba(0, 0, 0, 0.6)',
+    '--cn-shadow': '0 24px 64px -16px rgba(0, 0, 0, 0.95), 0 8px 24px -4px rgba(0, 0, 0, 0.8)',
     '--cn-text': '#f0f3f6',
     '--cn-muted': '#8b949e',
     '--cn-hover': 'rgba(255, 255, 255, 0.08)',

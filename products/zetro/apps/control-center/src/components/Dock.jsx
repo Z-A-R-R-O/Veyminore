@@ -17,21 +17,21 @@ const POP = 'cubic-bezier(0.2, 1.25, 0.4, 1)';
 
 const THEMES = {
   dark: {
-    '--dock-panel': 'rgba(18, 20, 24, 0.94)',
+    '--dock-panel': '#121418',
     '--dock-panel-edge': 'rgba(255, 255, 255, 0.12)',
     '--dock-panel-highlight': 'rgba(255, 255, 255, 0.14)',
-    '--dock-panel-shadow': '0 24px 64px -12px rgba(0, 0, 0, 0.85), 0 8px 24px -4px rgba(0, 0, 0, 0.6)',
+    '--dock-panel-shadow': '0 24px 64px -12px rgba(0, 0, 0, 0.95), 0 8px 24px -4px rgba(0, 0, 0, 0.8)',
     '--dock-tile': 'linear-gradient(180deg, #262932 0%, #181a20 100%)',
     '--dock-tile-edge': 'rgba(255, 255, 255, 0.12)',
     '--dock-tile-highlight': 'rgba(255, 255, 255, 0.16)',
     '--dock-tile-shadow': '0 3px 8px rgba(0, 0, 0, 0.5)',
     '--dock-ink': '#ffffff',
-    '--dock-label': '#121418',
+    '--dock-label': '#14161b',
     '--dock-label-ink': '#ffffff',
     '--dock-dot': '#ffffff',
     '--dock-separator': 'rgba(255, 255, 255, 0.16)',
     '--dock-press': 'brightness(0.8)',
-    '--dock-menu': 'rgba(18, 20, 24, 0.96)',
+    '--dock-menu': '#14161b',
     '--dock-menu-edge': 'rgba(255, 255, 255, 0.15)',
     '--dock-menu-ink': '#ffffff',
     '--dock-menu-muted': 'rgba(255, 255, 255, 0.55)',
@@ -675,6 +675,10 @@ export default function Dock({
         const tile = node.firstElementChild;
         node.style.width = `${size}px`;
         node.style.height = `${size}px`;
+        const denom = Math.max(1, s.peak - s.base);
+        const prox = Math.max(0, Math.min(1, (size - s.base) / denom));
+        node.style.setProperty('--dock-proximity', prox.toFixed(3));
+        node.style.zIndex = prox > 0.05 ? `${Math.round(2 + prox * 8)}` : '2';
         if (tile)
           tile.style.transform = `translate(${s.vertical ? `${lift}px, 0` : `0, ${lift}px`}) scale(${size / s.base})`;
       });
@@ -1005,13 +1009,14 @@ export default function Dock({
               endPress();
               openMenu(index, 'pointer');
             }}
-            onClick={() => {
+            onClick={event => {
               if (skipRef.current === index) {
                 skipRef.current = -1;
                 return;
               }
               actionsRef.current?.hop(index);
               item.onClick?.();
+              event.currentTarget.blur();
             }}
             onFocus={event => {
               if (event.currentTarget.matches(':focus-visible')) actionsRef.current?.focus(index);

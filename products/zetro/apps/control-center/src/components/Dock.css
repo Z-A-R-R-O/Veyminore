@@ -4,9 +4,9 @@
   display: flex;
   gap: var(--dock-gap);
   box-sizing: border-box;
-  padding: var(--dock-pad);
+  padding: var(--dock-pad) calc(var(--dock-pad) + 6px);
   border-radius: calc(var(--dock-base) * var(--dock-round) * 0.5 + var(--dock-pad));
-  background: var(--dock-panel);
+  background: linear-gradient(180deg, #16181d 0%, #111215 100%) !important;
   box-shadow:
     inset 0 0 0 1px var(--dock-panel-edge),
     inset 0 1px 0 var(--dock-panel-highlight),
@@ -158,35 +158,6 @@
   translate: calc(100% + 12px) 0;
 }
 
-.dock--bottom::before,
-.dock--top::before {
-  left: 0;
-  right: 0;
-  height: calc(var(--dock-reach) + 8px);
-}
-
-.dock--left::before,
-.dock--right::before {
-  top: 0;
-  bottom: 0;
-  width: calc(var(--dock-reach) + 8px);
-}
-
-.dock--bottom::before {
-  bottom: 100%;
-}
-
-.dock--top::before {
-  top: 100%;
-}
-
-.dock--left::before {
-  left: 100%;
-}
-
-.dock--right::before {
-  right: 100%;
-}
 
 .dock-item,
 .dock button.dock-item {
@@ -219,7 +190,7 @@
 .dock button.dock-item:focus-visible,
 .dock-item:active,
 .dock button.dock-item:active {
-  z-index: 1;
+  z-index: 10 !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
@@ -246,11 +217,15 @@
   justify-content: center;
   overflow: hidden;
   border-radius: calc(var(--dock-base) * var(--dock-round) * 0.5);
-  background: var(--dock-tile);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, #2a2c34 calc(var(--dock-proximity, 0) * 100%), #1f2127) 0%,
+    color-mix(in srgb, #1c1d22 calc(var(--dock-proximity, 0) * 100%), #16171b) 100%
+  );
   box-shadow:
-    inset 0 0 0 1px var(--dock-tile-edge),
-    inset 0 1px 0 var(--dock-tile-highlight),
-    var(--dock-tile-shadow);
+    inset 0 0 0 1px rgba(var(--mb-glow-rgb, 140, 230, 184), calc(0.38 * var(--dock-proximity, 0) + 0.08 * (1 - var(--dock-proximity, 0)))),
+    inset 0 1px 0 rgba(255, 255, 255, calc(0.12 + 0.16 * var(--dock-proximity, 0))),
+    0 calc(2px + 4px * var(--dock-proximity, 0)) calc(6px + 8px * var(--dock-proximity, 0)) rgba(0, 0, 0, calc(0.5 + 0.25 * var(--dock-proximity, 0)));
   font-size: calc(var(--dock-base) * 0.44);
   line-height: 1;
   transition: filter 0.2s ease, background 0.15s ease, box-shadow 0.15s ease;
@@ -259,17 +234,29 @@
 .dock-item:hover .dock-face {
   background: linear-gradient(180deg, #2a2c34 0%, #1c1d22 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.38),
+    inset 0 0 0 1px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.48),
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
     0 4px 14px rgba(0, 0, 0, 0.7);
 }
 
 .dock-item[data-active] .dock-face {
-  background: linear-gradient(180deg, #24252a 0%, #151619 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, #2a2c34 calc(var(--dock-proximity, 0) * 100%), #24252a) 0%,
+    color-mix(in srgb, #1c1d22 calc(var(--dock-proximity, 0) * 100%), #151619) 100%
+  );
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 2px 10px rgba(0, 0, 0, 0.6);
+    inset 0 0 0 1px rgba(var(--mb-glow-rgb, 140, 230, 184), calc(0.42 * var(--dock-proximity, 0) + 0.22 * (1 - var(--dock-proximity, 0)))),
+    inset 0 1px 0 rgba(255, 255, 255, calc(0.18 + 0.12 * var(--dock-proximity, 0))),
+    0 calc(2px + 4px * var(--dock-proximity, 0)) calc(6px + 8px * var(--dock-proximity, 0)) rgba(0, 0, 0, calc(0.5 + 0.25 * var(--dock-proximity, 0)));
+}
+
+.dock-item[data-active]:hover .dock-face {
+  background: linear-gradient(180deg, #2a2c34 0%, #1c1d22 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 4px 14px rgba(0, 0, 0, 0.7);
 }
 
 .dock--bare .dock-face {
@@ -383,19 +370,21 @@
 
 .dock-label {
   position: absolute;
-  padding: 6px 10px;
+  padding: 6px 11px;
   border-radius: 8px;
-  background: var(--dock-label);
+  background: #14161b !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   color: var(--dock-label-ink);
   box-shadow:
-    inset 0 0 0 1px var(--dock-panel-edge),
-    0 8px 20px -8px rgba(0, 0, 0, 0.45);
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 12px 28px -6px rgba(0, 0, 0, 0.9) !important;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 550;
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
+  z-index: 25;
   transition:
     opacity 0.16s ease,
     transform 0.16s ease;
@@ -425,8 +414,8 @@
   transform: translate(4px, -50%);
 }
 
-.dock-item:focus-visible .dock-label {
-  opacity: 1;
+.dock-item:focus-visible:not(:hover) .dock-label {
+  opacity: 0;
 }
 
 .dock--bottom .dock-item:focus-visible .dock-label,

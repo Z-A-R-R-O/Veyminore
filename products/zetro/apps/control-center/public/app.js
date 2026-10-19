@@ -770,7 +770,7 @@ function updateMagicBentoHover() {
   const cx = lastPointerEvent.clientX;
   const cy = lastPointerEvent.clientY;
   const targets = document.querySelectorAll(
-    '.panel, .fleet-team, .plan-phase, .metric-card, dialog#worker-dialog, .card-nav__panel, .dock, .card-nav__card'
+    '.panel, .fleet-team, .fleet-worker, .plan-phase, .metric-card, dialog#worker-dialog, .card-nav__panel, .dock, .card-nav__card'
   );
   const reach = 160;
   for (let i = 0; i < targets.length; i++) {
