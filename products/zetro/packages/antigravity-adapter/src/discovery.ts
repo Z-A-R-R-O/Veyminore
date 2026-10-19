@@ -35,7 +35,12 @@ foreach ($server in $servers) {
 ConvertTo-Json -InputObject @($rows) -Compress -Depth 3
 `;
 
-export async function discoverEndpoints(): Promise<Endpoint[]> {
+export interface DiscoveryOptions {
+  timeoutMs?: number;
+  signal?: AbortSignal;
+}
+
+export async function discoverEndpoints(options?: DiscoveryOptions): Promise<Endpoint[]> {
   const address = process.env.ANTIGRAVITY_LS_ADDRESS;
   const token = process.env.ANTIGRAVITY_CSRF_TOKEN;
   if (address || token) {
@@ -48,11 +53,32 @@ export async function discoverEndpoints(): Promise<Endpoint[]> {
   if (process.platform !== 'win32') {
     throw new Error('Outside an Antigravity sidecar, automatic discovery currently supports Windows only');
   }
-  const { stdout } = await execFile('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', WINDOWS_DISCOVERY], {
-    timeout: 8000,
-    windowsHide: true,
-    maxBuffer: 1024 * 1024,
-  });
+  const timeout = options?.timeoutMs ?? 5000;
+  let stdout: string;
+  try {
+    const result = await execFile('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', WINDOWS_DISCOVERY], {
+      timeout,
+      killSignal: 'SIGKILL',
+      signal: options?.signal,
+      windowsHide: true,
+      maxBuffer: 1024 * 1024,
+    });
+    stdout = result.stdout;
+  } catch (error) {
+    const err = error && typeof error === 'object' ? (error as { killed?: boolean; code?: string; name?: string; message?: string }) : null;
+    const isTimeout = Boolean(
+      err && (
+        err.killed === true ||
+        err.code === 'ETIMEDOUT' ||
+        err.name === 'AbortError' ||
+        (typeof err.message === 'string' && (err.message.includes('timed out') || err.message.includes('ETIMEDOUT')))
+      )
+    );
+    if (isTimeout) {
+      throw new Error('Antigravity discovery timed out');
+    }
+    throw error;
+  }
   const parsed: unknown = JSON.parse(stdout.trim() || '[]');
   if (!Array.isArray(parsed)) throw new Error('Invalid Antigravity discovery response');
   const endpoints: Endpoint[] = [];

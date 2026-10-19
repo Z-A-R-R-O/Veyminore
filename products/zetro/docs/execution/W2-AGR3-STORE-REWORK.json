@@ -1,0 +1,10 @@
+{
+  "taskId": "W2R-AGR3-lifecycle-integrity",
+  "ownedPaths": ["packages/orchestration-core/", "docs/execution/AGR-3.md"],
+  "objective": "Independent review rejects W2 despite45 passing tests. Fix identity/verification and lifecycle integrity with adversarial fake adapters. Do not expand into RCT integration. No live calls/env reads/installs/global configuration. Preserve prior receipt evidence and add rework results.",
+  "findings": [
+    "P1 task-manager.js around71-105 accepts adapter receipt with another task ID, intruder agent, COMPLETED and no checks, then persists outside-scope artifact. Invoke strict receipt validation before any authoritative state/artifact writes. Validate exact task/attempt/agent identity, allowed states, paths and bounded fields. Worker completion alone must not become independent completion.",
+    "P1 task-store.js around340-368 allows COMPLETED->RUNNING attempts and unknown states, leaving task and attempt inconsistent. Enforce explicit transitions and immutable terminal states for both task and attempt. Test direct store APIs as well as manager APIs.",
+    "P2 task-manager.js finalization and cancellation use separate transactions for task,attempt,receipt,event. Add atomic store operations for these lifecycle changes. Inject failures at each update boundary and restart to verify consistent recoverable state without duplicate dispatch."
+  ]
+}

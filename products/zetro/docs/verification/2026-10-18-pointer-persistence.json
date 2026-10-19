@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "errors": "",
+  "events": [
+    {
+      "event": "presented",
+      "sequence": 1,
+      "pointerVisible": true
+    },
+    {
+      "event": "presented",
+      "sequence": 2,
+      "pointerVisible": true
+    },
+    {
+      "event": "presented",
+      "sequence": 3,
+      "pointerVisible": true
+    },
+    {
+      "event": "cleared",
+      "sequence": 3
+    }
+  ],
+  "persistentAcrossObservationAndAction": true,
+  "clearedOnExpiry": true,
+  "mouseInputSent": false,
+  "osCursorSettingsChanged": false
+}

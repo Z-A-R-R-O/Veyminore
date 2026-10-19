@@ -1,0 +1,1 @@
+Review: attachedsource files match exactly. Wrapper mostly correct, but upstream default parallax=.05 still reacts to pointer while isFrozen despite followMouse=false. Add parallax={isFrozen ? 0 : 0.05} and mouseInfluence={isFrozen ? 0 : 0.2} to freeze depth/pointerresponse. Build and finish receipt now. No otherchanges. Parent testsbrowser. Upstreamsourceunchanged.

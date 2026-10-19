@@ -1,0 +1,26 @@
+{
+  "name": "@zetro/computer-conformance",
+  "version": "0.1.0",
+  "description": "Offline conformance harness for the Computer alpha using injected contract/session/observer ports. Mock verification only; native live Windows verification is not performed.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "computer-conformance": "./src/cli.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "license": "UNLICENSED",
+  "private": true
+}

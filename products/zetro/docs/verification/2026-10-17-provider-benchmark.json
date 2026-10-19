@@ -1,0 +1,836 @@
+{
+  "date": "2026-10-17",
+  "createdAt": "2026-10-17T05:02:44.982Z",
+  "scope": "Public synthetic fixtures only; frozen legacy RCT; no product provider package",
+  "limits": {
+    "trials": 24,
+    "requests": 60,
+    "inputTokens": 25000,
+    "outputTokens": 6000,
+    "perTrial": {
+      "turns": 3,
+      "inputTokens": 2000,
+      "outputTokens": 400,
+      "wallMs": 30000
+    }
+  },
+  "checks": {
+    "groq": {
+      "authenticated": false,
+      "status": 401
+    },
+    "openrouter": {
+      "authenticated": true,
+      "status": 200,
+      "freeTier": true,
+      "remainingFreeRequests": 50
+    },
+    "huggingface": {
+      "authenticated": true,
+      "status": 200,
+      "inferenceAttempted": false
+    }
+  },
+  "openrouterCatalogZeroPriceToolModels": [
+    "xingchen-agi/xing4.0-29b-a4b:free",
+    "nvidia/nemotron-3.5-super-vl:free",
+    "dots-studio/dots-3-note-preview:free",
+    "liquid/lfm-2.5-2.6b:free",
+    "nvidia/nemotron-3.5-lightning:free",
+    "thinkingmachines/inkling-small:free",
+    "poolside/laguna-s-2.1:free",
+    "thinkingmachines/inkling:free",
+    "poolside/laguna-xs-2.1:free",
+    "cohere/north-mini-code:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+    "google/gemma-4-26b-a4b-it:free",
+    "google/gemma-4-31b-it:free",
+    "nvidia/nemotron-3-super-120b-a12b:free"
+  ],
+  "sourceHashes": {
+    "admission.js": "3092b8de41eef628819376f312b5c5b0f5259a64f03af12a99ad4ffe8a2bcec7",
+    "cli.js": "d110c9f4233476bc257ce3d15a427ce09b76ee92b6ed8515ce67b8cc92a99fbc",
+    "fake-provider.js": "11ff2c4f4168e1381d558ffc919fe42ceac74ab71825e05afa6ae9763f579365",
+    "groq-provider.js": "5460d2e69c8405d02e669cd220a7d6be0cb3a5d4525397c02330a70baed9ecea",
+    "index.js": "516a8354968a9794b005470539474c7fa5f5714f5721bbc64e680e5f5f4afd79",
+    "journal.js": "ce60ab638a633e31ac9e944bf72e21c4197bb52604c8d3819ed12afde25c0a8a",
+    "snapshot.js": "9138270d16dc2e712b7be6e946b0fe636459c7adbc3571fc3606c96620c7379e",
+    "workspace.js": "765384d58dd777c01186b8caaf0c470ac8f8f97852c14ad231aa333b0ce51d95"
+  },
+  "groq20bHarnessOverride": false,
+  "totals": {
+    "requests": 30,
+    "inputTokens": 3087,
+    "outputTokens": 1240,
+    "reportedInputTokens": 3087,
+    "reportedOutputTokens": 1240,
+    "httpRejectionsWithUnreportedUsage": 18,
+    "usageComplete": false
+  },
+  "stoppedProviders": {
+    "groq": "http_401"
+  },
+  "summaries": [
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "planned": 12,
+      "attempted": 12,
+      "verified": 3,
+      "failures": 9,
+      "notAttempted": 0,
+      "inputTokens": 3087,
+      "outputTokens": 1240,
+      "requests": 18,
+      "totalWallMs": 22273,
+      "wallMsPerVerified": 7424.333333333333,
+      "usageComplete": false,
+      "reportedTokensPerVerified": 1442.3333333333333,
+      "note": "Three numeric fixture successes. All greeting attempts failed. Initial compatibility failures remain in denominator.",
+      "medianTrialWallMs": 1555,
+      "phases": [
+        {
+          "phase": "initial_parallel_parameter_rejected",
+          "fixtures": [
+            {
+              "fixture": "greeting",
+              "attempted": 3,
+              "verified": 0,
+              "sourceUnchanged": true,
+              "wallMs": 365
+            },
+            {
+              "fixture": "numeric",
+              "attempted": 3,
+              "verified": 0,
+              "sourceUnchanged": true,
+              "wallMs": 334
+            }
+          ],
+          "medianTrialWallMs": 112,
+          "totalWallMs": 699
+        },
+        {
+          "phase": "endpoint_supported_parameters_only",
+          "fixtures": [
+            {
+              "fixture": "greeting",
+              "attempted": 3,
+              "verified": 0,
+              "sourceUnchanged": true,
+              "wallMs": 10923
+            },
+            {
+              "fixture": "numeric",
+              "attempted": 3,
+              "verified": 3,
+              "sourceUnchanged": true,
+              "wallMs": 10651
+            }
+          ],
+          "medianTrialWallMs": 3709.5,
+          "totalWallMs": 21574
+        }
+      ]
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "planned": 12,
+      "attempted": 12,
+      "verified": 0,
+      "failures": 12,
+      "notAttempted": 0,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "requests": 12,
+      "totalWallMs": 1582,
+      "wallMsPerVerified": null,
+      "usageComplete": false,
+      "reportedTokensPerVerified": null,
+      "note": "Every trial returned HTTP404. Token usage unreported, not measured zero.",
+      "medianTrialWallMs": 115,
+      "phases": [
+        {
+          "phase": "initial_parallel_parameter_rejected",
+          "fixtures": [
+            {
+              "fixture": "greeting",
+              "attempted": 3,
+              "verified": 0,
+              "sourceUnchanged": true,
+              "wallMs": 321
+            },
+            {
+              "fixture": "numeric",
+              "attempted": 3,
+              "verified": 0,
+              "sourceUnchanged": true,
+              "wallMs": 283
+            }
+          ],
+          "medianTrialWallMs": 106,
+          "totalWallMs": 604
+        },
+        {
+          "phase": "endpoint_supported_parameters_only",
+          "fixtures": [
+            {
+              "fixture": "greeting",
+              "attempted": 3,
+              "verified": 0,
+              "sourceUnchanged": true,
+              "wallMs": 373
+            },
+            {
+              "fixture": "numeric",
+              "attempted": 3,
+              "verified": 0,
+              "sourceUnchanged": true,
+              "wallMs": 605
+            }
+          ],
+          "medianTrialWallMs": 141,
+          "totalWallMs": 978
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "fixture": "greeting",
+      "trial": 1,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 82,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "fixture": "greeting",
+      "trial": 2,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 119,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "fixture": "greeting",
+      "trial": 3,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 164,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "fixture": "numeric",
+      "trial": 1,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 97,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "fixture": "numeric",
+      "trial": 2,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 132,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "fixture": "numeric",
+      "trial": 3,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 105,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "fixture": "greeting",
+      "trial": 1,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 116,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "fixture": "greeting",
+      "trial": 2,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 76,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "fixture": "greeting",
+      "trial": 3,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 129,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "fixture": "numeric",
+      "trial": 1,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 98,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "fixture": "numeric",
+      "trial": 2,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 71,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "fixture": "numeric",
+      "trial": 3,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 114,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "routingVariant": "initial_parallel_parameter_rejected",
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "greeting",
+      "trial": 1,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 3928,
+      "requests": 2,
+      "inputTokens": 502,
+      "outputTokens": 203,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": false,
+      "usageReported": true
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "greeting",
+      "trial": 2,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 3276,
+      "requests": 2,
+      "inputTokens": 502,
+      "outputTokens": 189,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": false,
+      "usageReported": true
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "greeting",
+      "trial": 3,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 3719,
+      "requests": 2,
+      "inputTokens": 502,
+      "outputTokens": 205,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": false,
+      "usageReported": true
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "numeric",
+      "trial": 1,
+      "state": "review_ready",
+      "failureReason": null,
+      "verified": true,
+      "sourceUnchanged": true,
+      "independentExactCheck": true,
+      "wallMs": 3700,
+      "requests": 2,
+      "inputTokens": 527,
+      "outputTokens": 215,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": false,
+      "usageReported": true
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "numeric",
+      "trial": 2,
+      "state": "review_ready",
+      "failureReason": null,
+      "verified": true,
+      "sourceUnchanged": true,
+      "independentExactCheck": true,
+      "wallMs": 2946,
+      "requests": 2,
+      "inputTokens": 527,
+      "outputTokens": 213,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": false,
+      "usageReported": true
+    },
+    {
+      "provider": "openrouter",
+      "model": "cohere/north-mini-code:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "numeric",
+      "trial": 3,
+      "state": "review_ready",
+      "failureReason": null,
+      "verified": true,
+      "sourceUnchanged": true,
+      "independentExactCheck": true,
+      "wallMs": 4005,
+      "requests": 2,
+      "inputTokens": 527,
+      "outputTokens": 215,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": false,
+      "usageReported": true
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "greeting",
+      "trial": 1,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 82,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "greeting",
+      "trial": 2,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 106,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "greeting",
+      "trial": 3,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 185,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "numeric",
+      "trial": 1,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 131,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "numeric",
+      "trial": 2,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 151,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "usageReported": false
+    },
+    {
+      "provider": "openrouter",
+      "model": "poolside/laguna-xs-2.1:free",
+      "routingVariant": "endpoint_supported_parameters_only",
+      "fixture": "numeric",
+      "trial": 3,
+      "state": "failed",
+      "failureReason": "worker_or_tool_error",
+      "verified": false,
+      "sourceUnchanged": true,
+      "independentExactCheck": false,
+      "wallMs": 323,
+      "requests": 1,
+      "inputTokens": null,
+      "outputTokens": null,
+      "httpStatuses": [
+        404
+      ],
+      "rateLimits": {},
+      "transportUncertain": false,
+      "usageUnknown": true,
+      "usageReported": false
+    }
+  ],
+  "groqModelsNotBenchmarked": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b"
+  ],
+  "harnessSha256": "37149c18aa3802f5139a45b7c111c8876dfddd31690632abc9d3c760373dbc34",
+  "phases": [
+    {
+      "name": "initial_parallel_parameter_rejected",
+      "trials": 12,
+      "verified": 0,
+      "description": "Pinned zero-price tool models with require_parameters, no fallback, and parallel_tool_calls:false. Public endpoint metadata later showed that field unsupported."
+    },
+    {
+      "name": "endpoint_supported_parameters_only",
+      "trials": 12,
+      "verified": 3,
+      "description": "Same pinned models and zero-price guards. Removed unsupported parallel_tool_calls only. Runtime still requires exactly one tool call."
+    }
+  ],
+  "recommendation": {
+    "provisionalViableCandidate": "cohere/north-mini-code:free",
+    "productionDefaultReady": false,
+    "reason": "Only model with independently verified results. Tiny numeric fixture passed 3/3 in corrected compatibility phase. Greeting failed 3/3. No broad model winner established."
+  },
+  "limitations": [
+    "All inference prompts contained only public synthetic fixture content. No repository source was sent.",
+    "The frozen runtime source hashes identify the tested implementation. The unfinished model-providers package was not imported.",
+    "OpenRouter authentication success does not guarantee an eligible model route.",
+    "First-phase unsupported parameter caused 12 HTTP404 failures. All remain in the denominator.",
+    "Poolside second-phase HTTP404 attempts completed in the running bounded batch before the coordinator stop instruction could take effect.",
+    "Greeting failures were retained only as worker_or_tool_error. Finer tool versus model failure cannot be recovered.",
+    "HTTP404 responses did not report token usage. Reported tokens are a lower bound across all failed requests.",
+    "No provider returned numeric rate-limit headers on these inference responses. No post-benchmark quota check was made.",
+    "Hugging Face authentication only. Current official pricing lists no monthly credits for free users.",
+    "Groq key rejected HTTP401 at model listing. No Groq inference was attempted.",
+    "No retry with another credential, paid route, automatic model fallback, or private-source prompt was used.",
+    "Maximum24 trials reached. No further inference attempts made."
+  ],
+  "sources": [
+    "https://openrouter.ai/docs/api_reference/limits",
+    "https://openrouter.ai/docs/guides/routing/model-variants/free",
+    "https://openrouter.ai/api/v1/models",
+    "https://openrouter.ai/api/v1/models/cohere/north-mini-code:free/endpoints",
+    "https://openrouter.ai/api/v1/models/poolside/laguna-xs-2.1:free/endpoints",
+    "https://console.groq.com/docs/rate-limits",
+    "https://console.groq.com/docs/tool-use/overview",
+    "https://huggingface.co/docs/inference-providers/pricing"
+  ],
+  "fixtures": [
+    {
+      "id": "greeting",
+      "path": "fixture.txt",
+      "before": "hello\n",
+      "expected": "hello world\n",
+      "acceptance": {
+        "type": "equals",
+        "path": "fixture.txt",
+        "text": "hello world\n"
+      },
+      "beforeSha256": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+      "expectedSha256": "a948904f2f0f479b8f8197694b30184b0d2ed1c1cd2a1ec0fb85d299a192a447"
+    },
+    {
+      "id": "numeric",
+      "path": "fixture.txt",
+      "before": "export const answer = 1;\n",
+      "expected": "export const answer = 2;\n",
+      "acceptance": {
+        "type": "equals",
+        "path": "fixture.txt",
+        "text": "export const answer = 2;\n"
+      },
+      "beforeSha256": "e1596ee44fe6631e61cc1a507e17cf0bfc4dfc706a9a69587cf7a66d6db7cafa",
+      "expectedSha256": "6337aece5508793e0f0d1403918f2fd18a3de67ed1586dd10499c7bd8996a827"
+    }
+  ]
+}

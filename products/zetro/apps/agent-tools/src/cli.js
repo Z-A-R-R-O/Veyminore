@@ -28,7 +28,10 @@ let adapterInstance;
 try {
     const { AntigravityAdapter, loadConfig } = await import('../../../packages/antigravity-adapter/dist/index.js');
     const config = await loadConfig();
-    adapterInstance = new AntigravityAdapter(config);
+    const totalTimeoutMs = process.env.ZETRO_ADAPTER_TOTAL_TIMEOUT_MS
+        ? parseInt(process.env.ZETRO_ADAPTER_TOTAL_TIMEOUT_MS, 10)
+        : 10000;
+    adapterInstance = new AntigravityAdapter(config, undefined, { totalTimeoutMs });
 } catch (e) {
     adapterInstance = {
         verifyAll: async () => { throw new Error('Adapter failed to load: ' + e.message) },

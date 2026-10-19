@@ -1,0 +1,316 @@
+/* Worker-detail view — scoped styles. Inherits Satoshi tokens from /style.css
+   when mounted in the control center; provides standalone fallbacks otherwise.
+   No external assets. Read-only: no control styling (no execute/approve UI). */
+
+.worker-detail-view {
+  --wd-ink: var(--ink, #222629);
+  --wd-muted: #5c6468; /* module-owned (host --muted #747b80 is 4.30:1 on #fff, insufficient). #5c6468 = 6.04:1 on #fff, 5.68:1 on #f7f8fa, 5.37:1 on #edf3ef */
+  --wd-line: var(--line, #e7e9eb);
+  --wd-paper: var(--paper, #ffffff);
+  --wd-canvas: var(--canvas, #f7f8fa);
+  --wd-green: var(--green, #476b5e);
+  --wd-accent: var(--accent, #2e5143);
+  --wd-soft-green: var(--soft-green, #edf3ef);
+  color: var(--wd-ink);
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 860px;
+}
+
+.worker-detail-view :focus-visible {
+  outline: 2px solid #628a77;
+  outline-offset: 3px;
+}
+
+/* Header */
+
+.wd-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.wd-identity {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.wd-avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--wd-soft-green);
+  color: var(--wd-accent);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.wd-name {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.wd-sub {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: var(--wd-muted);
+}
+
+.wd-task {
+  font-family: inherit;
+  font-size: 12px;
+  background: var(--wd-canvas);
+  border: 1px solid var(--wd-line);
+  border-radius: 6px;
+  padding: 1px 7px;
+}
+
+.wd-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 550;
+  color: var(--wd-muted);
+  white-space: nowrap;
+  padding-top: 8px;
+}
+
+.wd-live .wd-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a6aca7;
+  flex-shrink: 0;
+}
+
+.wd-live.is-running {
+  color: #2c6b4d;
+}
+
+.wd-live.is-running .wd-dot {
+  background: #418662;
+  box-shadow: 0 0 0 3px #e9f3eb;
+}
+
+.wd-observed {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--wd-muted);
+}
+
+/* Compact stage strip — known fields only */
+
+.wd-stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+.wd-stage {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--wd-line);
+  background: var(--wd-paper);
+  color: var(--wd-muted);
+}
+
+.wd-stage[data-known='true'] {
+  background: var(--wd-soft-green);
+  border-color: #d8e5dc;
+  color: var(--wd-accent);
+}
+
+/* Panels */
+
+.wd-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.wd-panel {
+  background: var(--wd-paper);
+  border: 1px solid var(--wd-line);
+  border-radius: 16px;
+  padding: 20px 22px;
+  min-width: 0;
+}
+
+.wd-h {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--wd-green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wd-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--wd-accent);
+  background: var(--wd-soft-green);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.wd-tag-soft {
+  color: var(--wd-muted);
+  background: var(--wd-canvas);
+}
+
+.wd-panel p {
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.wd-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.wd-lead {
+  font-size: 13px;
+}
+
+.wd-lead code {
+  font-family: inherit;
+  font-weight: 650;
+  background: var(--wd-canvas);
+  border: 1px solid var(--wd-line);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.wd-meta {
+  font-size: 13px;
+  color: var(--wd-ink);
+}
+
+.wd-meta-label {
+  display: inline-block;
+  min-width: 62px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--wd-muted);
+}
+
+.wd-note {
+  font-size: 13px;
+  color: var(--wd-muted);
+}
+
+.wd-empty {
+  font-size: 13px;
+  color: var(--wd-muted);
+  font-style: normal;
+}
+
+.wd-steps,
+.wd-paths {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 13px;
+}
+
+.wd-steps li,
+.wd-paths li {
+  margin-bottom: 4px;
+}
+
+.wd-paths {
+  list-style: none;
+  padding-left: 0;
+}
+
+.wd-paths code {
+  font-family: inherit;
+  font-size: 12px;
+  background: var(--wd-canvas);
+  border: 1px solid var(--wd-line);
+  border-radius: 6px;
+  padding: 2px 7px;
+  word-break: break-all;
+}
+
+/* Live panel is visually separate from accepted evidence */
+.wd-live-panel {
+  border-color: #dfe6e1;
+}
+
+.wd-timeline {
+  background: var(--wd-canvas);
+}
+
+/* Responsive */
+
+@media (max-width: 720px) {
+  .wd-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wd-name {
+    font-size: 19px;
+  }
+
+  .wd-panel {
+    padding: 17px 18px;
+  }
+}
+
+/* Long-content containment (verified by source check at 320px): wrap instead
+   of overflow; no status or evidence content is hidden at any breakpoint. */
+.wd-identity-text {
+  min-width: 0;
+}
+
+.wd-name,
+.wd-sub,
+.wd-task,
+.wd-lead code,
+.wd-paths code,
+.wd-observed,
+.wd-note,
+.wd-empty,
+.wd-meta,
+.wd-panel p,
+.wd-steps li,
+.wd-paths li {
+  overflow-wrap: anywhere;
+}
+
+.wd-header {
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worker-detail-view * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

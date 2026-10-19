@@ -1,0 +1,32 @@
+{
+  "wave": "2026-10-17-foundation",
+  "plan": "E:/Veyminore/products/zetro/docs/COMPLETION-PLAN.md",
+  "sharedInstructions": "Codex is coordinating this work for the user. Execute your bounded assignment now. First verify your workspace is E:/Veyminore/products/zetro and read the completion plan and relevant source. Stay within your owned paths. All five workers share this checkout, so do not reset, stash, overwrite, stage, or commit other work. Do not commit, push, publish, change global configuration, read credentials, or make live Groq calls. Do not send messages to other conversations. Do not change Windows security settings. Do not install dependencies unless you are AGR-5. Use existing tools and bounded test subprocesses. Separate deterministic tests from live checks. The local status of an agent is not proof of completion. Write your receipt to docs/execution/AGR-N.md with your own worker number, including task ID, actual workspace, baseline revision, changed files, commands, exit codes, counts, skips, blockers, and risks. Report status ready_for_review, failed, or blocked. Confirm zero live Groq calls. Finish this bounded task and wait for coordinator review. You are authorized to implement and test this task, not merely propose a plan. All paths in your assignment are relative to products/zetro unless explicitly marked repository-root. The coordinator has already refreshed antigravity-adapter/agents.json to these five new conversation IDs. Preserve that mapping.",
+  "agents": {
+    "AGR-1": {
+      "taskId": "W1-AGR1-protocol",
+      "ownedPaths": ["packages/protocol/", "docs/execution/AGR-1.md"],
+      "objective": "Create a dependency-free versioned protocol package with runtime validators and documented schemas for Assignment, TaskResult, Event, ActionRequest, ActionResult, Grant, and EvidenceReceipt. Read the current RCT, dispatcher, and bridge contracts. Document compatibility mappings rather than changing other packages. Keep effect, verification, task state, and attempt identity separate. Validate identities, bounds, supported versions, and state enums. Add focused tests for malformed data, invalid versions, scope shape, and false verified states. Include package-local scripts and README. Do not change root manifests or lockfiles. Deliver a tested first contract increment that other owners can integrate in the next wave. Policy engine implementation follows coordinator review."
+    },
+    "AGR-2": {
+      "taskId": "W1-AGR2-rct",
+      "ownedPaths": ["packages/rct-runtime/", "docs/execution/AGR-2.md"],
+      "objective": "Stabilize the existing offline RCT path. Audit and fix validation mismatches between admitAssignment and validateAssignment, especially empty contains checks and invalid scope shapes. Make the final review artifact reflect the final effective source-to-snapshot diff, including repeated edits and reversions. A reverted or empty effective diff must not claim review_ready. Preserve source hashing, scope enforcement, snapshot isolation, bounded provider usage, and the repaired read_slice contract. Add meaningful regression fixtures and run the complete package suite with mocked providers only. Do not broaden into durable scheduling, source apply, new providers, or live calls in this wave."
+    },
+    "AGR-3": {
+      "taskId": "W1-AGR3-dispatcher",
+      "ownedPaths": ["packages/orchestration-core/", "docs/execution/AGR-3.md"],
+      "objective": "Stabilize Dispatcher state transitions before integration. Test and fix cancellation during active execution, late successful adapter returns after cancellation, deadline races, invalid or unbounded deadline values, envelope bounds, duplicate task IDs, and crash replay. Preserve unknown outcomes and never automatically resend uncertain work. Ensure one task cannot overwrite a terminal cancellation with success. Keep tests deterministic using injected fake adapters. Record limitations of JSONL durability. Do not add a new database dependency or edit RCT, bridge, or protocol files."
+    },
+    "AGR-4": {
+      "taskId": "W1-AGR4-adapter",
+      "ownedPaths": ["packages/antigravity-adapter/", "apps/agent-tools/", "docs/execution/AGR-4.md"],
+      "objective": "Bound Antigravity discovery and aggregate status duration. Existing tests can hang through real synchronous CLI status calls and live process discovery. Make deterministic tests independent of live Antigravity, and expose live smoke as explicit opt-in. Test absent servers, wrong identity, multiple failing endpoints, total timeout, stale cache, and unknown send acknowledgment without duplicate resend. Preserve exact conversation/project/workspace checks and current agents.json. Use process-safe Windows timeout behavior. Run focused build/typecheck and deterministic tests. Do not send live messages or change global app configuration."
+    },
+    "AGR-5": {
+      "taskId": "W1-AGR5-baseline",
+      "ownedPaths": ["packages/workspace-runner/", "docs/verification/2026-10-17-baseline.md", "docs/execution/AGR-5.md", "repository-root package.json", "repository-root pnpm-workspace.yaml", "repository-root pnpm-lock.yaml", "repository-root turbo.json"],
+      "objective": "Own baseline reproducibility and root check configuration. Inventory all maintained ZETRO packages, including nested bridge/events, bridge/mcp, bridge/sidecar and hook tests. Fix or explicitly account for workspace-runner Windows file-symlink EPERM without claiming skipped security coverage passed. Add a deterministic complete test path with finite deadlines and explicit package coverage. Avoid modifying bridge source or other owners' files. You alone may update root workspace patterns, check scripts/configuration, and the root lockfile, and run installs. If a new root helper is essential, place it under scripts/zetro-* and record ownership in your receipt. Use pnpm 11.25.0 through npm exec if the installed launcher fails. Run frozen install after manifest changes, root build/typecheck, and bounded deterministic checks. Other workers are active, so record the observed revision and rerun integration only after their outputs settle. Any bridge failure outside your scope is a blocker to report, not permission to alter that package."
+    }
+  }
+}

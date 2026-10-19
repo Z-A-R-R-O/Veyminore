@@ -1,0 +1,13 @@
+{
+  "name": "@veyminore/vym",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "vym": "src/cli.js",
+    "veyminore": "src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js"
+  }
+}

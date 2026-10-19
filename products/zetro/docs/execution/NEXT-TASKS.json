@@ -1,0 +1,30 @@
+{
+  "rule": "Dispatch each next task only after the corresponding W1R fixes pass independent review. Revalidate task dependencies and current file ownership first. No secrets or live inference. Update DISPATCH.json before each send and never retry unknown delivery. Each worker updates its own receipt. These tasks are planned, not submitted.",
+  "agents": {
+    "AGR-1": {
+      "taskId": "W2-AGR1-policy",
+      "ownedPaths": ["packages/protocol/", "packages/policy/", "docs/execution/AGR-1.md"],
+      "objective": "After protocol rework acceptance, implement a dependency-free shared policy service with principal/session grants, expiry/revocation, exact-request approval use tracking, and injected clock. Keep protocol schemas independent. Add negative fixtures for omitted identity, empty scopes, changed arguments, replay, expiry boundary, denied capability, and revoked queued work. Define the service port so RCT tool handlers and future Computer providers can use it. Do not claim OS sandboxing or integrate other owners' files."
+    },
+    "AGR-2": {
+      "taskId": "W2-AGR2-tools",
+      "ownedPaths": ["packages/rct-runtime/", "docs/execution/AGR-2.md"],
+      "objective": "After RCT rework acceptance, extract the six existing tools into a capability-based registry with input schemas, read/write/execute effects, per-call and cumulative budgets, bounded outputs, and injected authority evaluation. Preserve current behavior and snapshot isolation. Expose only the permitted task subset to each provider. Add offline denial tests proving handlers are never invoked when capabilities, scope, or budget fail. Define extension ports for fixed check commands and read-only Git without enabling arbitrary shell or external sends. Use RCT-EXPANSION-PLAN.md as the staged target."
+    },
+    "AGR-3": {
+      "taskId": "W2-AGR3-task-store",
+      "ownedPaths": ["packages/orchestration-core/", "docs/execution/AGR-3.md"],
+      "objective": "After recovery rework acceptance, implement a durable TaskStore interface with explicit migration/version handling, task/attempt IDs, source/workspace identity, budgets, intent, terminal state, and event/artifact references. Select and document a transactional store compatible with the product runtime, requesting root dependency/engine changes through AGR-5. Add bounded run/status/events/cancel/evidence library APIs. Test kill/restart intent windows and no duplicate dispatch using injected adapters. Do not edit RCT; provide its adapter port and a fake conformance fixture for next-wave integration."
+    },
+    "AGR-4": {
+      "taskId": "W2-AGR4-providers",
+      "ownedPaths": ["packages/model-providers/", "docs/execution/AGR-4.md"],
+      "objective": "After adapter rework acceptance, implement the provider-neutral next/checkAccess contract and mocked OpenRouter/OpenCode/Groq-compatible adapters in a new package. Use current official endpoints from FREE-PROVIDERS.md. Add typed model metadata for tool support, pricing, data policy and eligibility. Free-only routing must reject unknown/nonzero pricing and unapproved destinations. Inject credentials/config/fetch; do not read .env or expose keys in output. Add conformance fixtures for malformed tools/usage, deadlines, 400/401/402/429/5xx, disabled live mode, transport uncertainty, and zero paid fallback. Export interfaces for AGR-5 config and AGR-2 tool registry. Gemini and optional providers follow this first reviewed increment."
+    },
+    "AGR-5": {
+      "taskId": "W2-AGR5-provider-config",
+      "ownedPaths": ["packages/provider-config/", "scripts/zetro-*", "product workspace/check/package/lock configuration", "docs/execution/AGR-5.md", "docs/verification/2026-10-17-baseline.md"],
+      "objective": "After baseline rework acceptance, implement a dependency-free provider configuration loader and doctor CLI in a new provider-config package. Read only temporary synthetic .env fixtures during tests. Runtime loader may load the user file internally but must never print, log, copy, or return secret values in doctor/public config. Respect process env precedence, strict booleans, fake default, explicit live/source/provider approval, zero cost/free-only defaults and one-worker initial concurrency. Do not modify or inspect actual .env/.env.example contents. Return only keyPresent booleans plus nonsecret integration/model/config status. Check ignore rules and accidental secret inclusion in fixtures. Add exact-value flag tests and include new packages in bounded check coverage after files exist. Coordinate dependencies through files, without editing other owners' implementations."
+    }
+  }
+}

@@ -8,32 +8,76 @@ const os = require('os');
 const execFileAsync = promisify(execFile);
 
 const isWin = os.platform() === 'win32';
-let npmCmd = 'npm';
-let npmBaseArgs = [];
-if (isWin) {
-    npmCmd = process.execPath;
-    const npmCliPath = path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js');
-    npmBaseArgs = [npmCliPath];
+
+/**
+ * Resolves the absolute path to npm-cli.js across diverse Windows layouts
+ * (colocated, APPDATA, Program Files, PATH directories, or explicit override).
+ * Returns null if unresolvable.
+ */
+function resolveNpmCliPath(overridePath = null) {
+    if (overridePath) {
+        try {
+            const resolved = path.resolve(overridePath);
+            if (fs.existsSync(resolved)) return resolved;
+        } catch {}
+    }
+    if (process.env.NPM_CLI_PATH) {
+        try {
+            const resolved = path.resolve(process.env.NPM_CLI_PATH);
+            if (fs.existsSync(resolved)) return resolved;
+        } catch {}
+    }
+    const candidates = [
+        path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js'),
+        path.join(process.env.APPDATA || '', 'npm', 'node_modules', 'npm', 'bin', 'npm-cli.js'),
+        path.join(process.env.ProgramFiles || 'C:\\Program Files', 'nodejs', 'node_modules', 'npm', 'bin', 'npm-cli.js'),
+        path.join(process.env['ProgramFiles(x86)'] || 'C:\\Program Files (x86)', 'nodejs', 'node_modules', 'npm', 'bin', 'npm-cli.js'),
+        path.join(process.env.LOCALAPPDATA || '', 'Programs', 'node', 'node_modules', 'npm', 'bin', 'npm-cli.js'),
+    ];
+    if (process.env.PATH) {
+        for (const dir of process.env.PATH.split(path.delimiter)) {
+            if (!dir) continue;
+            candidates.push(path.join(dir, 'node_modules', 'npm', 'bin', 'npm-cli.js'));
+            candidates.push(path.join(dir, '..', 'node_modules', 'npm', 'bin', 'npm-cli.js'));
+            candidates.push(path.join(dir, '..', 'lib', 'node_modules', 'npm', 'bin', 'npm-cli.js'));
+        }
+    }
+    for (const c of candidates) {
+        try {
+            if (fs.existsSync(c)) return path.resolve(c);
+        } catch {}
+    }
+    return null;
 }
+
+const defaultCliPath = isWin ? resolveNpmCliPath() : null;
+const defaultNpmCmd = isWin ? process.execPath : 'npm';
+const defaultNpmArgs = isWin ? (defaultCliPath ? [defaultCliPath] : []) : [];
 
 // Finite check IDs to fixed execFile argv
 const ALLOWED_CHECKS = {
-    'npm-test': [npmCmd, [...npmBaseArgs, 'test']],
-    'npm-lint': [npmCmd, [...npmBaseArgs, 'run', 'lint']],
+    'npm-test': [defaultNpmCmd, [...defaultNpmArgs, 'test']],
+    'npm-lint': [defaultNpmCmd, [...defaultNpmArgs, 'run', 'lint']],
     'tsc-check': [process.execPath, ['./node_modules/typescript/bin/tsc', '--noEmit']]
 };
 
 class Verifier {
-    constructor(basePath, allowedPaths = []) {
+    constructor(basePath, allowedPaths = [], options = {}) {
         if (!Array.isArray(allowedPaths) || allowedPaths.length === 0) {
             throw new Error('Explicit non-empty allowedPaths is required');
         }
         this.basePath = path.resolve(basePath);
         this.rawAllowedPaths = allowedPaths;
         this.resolvedAllowedPaths = null;
+        this.options = options || {};
     }
 
     async init() {
+        try {
+            this.basePath = await fs.promises.realpath(this.basePath);
+        } catch (e) {
+            // Keep resolved basePath if realpath unavailable
+        }
         // Resolve realpaths of allowed roots to prevent bypass
         const paths = [];
         for (const p of this.rawAllowedPaths) {
@@ -79,11 +123,35 @@ class Verifier {
     }
 
     async runCheck(checkId, options = {}) {
-        if (!ALLOWED_CHECKS[checkId]) {
+        if (!ALLOWED_CHECKS[checkId] && !['npm-test', 'npm-lint', 'tsc-check'].includes(checkId)) {
             return { success: false, error: 'Command not in allowlist', code: -1 };
         }
         
-        const [cmd, args] = ALLOWED_CHECKS[checkId];
+        let cmd, args;
+        if (checkId === 'npm-test' || checkId === 'npm-lint') {
+            const subArgs = checkId === 'npm-test' ? ['test'] : ['run', 'lint'];
+            if (isWin) {
+                const cliPath = resolveNpmCliPath(options.npmCliPath || this.options.npmCliPath);
+                if (!cliPath) {
+                    return {
+                        success: false,
+                        error: 'npm CLI script (npm-cli.js) could not be resolved on Windows without shell:true. Spawning npm.cmd with shell:false is rejected to prevent spawn EINVAL.',
+                        code: -1
+                    };
+                }
+                cmd = process.execPath;
+                args = [cliPath, ...subArgs];
+            } else {
+                cmd = 'npm';
+                args = subArgs;
+            }
+        } else if (checkId === 'tsc-check') {
+            cmd = process.execPath;
+            args = ['./node_modules/typescript/bin/tsc', '--noEmit'];
+        } else {
+            [cmd, args] = ALLOWED_CHECKS[checkId];
+        }
+
         const { timeout = 5000, maxBuffer = 1024 * 1024 } = options;
         
         try {
@@ -167,4 +235,4 @@ class Verifier {
     }
 }
 
-module.exports = { Verifier, ALLOWED_CHECKS };
+module.exports = { Verifier, ALLOWED_CHECKS, resolveNpmCliPath };

@@ -1,0 +1,27 @@
+{
+  "name": "@zetro/computer-observer",
+  "version": "0.1.0",
+  "description": "Windows read-only observation provider boundary with injected process runner and capture backend",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "types",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

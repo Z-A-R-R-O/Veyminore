@@ -21,12 +21,20 @@ export async function resolveExecutable(): Promise<string> {
   return path;
 }
 
+export interface RunAgentApiOptions {
+  timeoutMs?: number;
+  signal?: AbortSignal;
+}
+
 export async function runAgentApi(
   executable: string,
   endpoint: Endpoint,
   command: 'get-conversation-metadata' | 'send-message',
   args: string[],
+  options?: RunAgentApiOptions,
 ): Promise<AgentApiResponse> {
+  const defaultTimeout = command === 'send-message' ? 20000 : 3000;
+  const timeout = options?.timeoutMs ?? defaultTimeout;
   let stdout: string;
   try {
     const result = await execFile(executable, ['agentapi', command, ...args], {
@@ -35,14 +43,28 @@ export async function runAgentApi(
         ANTIGRAVITY_LS_ADDRESS: endpoint.address,
         ANTIGRAVITY_CSRF_TOKEN: endpoint.csrfToken,
       },
-      timeout: command === 'send-message' ? 20000 : 7000,
+      timeout,
+      killSignal: 'SIGKILL',
+      signal: options?.signal,
       windowsHide: true,
       maxBuffer: 1024 * 1024,
     });
     stdout = result.stdout;
-  } catch {
+  } catch (error) {
     // A send may have reached Antigravity before the process failed. Do not retry.
-    throw new Error(command === 'send-message' ? 'Delivery unknown: agentapi failed after send attempt' : 'Metadata request failed');
+    if (command === 'send-message') {
+      throw new Error('Delivery unknown: agentapi failed after send attempt');
+    }
+    const err = error && typeof error === 'object' ? (error as { killed?: boolean; code?: string; name?: string; message?: string }) : null;
+    const isTimeout = Boolean(
+      err && (
+        err.killed === true ||
+        err.code === 'ETIMEDOUT' ||
+        err.name === 'AbortError' ||
+        (typeof err.message === 'string' && (err.message.includes('timed out') || err.message.includes('ETIMEDOUT')))
+      )
+    );
+    throw new Error(isTimeout ? 'Metadata request timed out' : 'Metadata request failed');
   }
   let parsed: unknown;
   try {

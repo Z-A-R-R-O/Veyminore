@@ -1,0 +1,14 @@
+{
+  "exitCode": 0,
+  "phases": [
+    "observing",
+    "thinking",
+    "acting",
+    "checking"
+  ],
+  "escapeRegistered": true,
+  "cursorRestored": true,
+  "nativeInputSent": false,
+  "errors": "",
+  "passed": true
+}

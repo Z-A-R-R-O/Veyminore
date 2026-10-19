@@ -21,3 +21,6 @@ coverage/
 Thumbs.db
 .idea/
 .vscode/
+
+# Scratch and temporary test files
+scratch/

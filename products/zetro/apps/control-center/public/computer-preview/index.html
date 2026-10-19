@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ZETRO Computer · Access preview</title>
+  <link rel="stylesheet" href="/dock.css">
+  <link rel="stylesheet" href="/computer-preview/style.css">
+  <link rel="stylesheet" href="/computer-preview/orb.css">
+  <script>
+    if (typeof window !== 'undefined' && window.location.pathname.startsWith('/computer-preview')) {
+      window.location.replace('/#computer');
+    }
+  </script>
+</head>
+<body data-state="off">
+  <div class="edge" aria-hidden="true"></div>
+  <main>
+    <header class="masthead">
+      <a href="/" class="wordmark">ZETRO<span> / COMPUTER</span></a>
+      <a href="/" class="back-link">Control center ↗</a>
+    </header>
+    <div class="hero">
+      <span class="eyebrow">01 — COMPUTER ACCESS</span>
+      <h1>A little presence.<br><span>A new perspective.</span></h1>
+      <p class="intro">A little assistance. A clear sense of control.<br>Every action, beautifully visible.</p>
+    </div>
+    <div class="simulation">VISUAL SIMULATION · No computer access</div>
+    <section class="canvas" aria-label="Simulated desktop">
+      <div class="canvas-top">
+        <span class="window-dot"></span>
+        <span class="window-dot"></span>
+        <span class="window-dot"></span>
+        <span>Workspace / Preview</span>
+      </div>
+      <div class="document">
+        <span>02 — YOUR SPACE, ASSISTED</span>
+        <h2>Room to do<br>your best work.</h2>
+        <p>This is a visual prototype. No windows are captured.<br>No mouse or keyboard actions are sent.</p>
+        <div class="lines"><i></i><i></i><i></i></div>
+      </div>
+      <div class="pointer" aria-hidden="true">
+        <svg viewBox="-10 -10 620 720" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ref-outline" x2=".85" y2="1"><stop stop-color="#f9fcff"/><stop offset="1" stop-color="#d8e2eb"/></linearGradient>
+            <linearGradient id="ref-body" x2=".85" y2="1"><stop stop-color="#030405"/><stop offset="1" stop-color="#1c2025"/></linearGradient>
+            <linearGradient id="ref-upper" x2=".85" y2="1"><stop stop-color="#080b0e"/><stop offset="1" stop-color="#525a63"/></linearGradient>
+            <linearGradient id="ref-left" x2=".85" y2="1"><stop stop-color="#040506"/><stop offset="1" stop-color="#101418"/></linearGradient>
+            <linearGradient id="ref-slit" x2=".85" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#e6edf2"/></linearGradient>
+            <linearGradient id="ref-spine" x2=".85" y2="1"><stop stop-color="#010203"/><stop offset="1" stop-color="#101418"/></linearGradient>
+            <linearGradient id="ref-center" x2=".85" y2="1"><stop stop-color="#424a52"/><stop offset="1" stop-color="#050709"/></linearGradient>
+            <linearGradient id="ref-right" x2=".85" y2="1"><stop stop-color="#161b20"/><stop offset="1" stop-color="#06080a"/></linearGradient>
+            <linearGradient id="ref-lower" x2=".85" y2="1"><stop stop-color="#040608"/><stop offset="1" stop-color="#272d34"/></linearGradient>
+            <linearGradient id="ref-stem" x2=".85" y2="1"><stop stop-color="#06080a"/><stop offset="1" stop-color="#343b43"/></linearGradient>
+            <linearGradient id="ref-stemFold" x2=".85" y2="1"><stop stop-color="#020304"/><stop offset="1" stop-color="#14191e"/></linearGradient>
+          </defs>
+          <polygon points="0,0 594,489 378,433 495,691 258,503 181,609 77,174 59,154" fill="url(#ref-outline)"/>
+          <polygon points="21,25 525,450 312,404 183,591 78,176" fill="url(#ref-body)"/>
+          <polygon points="24,27 266,291 370,328" fill="url(#ref-upper)"/>
+          <polygon points="25,35 123,201 173,400 156,462 85,180" fill="url(#ref-left)"/>
+          <polygon points="123,201 146,233 182,379 180,410 156,462 173,399" fill="url(#ref-slit)"/>
+          <polygon points="37,52 243,352 278,316 300,337 183,576" fill="url(#ref-spine)"/>
+          <polygon points="183,576 300,337 278,316 242,352" fill="url(#ref-center)"/>
+          <polygon points="278,316 300,337 475,382 370,328" fill="url(#ref-right)"/>
+          <polygon points="300,337 475,382 525,450 312,404" fill="url(#ref-lower)"/>
+          <polygon points="260,496 315,414 476,661" fill="url(#ref-stem)"/>
+          <polygon points="315,414 370,430 374,454 476,661" fill="url(#ref-stemFold)"/>
+          <polyline points="24,27 266,291 370,328" fill="none" stroke="#c7d0db" stroke-opacity=".8" stroke-width="1.2"/>
+          <polyline points="183,576 300,337 475,382" fill="none" stroke="#bac7d2" stroke-opacity=".8" stroke-width="1.2"/>
+          <polyline points="260,496 476,661" fill="none" stroke="#f8fbff" stroke-opacity=".8" stroke-width="5"/>
+          <polyline points="378,433 495,691" fill="none" stroke="#ffffff" stroke-opacity=".8" stroke-width="2"/>
+          <polygon points="123,201 146,233 182,379 180,410 156,462 173,399" fill="url(#ref-slit)"/>
+        </svg>
+      </div>
+      <div class="canvas-edge" aria-hidden="true"></div>
+    </section>
+
+    <div class="control-heading"><span>03 — SIMULATED TASKS</span><small>Smart Intent-Status</small></div>
+    <section class="task-selector" aria-label="Simulated tasks">
+      <div class="task-chips" role="group" aria-label="Task presets">
+        <button type="button" class="task-chip" data-task="create_folder" aria-pressed="true">Create ‘hello’ in Downloads</button>
+        <button type="button" class="task-chip" data-task="open_app" aria-pressed="false">Open Browser</button>
+        <button type="button" class="task-chip" data-task="move_pointer" aria-pressed="false">Move pointer</button>
+        <button type="button" class="task-chip" data-task="delayed_target" aria-pressed="false">Delayed target</button>
+        <button type="button" class="task-chip" data-task="verification_failed" aria-pressed="false">Verification failure</button>
+      </div>
+      <button type="button" id="play-task" class="play-btn" aria-label="Play task simulation">Play simulation</button>
+    </section>
+
+    <div class="control-heading"><span>04 — EXPLORE THE ORB</span><small>Preview only</small></div>
+    <section class="controls" aria-label="Preview access states">
+      <button data-mode="activating">Wake</button>
+      <button data-mode="thinking">Think</button>
+      <button data-mode="observing">Observe</button>
+      <button data-mode="acting">Act</button>
+      <button data-mode="paused">Pause</button>
+      <button data-mode="stopped" class="stop">End</button>
+    </section>
+    <div class="control-heading"><span>05 — REACT BITS ORB SHOWCASE</span><small>WebGL2 Interactive Preview</small></div>
+    <section class="orb-presence-section" aria-label="Simulated orb presence">
+      <div id="zetro-orb" class="orb-showcase" aria-hidden="true"></div>
+      <div class="status-container">
+        <strong id="state" class="state-thoughtline">Ready when you are</strong>
+        <small id="description">Orb preview · no computer access</small>
+      </div>
+    </section>
+
+    <p class="caption">The pointer and light represent simulated activity inside this page only.</p>
+  </main>
+
+  <details class="tweak">
+    <summary>Appearance</summary>
+    <label>Motion
+      <select id="motion">
+        <option value="smooth">Aura</option>
+        <option value="quiet">Quiet</option>
+      </select>
+    </label>
+    <label>Light
+      <select id="light">
+        <option value="soft">Soft</option>
+        <option value="subtle">Subtle</option>
+      </select>
+    </label>
+  </details>
+  <!-- Primary Navigation: Floating Dock Root -->
+  <div id="dock-root"></div>
+
+  <script type="module" src="/computer-preview/app.js"></script>
+</body>
+</html>

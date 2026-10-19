@@ -1,0 +1,24 @@
+{
+  "name": "@zetro/computer-runtime",
+  "version": "0.1.0",
+  "description": "Read-only Computer session lifecycle core with injected authority, observer, audit, clock, and token verifier ports. No desktop effects.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./types": "./src/types.d.ts"
+  },
+  "types": "./src/types.d.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "license": "UNLICENSED",
+  "private": true
+}

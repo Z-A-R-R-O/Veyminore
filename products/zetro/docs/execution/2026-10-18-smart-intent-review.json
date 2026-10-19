@@ -1,0 +1,15 @@
+{
+  "focusedChecks": {
+    "passed": 72,
+    "failed": 0,
+    "nativeInputRun": false
+  },
+  "acceptance": "pending_corrections",
+  "corrections": {
+    "AGR-2": "Fence delayed stdin callbacks to original child",
+    "AGR-3": "Native intention support and matching text bounds; remove temporary dynamic import",
+    "AGR-4": "Use raw distance for tolerance comparison; diagnosis cause remains unproven",
+    "AGR-5": "Use small synthetic fixtures instead of duplicate production phrase model"
+  },
+  "AGR-1": "Phrase generator focused tests passed; end-to-end integration pending"
+}

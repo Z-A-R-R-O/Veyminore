@@ -1,0 +1,32 @@
+{
+  "checkpoint": "2026-10-17T05:21:01Z",
+  "sharedInstructions": "Independent coordinator review. Preserve earlier results and append a receipt for this task. Use focused adversarial tests, fake keys/executors and temporary fixtures only. No actual .env reads, live calls, global config, installs except AGR5, commits or pushes. Keep owned paths disjoint. Do not turn absent evidence into success, flatten read/write authority, use truthiness for proof, or omit task/attempt ownership checks. Test public APIs with malformed and omitted inputs. Finish bounded work and wait for independent review.",
+  "agents": {
+    "AGR-1": {
+      "taskId": "W2R-AGR1-policy-confinement",
+      "ownedPaths": ["packages/policy/", "packages/protocol/", "docs/execution/AGR-1.md"],
+      "objective": "46tests pass; one-use concurrency verified. Two P1 blockers: policy-service.js returns shallow copies from getGrant/list/etc, allowing returnedGrant.scope.allowedPaths.push('secrets') to mutate stored authority. Deep clone/freeze nested grants and keep authoritative mutable state private; prove all returned collections cannot widen authority. rct-port.js createAssignmentGrant merges read/write paths, invents src and auto-grants shell execution. Issue separate capability-scoped grants from exactly declared read/write/create/command scopes. A read-only assignment must never authorize FILE_WRITE, delete, shell or invented paths. Test baseline task flow via actual AuthorityPort while preserving exact scopes; no runtime edits."
+    },
+    "AGR-2": {
+      "taskId": "W2R2-AGR2-target-budget-confinement",
+      "ownedPaths": ["packages/rct-runtime/", "docs/execution/AGR-2.md"],
+      "objective": "39focused tests pass and earlier switches/explicitscope/fakebuild/readpreflight fixes verified. P1 omitted command targets still spawn node --test discovery, and omitted Git paths inspect entire repository. Require nonempty supervisor-approved targets or derive an exact nonempty scope; no workspace/context must fail closed before spawn. P2 failed/timeout/overflow stdout/stderr bypass readBytes output budget (200bytes returned with10budget). Unify accounting and output bounds on all result paths. Git status must disable repository-configured fsmonitor and submodule/helper effects, not only externaldiff/pager; otherwise keep unavailable. Prove no-scope/omitted-target cases never spawn, all outputs obey remaining budgets, and fakecheck profiles remain removed."
+    },
+    "AGR-3": {
+      "taskId": "W2R2-AGR3-trust-ownership",
+      "ownedPaths": ["packages/orchestration-core/", "docs/execution/AGR-3.md"],
+      "objective": "64tests pass; prior identity/terminal/atomic fixes verified. P1 RctAdapterPort still accepts COMPLETED with checks:['passed'] or checks:[{}] as verified. Worker labels and structured claims cannot supply trusted verification. Require separate injected independent verifier evidence tied to exact task/attempt and declared checks; reject malformed booleans/labels and preserve unverified worker claim without authoritative completion. P1 TaskStore.finalizeTaskAttempt('a','b1') mutates taskA plus taskB attempt. Validate attempt ownership against taskId before any write in finalize/cancel/intent and related public APIs; transaction rollback must leave both tasks intact. Add cross-task finalization/cancel/intent, forged trustedchecks and restart regression fixtures. No RCT integration until acceptance."
+    },
+    "AGR-4": {
+      "taskId": "W3-AGR4-model-discovery",
+      "ownedPaths": ["packages/model-providers/", "docs/execution/AGR-4.md"],
+      "acceptance": "W2R3 transport increment accepted:27 tests and independent malformedpricing/toolproof probes pass; central approval/integration still pending.",
+      "objective": "Implement bounded provider model discovery and validated metadata snapshots for actual coding routes, using injected HTTP fixtures only. OpenRouter model/endpoint metadata must establish exact model ID, explicit zero input/output/request pricing, tool support and required-parameter support. Reject stale/unknown/nonfinite/malformed evidence with source+checkedAt+TTL; no arbitrary :free proof or invented tool support. Share an explicit validator port for AGR5 rather than editing config. Negotiate only supported request parameters: the completed benchmark found parallel_tool_calls unnecessarily filtered a working Cohere route. Read docs/verification/2026-10-17-provider-benchmark.md and selection JSON, no live rerun. Support a validated snapshot for cohere/north-mini-code:free without making it a general default. Test absent provider endpoints, expired proof, unsupported tools/params, catalog changes to nonzero pricing, cache invalidation and zero network under disabledlive. Keep account quota eligibility separate from route price and record unknowns. No new providers or live tests in this increment."
+    },
+    "AGR-5": {
+      "taskId": "W2R2-AGR5-model-proof-readiness",
+      "ownedPaths": ["packages/provider-config/", "scripts/zetro-*", "product workspace/check/package/lock configuration", "docs/execution/AGR-5.md", "docs/verification/2026-10-17-baseline.md"],
+      "objective": "64tests pass; canonical flags, malformedinputs, numericbounds and WeakMap protection verified. P1 catalog-validator invents proof for any OpenCode -free or OR :free suffix; invented models become live-ready. Require actual validated catalog evidence from an injected/shared port; missing/unknown proof must remain unverified and blocked. Do not duplicate model-provider catalog as independent fabricated trust. P1 loader ignores model ineligibility when freeOnly=false: unknown model +0budget returns ready despite eligiblefalse. Always require eligible model and consistent explicit finite budget; paid mode with0budget cannot execute. Strictly validate injected proof booleans/types, do not Boolean('false') into proof. AGR4 is implementing validated metadata snapshot port in its package; use an injected contract now, no sibling edits. Keep requested policy, provider auth, live capability, model availability and price evidence distinct in doctor; fake remains default. No actualenv reads or live calls."
+    }
+  }
+}

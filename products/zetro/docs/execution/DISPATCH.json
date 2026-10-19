@@ -1,0 +1,966 @@
+{
+  "date": "2026-10-17",
+  "projectId": "19ae9edb-51e8-4221-a543-130bbc01ca4e",
+  "workspace": "E:/Veyminore/products/zetro",
+  "agents": {
+    "AGR-1": {
+      "conversationId": "4c51dd32-d3f6-4241-a693-f860024d8cea",
+      "status": "submitted",
+      "identityVerified": true,
+      "assignment": {
+        "taskId": "SMART-THOUGHTLINE-STATE",
+        "taskFile": "products\\zetro\\docs\\execution\\AGR-1-smart-thoughtline-state.task.md",
+        "objective": "User explicitly says Codex must NOT implement; use AGRs. Codex coordinates/reviews only. Workspace E:/Veyminore/products/zetro. No UI changes outside ownership, no upstream component edits, native input, models/network inference, secrets, new deps, global settings, git. Focused tests only, NO whole-repo suites. Budget10minutes then own concise receipt with exact limitations. Parent independently accepts.\nShared contract for smarter status: NEW packages/computer-agent/src/smart-status.js exports createSmartStatus({clock=Date.now,onChange=()=>{}}={}). Returns {update(event), getSnapshot(), close()}. Trusted event: {taskId,sequence,phase,actionType?,intent?,verified?,stepId?}. phase=intention/observing/thinking/acting/checking/completed/blocked/failed/uncertain/cancelled/paused/stopped. taskId nonempty bounded, sequence monotonic per task. Use existing createIntentStatus for safe wording, no raw prompts/reasoning/typed content. Snapshot {taskId,sequence,phase,text,working,elapsedMs,phaseElapsedMs,verifiedSteps:[{id,text}],currentStep:null|{id,text},settledReason}. 'completed' requires verified===true from trusted verifier. Only verified===true checking events append a step; cap20. Terminalstates freeze elapsed and clear currentStep; pause explicitly notsuccess. Waiting text may become 'Still locating the target…' after8s observing via getSnapshot clock, no fake retry/action, no automatic success, no percent/ETA. No timers needed in core; UI can poll snapshot responsibly. Invalid/replayed/stale/wrongtask events rejected or ignored predictably without mutating currenttask; newtask allowed only explicit intention after terminal (document). close idempotent; no changeafterclose.\nOwn ONLY NEW src/smart-status.js and NEW test/smart-status.test.js under packages/computer-agent, NEW docs/execution/AGR-1-smart-thoughtline.md. Implement controller and focused tests for clockelapsed, pause/cancel freeze, no false completion, stale/replay/wrongtask, privacy, verifiedtimeline20bound, cleanup. Existing intent-status.js/activity-label.js read-only. Do not edit bridges or UI. Notify peers through receipt contract; parent handles dispatch. Compactcode <300lines if practical."
+      },
+      "dispatchAttemptAt": "2026-10-18T22:35:43.950011+00:00",
+      "submittedAt": "2026-10-18T22:35:51.157031+00:00",
+      "history": [
+        {
+          "taskId": "W1-AGR1-protocol",
+          "status": "submitted",
+          "submittedAt": "2026-10-17T04:27:13.982Z"
+        },
+        {
+          "taskId": "W1R-AGR1-authority",
+          "status": "rework_submitted",
+          "submittedAt": "2026-10-17T04:44:02.081Z",
+          "review": "corrections_or_completion_pending"
+        },
+        {
+          "taskId": "W1R2-AGR1-trust-compatibility",
+          "status": "review_corrections_submitted",
+          "review": "one_malformed_evidence_blocker",
+          "submittedAt": "2026-10-17T04:52:27.925Z"
+        },
+        {
+          "taskId": "W1R3-AGR1-strict-evidence",
+          "status": "review_corrections_submitted",
+          "review": "accepted_95_tests_and_adversarial_probes",
+          "submittedAt": "2026-10-17T05:01:25.901Z"
+        },
+        {
+          "taskId": "W2-AGR1-policy",
+          "status": "next_task_submitted",
+          "review": "review_corrections_required",
+          "submittedAt": "2026-10-17T05:06:48.783Z"
+        },
+        {
+          "taskId": "W2R-AGR1-policy-confinement",
+          "status": "rework_submitted",
+          "review": "narrow_corrections_required",
+          "submittedAt": "2026-10-17T05:22:50.117Z"
+        },
+        {
+          "taskId": "W2R2-AGR1-exact-command",
+          "status": "independent_review_in_progress",
+          "review": "exact_cwd_correction_required",
+          "submittedAt": "2026-10-17T05:36:55.837Z"
+        },
+        {
+          "taskId": "W2R3-AGR1-exact-cwd",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T05:51:28.346Z"
+        },
+        {
+          "taskId": "W3-AGR1-policy-runtime-conformance",
+          "status": "independent_review_in_progress",
+          "review": "integration_corrections_required",
+          "submittedAt": "2026-10-17T06:11:35.375Z"
+        },
+        {
+          "taskId": "W3R-AGR1-execution-policy-binding",
+          "status": "independent_review_in_progress",
+          "review": "one_remaining_integration_correction",
+          "submittedAt": "2026-10-17T06:26:30.283Z"
+        },
+        {
+          "taskId": "W3R2-AGR1-actual-execution-cwd",
+          "status": "rework_submitted",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T06:47:56.201Z"
+        },
+        {
+          "taskId": "W4-AGR1-policy-scope-checklist",
+          "status": "independent_review_in_progress",
+          "review": "workspace_root_binding_correction"
+        },
+        {
+          "taskId": "W4R-AGR1-file-root-binding",
+          "status": "rework_submitted",
+          "review": "accepted_scoped_root_binding",
+          "submittedAt": "2026-10-17T07:11:50.583Z"
+        },
+        {
+          "taskId": "W5-AGR1-workspace-admission-contract",
+          "status": "accepted_awaiting_integration",
+          "review": "accepted_scoped_contract"
+        },
+        {
+          "taskId": "W10-AGR1-authority-integration-audit",
+          "status": "next_task_submitted",
+          "review": "audit_report_received_not_product_acceptance"
+        },
+        {
+          "taskId": "W11-AGR1-computer-authority-adapter",
+          "status": "next_task_submitted",
+          "review": "prior_increment_review_preserved_no_new_acceptance"
+        },
+        {
+          "taskId": "C1-native-computer-contract",
+          "status": "next_task_submitted",
+          "review": "prior_assignment_preserved_not_reaccepted"
+        },
+        {
+          "taskId": "SMART-INTENT-MODEL",
+          "status": "scoped_accepted",
+          "review": "accepted_scoped_phrase_model"
+        }
+      ],
+      "acceptedTask": {
+        "taskId": "W5-AGR1-workspace-admission-contract",
+        "status": "accepted_scoped_contract",
+        "evidence": "Protocol admission7 + policy admission13 tests passed independently; immutable validated copied scopes/source identity reviewed.",
+        "limits": "Runtime consumption and native filesystem canonical identity remain separate gates."
+      },
+      "reviewStartedAt": "2026-10-17T06:46:25.794Z",
+      "resumeRequest": {
+        "taskId": "W5-AGR1-workspace-admission-contract",
+        "at": "2026-10-17T07:45:46.194Z",
+        "status": "acknowledged"
+      },
+      "reviewOutcome": {
+        "status": "accepted_scoped_pending_next_dispatch",
+        "evidence": "8focused tests and actual args.cwd src/alternate/omitted probes match executed authorized executable/argv/cwd"
+      },
+      "dispatchPaused": false,
+      "delivery": "submitted",
+      "review": "pending_independent_smart_thoughtline_review",
+      "reviewedAt": "2026-10-18T21:43:04.282919+00:00",
+      "acceptance": {
+        "status": "accepted_scoped_phrase_model",
+        "evidence": "docs/verification/2026-10-19-smart-intent-acceptance.json"
+      }
+    },
+    "AGR-2": {
+      "conversationId": "ab703c08-e8d2-4274-80b5-6ba95ace2d6e",
+      "status": "scoped_accepted",
+      "identityVerified": true,
+      "assignment": {
+        "taskId": "ORB-LIFECYCLE-2026-10-18",
+        "taskFile": "products\\zetro\\docs\\execution\\AGR-2-orb-lifecycle-2026-10-18.task.md",
+        "objective": "New user-authorized functional task. Exact workspace E:/Veyminore/products/zetro. Codex owns UI/native rendering; DO NOT edit any UI/CSS/HTML, native-overlay, universal-loop or overlay-bridge. Prior task self-reports are not new acceptance. Own ONLY packages/computer-agent/src/desktop-overlay.js and NEW packages/computer-agent/test/desktop-lifecycle.test.js, plus docs/execution/AGR-2-orb-lifecycle.md. Review current child lifecycle and correct concrete failures: write exceptions must cancel host rather than silently close; native disconnect/stop must never respawn overlay on later events; callback at most once; clean normal stop must not report false disconnect. Preserve finite expiry, heartbeat, temporary cursor restoration, default disabled native spawn and Escape cancellation. Add focused deterministic fake-child tests for failures and no respawn. No live native presentation/input, inference, external network, secrets, global settings or git operations. Read code-style guidance locally if needed. Finite budget 15 minutes / focused reads and tests only, report exact edits/checks and remaining limitations. Do not implement visual changes or completion-pulse feature. Worker receipt is not acceptance; parent reviews.",
+        "ownership": "as bounded in task file"
+      },
+      "dispatchAttemptAt": "2026-10-18T17:21:42.513890+00:00",
+      "submittedAt": "2026-10-18T17:35:18.266914+00:00",
+      "history": [
+        {
+          "taskId": "W1-AGR2-rct",
+          "status": "submitted",
+          "submittedAt": "2026-10-17T04:27:14.264Z"
+        },
+        {
+          "taskId": "W1R-AGR2-validation",
+          "status": "rework_submitted",
+          "submittedAt": "2026-10-17T04:44:02.434Z",
+          "review": "corrections_or_completion_pending"
+        },
+        {
+          "taskId": "W1R-AGR2-validation",
+          "status": "review_corrections_submitted",
+          "submittedAt": "2026-10-17T04:52:28.240Z",
+          "review": "accepted_scoped_increment"
+        },
+        {
+          "taskId": "W2-AGR2-tools",
+          "status": "next_task_submitted",
+          "review": "rejected_command_git_budget_false_verification",
+          "submittedAt": "2026-10-17T04:57:11.448Z"
+        },
+        {
+          "taskId": "W2R-AGR2-scoped-tools",
+          "status": "rework_submitted",
+          "review": "review_corrections_required",
+          "submittedAt": "2026-10-17T05:07:30.278Z"
+        },
+        {
+          "taskId": "W2R2-AGR2-target-budget-confinement",
+          "status": "independent_review_in_progress",
+          "review": "narrow_corrections_required",
+          "submittedAt": "2026-10-17T05:22:50.443Z"
+        },
+        {
+          "taskId": "W2R3-AGR2-utf8-derived-argv",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T05:36:56.278Z"
+        },
+        {
+          "taskId": "W3-AGR2-honest-usage-ledger",
+          "status": "independent_review_in_progress",
+          "review": "attempt_cost_privacy_corrections",
+          "submittedAt": "2026-10-17T05:51:28.684Z"
+        },
+        {
+          "taskId": "W3R-AGR2-complete-attempt-ledger",
+          "status": "independent_review_in_progress",
+          "review": "integration_corrections_required",
+          "submittedAt": "2026-10-17T06:11:35.656Z"
+        },
+        {
+          "taskId": "W3R2-AGR2-decode-accounting-cancel",
+          "status": "independent_review_in_progress",
+          "review": "async_effect_and_late_usage_corrections",
+          "submittedAt": "2026-10-17T06:26:30.577Z"
+        },
+        {
+          "taskId": "W3R3-AGR2-async-cancel-accounting",
+          "status": "independent_review_in_progress",
+          "review": "completedtool_accounting_pending",
+          "submittedAt": "2026-10-17T06:41:29.707Z"
+        },
+        {
+          "taskId": "W3R4-AGR2-completed-tool-accounting",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T07:00:43.190Z"
+        },
+        {
+          "taskId": "W4-AGR2-review-patch-contract",
+          "status": "next_task_submitted",
+          "review": "review_correction",
+          "submittedAt": "2026-10-17T07:11:37.853Z"
+        },
+        {
+          "taskId": "W4-AGR2-review-patch-contract",
+          "status": "independent_review_in_progress",
+          "review": "trusted_artifact_baseline_review_corrections"
+        },
+        {
+          "taskId": "W4R-AGR2-trusted-review-baseline",
+          "status": "independent_review_in_progress",
+          "review": "narrow_trust_effect_boundary_correction"
+        },
+        {
+          "taskId": "W4R2-AGR2-strict-trusted-binding",
+          "status": "rework_submitted",
+          "review": "independent_unrelated_check_evidence_bypass"
+        },
+        {
+          "taskId": "W4R3-AGR2-exact-evidence-checkset",
+          "status": "rework_submitted",
+          "review": "accepted_scoped_exact_evidence_checkset"
+        },
+        {
+          "taskId": "W5-AGR2-safe-apply-preview",
+          "status": "next_task_submitted",
+          "review": "rejected_unissued_approval_accepted",
+          "reviewedAt": "2026-10-17T08:49:49.584Z"
+        },
+        {
+          "taskId": "W5R-AGR2-issued-approval-authority",
+          "status": "accepted_awaiting_integration",
+          "review": "accepted_scoped_increment"
+        },
+        {
+          "taskId": "W6-AGR2-runtime-admitted-workspace",
+          "status": "next_task_submitted",
+          "review": "attempt_binding_missing_independent_provider_invocation"
+        },
+        {
+          "taskId": "W6R-AGR2-current-attempt-binding",
+          "status": "accepted_awaiting_integration",
+          "review": "accepted_scoped_runtime_admission"
+        },
+        {
+          "taskId": "W10-AGR2-runtime-release-gaps",
+          "status": "next_task_submitted",
+          "review": "audit_report_received_not_product_acceptance"
+        },
+        {
+          "taskId": "W11-AGR2-canonical-offline-cli",
+          "status": "next_task_submitted",
+          "review": "prior_increment_review_preserved_no_new_acceptance"
+        },
+        {
+          "taskId": "C2-native-action-executor-port",
+          "status": "next_task_submitted",
+          "review": "previous_receipt_review_pending_no_acceptance_inferred"
+        },
+        {
+          "taskId": "C6-action-port-native-integration",
+          "status": "next_task_submitted",
+          "review": "prior_receipt_preserved_not_reaccepted"
+        }
+      ],
+      "acceptedTask": {
+        "taskId": "W6R-AGR2-current-attempt-binding",
+        "status": "accepted_scoped_runtime_admission",
+        "evidence": "Independent27/27 tests and source identity-gate review; original stale-attempt probe with full execution identity rejects before provider (0 calls).",
+        "limits": "Legacy non-admission path preserved; orchestrator must now supply authoritative admission/identity. Live provider, native execution and source apply unqualified."
+      },
+      "reviewStartedAt": "2026-10-17T08:07:39.975Z",
+      "resumeRequest": {
+        "taskId": "W4-AGR2-review-patch-contract",
+        "at": "2026-10-17T07:45:46.496Z",
+        "status": "acknowledged"
+      },
+      "pendingRework": {
+        "taskId": "W3R4-AGR2-completed-tool-accounting",
+        "delivery": "not_attempted",
+        "objective": "Cancellation safety accepted scoped21tests and actual barriers. RemainingP2 index459 abort break skips completed registry.execute accounting473: actual list_paths1 but metrics toolCalls0/output0. Record completed tool invocation/output before abort settlement; actual completedtool abort regression."
+      },
+      "dispatchPaused": false,
+      "steeringIntentAt": "2026-10-17T19:34:39.097Z",
+      "steeringStatus": "acknowledged",
+      "delivery": "submitted",
+      "review": "accepted_scoped_overlay_lifecycle",
+      "correctionFile": "docs/execution/AGR-2-review-correction.task.md",
+      "reviewedAt": "2026-10-18T21:43:04.282919+00:00",
+      "acceptance": {
+        "status": "accepted_scoped_overlay_lifecycle",
+        "evidence": "docs/verification/2026-10-19-smart-intent-acceptance.json"
+      }
+    },
+    "AGR-3": {
+      "conversationId": "3923d6ee-d21e-4674-9a3e-3b4de9032a45",
+      "status": "submitted",
+      "identityVerified": true,
+      "assignment": {
+        "taskId": "SMART-THOUGHTLINE-EVENTS",
+        "taskFile": "products\\zetro\\docs\\execution\\AGR-3-smart-thoughtline-events.task.md",
+        "objective": "User explicitly says Codex must NOT implement; use AGRs. Codex coordinates/reviews only. Workspace E:/Veyminore/products/zetro. No UI changes outside ownership, no upstream component edits, native input, models/network inference, secrets, new deps, global settings, git. Focused tests only, NO whole-repo suites. Budget10minutes then own concise receipt with exact limitations. Parent independently accepts.\nShared contract for smarter status: NEW packages/computer-agent/src/smart-status.js exports createSmartStatus({clock=Date.now,onChange=()=>{}}={}). Returns {update(event), getSnapshot(), close()}. Trusted event: {taskId,sequence,phase,actionType?,intent?,verified?,stepId?}. phase=intention/observing/thinking/acting/checking/completed/blocked/failed/uncertain/cancelled/paused/stopped. taskId nonempty bounded, sequence monotonic per task. Use existing createIntentStatus for safe wording, no raw prompts/reasoning/typed content. Snapshot {taskId,sequence,phase,text,working,elapsedMs,phaseElapsedMs,verifiedSteps:[{id,text}],currentStep:null|{id,text},settledReason}. 'completed' requires verified===true from trusted verifier. Only verified===true checking events append a step; cap20. Terminalstates freeze elapsed and clear currentStep; pause explicitly notsuccess. Waiting text may become 'Still locating the target…' after8s observing via getSnapshot clock, no fake retry/action, no automatic success, no percent/ETA. No timers needed in core; UI can poll snapshot responsibly. Invalid/replayed/stale/wrongtask events rejected or ignored predictably without mutating currenttask; newtask allowed only explicit intention after terminal (document). close idempotent; no changeafterclose.\nOwn ONLY packages/computer-agent/src/overlay-bridge.js, src/universal/universal-loop.js, src/reactive-skill.js and NEW test/smart-status-integration.test.js, NEW docs/execution/AGR-3-smart-thoughtline.md. AGR1 owns controller source, AGR5 owns frontend. Compose controller with authoritative loop/overlay events. Use exact task/session identity fallback sessionId, monotonicsequence, existing structuredintent. Need explicit verifiedstep emission after verifyStep===true, completed only verifyGoal===true, all error/cancel/pause honest. Expose smartStatus snapshot in overlay payload, maintain existing activity.text compatibility. No fabricated busywaitclaim, generic safe labels default. Do not alter authority/journal/cancel semantics or native renderer. If dependency notready design code against sharedcontract, no silent dynamic import fallbacks. Preserve currentgetSnapshot/expiry. Test independentverifierfalse, no hiddencontent, stepbound, sequenceandcancellation. Do not edit desktop-overlay.js (ask parent if passthroughneeded)."
+      },
+      "dispatchAttemptAt": "2026-10-18T22:35:43.950011+00:00",
+      "submittedAt": "2026-10-18T22:35:51.157031+00:00",
+      "history": [
+        {
+          "taskId": "W1-AGR3-dispatcher",
+          "status": "submitted",
+          "submittedAt": "2026-10-17T04:27:14.563Z"
+        },
+        {
+          "taskId": "W1R-AGR3-recovery",
+          "status": "rework_submitted",
+          "submittedAt": "2026-10-17T04:44:02.797Z",
+          "review": "corrections_or_completion_pending"
+        },
+        {
+          "taskId": "W1R2-AGR3-fixture-isolation",
+          "status": "review_corrections_submitted",
+          "submittedAt": "2026-10-17T04:52:28.529Z",
+          "review": "accepted_scoped_increment"
+        },
+        {
+          "taskId": "W2-AGR3-task-store",
+          "status": "next_task_submitted",
+          "review": "rejected_lifecycle_identity_verification_transactions",
+          "submittedAt": "2026-10-17T04:57:11.693Z"
+        },
+        {
+          "taskId": "W2R-AGR3-lifecycle-integrity",
+          "status": "rework_submitted",
+          "review": "review_corrections_required",
+          "submittedAt": "2026-10-17T05:04:48.540Z"
+        },
+        {
+          "taskId": "W2R2-AGR3-trust-ownership",
+          "status": "independent_review_in_progress",
+          "review": "verifier_binding_deadline_corrections_required",
+          "submittedAt": "2026-10-17T05:22:50.752Z"
+        },
+        {
+          "taskId": "W2R3-AGR3-verifier-binding-deadline",
+          "status": "independent_review_in_progress",
+          "review": "exact_check_identity_correction_required",
+          "submittedAt": "2026-10-17T05:46:30.033Z"
+        },
+        {
+          "taskId": "W2R4-AGR3-exact-check-id",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T06:02:42.780Z"
+        },
+        {
+          "taskId": "W3-AGR3-real-rct-lifecycle",
+          "status": "independent_review_in_progress",
+          "review": "integration_corrections_required",
+          "submittedAt": "2026-10-17T06:11:48.121Z"
+        },
+        {
+          "taskId": "W3R-AGR3-independent-baseline-cancel",
+          "status": "independent_review_in_progress",
+          "review": "bounded_corrections_required",
+          "submittedAt": "2026-10-17T06:26:30.911Z"
+        },
+        {
+          "taskId": "W3R2-AGR3-complete-baseline-proof",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T06:36:32.910Z"
+        },
+        {
+          "taskId": "W4-AGR3-cli-lifecycle-demo",
+          "status": "independent_review_in_progress",
+          "review": "demo_falsegreen_correction",
+          "submittedAt": "2026-10-17T07:00:43.515Z"
+        },
+        {
+          "taskId": "W4R-AGR3-demo-assertions",
+          "status": "independent_review_in_progress",
+          "review": "sqlite_connection_cleanup_correction"
+        },
+        {
+          "taskId": "W4R2-AGR3-demo-store-cleanup",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_demo_cleanup",
+          "submittedAt": "2026-10-17T07:21:35.153Z"
+        },
+        {
+          "taskId": "W5-AGR3-artifact-review-port",
+          "status": "independent_review_in_progress",
+          "review": "trusted_artifact_baseline_review_corrections"
+        },
+        {
+          "taskId": "W5R-AGR3-authoritative-review-transaction",
+          "status": "independent_review_in_progress",
+          "review": "rework_required_actual_stale_source_override_bypass",
+          "reviewedAt": "2026-10-17T08:43:27.142Z"
+        },
+        {
+          "taskId": "W5R2-AGR3-immutable-review-source",
+          "status": "rework_submitted",
+          "review": "accepted_scoped_increment"
+        },
+        {
+          "taskId": "W6-AGR3-persistent-rct-worker-status",
+          "status": "next_task_submitted",
+          "review": "rejected_unbound_verification_and_foreign_heartbeat"
+        },
+        {
+          "taskId": "W6R-AGR3-exact-status-evidence",
+          "status": "accepted_awaiting_integration",
+          "review": "accepted_scoped_status_projection"
+        },
+        {
+          "taskId": "W7-AGR3-authoritative-admitted-rct-adapter",
+          "status": "next_task_submitted",
+          "review": "accepted_scoped_actual_admission_integration"
+        },
+        {
+          "taskId": "W8-AGR3-readonly-persistent-status-store",
+          "status": "next_task_submitted",
+          "review": "accepted_scoped_readonly_store"
+        },
+        {
+          "taskId": "W9-AGR3-persistent-offline-worker-host",
+          "status": "next_task_submitted",
+          "review": "host_capacity_source_review_correction"
+        },
+        {
+          "taskId": "W9R-AGR3-durable-host-capacity",
+          "review": "14tests_and_invocation_fencing_source_accepted_scoped"
+        },
+        {
+          "taskId": "W12-AGR3-crossprocess-host-qualification",
+          "review": "18independent_offline_tests_passed_scoped"
+        },
+        {
+          "taskId": "W13-AGR3-readonly-status-snapshot",
+          "status": "accepted_awaiting_integration",
+          "review": "prior_increment_review_preserved_no_new_acceptance"
+        },
+        {
+          "taskId": "C3-computer-durable-session-events",
+          "status": "next_task_submitted",
+          "review": "prior_assignment_preserved_not_reaccepted"
+        },
+        {
+          "taskId": "SMART-INTENT-INTEGRATION",
+          "status": "scoped_accepted",
+          "review": "accepted_scoped_intent_pipeline_native_build"
+        }
+      ],
+      "acceptedTask": {
+        "taskId": "W13-AGR3-readonly-status-snapshot",
+        "status": "accepted_scoped_readonly_snapshot",
+        "evidence": "Four independent CLI snapshot tests pass; identity, boundedfields, readonlydbhash/mtime, missingpathnotcreated, malformedargs checked. Prior18hosttests passed.",
+        "limits": "Actual frontenddbbinding stillpending; no liveprovider/native/apply qualification."
+      },
+      "reviewStartedAt": "2026-10-17T07:52:41.436Z",
+      "partialAcceptance": {
+        "taskId": "W12-AGR3-crossprocess-host-qualification",
+        "status": "accepted_offline_crossprocess_host_tests",
+        "evidence": "Independent18/18 including spawnedwriter contention/crash recovery/lease-loss and persistentdemo; previous invocationfencing source reviewed.",
+        "limits": "Offline synthetic host only; liveprovider/native/apply pending; frontendbinding separate."
+      },
+      "demoPreparation": {
+        "status": "acknowledged",
+        "at": "2026-10-17T06:49:01.558Z"
+      },
+      "reviewOutcome": {
+        "status": "accepted_scoped_pending_next_dispatch",
+        "evidence": "13lifecycle+7negative/2positive baselineprobes and delayedresponse/betweentools cancellation; actual asyncprewrite independently verified"
+      },
+      "dispatchPaused": false,
+      "resumeRequest": {
+        "taskId": "W5-AGR3-artifact-review-port",
+        "at": "2026-10-17T07:45:46.788Z",
+        "status": "acknowledged"
+      },
+      "review": "pending_independent_smart_thoughtline_review",
+      "delivery": "submitted",
+      "correctionFile": "docs/execution/AGR-3-review-correction.task.md",
+      "reviewedAt": "2026-10-18T21:43:04.282919+00:00",
+      "acceptance": {
+        "status": "accepted_scoped_intent_pipeline_native_build",
+        "evidence": "docs/verification/2026-10-19-smart-intent-acceptance.json"
+      }
+    },
+    "AGR-4": {
+      "conversationId": "23fd59d8-8f90-4593-95f8-6b45e1a3297b",
+      "status": "scoped_accepted",
+      "identityVerified": true,
+      "assignment": {
+        "taskId": "POINTER-DIAGNOSIS-2026-10-18",
+        "taskFile": "products\\zetro\\docs\\execution\\AGR-4-pointer-diagnosis-2026-10-18.task.md",
+        "objective": "New user-authorized functional task. Exact workspace E:/Veyminore/products/zetro. Codex owns UI/native rendering. Diagnose the two movement-only runs blocked around30sec due endpoint verification mismatch: docs/verification/2026-10-18-five-minute-motion-1792341905165.json and -1792342122660.json, scripts/zetro-pointer-motion.mjs, computer-windows-provider helper movement/state and process-runner source. Read only those sources/receipts. Own edits ONLY scripts/zetro-pointer-motion.mjs (add bounded expected/observed/distance telemetry to verifier and receipt, no relaxing tolerance/authority or automatic replay), NEW docs/verification/2026-10-18-pointer-diagnosis.md, NEW scripts/zetro-pointer-verification.test.mjs if necessary meaningful pure tests. Do NOT run the movement script, native input, UI, capture, inference or live provider calls. No helper code edits, UI edits, secrets/global settings/git ops. Establish root cause only if evidence proves it; otherwise record concrete next bounded diagnostic and unknown cause. Preserve all safety gates, no blind retry. Finite budget15min, focused work then receipt. Parent reviews independently.",
+        "ownership": "as bounded in task file"
+      },
+      "dispatchAttemptAt": "2026-10-18T17:21:42.513890+00:00",
+      "submittedAt": "2026-10-18T17:35:18.266914+00:00",
+      "history": [
+        {
+          "taskId": "W1-AGR4-adapter",
+          "status": "submitted",
+          "submittedAt": "2026-10-17T04:27:14.832Z"
+        },
+        {
+          "taskId": "W1R-AGR4-deadlines",
+          "status": "rework_submitted",
+          "submittedAt": "2026-10-17T04:44:03.140Z",
+          "review": "accepted_package_increment"
+        },
+        {
+          "taskId": "W2-AGR4-providers",
+          "status": "next_task_submitted",
+          "review": "rejected_provider_containment_metadata_accounting",
+          "submittedAt": "2026-10-17T04:52:28.800Z"
+        },
+        {
+          "taskId": "W2R-AGR4-provider-containment",
+          "status": "rework_submitted",
+          "review": "rejected_strict_flags_evidence_config_integrity",
+          "submittedAt": "2026-10-17T05:03:08.653Z"
+        },
+        {
+          "taskId": "W2R2-AGR4-strict-provider-proof",
+          "status": "rework_submitted",
+          "review": "live_flag_and_redaction_verified_metadata_coercion_remaining",
+          "submittedAt": "2026-10-17T05:12:25.260Z"
+        },
+        {
+          "taskId": "W2R3-AGR4-metadata-proof",
+          "status": "rework_submitted",
+          "review": "accepted_scoped_transport_increment",
+          "submittedAt": "2026-10-17T05:17:11.776Z"
+        },
+        {
+          "taskId": "W3-AGR4-model-discovery",
+          "status": "review_corrections_pending_dispatch",
+          "review": "three_corrections_required",
+          "submittedAt": "2026-10-17T05:22:51.083Z"
+        },
+        {
+          "taskId": "W3R-AGR4-snapshot-cache-parameters",
+          "status": "independent_review_in_progress",
+          "review": "finiteproof_requiredlimit_corrections",
+          "submittedAt": "2026-10-17T05:41:22.959Z"
+        },
+        {
+          "taskId": "W3R2-AGR4-finite-proof-required-limits",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T05:56:29.806Z"
+        },
+        {
+          "taskId": "W4-AGR4-config-provider-conformance",
+          "status": "independent_review_in_progress",
+          "review": "bounded_corrections_required",
+          "submittedAt": "2026-10-17T06:13:32.350Z"
+        },
+        {
+          "taskId": "W4R-AGR4-exact-metadata-proof",
+          "status": "independent_review_in_progress",
+          "review": "one_remaining_integration_correction",
+          "submittedAt": "2026-10-17T06:36:33.224Z"
+        },
+        {
+          "taskId": "W4R2-AGR4-no-static-proof-mint",
+          "status": "rework_submitted",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T06:47:56.788Z"
+        },
+        {
+          "taskId": "W5-AGR4-runtime-provider-conformance",
+          "status": "independent_review_in_progress",
+          "review": "terminal_attempt_accounting_correction"
+        },
+        {
+          "taskId": "W5R-AGR4-terminal-attempt-accounting",
+          "status": "rework_submitted",
+          "review": "review_correction",
+          "submittedAt": "2026-10-17T07:14:14.032Z"
+        },
+        {
+          "taskId": "W5R2-AGR4-dispatched-abort-count",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_dispatched_attempt_accounting"
+        },
+        {
+          "taskId": "W6-AGR4-campaign-transport-port",
+          "status": "independent_review_in_progress",
+          "review": "narrow_trust_effect_boundary_correction"
+        },
+        {
+          "taskId": "W6R-AGR4-reservation-dispatch-boundary",
+          "status": "accepted_awaiting_integration",
+          "review": "accepted_scoped_increment"
+        },
+        {
+          "taskId": "W10-AGR4-provider-offline-audit",
+          "status": "next_task_submitted",
+          "review": "audit_report_received_not_product_acceptance"
+        },
+        {
+          "taskId": "W11-AGR4-provider-qualification-contract",
+          "status": "rework_submitted",
+          "review": "prior_increment_review_preserved_no_new_acceptance"
+        },
+        {
+          "taskId": "C4-windows-native-readonly",
+          "status": "next_task_submitted",
+          "review": "first_native_package_pendingqualification"
+        },
+        {
+          "taskId": "C2R-native-reproducible-build-fixture",
+          "status": "next_task_submitted",
+          "review": "previous_receipt_review_pending_no_acceptance_inferred"
+        },
+        {
+          "taskId": "C6-native-notepad-text-and-readback",
+          "status": "rework_submitted",
+          "review": "prior_receipt_preserved_not_reaccepted"
+        }
+      ],
+      "acceptedTask": {
+        "taskId": "W6R-AGR4-reservation-dispatch-boundary",
+        "status": "accepted_scoped_increment",
+        "evidence": "Transport boundary suite 11/11; source review confirms post-reservation abort/deadline and literal ok:true gates.",
+        "limits": "Offline injected transport scope only, not live provider reliability.",
+        "acceptedAt": "2026-10-17T08:54:51.713Z"
+      },
+      "reviewStartedAt": "2026-10-17T08:07:39.976Z",
+      "resumeRequest": {
+        "taskId": "W5R2-AGR4-dispatched-abort-count",
+        "at": "2026-10-17T07:45:47.083Z",
+        "status": "acknowledged"
+      },
+      "reviewOutcome": {
+        "status": "accepted_scoped_pending_next_dispatch",
+        "evidence": "53tests; production staticfactory removed, missing/mismatch/stale proof0fetch; synthetic discovery roundtrip passes"
+      },
+      "dispatchPaused": false,
+      "review": "accepted_scoped_telemetry_only_root_cause_unproven",
+      "steeringIntentAt": "2026-10-17T19:34:39.386Z",
+      "steeringStatus": "acknowledged",
+      "delivery": "submitted",
+      "correctionFile": "docs/execution/AGR-4-review-correction.task.md",
+      "reviewedAt": "2026-10-18T21:43:04.282919+00:00",
+      "acceptance": {
+        "status": "accepted_scoped_telemetry_only_root_cause_unproven",
+        "evidence": "docs/verification/2026-10-19-smart-intent-acceptance.json"
+      }
+    },
+    "AGR-5": {
+      "conversationId": "ff83dde8-3cc2-43ff-b05d-07231c5bcc8b",
+      "status": "submitted",
+      "identityVerified": true,
+      "assignment": {
+        "taskId": "THOUGHTLINE-MINIMAL-POLISH",
+        "taskFile": "docs/execution/AGR-5-thoughtline-minimal.task.md",
+        "objective": "User screenshot requests fix/minimal suitable ThoughtLine below120pxMagicRings. Implementation AGR5; parentreviewonly. Own appcontrolcenter wrapper src/orb-island.jsx, previewstyle.css, app.js only if needed; exact ThoughtLine/MagicRings component files unchanged. Design: ONE primary status line centered, small muted elapsed time visually separate (avoid giantduplicateelapsed). Secondary ONLY a lowcontrast textbutton 'Details' + tinychevron, optionally count verifiedsteps, not repeated 'Finished hello ready'. Remove boxedtable/card border/shadow and all visible developerfields Intent:/Phase:/completed/key:value (technical implementation details do not belong in productflow). Expanded content plain compact activitylog with semantic simple human-readable lines (e.g Verified folder location). Whole expanded area TOTAL max4 lineheights including all contents, overflow-yauto; no outside metadata making8lines. Verified steps check only proven; currentstep use subtle pending marker, no impliedverification. No fakepercent/ETA/privatecontent. Smartautoscroll must follow ONLY nearbottom; scrollup pauses; small Jump to latest restores. Preserve compactoverallspacing, Satoshi16pxprimary/12pxdetails, unboxedmonochrome no nestedcards; simulationnotice once separate. Stop/Escape unobtrusive below and immediate primarytext with zero settletransition for terminal/urgentstates while normal shimmer2.6s,breathe2.2s. Screenreader spokenstatus had stale Checkingfolder after visiblecomplete: fix wrapper keyedrender/controlledannouncement as appropriate, avoid doubledlive regions and oldariaannouncement. Do not modify upstreamcomponent. Keep120pxorb/currentcolors. No newdeps/nativeinput/modelcalls/secrets/git/broadtests. Build+focusedservercheck, own concise docs/execution/AGR-5-thoughtline-minimal.md, budget5min. Parent verifiesactualbrowser andcapture. Preserve existingcorecontroller scope AGR1/3 untouched."
+      },
+      "dispatchAttemptAt": "2026-10-18T22:53:02.047791+00:00",
+      "submittedAt": "2026-10-18T22:35:51.157031+00:00",
+      "history": [
+        {
+          "taskId": "W1-AGR5-baseline",
+          "status": "submitted",
+          "submittedAt": "2026-10-17T04:27:15.128Z"
+        },
+        {
+          "taskId": "W1R-AGR5-baseline",
+          "status": "rework_submitted",
+          "submittedAt": "2026-10-17T04:44:03.473Z",
+          "review": "corrections_or_completion_pending"
+        },
+        {
+          "taskId": "W1R-AGR5-baseline",
+          "status": "review_corrections_submitted",
+          "submittedAt": "2026-10-17T04:52:29.086Z",
+          "review": "accepted_scoped_increment"
+        },
+        {
+          "taskId": "W2-AGR5-provider-config",
+          "status": "next_task_submitted",
+          "review": "rejected_strict_flags_evidence_config_integrity",
+          "submittedAt": "2026-10-17T04:57:11.946Z"
+        },
+        {
+          "taskId": "W2R-AGR5-config-integrity",
+          "status": "rework_submitted",
+          "review": "review_corrections_required",
+          "submittedAt": "2026-10-17T05:12:25.542Z"
+        },
+        {
+          "taskId": "W2R2-AGR5-model-proof-readiness",
+          "status": "independent_review_in_progress",
+          "review": "narrow_corrections_required",
+          "submittedAt": "2026-10-17T05:22:51.395Z"
+        },
+        {
+          "taskId": "W2R3-AGR5-complete-price-evidence",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_increment",
+          "submittedAt": "2026-10-17T05:36:56.760Z"
+        },
+        {
+          "taskId": "W3-AGR5-runtime-baseline",
+          "status": "independent_review_in_progress",
+          "review": "sqlite_capability_inventory_corrections",
+          "submittedAt": "2026-10-17T05:56:30.234Z"
+        },
+        {
+          "taskId": "W3R-AGR5-sqlite-policy-baseline",
+          "status": "independent_review_in_progress",
+          "review": "bounded_corrections_required",
+          "submittedAt": "2026-10-17T06:13:32.673Z"
+        },
+        {
+          "taskId": "W3R2-AGR5-runtime-readiness",
+          "status": "independent_review_in_progress",
+          "review": "accepted_scoped_baseline_runtime",
+          "submittedAt": "2026-10-17T06:36:33.625Z"
+        },
+        {
+          "taskId": "W4-AGR5-product-offline-smoke",
+          "status": "independent_review_in_progress",
+          "review": "barrier_and_positive_integration_corrections",
+          "submittedAt": "2026-10-17T06:41:45.662Z"
+        },
+        {
+          "taskId": "W4R-AGR5-real-positive-barrier",
+          "status": "rework_submitted",
+          "review": "accepted_scoped_integrated_offline_smoke",
+          "submittedAt": "2026-10-17T07:01:32.071Z"
+        },
+        {
+          "taskId": "W5-AGR5-free-synthetic-runner",
+          "status": "independent_review_in_progress",
+          "review": "qualification_campaign_enforcement_rework",
+          "submittedAt": "2026-10-17T07:16:42.365Z"
+        },
+        {
+          "taskId": "W5R-AGR5-one-qualification-path",
+          "status": "independent_review_in_progress",
+          "review": "inflight_deadline_unknownusage_correction"
+        },
+        {
+          "taskId": "W5R2-AGR5-deadline-unknown-usage",
+          "status": "accepted_awaiting_integration",
+          "review": "accepted_offline_qualification_monitor"
+        },
+        {
+          "taskId": "W10-AGR5-release-checklist",
+          "status": "next_task_submitted",
+          "review": "audit_report_received_not_product_acceptance"
+        },
+        {
+          "taskId": "W11-AGR5-offline-release-report",
+          "review": "report_correction_received_further_review_pending",
+          "note": "next script disjoint from pending report"
+        },
+        {
+          "taskId": "W12-AGR5-offline-fleet-fixture-harness",
+          "status": "rework_submitted",
+          "review": "prior_increment_review_preserved_no_new_acceptance"
+        },
+        {
+          "taskId": "C5-native-qualification-fixture",
+          "status": "next_task_submitted",
+          "review": "previous_receipt_review_pending_no_acceptance_inferred"
+        },
+        {
+          "taskId": "C6-computer-demo-coordinator-runner",
+          "status": "rework_submitted",
+          "review": "prior_assignment_preserved_not_reaccepted"
+        },
+        {
+          "taskId": "SMART-TEXT-PREVIEW",
+          "status": "scoped_accepted",
+          "review": "accepted_scoped_synthetic_preview_browser_stop_and_completion"
+        },
+        {
+          "taskId": "REACT-BITS-ORB-JS-CSS",
+          "review": "accepted_scoped_react_bits_source_build_browser"
+        },
+        {
+          "taskId": "ORB-COMPACT-PEARL",
+          "review": "pearl_palette_and_120px_verified_browser_build"
+        },
+        {
+          "taskId": "MAGIC-RINGS-SWITCH",
+          "review": "magic_rings_source_build_browser_escape_accepted"
+        },
+        {
+          "taskId": "THOUGHT-LINE-STATUS",
+          "status": "submission_acknowledged_observation_unknown",
+          "review": "thoughtline_source_and_dependencies_present_integration_pending"
+        },
+        {
+          "taskId": "SMART-THOUGHTLINE-UI",
+          "status": "review_correction_submitted",
+          "review": "runtime_useRef_missing_import"
+        }
+      ],
+      "acceptedTask": {
+        "taskId": "W5R2-AGR5-deadline-unknown-usage",
+        "status": "accepted_offline_qualification_monitor",
+        "evidence": "Independent current offline qualification suite8/8; prior coordinator delayed-fetch and unknown-usage negative probes pass. Uses actual shared mocked provider/config/runtime/store path.",
+        "limits": "Mock transport only. No live provider qualified by these results; benchmark remains provisional and no duplicate live trial authorized."
+      },
+      "reviewStartedAt": "2026-10-17T06:41:30.144Z",
+      "resumeRequest": {
+        "taskId": "W5R-AGR5-one-qualification-path",
+        "at": "2026-10-17T07:45:47.407Z",
+        "status": "acknowledged"
+      },
+      "dispatchPaused": false,
+      "review": "pending_state_subtext_implementation_and_browser_review",
+      "partialAcceptance": {
+        "taskId": "W12-AGR5-offline-fleet-fixture-harness",
+        "status": "accepted_mock_fleet_harness",
+        "evidence": "Fourteen independent fixtureprobes pass incl exactcampaign/task/attempt/workspace/provider identities, file scope/junction, forgery, timeout,cancel,cleanup.",
+        "limits": "MOCK-FLEET only. No live15agentqualification; usage is synthetic."
+      },
+      "steeringIntentAt": "2026-10-17T19:34:39.675Z",
+      "steeringStatus": "acknowledged",
+      "delivery": "submitted",
+      "correctionFile": "docs/execution/AGR-5-thoughtline-render-fix.task.md",
+      "reviewedAt": "2026-10-18T21:43:04.282919+00:00",
+      "acceptance": {
+        "status": "accepted_scoped_web_preview",
+        "evidence": "docs/verification/2026-10-19-magic-rings-acceptance.json"
+      },
+      "observation": {
+        "at": "2026-10-18T22:33:35.693059+00:00",
+        "error": "Adapter total timeout; worker completion unknown; do not resend blindly"
+      },
+      "steeringFile": "docs/execution/AGR-5-thoughtline-motion-details.task.md",
+      "steeringAt": "2026-10-18T22:43:45.385673+00:00",
+      "steeringDelivery": "submitted",
+      "scrollSteeringFile": "docs/execution/AGR-5-thoughtline-smart-scroll.task.md",
+      "scrollSteeringAt": "2026-10-18T22:45:49.046533+00:00",
+      "scrollSteeringDelivery": "submitted",
+      "stateSubtextTask": "THOUGHTLINE-STATE-SUBTEXT",
+      "stateSubtextFile": "docs/execution/AGR-5-thoughtline-state-subtext.task.md",
+      "stateSubtextIntentAt": "2026-10-19T00:00:00+05:30",
+      "stateSubtextDelivery": "submitted"
+    }
+  },
+  "ifzWave20261019": {
+    "status": "submitted",
+    "architecture": "docs/IFZ-UNIFIED-APP-ARCHITECTURE.md",
+    "rules": "five isolated first-wave slices; no shared integration files; no live inference or native input",
+    "assignments": {
+      "AGR-1": {
+        "taskId": "IFZ-CONTRACTS-REGISTRY",
+        "taskFile": "docs/execution/AGR-1-ifz-contracts.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-2": {
+        "taskId": "IFZ-ROUTE-PLANNER",
+        "taskFile": "docs/execution/AGR-2-ifz-router.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-3": {
+        "taskId": "IFZ-MASTER-PROMPT",
+        "taskFile": "docs/execution/AGR-3-ifz-master-prompt.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-4": {
+        "taskId": "IFZ-PRODUCT-SHELL",
+        "taskFile": "docs/execution/AGR-4-ifz-product-shell.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-5": {
+        "taskId": "IFZ-WORK-PAGE",
+        "taskFile": "docs/execution/AGR-5-ifz-work-page.task.md",
+        "delivery": "submitted"
+      }
+    },
+    "ocr": {
+      "status": "bridge_offline",
+      "server": "authenticated loopback 4097",
+      "rule": "queue only; do not send until exact sessions revalidate"
+    },
+    "review": "contract_router_master_prompt_work_reworks_submitted_shell_rework_in_progress",
+    "agr4Rework": {
+      "taskId": "IFZ-PRODUCT-SHELL-R1",
+      "taskFile": "docs/execution/AGR-4-ifz-product-shell-rework.task.md",
+      "delivery": "submitted"
+    },
+    "reworks": {
+      "AGR-1": {
+        "taskFile": "docs/execution/AGR-1-ifz-contracts-rework.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-2": {
+        "taskFile": "docs/execution/AGR-2-ifz-router-rework.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-3": {
+        "taskFile": "docs/execution/AGR-3-ifz-master-prompt-rework.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-4": {
+        "taskFile": "docs/execution/AGR-4-ifz-product-shell-rework.task.md",
+        "delivery": "submitted"
+      },
+      "AGR-5": {
+        "taskFile": "docs/execution/AGR-5-ifz-work-page-rework.task.md",
+        "delivery": "submitted"
+      }
+    }
+  },
+  "priority": "Build the approved IFZ any-to-any foundation and product shell through isolated verified slices; preserve offline and authority defaults",
+  "readinessDeliverable": {
+    "workflow": "independent complete RCT workflow qualification",
+    "demo": "working synthetic coding demonstration after qualification",
+    "instructions": "exact launch commands, selected free provider/model, configuration names only, limitations",
+    "liveScope": "bounded free synthetic only; no repository source transmission or paid fallback"
+  },
+  "agrPause": {
+    "paused": false,
+    "resumedAt": "2026-10-17T07:45:47.563Z",
+    "authority": "User: done. Retry AGR"
+  },
+  "reviewCheckpoint": {
+    "at": "2026-10-17T08:18:45.233Z",
+    "tests": "62contract/runtime-review/store-review tests +11transporttests pass",
+    "status": "focused_tests_pass_independent_probe_acceptance_pending",
+    "reviewerLimit": "Delegated reviewer hit account usage limit; parent performs bounded local review; no alternate paid fallback"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@zetro/model-gateway",
+  "version": "0.1.0",
+  "description": "Model-Agnostic Dynamic Model Gateway & Canonical Action Contract for ZETRO Universal Agent",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "zetro",
+    "model-gateway",
+    "computer-use",
+    "vlm",
+    "canonical-actions"
+  ],
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

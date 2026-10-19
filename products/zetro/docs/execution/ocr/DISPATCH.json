@@ -1,0 +1,200 @@
+{
+  "model": {
+    "modelID": "mimo-v2.6-flash-free",
+    "providerID": "opencode"
+  },
+  "workspace": "E:\\Veyminore\\products\\zetro",
+  "workers": {
+    "OCR-2": {
+      "name": "OCR-2",
+      "ownedPath": "packages/computer-runtime",
+      "intentAt": "2026-10-17T06:54:02.6308881Z",
+      "status": "submitted",
+      "sessionId": "ses_eb75c6a63ffeq83uBcet64mLUR",
+      "receipt": "docs/execution/ocr/OCR-2.md",
+      "permissionRevision": 2,
+      "taskFile": "docs/execution/ocr/OCR-2.task.md",
+      "taskId": "session",
+      "activeSlotLimit": 2,
+      "messageId": "msg1a152425b08e588af59b1d8",
+      "sentAt": "2026-10-19T03:44:02.8342814Z",
+      "abortIntentAt": "2026-10-17T07:02:56.6727412Z",
+      "taskRevision": "UI3-readonly-accessibility-audit",
+      "toolCallBudget": 8,
+      "review": "independent_rework_review",
+      "acceptance": {
+        "status": "accepted_scoped_session_bounds",
+        "evidence": "34tests and independent longid/multibyte/exactUTF8budget probes; authority/concurrency/cancel/timeouts green"
+      },
+      "frontendScope": "accessibility-audit"
+    },
+    "OCR-5": {
+      "name": "OCR-5",
+      "ownedPath": "apps/control-center/public/task-timeline",
+      "intentAt": "2026-10-17T06:54:02.8781824Z",
+      "status": "submitted",
+      "sessionId": "ses_eb75c6953ffeYX9mpr5z120EVG",
+      "receipt": "docs/execution/ocr/OCR-5.md",
+      "permissionRevision": 2,
+      "taskFile": "docs/execution/ocr/OCR-5.task.md",
+      "taskId": "conformance",
+      "activeSlotLimit": 2,
+      "messageId": "msg1a15235c01ac300a8af3d7f",
+      "sentAt": "2026-10-19T03:30:16.7458134Z",
+      "abortIntentAt": "2026-10-17T07:02:58.5625549Z",
+      "taskRevision": "UI2-task-timeline",
+      "toolCallBudget": 8,
+      "review": {
+        "status": "accepted_scoped_cli"
+      },
+      "acceptance": {
+        "status": "accepted_mock_conformance_scope",
+        "evidence": "17tests; wronggranttarget/exactexpiry denied, suppliedmocks nativeblocked",
+        "limits": "No actualOCRintegration/nativeverification"
+      },
+      "acceptedTask": {
+        "taskId": "W3-offline-integration-report-cli",
+        "status": "accepted_scoped_cli",
+        "evidence": "Six focused CLI tests pass; actual process offline exit0 with8scenarios, native-live exit2; UTF8 byte bound corrected and multibyte regression passed.",
+        "limits": "Offline integration with injected OS/auth/authority; native-live remains blocked."
+      },
+      "previousOwnedPath": "packages/computer-conformance",
+      "frontendScope": "task-timeline"
+    },
+    "OCR-3": {
+      "name": "OCR-3",
+      "ownedPath": "packages/computer-observer",
+      "intentAt": "2026-10-17T06:54:02.6943654Z",
+      "status": "submitted",
+      "sessionId": "ses_eb75c6a23ffeArxPk6HhfhY5cT",
+      "receipt": "docs/execution/ocr/OCR-3.md",
+      "permissionRevision": 2,
+      "taskFile": "docs/execution/ocr/OCR-3.task.md",
+      "taskId": "observer",
+      "activeSlotLimit": 2,
+      "messageId": "msg1a15246968315344194c552",
+      "sentAt": "2026-10-19T03:48:40.2104147Z",
+      "abortIntentAt": "2026-10-17T07:02:57.2912548Z",
+      "taskRevision": "minimal_absolute_paths",
+      "toolCallBudget": 8,
+      "review": "futuretime_flags_rework_submitted",
+      "acceptance": {
+        "status": "accepted_scoped_observer_hardening",
+        "evidence": "32tests plus futuretime/strictflags probes; callerattestation explicit, nativeunverified"
+      }
+    },
+    "OCR-1": {
+      "name": "OCR-1",
+      "ownedPath": "apps/control-center/public/computer-session-model",
+      "intentAt": "2026-10-17T06:54:02.4470398Z",
+      "status": "submitted",
+      "sessionId": "ses_eb75c6aceffeznWDZqE2gfS0OR",
+      "receipt": "docs/execution/ocr/OCR-1.md",
+      "messageId": "msg1a152490305df09571e6045",
+      "sentAt": "2026-10-19T03:51:19.0539024Z",
+      "permissionRevision": 2,
+      "taskFile": "docs/execution/ocr/OCR-1.task.md",
+      "taskId": "contract",
+      "activeSlotLimit": 2,
+      "abortIntentAt": "2026-10-17T07:02:55.988858Z",
+      "taskRevision": "C0-explicit-overlay-state-model",
+      "toolCallBudget": 8,
+      "review": "verification_fingerprint_bounds_rework_acknowledged",
+      "acceptance": {
+        "status": "accepted_scoped_request_trust_contract",
+        "evidence": "24tests pass; provided admittedrequest validated and bound before trustcallback, priorfailure/freshness/bounds fixes pass",
+        "limits": "Trustedcallback is coordinatorinjected, nativeunverified"
+      },
+      "previousOwnedPath": "packages/computer-contract",
+      "frontendScope": "computer-session-model",
+      "partialAcceptance": {
+        "taskId": "C0-explicit-overlay-state-model",
+        "status": "accepted_pure_simulation_state_model",
+        "evidence": "Independent13/13 strictidentity/freshness/authority/expiry/disconnect tests; restore returns off with no inherited authority.",
+        "limits": "Pure model only, not native access or visually integrated overlay."
+      }
+    },
+    "OCR-4": {
+      "name": "OCR-4",
+      "ownedPath": "apps/control-center/public/worker-detail",
+      "intentAt": "2026-10-17T06:54:02.7923417Z",
+      "status": "submitted",
+      "sessionId": "ses_eb75c69bbffeM2xVqj1jd9Z9di",
+      "receipt": "docs/execution/ocr/OCR-4.md",
+      "messageId": "msg1a1523c11e5859cb4d7d6a0",
+      "sentAt": "2026-10-19T03:37:10.8934348Z",
+      "permissionRevision": 2,
+      "taskFile": "docs/execution/ocr/OCR-4.task.md",
+      "taskId": "opencode-adapter",
+      "activeSlotLimit": 2,
+      "abortIntentAt": "2026-10-17T07:02:57.9321056Z",
+      "modelOverride": {
+        "modelID": "mimo-v2.6-flash-free",
+        "providerID": "opencode"
+      },
+      "taskRevision": "UI1-worker-detail-module",
+      "toolCallBudget": 8,
+      "review": {
+        "status": "source_reviewed_pending_browser_integration",
+        "evidence": "Renderer source and scoped CSS reviewed; independent escaping/missing-fields/disconnected-timeline probes passed. No frontend integration or visual acceptance yet."
+      },
+      "acceptance": {
+        "status": "accepted_offline_adapter_scope",
+        "evidence": "19tests; actualinjected concurrent/recreatedadapter1POST,bodytimeoutbounded,abortidentityrevalidated",
+        "limits": "Caller persistent synchronousjournal required; actualservercompatibility unverified"
+      },
+      "previousOwnedPath": "packages/opencode-adapter",
+      "frontendScope": "worker-detail"
+    }
+  },
+  "server": "http://127.0.0.1:4097",
+  "projectId": "14efa6b07f2c4dc55eb141ef0b16d68976f5e65a",
+  "ifzWave20261019": {
+    "status": "submitted",
+    "architecture": "docs/IFZ-UNIFIED-APP-ARCHITECTURE.md",
+    "model": "opencode/mimo-v2.6-flash-free",
+    "rules": "five ownership-safe offline slices; no paid fallback, live provider, native input, secret access, or shared integration edits",
+    "assignments": {
+      "OCR-1": {
+        "taskId": "IFZ-COMPUTER-SESSION-PROJECTION",
+        "taskFile": "docs/execution/ocr/OCR-1.ifz-session-projection.task.md",
+        "delivery": "submitted"
+      },
+      "OCR-2": {
+        "taskId": "IFZ-ROUTE-CANCELLATION",
+        "taskFile": "docs/execution/ocr/OCR-2.ifz-cancellation.task.md",
+        "delivery": "submitted"
+      },
+      "OCR-3": {
+        "taskId": "IFZ-PUBLIC-OBSERVATION",
+        "taskFile": "docs/execution/ocr/OCR-3.ifz-public-observation.task.md",
+        "delivery": "submitted"
+      },
+      "OCR-4": {
+        "taskId": "IFZ-OCR-WORKER-MANIFEST",
+        "taskFile": "docs/execution/ocr/OCR-4.ifz-worker-manifest.task.md",
+        "delivery": "submitted"
+      },
+      "OCR-5": {
+        "taskId": "IFZ-RUN-TIMELINE",
+        "taskFile": "docs/execution/ocr/OCR-5.ifz-run-timeline.task.md",
+        "delivery": "submitted"
+      }
+    },
+    "review": "pending"
+  },
+  "qualification": {
+    "status": "actual_implementation_delivered_review_in_progress",
+    "verifiedFile": "E:/Veyminore/products/zetro/packages/opencode-adapter/bridge-canary.txt",
+    "verifiedContent": "OCR-4 write verified",
+    "evidence": {
+      "observer": "25offline unit tests pass; source/security review pending",
+      "adapter": "13of14tests passed; redirect regression sent",
+      "conformance": "duplicate SCENARIOS export blocks import; correction sent",
+      "runtime": "actual source files delivered, tests pending",
+      "contract": "interrupted; explicit resume acknowledged"
+    },
+    "nextGate": "Each worker must deliver actual package files then coordinator runs tests; no busy-status acceptance",
+    "agr": "untouched"
+  }
+}

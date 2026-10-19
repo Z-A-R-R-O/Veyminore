@@ -35,8 +35,22 @@ async function main(): Promise<number> {
   const json = args.includes('--json');
   const dryRun = args.includes('--dry-run');
   const command = args[0];
+  const totalTimeout = process.env.ZETRO_ADAPTER_TOTAL_TIMEOUT_MS
+    ? Number(process.env.ZETRO_ADAPTER_TOTAL_TIMEOUT_MS)
+    : undefined;
+  const requestTimeout = process.env.ZETRO_ADAPTER_REQUEST_TIMEOUT_MS
+    ? Number(process.env.ZETRO_ADAPTER_REQUEST_TIMEOUT_MS)
+    : undefined;
+  const discoveryTimeout = process.env.ZETRO_ADAPTER_DISCOVERY_TIMEOUT_MS
+    ? Number(process.env.ZETRO_ADAPTER_DISCOVERY_TIMEOUT_MS)
+    : undefined;
+
   const config = await loadConfig();
-  const adapter = new AntigravityAdapter(config);
+  const adapter = new AntigravityAdapter(config, undefined, {
+    totalTimeoutMs: totalTimeout,
+    requestTimeoutMs: requestTimeout,
+    discoveryTimeoutMs: discoveryTimeout,
+  });
 
   if (command === 'verify') {
     const results = await adapter.verifyAll();

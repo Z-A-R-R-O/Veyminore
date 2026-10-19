@@ -1,0 +1,22 @@
+{
+  "name": "@zetro/opencode-adapter",
+  "version": "0.1.0",
+  "description": "Dependency-free OpenCode session bridge adapter: injected fetch, opaque credential callback, loopback-only, journaled prompt intent/ack.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./src/index.d.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/adapter.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

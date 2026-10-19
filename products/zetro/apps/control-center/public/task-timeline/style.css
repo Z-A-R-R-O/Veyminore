@@ -1,0 +1,439 @@
+/* task-timeline — scoped styles for .task-timeline-view only.
+   Inherits Satoshi tokens from /style.css when present; standalone fallbacks below.
+   Neutral premium surfaces, readable 14px, restrained green accents. No effects/controls. */
+
+.task-timeline-view {
+  --tt-ink: #222629;
+  --tt-muted: #747b80;
+  --tt-soft: #6c7770;
+  --tt-line: #e7e9eb;
+  --tt-paper: #fff;
+  --tt-accent: #2e5143;
+  --tt-soft-green: #edf3ef;
+  font-family: Satoshi, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--tt-ink);
+  background: var(--tt-paper);
+  border: 1px solid var(--tt-line);
+  border-radius: 18px;
+  padding: 22px 24px 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.task-timeline-view * { box-sizing: border-box; }
+
+.task-timeline-view .tt-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--tt-line);
+}
+
+.task-timeline-view .tt-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  color: var(--tt-ink);
+}
+
+.task-timeline-view .tt-count {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--tt-muted);
+  white-space: nowrap;
+}
+
+.task-timeline-view .tt-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0 0;
+}
+
+.task-timeline-view .tt-item {
+  padding: 13px 0;
+  border-bottom: 1px solid #f0f1ef;
+}
+
+.task-timeline-view .tt-item:last-child { border-bottom: 0; }
+
+.task-timeline-view .tt-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+}
+
+.task-timeline-view .tt-id {
+  font-size: 12px;
+  color: var(--tt-soft);
+}
+
+.task-timeline-view .tt-meta-label {
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tt-muted);
+}
+
+.task-timeline-view code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--tt-accent);
+  background: var(--tt-soft-green);
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+
+.task-timeline-view .tt-time {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--tt-muted);
+  white-space: nowrap;
+}
+
+.task-timeline-view .tt-event {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--tt-ink);
+  word-break: break-word;
+}
+
+.task-timeline-view .tt-summary {
+  margin: 3px 0 0;
+  font-size: 14px;
+  color: var(--tt-soft);
+  word-break: break-word;
+}
+
+.task-timeline-view .tt-empty {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: var(--tt-soft);
+}
+
+.task-timeline-view .tt-empty[data-state="disconnected"] {
+  color: var(--tt-muted);
+}
+
+.task-timeline-view .tt-note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--tt-muted);
+}
+
+@media (max-width: 580px) {
+  .task-timeline-view { padding: 18px 16px 16px; border-radius: 14px; }
+  .task-timeline-view .tt-time { margin-left: 0; }
+}
+
+/* ============ IFZ run timeline — scoped under .ifz-run-view ============ */
+
+.ifz-run-view {
+  --ifz-ink: #222629;
+  --ifz-muted: #747b80;
+  --ifz-soft: #6c7770;
+  --ifz-line: #e7e9eb;
+  --ifz-paper: #fff;
+  --ifz-accent: #2e5143;
+  --ifz-soft-green: #edf3ef;
+  --ifz-claim-bg: #f7f4ec;
+  --ifz-claim-line: #ddd5c3;
+  --ifz-claim-ink: #6b5a2e;
+  --ifz-fail: #8a3b34;
+  --ifz-warn: #8a6a1f;
+  font-family: Satoshi, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ifz-ink);
+  background: var(--ifz-paper);
+  border: 1px solid var(--ifz-line);
+  border-radius: 18px;
+  padding: 22px 24px 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ifz-run-view * { box-sizing: border-box; }
+
+.ifz-run-view .ifz-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ifz-line);
+}
+
+.ifz-run-view .ifz-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.ifz-run-view .ifz-count,
+.ifz-run-view .ifz-note,
+.ifz-run-view .ifz-note-inline {
+  font-size: 12px;
+  color: var(--ifz-muted);
+}
+
+.ifz-run-view .ifz-count { margin-left: auto; white-space: nowrap; }
+
+.ifz-run-view .ifz-state {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--ifz-line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  color: var(--ifz-soft);
+  background: #fafbfa;
+}
+
+.ifz-run-view .ifz-state[data-state="running"] {
+  color: #2c6b4d;
+  background: var(--ifz-soft-green);
+  border-color: #cfe0d6;
+}
+
+.ifz-run-view .ifz-state[data-state="partial_failure"],
+.ifz-run-view .ifz-state[data-state="uncertain"] {
+  color: var(--ifz-warn);
+  background: #fbf6ea;
+  border-color: #e8ddc2;
+}
+
+.ifz-run-view .ifz-state[data-state="cancelled"] {
+  color: var(--ifz-fail);
+  background: #f8efee;
+  border-color: #ecd7d4;
+}
+
+.ifz-run-view .ifz-state[data-state="disconnected"],
+.ifz-run-view .ifz-state[data-state="loading"] { color: var(--ifz-muted); }
+
+.ifz-run-view .ifz-prompt {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: var(--ifz-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  align-items: baseline;
+}
+
+.ifz-run-view .ifz-meta-label {
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ifz-muted);
+}
+
+.ifz-run-view code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--ifz-accent);
+  background: var(--ifz-soft-green);
+  border-radius: 6px;
+  padding: 1px 6px;
+  word-break: break-all;
+}
+
+.ifz-run-view .ifz-prompt-preview { color: var(--ifz-soft); }
+.ifz-run-view .ifz-note-inline { flex-basis: 100%; }
+
+.ifz-run-view .ifz-route { margin-top: 16px; }
+
+.ifz-run-view .ifz-subhead {
+  margin: 18px 0 6px;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ifz-muted);
+}
+
+.ifz-run-view .ifz-route-list,
+.ifz-run-view .ifz-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ifz-run-view .ifz-route-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: baseline;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #f2f3f1;
+}
+
+.ifz-run-view .ifz-route-list li:last-child { border-bottom: 0; }
+.ifz-run-view .ifz-route-label { color: var(--ifz-soft); }
+
+.ifz-run-view .ifz-branch {
+  margin-top: 6px;
+  padding-left: 12px;
+  border-left: 2px solid var(--ifz-line);
+}
+
+.ifz-run-view .ifz-branch[data-branch="main"] { border-left-color: transparent; padding-left: 0; }
+
+.ifz-run-view .ifz-event {
+  padding: 13px 0;
+  border-bottom: 1px solid #f0f1ef;
+}
+
+.ifz-run-view .ifz-event:last-child { border-bottom: 0; }
+
+.ifz-run-view .ifz-event-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ifz-run-view .ifz-kind {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.ifz-run-view .ifz-event[data-tone="failure"] .ifz-kind { color: var(--ifz-fail); }
+.ifz-run-view .ifz-event[data-tone="uncertain-delivery"] .ifz-kind { color: var(--ifz-warn); }
+.ifz-run-view .ifz-event[data-tone="cancellation"] .ifz-kind { color: var(--ifz-muted); }
+
+.ifz-run-view .ifz-time { font-size: 12px; color: var(--ifz-muted); white-space: nowrap; }
+
+.ifz-run-view .ifz-workers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ifz-soft);
+}
+
+.ifz-run-view .ifz-summary { margin: 6px 0 0; font-size: 14px; color: var(--ifz-ink); word-break: break-word; }
+
+/* Worker claim and independent verification must read as distinct evidence classes. */
+.ifz-run-view .ifz-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 2px 9px;
+  margin-right: 8px;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.ifz-run-view .ifz-badge-claim {
+  color: var(--ifz-claim-ink);
+  background: var(--ifz-claim-bg);
+  border: 1px solid var(--ifz-claim-line);
+}
+
+.ifz-run-view .ifz-badge-verified {
+  color: var(--ifz-accent);
+  background: var(--ifz-soft-green);
+  border: 1px solid #cfe0d6;
+}
+
+.ifz-run-view .ifz-claim,
+.ifz-run-view .ifz-verification {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.ifz-run-view .ifz-claim-src { color: var(--ifz-soft); }
+.ifz-run-view .ifz-claim-who { font-weight: 700; color: var(--ifz-claim-ink); }
+
+.ifz-run-view .ifz-verification { color: var(--ifz-soft); }
+.ifz-run-view .ifz-verif-meta { font-size: 12px; color: var(--ifz-muted); }
+.ifz-run-view .ifz-verif-status[data-status="passed"] { color: var(--ifz-accent); font-weight: 700; }
+.ifz-run-view .ifz-verif-status[data-status="failed"] { color: var(--ifz-fail); font-weight: 700; }
+.ifz-run-view .ifz-verif-text { display: block; margin-top: 3px; color: var(--ifz-soft); }
+
+.ifz-run-view .ifz-delegation {
+  margin-top: 9px;
+  border: 1px solid var(--ifz-line);
+  border-radius: 10px;
+  background: #fbfcfb;
+}
+
+.ifz-run-view .ifz-delegation > summary {
+  cursor: pointer;
+  list-style: revert;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ifz-soft);
+}
+
+.ifz-run-view .ifz-delegation > summary:hover { color: var(--ifz-accent); }
+
+.ifz-run-view .ifz-delegation > summary:focus-visible {
+  outline: 2px solid #628a77;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.ifz-run-view .ifz-delegation[open] > summary { border-bottom: 1px solid var(--ifz-line); }
+
+.ifz-run-view .ifz-deleg-summary,
+.ifz-run-view .ifz-deleg-output {
+  margin: 8px 12px;
+  font-size: 13px;
+  color: var(--ifz-soft);
+}
+
+.ifz-run-view .ifz-deleg-steps {
+  margin: 4px 12px 10px 28px;
+  padding: 0;
+  font-size: 13px;
+  color: var(--ifz-soft);
+}
+
+.ifz-run-view .ifz-empty {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: var(--ifz-soft);
+}
+
+.ifz-run-view .ifz-empty[data-state="disconnected"] { color: var(--ifz-muted); }
+
+.ifz-run-view .ifz-note { margin: 12px 0 0; }
+
+.ifz-run-view :focus-visible {
+  outline: 2px solid #628a77;
+  outline-offset: 3px;
+}
+
+@media (max-width: 580px) {
+  .ifz-run-view { padding: 18px 16px 16px; border-radius: 14px; }
+  .ifz-run-view .ifz-event-head { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ifz-run-view *,
+  .ifz-run-view *::before,
+  .ifz-run-view *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

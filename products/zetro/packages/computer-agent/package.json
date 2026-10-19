@@ -1,0 +1,36 @@
+{
+  "name": "@zetro/computer-agent",
+  "version": "0.1.0",
+  "description": "General prompt-driven Windows Computer Agent end to end for ZETRO. Orchestrates application discovery, bounded observation, structured planning, guarded action execution, independent verification, and authoritative overlay integration.",
+  "type": "module",
+  "main": "./src/index.js",
+  "bin": {
+    "zetro-computer-agent": "./src/cli.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./types": "./src/types.js",
+    "./app-registry": "./src/app-registry.js",
+    "./planner": "./src/planner.js",
+    "./guarded-actions": "./src/guarded-actions.js",
+    "./verifiers": "./src/verifiers.js",
+    "./agent-loop": "./src/agent-loop.js"
+  },
+  "files": [
+    "src",
+    "SKILL.md",
+    "native-overlay/*.cs",
+    "native-overlay/*.mjs",
+    "native-overlay/*.exe"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "build:overlay": "node native-overlay/build.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {},
+  "license": "UNLICENSED",
+  "private": true
+}

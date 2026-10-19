@@ -3,7 +3,14 @@ import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { FakeProvider } from './fake-provider.js';
-import { createSnapshot, runAssignment, sha256 } from './index.js';
+import {
+  createSnapshot,
+  runAssignment,
+  sha256,
+  createWorkspaceAdmission,
+  validateExecutionIdentity,
+  validateReviewPatch
+} from './index.js';
 import { GroqProvider } from './groq-provider.js';
 import { admitAssignment } from './admission.js';
 
@@ -249,14 +256,80 @@ if (process.argv[2] === 'demo') {
               const journalPath = path.join(snapshot.root, 'journal.jsonl');
               const tools = mode === 'run-live' ? ['read_slice', 'propose_patch', 'run_check', 'submit_receipt'] : undefined;
               const requestMaxOutputTokens = mode === 'run-live' ? 4096 : 1024;
-              const receipt = await runAssignment(runtimeAssignment, provider, snapshot.root, { isolated: true, journalPath, tools, requestMaxOutputTokens });
+
+              let admission = null;
+              let executionIdentity = null;
+              if (mode === 'run-offline') {
+                const attemptId = manifest.attemptId !== undefined ? manifest.attemptId : 1;
+                const workspaceId = manifest.workspaceId || `ws-${manifest.taskId}`;
+                const sourceBaselineHash = manifest.sourceBaselineHash || manifest.source?.expectedSha256 || undefined;
+                admission = createWorkspaceAdmission({
+                  workspaceId,
+                  taskId: manifest.taskId,
+                  attemptId,
+                  canonicalRoot: snapshot.root,
+                  sourceBaselineRoot: plan.sourceRoot,
+                  ...(sourceBaselineHash ? { sourceBaselineHash } : {}),
+                  scope: {
+                    readPaths: plan.scope.readPaths,
+                    writePaths: plan.scope.writePaths,
+                    createPaths: plan.scope.createPaths || []
+                  }
+                });
+                executionIdentity = validateExecutionIdentity({
+                  taskId: manifest.taskId,
+                  attemptId,
+                  workspaceId
+                });
+              }
+
+              const receipt = await runAssignment(runtimeAssignment, provider, snapshot.root, {
+                isolated: true,
+                journalPath,
+                tools,
+                requestMaxOutputTokens,
+                sourceRoot: plan.sourceRoot,
+                ...(admission ? { workspaceAdmission: admission } : {}),
+                ...(executionIdentity ? { executionIdentity } : {})
+              });
 
               const sourceUnchanged = await snapshot.sourceUnchanged();
+
+              const effectivePatches = [];
+              const effectiveChangedPaths = [];
+
+              for (const p of allowedPaths) {
+                const before = beforeContents.get(p) ?? null;
+                let after = null;
+                try {
+                  after = await readFile(path.join(snapshot.root, p), 'utf8');
+                } catch {
+                  after = null;
+                }
+                if (before !== after) {
+                  effectiveChangedPaths.push(p);
+                  effectivePatches.push({
+                    path: p,
+                    before: before !== null ? sha256(before) : null,
+                    after: after !== null ? sha256(after) : null,
+                    beforeSha256: before !== null ? sha256(before) : null,
+                    afterSha256: after !== null ? sha256(after) : null,
+                    beforeContent: before,
+                    afterContent: after,
+                    bytes: after !== null ? Buffer.byteLength(after, 'utf8') : 0,
+                    applied: true
+                  });
+                }
+              }
 
               let finalState = receipt.state;
               if (finalState === 'review_ready' && !sourceUnchanged) {
                 finalState = 'error';
                 receipt.failureReason = 'Source was modified despite snapshot isolation';
+              }
+              if (finalState === 'review_ready' && effectiveChangedPaths.length === 0) {
+                finalState = 'failed';
+                receipt.failureReason = 'empty_effective_diff';
               }
 
               const boundedEvents = Array.isArray(receipt.events) ? receipt.events.slice(0, 50).map(ev => {
@@ -283,6 +356,10 @@ if (process.argv[2] === 'demo') {
                 return safe;
               }) : [];
 
+              const diffOutcome = effectiveChangedPaths.length > 0
+                ? 'applied'
+                : (receipt.patches && receipt.patches.some(p => p.applied) ? 'reverted' : 'empty');
+
               let finalFailureReason = receipt.failureReason;
               if (finalState !== 'review_ready' && !finalFailureReason) {
                 if (boundedEvents.some(e => !e.ok)) {
@@ -291,6 +368,8 @@ if (process.argv[2] === 'demo') {
                   finalFailureReason = 'budget_exhausted';
                 } else if (finalState === 'unknown') {
                   finalFailureReason = 'transport_error';
+                } else if (receipt.completionSource && effectiveChangedPaths.length === 0) {
+                  finalFailureReason = 'empty_effective_diff';
                 } else {
                   finalFailureReason = 'worker_or_tool_error';
                 }
@@ -301,14 +380,21 @@ if (process.argv[2] === 'demo') {
                 state: finalState,
                 sourceUnchanged,
                 usage: receipt.usage,
+                metrics: receipt.metrics,
                 completionSource: receipt.completionSource,
                 failureReason: finalFailureReason,
+                diffOutcome,
                 eventCount: boundedEvents.length,
                 events: boundedEvents,
-                changedPaths: receipt.patches.filter(p => p.applied).map(p => p.path),
-                patches: receipt.patches,
+                changedPaths: effectiveChangedPaths,
+                patches: effectivePatches,
+                appliedPatches: receipt.patches,
                 checks: receipt.checks,
-                sourceHashes: plan.scope.sourceHashes
+                sourceHashes: plan.scope.sourceHashes,
+                sourceRoot: plan.sourceRoot,
+                ...(receipt.reviewPatch ? { reviewPatch: receipt.reviewPatch } : {}),
+                ...(receipt.workspaceAdmission ? { workspaceAdmission: receipt.workspaceAdmission } : {}),
+                ...(receipt.executionIdentity ? { executionIdentity: receipt.executionIdentity } : {})
               };
 
               if (typeof receipt.workerSummary === 'string' && receipt.workerSummary.length > 0 && receipt.workerSummary.length <= 200 && /^[a-zA-Z0-9 .,_:-]+$/.test(receipt.workerSummary)) {
@@ -317,13 +403,6 @@ if (process.argv[2] === 'demo') {
 
               if (mode === 'run-live') {
                 artifact.remoteUsageUncertain = receipt.remoteUsageUncertain;
-              }
-
-              for (const patch of artifact.patches) {
-                  if (patch.applied) {
-                      patch.afterContent = await readFile(path.join(snapshot.root, patch.path), 'utf8');
-                      patch.beforeContent = beforeContents.get(patch.path) ?? null;
-                  }
               }
             } catch(e) {
               artifact = artifact || { taskId: manifest.taskId, state: 'error', sourceUnchanged: false };
@@ -369,10 +448,14 @@ if (process.argv[2] === 'demo') {
                 usage: artifact.usage,
                 completionSource: artifact.completionSource,
                 failureReason: artifact.failureReason,
+                diffOutcome: artifact.diffOutcome,
                 eventCount: artifact.eventCount ?? 0,
                 changedPaths: artifact.changedPaths,
                 sourceHashes: artifact.sourceHashes,
-                artifactPath: artifact.artifactPath
+                artifactPath: artifact.artifactPath,
+                ...(artifact.reviewPatch ? { reviewPatch: artifact.reviewPatch } : {}),
+                ...(artifact.workspaceAdmission ? { workspaceAdmission: artifact.workspaceAdmission } : {}),
+                ...(artifact.executionIdentity ? { executionIdentity: artifact.executionIdentity } : {})
               };
               if (mode === 'run-live') metadata.remoteUsageUncertain = artifact.remoteUsageUncertain;
 
@@ -391,7 +474,83 @@ if (process.argv[2] === 'demo') {
       process.exitCode = 1;
     }
   }
+} else if (process.argv[2] === 'review') {
+  const artifactPath = process.argv[3];
+  let explicitSourceRoot = null;
+  if (process.argv[4] === '--source' && process.argv[5]) {
+    explicitSourceRoot = path.resolve(process.argv[5]);
+  }
+  if (!artifactPath) {
+    console.error('Usage: node src/cli.js review <artifact.json> [--source <dir>]');
+    process.exitCode = 2;
+  } else {
+    try {
+      const { readFile: readArtifactFile } = await import('node:fs/promises');
+      const artifactResolved = path.resolve(artifactPath);
+      let raw;
+      try {
+        raw = await readArtifactFile(artifactResolved, 'utf8');
+      } catch (err) {
+        console.log(JSON.stringify({ status: 'error', stage: 'read_artifact', reason: `Cannot read artifact: ${err.message}` }));
+        process.exitCode = 1;
+        raw = null;
+      }
+      if (raw) {
+        let artifact;
+        try {
+          artifact = JSON.parse(raw);
+        } catch {
+          console.log(JSON.stringify({ status: 'error', stage: 'parse_artifact', reason: 'Artifact file is not valid JSON' }));
+          process.exitCode = 1;
+          artifact = null;
+        }
+        if (artifact) {
+          if (!artifact || typeof artifact !== 'object' || Array.isArray(artifact)) {
+            console.log(JSON.stringify({ status: 'error', stage: 'validate_artifact', reason: 'Artifact must be a JSON object' }));
+            process.exitCode = 1;
+          } else if (!artifact.reviewPatch) {
+            console.log(JSON.stringify({ status: 'error', stage: 'validate_artifact', reason: 'Artifact does not contain a reviewPatch' }));
+            process.exitCode = 1;
+          } else {
+            const sourceRoot = explicitSourceRoot || artifact.workspaceAdmission?.sourceBaselineRoot || artifact.sourceRoot || null;
+            const validation = await validateReviewPatch(artifact.reviewPatch, { sourceRoot });
+            if (!validation.valid) {
+              console.log(JSON.stringify({
+                status: 'invalid',
+                taskId: artifact.taskId,
+                reason: validation.reason,
+                manifestHash: artifact.reviewPatch.manifestHash,
+                sourceBaselineRoot: sourceRoot
+              }, null, 2));
+              process.exitCode = 1;
+            } else {
+              const summary = {
+                status: 'valid',
+                taskId: artifact.taskId,
+                state: artifact.state,
+                verified: artifact.reviewPatch.verification?.verified === true,
+                manifestHash: artifact.reviewPatch.manifestHash,
+                diffOutcome: artifact.diffOutcome,
+                sourceUnchanged: artifact.sourceUnchanged,
+                sourceBaselineRoot: sourceRoot,
+                changes: artifact.reviewPatch.changes,
+                checks: artifact.reviewPatch.verification?.checks || [],
+                workerClaims: artifact.reviewPatch.workerClaims || {},
+                usage: artifact.reviewPatch.usage || artifact.usage || {},
+                ...(artifact.workspaceAdmission ? { workspaceAdmission: artifact.workspaceAdmission } : {}),
+                ...(artifact.executionIdentity ? { executionIdentity: artifact.executionIdentity } : {})
+              };
+              console.log(JSON.stringify(summary, null, 2));
+            }
+          }
+        }
+      }
+    } catch (err) {
+      console.log(JSON.stringify({ status: 'error', stage: 'review', reason: err.message }));
+      process.exitCode = 1;
+    }
+  }
 } else {
-  console.error('Usage: node src/cli.js demo | probe [model] | live-fixture [model] | plan <assignment.json> | run-offline <assignment.json> | run-live <assignment.json> --approve <manifestHash>');
+  console.error('Usage: node src/cli.js demo | probe [model] | live-fixture [model] | plan <assignment.json> | run-offline <assignment.json> | run-live <assignment.json> --approve <manifestHash> | review <artifact.json> [--source <dir>]');
   process.exitCode = 2;
 }

@@ -1,0 +1,31 @@
+{
+  "wave": "W1-independent-review-rework",
+  "sharedInstructions": "The independent coordinator review found issues despite passing tests. Fix only your assigned owned paths, add focused regression tests, and update your existing AGR-N receipt with a Rework section. Do not erase first-pass results. Read docs/RCT-EXPANSION-PLAN.md for the user's new efficiency and built-in agent direction. Never read or print products/zetro/.env. Zero live provider calls for this task. No installs except AGR-5. No commits, pushes, global config changes, or edits to other workers' files. Keep output compact: findings resolved, changed paths, exact checks/counts/skips, and remaining blockers. Run git diff --check for owned changed files. Finish rework and wait for independent acceptance before expanding scope.",
+  "agents": {
+    "AGR-1": {
+      "taskId": "W1R-AGR1-authority",
+      "ownedPaths": ["packages/protocol/", "docs/execution/AGR-1.md"],
+      "objective": "Fix these independent findings. P1 compatibility/dispatcher.js around 147/176 treats any string check including 'failed' as passed and invents independent verifier evidence. Legacy labels must stay unverified worker claims; require structured trusted checks for completed. P1 authority.js around 100 allows a request missing sessionId against a session-scoped grant. Require the matching session. P1 authority.js around 146 permits arbitrary file paths when allowedPaths is absent/empty, and shell cwd omission bypasses scope. Define explicit fail-closed path and command scope. P1 dispatcher compatibility roundtrip merges read/write/create then restores all as writable. Preserve authority or reject lossy conversion. P2 compatibility/rct.js around 125 silently drops command checks. Reject unsupported conversion instead of weakening acceptance. Add adversarial regressions for each, including expiry at exact boundary and exact-request replay semantics if claimed. Do not integrate this authority into execution until independent acceptance."
+    },
+    "AGR-2": {
+      "taskId": "W1R-AGR2-validation",
+      "ownedPaths": ["packages/rct-runtime/", "docs/execution/AGR-2.md"],
+      "objective": "Fix two independent P2 findings before the tool registry increment. index.js around 48 accepts canonical scope arrays and converts them to read+write although admission rejects scope arrays. Also rejects/accepts missing writePaths and create-only shapes inconsistently. Retain legacy array support only for allowedPaths. Align canonical scope validation with admission, and reject unsupported create semantics. cli.js around 322 relabels budget/transport failures without diffs as empty_effective_diff, hiding the true failure reason. Preserve execution failure reasons first and record diff outcome separately. Add direct validator and pre-edit budget/transport/revert regressions. Run the offline suite with mocked HTTP only. Next planned increment after acceptance is a capability-based tool registry, not unrestricted shell."
+    },
+    "AGR-3": {
+      "taskId": "W1R-AGR3-recovery",
+      "ownedPaths": ["packages/orchestration-core/", "docs/execution/AGR-3.md"],
+      "objective": "Fix P1 unsafe corruption recovery. journal.js around 36 silently skips malformed records. If a RUNNING transition is corrupted after SUBMIT, recovery leaves the task PENDING and can resend already-executed work. An unterminated final fragment is left on disk and concatenates with the next append. Fail closed or quarantine corrupted journals, preserve diagnostic evidence, and never automatically replay possibly affected submissions. Repair framing before any append. Add valid-SUBMIT/corrupt-RUNNING, corrupted-middle-record, truncated-tail/append/second-restart and no-resend tests. Clean owned-file whitespace failures. Keep changes in this package; durable SQLite lifecycle integration follows acceptance."
+    },
+    "AGR-4": {
+      "taskId": "W1R-AGR4-deadlines",
+      "ownedPaths": ["packages/antigravity-adapter/", "apps/agent-tools/", "docs/execution/AGR-4.md"],
+      "objective": "Fix independent findings. P1 adapter.test.ts around 317 uses Boolean(ZETRO_LIVE_SMOKE); '0' is truthy, so the offline harness actually executes live smoke. Require exact === '1' everywhere and test 0/false/unset as offline without spawning real discovery. P1 adapter.ts around 299 excludes a whole endpoint after one conversation identity mismatch, falsely disconnecting valid AGR-2..5. Identity mismatch is agent-specific; quarantine only transport-failed endpoints. P2 observeAll around 384 bounds verifyAll but not diagnosticFallback; hanging diagnostics bypass timeoutMs. Use one aggregate deadline across discovery, identity and diagnostics, including observe/send identity preflight, with explicit unknown/timed-out results. P2 agentapi.ts around 58 and discovery.ts around 68 treat a killed property even killed:false as timeout. Check true abort/timeout evidence. Add focused offline regressions and clean owned whitespace. Preserve exactly-one send and current conversation IDs."
+    },
+    "AGR-5": {
+      "taskId": "W1R-AGR5-baseline",
+      "ownedPaths": ["packages/workspace-runner/", "scripts/zetro-*", "product workspace/check/package/lock configuration", "docs/verification/2026-10-17-baseline.md", "docs/execution/AGR-5.md"],
+      "objective": "Fix P2 verifier.js npm fallback: execFile(npm.cmd, shell:false) returns spawn EINVAL on Windows when npm CLI is not colocated. Resolve and run the actual npm JS CLI through Node, or another narrow safe invocation. Test non-colocated npm without live network. Your harness sets ZETRO_LIVE_SMOKE='0', but AGR-4 used truthiness, so the reported 218 offline passes included a live smoke. Coordinate through file readiness, not worker messages: AGR-4 is correcting its predicate. Add a harness offline-isolation regression/sentinel so live discovery cannot run with 0/false/unset. Re-run the full bounded suite only after corrected tests are visible and regenerate actual skips/counts in baseline and receipt. Do not label skipped security/live fixtures as passed. No .env reads or mutation. Root versus product-root changes must be reported accurately."
+    }
+  }
+}

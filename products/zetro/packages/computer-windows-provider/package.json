@@ -1,0 +1,32 @@
+{
+  "name": "@zetro/computer-windows-provider",
+  "version": "0.1.0",
+  "description": "Isolated Windows native read-only observation provider with bounded process runner and UIAutomation helper",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "helper",
+    "types",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/",
+    "build:helper": "node scripts/build-helper.js"
+  },
+  "dependencies": {
+    "@zetro/model-gateway": "workspace:*"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

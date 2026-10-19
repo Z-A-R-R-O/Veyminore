@@ -1,3 +1,5 @@
+import { createDefaultRegistry } from './tool-registry.js';
+const defaultRegistry = createDefaultRegistry();
 const ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 const MODELS_ENDPOINT = 'https://api.groq.com/openai/v1/models';
 const MODELS = new Set(['qwen/qwen3.8-27b', 'openai/gpt-oss-120b']);
@@ -75,20 +77,37 @@ export class GroqProvider {
     return { authenticated: true, modelAvailable: body.data.some(item => item?.id === this.model), model: this.model };
   }
 
-  async next({ messages, tools, maxOutputTokens, timeoutMs }) {
-    if (!Array.isArray(tools) || tools.some(name => !TOOL_SCHEMAS[name])) throw new Error('Invalid tool selection');
+  async next({ messages, tools, maxOutputTokens, timeoutMs, signal }) {
+    if (signal?.aborted) {
+      const err = new Error('Operation aborted');
+      err.name = 'AbortError';
+      throw err;
+    }
+    if (!Array.isArray(tools) || tools.some(name => !TOOL_SCHEMAS[name] && !defaultRegistry.has(name))) throw new Error('Invalid tool selection');
     const request = {
       method: 'POST',
       headers: { Authorization: `Bearer ${this.apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: this.model, messages: convertMessages(messages), tools: tools.map(name => TOOL_SCHEMAS[name]), tool_choice: 'required', parallel_tool_calls: false, max_completion_tokens: maxOutputTokens, temperature: 0 }),
+      body: JSON.stringify({ model: this.model, messages: convertMessages(messages), tools: tools.map(name => TOOL_SCHEMAS[name] ?? defaultRegistry.getSchemas([name])[0]), tool_choice: 'required', parallel_tool_calls: false, max_completion_tokens: maxOutputTokens, temperature: 0 }),
     };
     const deadline = Date.now() + Math.max(1, Math.min(timeoutMs, 90000));
     let response;
+    let finalAttempt = 1;
     for (let attempt = 1; attempt <= 2; attempt++) {
+      if (signal?.aborted) {
+        const err = new Error('Operation aborted');
+        err.name = 'AbortError';
+        throw err;
+      }
+      finalAttempt = attempt;
+      const timeoutSignal = AbortSignal.timeout(Math.max(1, deadline - Date.now()));
+      const requestSignal = signal && typeof AbortSignal.any === 'function'
+        ? AbortSignal.any([signal, timeoutSignal])
+        : (signal || timeoutSignal);
       try {
-        response = await this.fetchImpl(ENDPOINT, { ...request, signal: AbortSignal.timeout(Math.max(1, deadline - Date.now())) });
+        response = await this.fetchImpl(ENDPOINT, { ...request, signal: requestSignal });
         break;
       } catch (error) {
+        if (signal?.aborted || error?.name === 'AbortError') throw error;
         if (!isTransportFailure(error)) throw error;
         if (attempt === 1 && deadline - Date.now() > this.retryDelayMs + 1000) {
           await sleep(this.retryDelayMs);
@@ -102,22 +121,69 @@ export class GroqProvider {
         throw wrapped;
       }
     }
-    if (!response.ok) throw httpError(response);
-    const body = await response.json();
-    const calls = body?.choices?.[0]?.message?.tool_calls;
-    if (!Array.isArray(calls) || calls.length !== 1) throw new Error('Groq did not return exactly one tool call');
-    const fn = calls[0]?.function;
-    if (!fn || typeof fn.name !== 'string' || typeof fn.arguments !== 'string') throw new Error('Malformed Groq tool call');
-    let args;
-    try { args = JSON.parse(fn.arguments); } catch { throw new Error('Malformed Groq tool arguments'); }
-    return {
-      toolCalls: [{ name: fn.name, args }],
-      usage: { inputTokens: body?.usage?.prompt_tokens, outputTokens: body?.usage?.completion_tokens }
+    if (!response.ok) throw httpError(response, finalAttempt);
+    let body;
+    try {
+      body = await response.json();
+    } catch (decodeErr) {
+      const err = new Error(`Groq response body decode failed: ${decodeErr.message}`);
+      err.name = 'MalformedResponseError';
+      err.attempts = finalAttempt;
+      err.cause = decodeErr;
+      throw err;
+    }
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      const err = new Error('Groq did not return a JSON object');
+      err.name = 'MalformedResponseError';
+      err.attempts = finalAttempt;
+      throw err;
+    }
+    const measuredUsage = {
+      inputTokens: body?.usage?.prompt_tokens,
+      outputTokens: body?.usage?.completion_tokens
     };
+    const calls = body?.choices?.[0]?.message?.tool_calls;
+    if (!Array.isArray(calls) || calls.length !== 1) {
+      const err = new Error('Groq did not return exactly one tool call');
+      err.name = 'MalformedResponseError';
+      err.usage = measuredUsage;
+      err.attempts = finalAttempt;
+      throw err;
+    }
+    const fn = calls[0]?.function;
+    if (!fn || typeof fn.name !== 'string' || typeof fn.arguments !== 'string') {
+      const err = new Error('Malformed Groq tool call');
+      err.name = 'MalformedResponseError';
+      err.usage = measuredUsage;
+      err.attempts = finalAttempt;
+      throw err;
+    }
+    let args;
+    try {
+      args = JSON.parse(fn.arguments);
+    } catch (parseErr) {
+      const err = new Error('Malformed Groq tool arguments');
+      err.name = 'MalformedResponseError';
+      err.usage = measuredUsage;
+      err.attempts = finalAttempt;
+      err.cause = parseErr;
+      throw err;
+    }
+    const result = {
+      toolCalls: [{ name: fn.name, args }],
+      usage: measuredUsage
+    };
+    if (finalAttempt > 1) {
+      result.attempts = finalAttempt;
+      result.retries = finalAttempt - 1;
+      result.uncertainUsage = true;
+      result.remoteUsageUncertain = true;
+    }
+    return result;
   }
 }
 
-function httpError(response) {
+function httpError(response, attempts = 1) {
   let name = 'ProviderError';
   if (response.status === 429) name = 'RateLimitError';
   else if (response.status >= 500 && response.status < 600) name = 'ProviderTransportError';
@@ -125,8 +191,8 @@ function httpError(response) {
   const error = new Error(name === 'RateLimitError' ? 'Groq rate limit reached' : `Groq HTTP ${response.status}`);
   error.name = name;
   error.status = response.status;
+  error.attempts = attempts;
   if (name === 'ProviderTransportError') {
-    error.attempts = 1;
     error.networkCodes = [`HTTP_${response.status}`];
   }
   error.retryAfter = response.headers?.get?.('retry-after') ?? null;

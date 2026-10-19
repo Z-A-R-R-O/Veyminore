@@ -1,0 +1,24 @@
+{
+  "name": "Orb-JS-CSS",
+  "title": "Orb",
+  "description": "A glowing ring of swirling color that breathes, trails an orbiting light and reaches toward the cursor.",
+  "type": "registry:component",
+  "registryUrl": "https://reactbits.dev/r/Orb-JS-CSS.json",
+  "fetchedAt": "2026-10-18T22:01:16Z",
+  "upstreamAuthor": "React Bits (David Haz)",
+  "upstreamLicense": "MIT",
+  "files": [
+    {
+      "path": "Orb.css",
+      "target": "apps/control-center/src/components/Orb.css",
+      "sha256": "7F1DD853EE98801256AABA5DB5BB08BD738593EA76DD42E993D1403F6887816A",
+      "bytes": 195
+    },
+    {
+      "path": "Orb.jsx",
+      "target": "apps/control-center/src/components/Orb.jsx",
+      "sha256": "B3548D6FD0C47F3C600307DE3E4F3BBE2D369AA30086FE2FD191AE8104CF58DA",
+      "bytes": 14067
+    }
+  ]
+}

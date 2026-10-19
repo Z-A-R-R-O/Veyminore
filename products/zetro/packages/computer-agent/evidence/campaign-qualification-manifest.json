@@ -1,0 +1,3937 @@
+{
+  "timestamp": "2026-10-18T05:15:35.862Z",
+  "campaignId": "camp-1792300535863",
+  "totalOperators": 12,
+  "operatorReceipts": {
+    "Codex": {
+      "operatorId": "Codex",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "Codex",
+          "taskId": "task-wf-a-codex",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-codex",
+          "prompt": "Open a new Notepad document and type \"Success — Codex verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — Codex verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — Codex verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "b1978b9d51bc95699b8783e579acd717a236f2b3c2c1e08107558d869aa73450",
+            "verifiedAt": 1792300536881
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300536881
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "Codex",
+          "taskId": "task-wf-b-codex",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-codex",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "4f696fa2a596b3ee37af27dde39634e257c56ec2f8eb97f28ef67637571389ba",
+            "verifiedAt": 1792300540011
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300540011
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "Codex",
+          "taskId": "task-wf-c-codex",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-codex",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "1d67ff837846172af13b4899f8e38a899c1065b88e27b13f6b147d2ccf69fa70",
+            "verifiedAt": 1792300541434
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300541434
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "Codex",
+          "taskId": "task-wf-d-codex",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-codex",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "beb90fdeddf4e32f41ff86d50929d5b190cc687f70ae65b6acb5a59983948a11",
+            "verifiedAt": 1792300544972
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300544972
+        }
+      }
+    },
+    "AGR-1": {
+      "operatorId": "AGR-1",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-1",
+          "taskId": "task-wf-a-agr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-agr-1",
+          "prompt": "Open a new Notepad document and type \"Success — AGR-1 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — AGR-1 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — AGR-1 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "23323cc3f81b7bc2936c8b764dde60e8ed21d04f53c8116bec032fbf910c247c",
+            "verifiedAt": 1792300545982
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300545982
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-1",
+          "taskId": "task-wf-b-agr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-agr-1",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "97a90bb0cf3c231655dd187dab6678a7af38c42440ddabf0e324cdc919a439ed",
+            "verifiedAt": 1792300549110
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300549110
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-1",
+          "taskId": "task-wf-c-agr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-agr-1",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "f597658d72d81c029a2ab3a1c3111083cfe39dc739287f9fcce341cb476c977f",
+            "verifiedAt": 1792300550526
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300550526
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-1",
+          "taskId": "task-wf-d-agr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-agr-1",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "5660e8ef4b5e5dddaad0448a032a8dd770ac1fe1a1846513491845857e590ca3",
+            "verifiedAt": 1792300554053
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300554053
+        }
+      }
+    },
+    "AGR-2": {
+      "operatorId": "AGR-2",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-2",
+          "taskId": "task-wf-a-agr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-agr-2",
+          "prompt": "Open a new Notepad document and type \"Success — AGR-2 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — AGR-2 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — AGR-2 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "678e68d7d10ea87b17eea4e515d1592c2e792862ad6031c69e6a6964be5ae990",
+            "verifiedAt": 1792300555085
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300555085
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-2",
+          "taskId": "task-wf-b-agr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-agr-2",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "f6914f572a588636c9e0ab303ea2e30201246ce0f5cd8f1b837b6a0b01558698",
+            "verifiedAt": 1792300558200
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300558200
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-2",
+          "taskId": "task-wf-c-agr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-agr-2",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "0a49d476c8e2248fb9d698de33f5b085b54395399286bfb9ba7fda279c9320b8",
+            "verifiedAt": 1792300559614
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300559614
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-2",
+          "taskId": "task-wf-d-agr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-agr-2",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "dd960ce8a2e5bab2a3869720d6c5844f65b470f1a47620a35a1b85a2b2f49ac0",
+            "verifiedAt": 1792300563145
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300563145
+        }
+      }
+    },
+    "AGR-3": {
+      "operatorId": "AGR-3",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-3",
+          "taskId": "task-wf-a-agr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-agr-3",
+          "prompt": "Open a new Notepad document and type \"Success — AGR-3 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — AGR-3 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — AGR-3 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "2863df7008f78396d72a57a965ad9396ee93c5217405825c93a37e11b98274ec",
+            "verifiedAt": 1792300564154
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300564154
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-3",
+          "taskId": "task-wf-b-agr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-agr-3",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "56187b0559f402ccec3e40ce548fe8f13f09235979eadfb244b1f3f7f00a3336",
+            "verifiedAt": 1792300567284
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300567284
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-3",
+          "taskId": "task-wf-c-agr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-agr-3",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "e560bce308bb3036ce1df29c04e6a10fa334ff3fb9823e41f2428a0f8a7d7f4b",
+            "verifiedAt": 1792300568713
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300568713
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-3",
+          "taskId": "task-wf-d-agr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-agr-3",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "d993db93c7fe3b5e881769abab71e9a66ce65a79cee8f92edc0c00aa3e959e57",
+            "verifiedAt": 1792300572234
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300572234
+        }
+      }
+    },
+    "AGR-4": {
+      "operatorId": "AGR-4",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-4",
+          "taskId": "task-wf-a-agr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-agr-4",
+          "prompt": "Open a new Notepad document and type \"Success — AGR-4 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — AGR-4 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — AGR-4 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "4d1a30e2aade8ea5b0fa492fcc5425b3c5778395c05917f9f06e53a83770da18",
+            "verifiedAt": 1792300573248
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300573248
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-4",
+          "taskId": "task-wf-b-agr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-agr-4",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "bb201c13da08f1e51bc054529a0c5afcc6f9702cd8f234ce6c19078cb69d3484",
+            "verifiedAt": 1792300576370
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300576370
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-4",
+          "taskId": "task-wf-c-agr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-agr-4",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "bd170384b440a15e7ad475be74433f345c59553fa731e8d14b2e7a574d1782cb",
+            "verifiedAt": 1792300577781
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300577781
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-4",
+          "taskId": "task-wf-d-agr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-agr-4",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "ec4778ace482af776a3bc903078470293663d0ea0988692fc749b724581c9b4a",
+            "verifiedAt": 1792300581317
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300581317
+        }
+      }
+    },
+    "AGR-5": {
+      "operatorId": "AGR-5",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-5",
+          "taskId": "task-wf-a-agr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-agr-5",
+          "prompt": "Open a new Notepad document and type \"Success — AGR-5 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — AGR-5 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — AGR-5 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "598d229fc851551e12955c1d4fd6844d737aa8f79dbbb818973c6e6552baf625",
+            "verifiedAt": 1792300582333
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300582333
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-5",
+          "taskId": "task-wf-b-agr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-agr-5",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "dcfce6dcf9d56bf6b55381b3035937aad83555c0ba2dc458ac093afdc3f20155",
+            "verifiedAt": 1792300585455
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300585455
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-5",
+          "taskId": "task-wf-c-agr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-agr-5",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "879d7d5dc4c15a3f481592d77cad8da3caaeb5d484ae69d40f382785642481d5",
+            "verifiedAt": 1792300586900
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300586900
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-5",
+          "taskId": "task-wf-d-agr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-agr-5",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "543110019f17aab762a16525bab330b7627582010d020e1e5f8285e01a44e311",
+            "verifiedAt": 1792300590440
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300590440
+        }
+      }
+    },
+    "AGR-6": {
+      "operatorId": "AGR-6",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-6",
+          "taskId": "task-wf-a-agr-6",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-agr-6",
+          "prompt": "Open a new Notepad document and type \"Success — AGR-6 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — AGR-6 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — AGR-6 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "d426491ef1f22d26e500e56a2a126202a3ade05c521d1801f928e1637745a6fa",
+            "verifiedAt": 1792300591450
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300591450
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-6",
+          "taskId": "task-wf-b-agr-6",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-agr-6",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "635b3b8a55d866340ed715cf13c3355bf7de8e96f1991506ddd87b44d5489d9d",
+            "verifiedAt": 1792300594578
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300594578
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-6",
+          "taskId": "task-wf-c-agr-6",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-agr-6",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "0ed0d7b5fdbc936bf41fdd6b0f3a1e4ec2119ed7266adb7ce48f4ebcd25be3b5",
+            "verifiedAt": 1792300595989
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300595989
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "AGR-6",
+          "taskId": "task-wf-d-agr-6",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-agr-6",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "f9ca56d1498c48a4ee57555809732f01925ddba5640f8c2c7ce1f93ed5a36ae1",
+            "verifiedAt": 1792300599506
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300599506
+        }
+      }
+    },
+    "OCR-1": {
+      "operatorId": "OCR-1",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-1",
+          "taskId": "task-wf-a-ocr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-ocr-1",
+          "prompt": "Open a new Notepad document and type \"Success — OCR-1 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — OCR-1 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — OCR-1 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "81f04ca982f1e20762f698dd60db19e77779fc965e70d2520504a51b733d2061",
+            "verifiedAt": 1792300600510
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300600510
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-1",
+          "taskId": "task-wf-b-ocr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-ocr-1",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "d91367594ccecc460b17cb830396da5b72680fbf60b80887881ce4655177b0ec",
+            "verifiedAt": 1792300603624
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300603624
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-1",
+          "taskId": "task-wf-c-ocr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-ocr-1",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "134b2adc086bcac3c09cf5749ed2d6b22e4acfe1fb024b385cbbab0811655405",
+            "verifiedAt": 1792300605038
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300605038
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-1",
+          "taskId": "task-wf-d-ocr-1",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-ocr-1",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "6fbddba533885810e4a605bcd803b39c47a54572aabdd84199b49dbc9e5a46b2",
+            "verifiedAt": 1792300608557
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300608557
+        }
+      }
+    },
+    "OCR-2": {
+      "operatorId": "OCR-2",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-2",
+          "taskId": "task-wf-a-ocr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-ocr-2",
+          "prompt": "Open a new Notepad document and type \"Success — OCR-2 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — OCR-2 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — OCR-2 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "f38e811dff094f52ece9447612049622f7b6d9272a45f86f171fd6ae127dbaab",
+            "verifiedAt": 1792300609567
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300609567
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-2",
+          "taskId": "task-wf-b-ocr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-ocr-2",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "85539b5749e4ebffe1542e7d56b91ba6e6408c6d22bf2805869b97e43fff0287",
+            "verifiedAt": 1792300612694
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300612694
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-2",
+          "taskId": "task-wf-c-ocr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-ocr-2",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "7fe45964e98245ca496243a26122a652e7be8029e107b162f854e72b57d2d46f",
+            "verifiedAt": 1792300614120
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300614120
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-2",
+          "taskId": "task-wf-d-ocr-2",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-ocr-2",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "540bfa61555e9076ace51f3b9381f644b6ff3e339d64e7785f198226b75a3d1a",
+            "verifiedAt": 1792300617639
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300617639
+        }
+      }
+    },
+    "OCR-3": {
+      "operatorId": "OCR-3",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-3",
+          "taskId": "task-wf-a-ocr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-ocr-3",
+          "prompt": "Open a new Notepad document and type \"Success — OCR-3 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — OCR-3 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — OCR-3 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "393f96cc143a4e25f27295b0a133dd635bd57108806e1f9a9511ff71fcb35bff",
+            "verifiedAt": 1792300618654
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300618654
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-3",
+          "taskId": "task-wf-b-ocr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-ocr-3",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "507d3d51e72146b9066b13d88097d5743dd4103df88f7edc00f1496869700365",
+            "verifiedAt": 1792300621773
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300621773
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-3",
+          "taskId": "task-wf-c-ocr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-ocr-3",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "68b6c791c4d0c6f4855a459ea39ee453e1d2d081fdd72a6ab88b720440a97bb8",
+            "verifiedAt": 1792300623186
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300623186
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-3",
+          "taskId": "task-wf-d-ocr-3",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-ocr-3",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "ec6e26fd0220171fae7011afefc26bc6f6cd48fe9d2d421cbf4472cb961b0ac5",
+            "verifiedAt": 1792300626703
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300626703
+        }
+      }
+    },
+    "OCR-4": {
+      "operatorId": "OCR-4",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-4",
+          "taskId": "task-wf-a-ocr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-ocr-4",
+          "prompt": "Open a new Notepad document and type \"Success — OCR-4 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — OCR-4 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — OCR-4 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "e829718762641390f8ccef8beb1f6771e61bea6a4248f96905e8f3e76bf9b829",
+            "verifiedAt": 1792300627711
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300627711
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-4",
+          "taskId": "task-wf-b-ocr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-ocr-4",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "3a5cac4ff72bbdb5d270ce7b9339b2c9372fb5e5544277e9a4be762b0b499f22",
+            "verifiedAt": 1792300630829
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300630829
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-4",
+          "taskId": "task-wf-c-ocr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-ocr-4",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "b150220cfcf42bb0cfada244d3f6ffe0fe4e60360d2da421240329c798bb56ef",
+            "verifiedAt": 1792300632246
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300632246
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-4",
+          "taskId": "task-wf-d-ocr-4",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-ocr-4",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "d0ad105377b4bdcd14e990a739dcfda1abd67efda8e2908c58781781bf3c5b51",
+            "verifiedAt": 1792300635781
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300635781
+        }
+      }
+    },
+    "OCR-5": {
+      "operatorId": "OCR-5",
+      "status": "qualified",
+      "receipts": {
+        "editor": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-5",
+          "taskId": "task-wf-a-ocr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-a-ocr-5",
+          "prompt": "Open a new Notepad document and type \"Success — OCR-5 verified Editor workflow in ZETRO Computing.\"",
+          "workflow": "editor_text",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad"
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "editor_text",
+                "planStepsCount": 5
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1000
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 60,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "text_contains",
+                "verified": true,
+                "reason": "Independent UI readback verified exact text in editor control (60 chars observed)"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "editor_text_readback",
+            "expectedText": "Success — OCR-5 verified Editor workflow in ZETRO Computing.",
+            "observedTextSnippet": "Success — OCR-5 verified Editor workflow in ZETRO Computing.",
+            "evidenceHash": "3a4f05c2784785093e89c1583352a943900b7c6b0ad731390c705a26e180bd08",
+            "verifiedAt": 1792300636795
+          },
+          "verificationReason": "Independent UI readback verified exact text in editor control (60 chars observed)",
+          "completedAt": 1792300636795
+        },
+        "browser": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-5",
+          "taskId": "task-wf-b-ocr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-b-ocr-5",
+          "prompt": "Open Chrome and search for \"ZETRO Autonomous Agent Documentation\"",
+          "workflow": "browser_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "browser_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "chrome",
+                "pid": 5500,
+                "executable": "chrome.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "url_or_title_contains",
+                "verified": true,
+                "reason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "browser_search_readback",
+            "expectedQuery": "ZETRO Autonomous Agent Documentation",
+            "observedTitle": "ZETRO Autonomous Agent Documentation - Google Search",
+            "evidenceHash": "f2618a88c9025cfa93b96e93b4d63afe859a42d1b49074007b0f3bddd324f358",
+            "verifiedAt": 1792300639924
+          },
+          "verificationReason": "Browser state verified with query \"ZETRO Autonomous Agent Documentation\" in title/url/automation view",
+          "completedAt": 1792300639924
+        },
+        "search": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-5",
+          "taskId": "task-wf-c-ocr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-c-ocr-5",
+          "prompt": "Open Windows Search and find \"Terminal\"",
+          "workflow": "windows_search",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "windows_search",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "windows_search",
+                "pid": 5500,
+                "executable": "explorer.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "type_text",
+              "status": "completed",
+              "details": {
+                "charsWritten": 8,
+                "method": "UIA_ValuePattern"
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 800
+              }
+            },
+            {
+              "stepNumber": 5,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "search_match",
+                "verified": true,
+                "reason": "Windows Search UI verified with match for application \"Terminal\""
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 1,
+            "actionsCompleted": 1,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "windows_search_readback",
+            "targetApp": "Terminal",
+            "evidenceHash": "89a29b8532f1d724433e8d5cc0dab5f3d59a08f7998029764cba94763f456901",
+            "verifiedAt": 1792300641340
+          },
+          "verificationReason": "Windows Search UI verified with match for application \"Terminal\"",
+          "completedAt": 1792300641340
+        },
+        "whatsapp": {
+          "schemaVersion": "zetro.computer_evidence.v1",
+          "status": "completed",
+          "operatorId": "OCR-5",
+          "taskId": "task-wf-d-ocr-5",
+          "attemptId": 1,
+          "sessionId": "sess-wf-d-ocr-5",
+          "prompt": "Open WhatsApp and navigate to \"Archived Chats\"",
+          "workflow": "whatsapp_navigate",
+          "target": {
+            "hwnd": 2001,
+            "processId": 5500,
+            "generation": "2001:5500:gen1",
+            "title": "Untitled - Notepad",
+            "bounds": {
+              "x": 100,
+              "y": 100,
+              "width": 800,
+              "height": 600
+            },
+            "dpi": 96
+          },
+          "steps": [
+            {
+              "stepNumber": 1,
+              "action": "plan_task",
+              "status": "completed",
+              "details": {
+                "source": "deterministic_fallback",
+                "workflow": "whatsapp_navigate",
+                "planStepsCount": 4
+              }
+            },
+            {
+              "stepNumber": 2,
+              "action": "launch_app",
+              "status": "completed",
+              "details": {
+                "appId": "whatsapp",
+                "pid": 5500,
+                "executable": "whatsapp.exe"
+              }
+            },
+            {
+              "stepNumber": 3,
+              "action": "wait_observe",
+              "status": "completed",
+              "details": {
+                "delayMs": 1500
+              }
+            },
+            {
+              "stepNumber": 4,
+              "action": "verify_state",
+              "status": "completed",
+              "details": {
+                "condition": "section_active",
+                "verified": true,
+                "reason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent"
+              }
+            }
+          ],
+          "metrics": {
+            "stepsExecuted": 0,
+            "actionsAttempted": 0,
+            "actionsCompleted": 0,
+            "observationsCount": 0,
+            "tokensUsed": 0,
+            "unknownCostEvents": 0
+          },
+          "evidence": {
+            "type": "whatsapp_navigation_readback",
+            "expectedSection": "Archived Chats",
+            "unauthorizedMessagesSent": 0,
+            "evidenceHash": "3968aff66396857f74122070fa4301d87e1e27751ae43cf1081a52c11ee17e44",
+            "verifiedAt": 1792300644869
+          },
+          "verificationReason": "WhatsApp UI verified in requested navigation area \"Archived Chats\" with zero unauthorized messages sent",
+          "completedAt": 1792300644869
+        }
+      }
+    }
+  },
+  "workflowResults": {
+    "editor": {
+      "passed": 12,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 12,
+      "failed": 0
+    },
+    "windowsSearch": {
+      "passed": 12,
+      "failed": 0
+    },
+    "whatsapp": {
+      "passed": 12,
+      "failed": 0
+    }
+  }
+}

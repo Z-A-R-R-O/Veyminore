@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@11.25.0",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.5.0"
   },
   "scripts": {
     "agents": "node packages/antigravity-adapter/dist/cli.js",
@@ -13,7 +13,14 @@
     "rct:live-fixture": "node packages/rct-runtime/src/cli.js live-fixture",
     "rct:test": "node --test packages/rct-runtime/test/*.test.js",
     "build": "pnpm --filter @veyminore/zetro-antigravity build",
-    "test": "pnpm --filter @veyminore/zetro-antigravity test",
+    "test": "node scripts/zetro-check.js",
+    "check": "node scripts/zetro-check.js",
+    "test:adapter": "pnpm --filter @veyminore/zetro-antigravity test",
+    "test:offline-smoke": "node scripts/zetro-offline-smoke.js",
+    "test:free-qualification": "node scripts/zetro-free-qualification.js --mock",
+    "qualification:free": "node scripts/zetro-free-qualification.js",
+    "test:live-smoke": "node scripts/zetro-live.js",
+    "doctor:provider": "node packages/provider-config/bin/doctor.js",
     "typecheck": "pnpm --filter @veyminore/zetro-antigravity typecheck"
   }
 }

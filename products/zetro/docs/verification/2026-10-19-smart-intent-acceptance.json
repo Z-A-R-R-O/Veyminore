@@ -1,0 +1,31 @@
+{
+  "reviewedAt": "2026-10-18T21:43:04.282919+00:00",
+  "result": "accepted_scoped_smart_intent_increment",
+  "focusedTests": {
+    "passed": 77,
+    "failed": 0,
+    "log": "2026-10-18-smart-intent-tests.txt"
+  },
+  "nativeRasterChecks": 5,
+  "nativeBuild": "passed",
+  "browser": {
+    "intention": "verified",
+    "simulatedCompletion": "verified",
+    "escapeImmediateStop": "verified",
+    "screenshot": "2026-10-19-smart-intent-accepted.png"
+  },
+  "correctionsReviewed": [
+    "late child-write callback fenced to original child",
+    "native intention admitted and activity text capped120",
+    "explicit phrase-model import",
+    "raw pointer distance compared before rounding",
+    "preview uses bounded public synthetic fixtures"
+  ],
+  "limitations": [
+    "No new native task or input qualification",
+    "Browser task preview is a simulation",
+    "Five-minute pointer mismatch root cause remains unproven",
+    "Voice and microphone not connected",
+    "Production host must supply structured session.intent to enable intent-specific text"
+  ]
+}

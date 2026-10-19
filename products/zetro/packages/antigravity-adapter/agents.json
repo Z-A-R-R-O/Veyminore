@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1",
-  "projectId": "9ab65b57-6580-4788-b50a-28886bc68496",
-  "workspace": "E:\\Veyminore",
+  "projectId": "19ae9edb-51e8-4221-a543-130bbc01ca4e",
+  "workspace": "E:\\Veyminore\\products\\zetro",
   "agents": {
-    "AGR-1": "f4881509-063a-4690-b5c4-985fd16cb39f",
-    "AGR-2": "c7325399-fa02-4a1f-8417-9260a1d8c38a",
-    "AGR-3": "20d3f993-477e-4eb2-a785-40b391bd091e",
-    "AGR-4": "339c97a8-901b-4ee8-a3c4-8bd311e3de8c",
-    "AGR-5": "af8ce409-7904-41c5-9505-18e2145d3dfd"
+    "AGR-1": "4c51dd32-d3f6-4241-a693-f860024d8cea",
+    "AGR-2": "ab703c08-e8d2-4274-80b5-6ba95ace2d6e",
+    "AGR-3": "3923d6ee-d21e-4674-9a3e-3b4de9032a45",
+    "AGR-4": "23fd59d8-8f90-4593-95f8-6b45e1a3297b",
+    "AGR-5": "ff83dde8-3cc2-43ff-b05d-07231c5bcc8b"
   }
 }

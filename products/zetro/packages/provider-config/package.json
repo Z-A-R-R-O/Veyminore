@@ -1,0 +1,24 @@
+{
+  "name": "@zetro/provider-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "bin": {
+    "zetro-provider-doctor": "./bin/doctor.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "doctor": "node bin/doctor.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

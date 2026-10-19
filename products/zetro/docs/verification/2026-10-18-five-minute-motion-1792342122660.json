@@ -1,0 +1,2311 @@
+{
+  "sessionId": "motion-8236e650-34f3-425f-8bb7-d5b237ecd400",
+  "status": "blocked",
+  "summary": "Effect requires independent verification before continuing",
+  "startedAt": 1792342122660,
+  "finishedAt": 1792342152604,
+  "elapsedSeconds": 29.944,
+  "moves": 23,
+  "clicks": 0,
+  "typedCharacters": 0,
+  "journal": {
+    "id": "journal-db4e3cbb-84c8-46a2-98fc-3fbe122d628b",
+    "taskGoal": "Move the pointer left to right and top to bottom for five minutes. No clicks or typing.",
+    "startTime": 1792342122662,
+    "endTime": 1792342152604,
+    "summary": {
+      "id": "journal-db4e3cbb-84c8-46a2-98fc-3fbe122d628b",
+      "taskGoal": "Move the pointer left to right and top to bottom for five minutes. No clicks or typing.",
+      "durationMs": 29942,
+      "totalSteps": 69,
+      "modelsUsed": [
+        "local-movement-only"
+      ],
+      "successfulSteps": 22,
+      "interruptedSteps": 0,
+      "failedSteps": 0,
+      "rejectedSteps": 0,
+      "approvalsRequested": 0,
+      "integrityVerified": true
+    },
+    "entries": [
+      {
+        "stepIndex": 0,
+        "timestamp": 1792342123355,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "268c8330-6579-49b3-8269-7782aba59d4c",
+          "type": "mouseMove",
+          "target": {
+            "x": 437,
+            "y": 851
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342123354,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "a48f051357114beb1d9a0d98a5cfc720f48a1a1ee515c68bf8ced9aef82a1c7f"
+      },
+      {
+        "stepIndex": 1,
+        "timestamp": 1792342124005,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "268c8330-6579-49b3-8269-7782aba59d4c",
+          "type": "mouseMove",
+          "target": {
+            "x": 437,
+            "y": 851
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342123354,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "a48f051357114beb1d9a0d98a5cfc720f48a1a1ee515c68bf8ced9aef82a1c7f",
+        "hash": "6073338efaecd578a80cf48a17919823be52966d410a7bebc69f8f067b016a7e"
+      },
+      {
+        "stepIndex": 2,
+        "timestamp": 1792342124605,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "268c8330-6579-49b3-8269-7782aba59d4c",
+          "type": "mouseMove",
+          "target": {
+            "x": 437,
+            "y": 851
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342123354,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342124605,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "6073338efaecd578a80cf48a17919823be52966d410a7bebc69f8f067b016a7e",
+        "hash": "7b2173685479614effd81e4c68c5f0b9224d4bb07f9e0e08d00cdd21acd05817"
+      },
+      {
+        "stepIndex": 3,
+        "timestamp": 1792342124606,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "5e4b01c9-33ca-47a3-93fb-ced90f7a569b",
+          "type": "mouseMove",
+          "target": {
+            "x": 347,
+            "y": 772
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342124605,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "7b2173685479614effd81e4c68c5f0b9224d4bb07f9e0e08d00cdd21acd05817",
+        "hash": "cf3aae9330d6e293688ab13f0a91d09c19049a8a4e2934bc21fcec43517ffe1f"
+      },
+      {
+        "stepIndex": 4,
+        "timestamp": 1792342125253,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "5e4b01c9-33ca-47a3-93fb-ced90f7a569b",
+          "type": "mouseMove",
+          "target": {
+            "x": 347,
+            "y": 772
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342124605,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "cf3aae9330d6e293688ab13f0a91d09c19049a8a4e2934bc21fcec43517ffe1f",
+        "hash": "60c5beddefdb5b722e17c2a6ee4fe486ff90cbb49762d9f61c9aed2e7e0312c2"
+      },
+      {
+        "stepIndex": 5,
+        "timestamp": 1792342125844,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "5e4b01c9-33ca-47a3-93fb-ced90f7a569b",
+          "type": "mouseMove",
+          "target": {
+            "x": 347,
+            "y": 772
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342124605,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342125843,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "60c5beddefdb5b722e17c2a6ee4fe486ff90cbb49762d9f61c9aed2e7e0312c2",
+        "hash": "74a8e55362ad54fbfc18b1877cb2140d192dea37c9fb75514ac82c216f3c67e7"
+      },
+      {
+        "stepIndex": 6,
+        "timestamp": 1792342125844,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "c4c62881-6d97-4c2e-9e03-593ab5f87d0f",
+          "type": "mouseMove",
+          "target": {
+            "x": 257,
+            "y": 693
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342125843,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "74a8e55362ad54fbfc18b1877cb2140d192dea37c9fb75514ac82c216f3c67e7",
+        "hash": "5851503312d7fe77bf3393d9ce1c7b6ef7e7605d28c5a55ee741a9f2f40f4545"
+      },
+      {
+        "stepIndex": 7,
+        "timestamp": 1792342126496,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "c4c62881-6d97-4c2e-9e03-593ab5f87d0f",
+          "type": "mouseMove",
+          "target": {
+            "x": 257,
+            "y": 693
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342125843,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "5851503312d7fe77bf3393d9ce1c7b6ef7e7605d28c5a55ee741a9f2f40f4545",
+        "hash": "bdf36c17bfb83c9de64f16bae667f2bf9de6982efcb26c56dfe89fc89cf319b0"
+      },
+      {
+        "stepIndex": 8,
+        "timestamp": 1792342127092,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "c4c62881-6d97-4c2e-9e03-593ab5f87d0f",
+          "type": "mouseMove",
+          "target": {
+            "x": 257,
+            "y": 693
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342125843,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342127092,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "bdf36c17bfb83c9de64f16bae667f2bf9de6982efcb26c56dfe89fc89cf319b0",
+        "hash": "cf255433f96575f1bbdfc0154fe9e6dfc0d6d1f7daafa81f86e90d9a85b4c6f9"
+      },
+      {
+        "stepIndex": 9,
+        "timestamp": 1792342127093,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "1ab24b71-7aa8-4ad0-83a1-12108c60830d",
+          "type": "mouseMove",
+          "target": {
+            "x": 167,
+            "y": 614
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342127092,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "cf255433f96575f1bbdfc0154fe9e6dfc0d6d1f7daafa81f86e90d9a85b4c6f9",
+        "hash": "e0dbf60b0db667a54083ed23f1ffc6a55df875904e3ba42da009e2a0f33178d3"
+      },
+      {
+        "stepIndex": 10,
+        "timestamp": 1792342127743,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "1ab24b71-7aa8-4ad0-83a1-12108c60830d",
+          "type": "mouseMove",
+          "target": {
+            "x": 167,
+            "y": 614
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342127092,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "e0dbf60b0db667a54083ed23f1ffc6a55df875904e3ba42da009e2a0f33178d3",
+        "hash": "490da47ae0f305027834bac03d0af5e33edba356b23621f1b8439ea2a3defaa1"
+      },
+      {
+        "stepIndex": 11,
+        "timestamp": 1792342128334,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "1ab24b71-7aa8-4ad0-83a1-12108c60830d",
+          "type": "mouseMove",
+          "target": {
+            "x": 167,
+            "y": 614
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342127092,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342128334,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "490da47ae0f305027834bac03d0af5e33edba356b23621f1b8439ea2a3defaa1",
+        "hash": "bfc9a84744dc5be645a98c80d0cf55ac488738742182e5b8d29ab250758132f9"
+      },
+      {
+        "stepIndex": 12,
+        "timestamp": 1792342128334,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "2f2e26fe-9b8a-405a-a3c8-9ff06c8be83b",
+          "type": "mouseMove",
+          "target": {
+            "x": 76,
+            "y": 535
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342128334,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "bfc9a84744dc5be645a98c80d0cf55ac488738742182e5b8d29ab250758132f9",
+        "hash": "e233033019585f294ac3672a7791a3385a65ff0fe484557d618b96ec74602faf"
+      },
+      {
+        "stepIndex": 13,
+        "timestamp": 1792342128985,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "2f2e26fe-9b8a-405a-a3c8-9ff06c8be83b",
+          "type": "mouseMove",
+          "target": {
+            "x": 76,
+            "y": 535
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342128334,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "e233033019585f294ac3672a7791a3385a65ff0fe484557d618b96ec74602faf",
+        "hash": "510f2e60161ddfe80d63271d8f4cfd04ca01658a46e8a77712d6d4fa6c996b9b"
+      },
+      {
+        "stepIndex": 14,
+        "timestamp": 1792342129571,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "2f2e26fe-9b8a-405a-a3c8-9ff06c8be83b",
+          "type": "mouseMove",
+          "target": {
+            "x": 76,
+            "y": 535
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342128334,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342129571,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "510f2e60161ddfe80d63271d8f4cfd04ca01658a46e8a77712d6d4fa6c996b9b",
+        "hash": "503f3af74b97fc65819823838231550ebfab18dc2ea84ebcb956f3f0a19b0534"
+      },
+      {
+        "stepIndex": 15,
+        "timestamp": 1792342129571,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "0d276781-497d-4386-8550-619f2f561d8e",
+          "type": "mouseMove",
+          "target": {
+            "x": 70,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342129571,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "503f3af74b97fc65819823838231550ebfab18dc2ea84ebcb956f3f0a19b0534",
+        "hash": "dd8ff8457cf36a79b67696fb235d0fdc4f29691e917db9ebc2243b7bf7b5cc19"
+      },
+      {
+        "stepIndex": 16,
+        "timestamp": 1792342130213,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "0d276781-497d-4386-8550-619f2f561d8e",
+          "type": "mouseMove",
+          "target": {
+            "x": 70,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342129571,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "dd8ff8457cf36a79b67696fb235d0fdc4f29691e917db9ebc2243b7bf7b5cc19",
+        "hash": "5f1541b654197d63c2a53d624861c2e77b957707abe2564006d9cf9bac554b27"
+      },
+      {
+        "stepIndex": 17,
+        "timestamp": 1792342130825,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "0d276781-497d-4386-8550-619f2f561d8e",
+          "type": "mouseMove",
+          "target": {
+            "x": 70,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342129571,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342130825,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "5f1541b654197d63c2a53d624861c2e77b957707abe2564006d9cf9bac554b27",
+        "hash": "efe9bfc759213fb507c344b9f4dacd34e42851bdd9ef2fea2cb8ebeb2c8899f3"
+      },
+      {
+        "stepIndex": 18,
+        "timestamp": 1792342130825,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "75a82acc-edc3-4f1c-ad83-914af77dce4e",
+          "type": "mouseMove",
+          "target": {
+            "x": 190,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342130825,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "efe9bfc759213fb507c344b9f4dacd34e42851bdd9ef2fea2cb8ebeb2c8899f3",
+        "hash": "f0fa12dfd12322616305823269c583986acf2adcf55d29e616c6da39ed4c6726"
+      },
+      {
+        "stepIndex": 19,
+        "timestamp": 1792342131474,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "75a82acc-edc3-4f1c-ad83-914af77dce4e",
+          "type": "mouseMove",
+          "target": {
+            "x": 190,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342130825,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "f0fa12dfd12322616305823269c583986acf2adcf55d29e616c6da39ed4c6726",
+        "hash": "e04a4f740a7c91340d65693107d6db425747417927c675b1427b0bb7ce72445e"
+      },
+      {
+        "stepIndex": 20,
+        "timestamp": 1792342132103,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "75a82acc-edc3-4f1c-ad83-914af77dce4e",
+          "type": "mouseMove",
+          "target": {
+            "x": 190,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342130825,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342132103,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "e04a4f740a7c91340d65693107d6db425747417927c675b1427b0bb7ce72445e",
+        "hash": "e7569f1954607e01e9517cee07ad40896baae2495f4d24da34202b2d17b021dd"
+      },
+      {
+        "stepIndex": 21,
+        "timestamp": 1792342132103,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "7af9363a-22d3-4de4-8b39-bc47b5b01ecf",
+          "type": "mouseMove",
+          "target": {
+            "x": 310,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342132103,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "e7569f1954607e01e9517cee07ad40896baae2495f4d24da34202b2d17b021dd",
+        "hash": "aa220bb9cc34762e1117fd27bae8a564e6728512e3bf790009b4ce981a588a32"
+      },
+      {
+        "stepIndex": 22,
+        "timestamp": 1792342132756,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "7af9363a-22d3-4de4-8b39-bc47b5b01ecf",
+          "type": "mouseMove",
+          "target": {
+            "x": 310,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342132103,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "aa220bb9cc34762e1117fd27bae8a564e6728512e3bf790009b4ce981a588a32",
+        "hash": "068387509523e7a4e9824a71bcf0e29e79c0a987b713b8dc0240dc1698b2810d"
+      },
+      {
+        "stepIndex": 23,
+        "timestamp": 1792342133365,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "7af9363a-22d3-4de4-8b39-bc47b5b01ecf",
+          "type": "mouseMove",
+          "target": {
+            "x": 310,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342132103,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342133365,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "068387509523e7a4e9824a71bcf0e29e79c0a987b713b8dc0240dc1698b2810d",
+        "hash": "617bc5dcce9af1c435612afeb07d687f7a7c55cef397ba85912df6b8242f5e35"
+      },
+      {
+        "stepIndex": 24,
+        "timestamp": 1792342133365,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "f29f4b45-05df-4144-a7a5-a34606cfa774",
+          "type": "mouseMove",
+          "target": {
+            "x": 430,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342133365,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "617bc5dcce9af1c435612afeb07d687f7a7c55cef397ba85912df6b8242f5e35",
+        "hash": "0be43cde2ea93f50a27ae1a02c6060e9b9695ef63a49be9df7e81691570afcd0"
+      },
+      {
+        "stepIndex": 25,
+        "timestamp": 1792342134014,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "f29f4b45-05df-4144-a7a5-a34606cfa774",
+          "type": "mouseMove",
+          "target": {
+            "x": 430,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342133365,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "0be43cde2ea93f50a27ae1a02c6060e9b9695ef63a49be9df7e81691570afcd0",
+        "hash": "ee509bad810614d37844e16923a8b45c209850c59a808d1f1489c820b858824a"
+      },
+      {
+        "stepIndex": 26,
+        "timestamp": 1792342134736,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "f29f4b45-05df-4144-a7a5-a34606cfa774",
+          "type": "mouseMove",
+          "target": {
+            "x": 430,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342133365,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342134736,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "ee509bad810614d37844e16923a8b45c209850c59a808d1f1489c820b858824a",
+        "hash": "ece5dc40f891ed5b4f5435ad4a4db27ad29d87f1aa032b23858697136345ab18"
+      },
+      {
+        "stepIndex": 27,
+        "timestamp": 1792342134736,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "84c527f3-6c8f-4abe-9c98-c9493a0e5f7c",
+          "type": "mouseMove",
+          "target": {
+            "x": 550,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342134736,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "ece5dc40f891ed5b4f5435ad4a4db27ad29d87f1aa032b23858697136345ab18",
+        "hash": "844b12bf55aadb4ad547eaa3c3ed836b2c1acf991d2a05b3fcdf86619186f75c"
+      },
+      {
+        "stepIndex": 28,
+        "timestamp": 1792342135395,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "84c527f3-6c8f-4abe-9c98-c9493a0e5f7c",
+          "type": "mouseMove",
+          "target": {
+            "x": 550,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342134736,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "844b12bf55aadb4ad547eaa3c3ed836b2c1acf991d2a05b3fcdf86619186f75c",
+        "hash": "232ba6a05239c2e82468c9780eac1ccaa671ae5b99577921c014dcca889dc1e7"
+      },
+      {
+        "stepIndex": 29,
+        "timestamp": 1792342136003,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "84c527f3-6c8f-4abe-9c98-c9493a0e5f7c",
+          "type": "mouseMove",
+          "target": {
+            "x": 550,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342134736,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342136002,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "232ba6a05239c2e82468c9780eac1ccaa671ae5b99577921c014dcca889dc1e7",
+        "hash": "4e67c2d6907b3028f04c8a4948f797c5b2e81986fa2f95569df59beeb0e9f803"
+      },
+      {
+        "stepIndex": 30,
+        "timestamp": 1792342136003,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "711951b4-8519-40cd-bfdb-06cfd2aef540",
+          "type": "mouseMove",
+          "target": {
+            "x": 670,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342136002,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "4e67c2d6907b3028f04c8a4948f797c5b2e81986fa2f95569df59beeb0e9f803",
+        "hash": "e3051392e7777968341944fa2f30aff62e392f3b46feb01cead466ac0915d329"
+      },
+      {
+        "stepIndex": 31,
+        "timestamp": 1792342136648,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "711951b4-8519-40cd-bfdb-06cfd2aef540",
+          "type": "mouseMove",
+          "target": {
+            "x": 670,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342136002,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "e3051392e7777968341944fa2f30aff62e392f3b46feb01cead466ac0915d329",
+        "hash": "515544a6c25bb92d86c6fc30d51c23fe09c3524b3fd51a4b055048dd9701abf9"
+      },
+      {
+        "stepIndex": 32,
+        "timestamp": 1792342137238,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "711951b4-8519-40cd-bfdb-06cfd2aef540",
+          "type": "mouseMove",
+          "target": {
+            "x": 670,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342136002,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342137238,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "515544a6c25bb92d86c6fc30d51c23fe09c3524b3fd51a4b055048dd9701abf9",
+        "hash": "29badc9b818f37890226ae3b53d9de0d0335319d0ef2b2089c37b5d5dd19bada"
+      },
+      {
+        "stepIndex": 33,
+        "timestamp": 1792342137238,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "7fc55dd3-5b4e-4130-8de0-77dbbe1360ed",
+          "type": "mouseMove",
+          "target": {
+            "x": 790,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342137238,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "29badc9b818f37890226ae3b53d9de0d0335319d0ef2b2089c37b5d5dd19bada",
+        "hash": "3790f9e0cd3b686fec22b9aef74464f312163bc5ccf35a010021c8de73090801"
+      },
+      {
+        "stepIndex": 34,
+        "timestamp": 1792342137894,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "7fc55dd3-5b4e-4130-8de0-77dbbe1360ed",
+          "type": "mouseMove",
+          "target": {
+            "x": 790,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342137238,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "3790f9e0cd3b686fec22b9aef74464f312163bc5ccf35a010021c8de73090801",
+        "hash": "205aa2282a8ea44cafea43395df9e45d9a71d6cdc7e9080b0901de148c42ad89"
+      },
+      {
+        "stepIndex": 35,
+        "timestamp": 1792342138485,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "7fc55dd3-5b4e-4130-8de0-77dbbe1360ed",
+          "type": "mouseMove",
+          "target": {
+            "x": 790,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342137238,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342138485,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "205aa2282a8ea44cafea43395df9e45d9a71d6cdc7e9080b0901de148c42ad89",
+        "hash": "0c1451a901cb906311b6b536740841ba12ec8747c890e7f6edfcd8b44b0848e2"
+      },
+      {
+        "stepIndex": 36,
+        "timestamp": 1792342138486,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "3f50f764-8fb8-42a4-ad97-96e25155f6d5",
+          "type": "mouseMove",
+          "target": {
+            "x": 910,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342138485,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "0c1451a901cb906311b6b536740841ba12ec8747c890e7f6edfcd8b44b0848e2",
+        "hash": "fe58614721ac97c821bd89367a21203927948c47878930c4afba87580b9f7109"
+      },
+      {
+        "stepIndex": 37,
+        "timestamp": 1792342139140,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "3f50f764-8fb8-42a4-ad97-96e25155f6d5",
+          "type": "mouseMove",
+          "target": {
+            "x": 910,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342138485,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "fe58614721ac97c821bd89367a21203927948c47878930c4afba87580b9f7109",
+        "hash": "e8b58bcb00f7fdf7d5938d113e8fe942d0a27a831dc4221e676b56a2aa56d6c5"
+      },
+      {
+        "stepIndex": 38,
+        "timestamp": 1792342139783,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "3f50f764-8fb8-42a4-ad97-96e25155f6d5",
+          "type": "mouseMove",
+          "target": {
+            "x": 910,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342138485,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342139782,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "e8b58bcb00f7fdf7d5938d113e8fe942d0a27a831dc4221e676b56a2aa56d6c5",
+        "hash": "4a1ae3b9328caef0f9f4559b4bf6c220d83587b610ef964133c6308d282ac32d"
+      },
+      {
+        "stepIndex": 39,
+        "timestamp": 1792342139783,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "d5da23a4-a83e-442e-82c7-f86b362b8a2d",
+          "type": "mouseMove",
+          "target": {
+            "x": 1030,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342139782,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "4a1ae3b9328caef0f9f4559b4bf6c220d83587b610ef964133c6308d282ac32d",
+        "hash": "4f3a89f574c7b821434f10d978ea119d47bfce043351047e522261d561c5f1c5"
+      },
+      {
+        "stepIndex": 40,
+        "timestamp": 1792342140444,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "d5da23a4-a83e-442e-82c7-f86b362b8a2d",
+          "type": "mouseMove",
+          "target": {
+            "x": 1030,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342139782,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "4f3a89f574c7b821434f10d978ea119d47bfce043351047e522261d561c5f1c5",
+        "hash": "31e46815661f11d73cb1c033590be297a351746d270a6b242a83fef140f02769"
+      },
+      {
+        "stepIndex": 41,
+        "timestamp": 1792342141029,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "d5da23a4-a83e-442e-82c7-f86b362b8a2d",
+          "type": "mouseMove",
+          "target": {
+            "x": 1030,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342139782,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342141028,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "31e46815661f11d73cb1c033590be297a351746d270a6b242a83fef140f02769",
+        "hash": "0f41116f2e3b1715e8338e0ba217db00c395203e79fce66ee0671900a82757bd"
+      },
+      {
+        "stepIndex": 42,
+        "timestamp": 1792342141029,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "b9c6f57b-8bd3-4c43-91a0-a3239d37769b",
+          "type": "mouseMove",
+          "target": {
+            "x": 1150,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342141028,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "0f41116f2e3b1715e8338e0ba217db00c395203e79fce66ee0671900a82757bd",
+        "hash": "95c560b70c2f156881c4992d3adfebfe4b62e0ca655e63a6cc3be83a52dc372a"
+      },
+      {
+        "stepIndex": 43,
+        "timestamp": 1792342141679,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "b9c6f57b-8bd3-4c43-91a0-a3239d37769b",
+          "type": "mouseMove",
+          "target": {
+            "x": 1150,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342141028,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "95c560b70c2f156881c4992d3adfebfe4b62e0ca655e63a6cc3be83a52dc372a",
+        "hash": "f5c2dc53285690ae50412e5178ae37dab6cd459268a34472aa0c4a6b30c20bf6"
+      },
+      {
+        "stepIndex": 44,
+        "timestamp": 1792342142284,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "b9c6f57b-8bd3-4c43-91a0-a3239d37769b",
+          "type": "mouseMove",
+          "target": {
+            "x": 1150,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342141028,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342142284,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "f5c2dc53285690ae50412e5178ae37dab6cd459268a34472aa0c4a6b30c20bf6",
+        "hash": "61acdd26ef922a708b59e3d7682792eadfac778824f39c7e9eb480d6c6329fd8"
+      },
+      {
+        "stepIndex": 45,
+        "timestamp": 1792342142285,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "9683f11f-5b12-4456-95f0-d88127687fd6",
+          "type": "mouseMove",
+          "target": {
+            "x": 1270,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342142284,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "61acdd26ef922a708b59e3d7682792eadfac778824f39c7e9eb480d6c6329fd8",
+        "hash": "7806252b838727dbb5e2d8760b8518fde49a943bed9fff4fd31118d88c191f4f"
+      },
+      {
+        "stepIndex": 46,
+        "timestamp": 1792342142930,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "9683f11f-5b12-4456-95f0-d88127687fd6",
+          "type": "mouseMove",
+          "target": {
+            "x": 1270,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342142284,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "7806252b838727dbb5e2d8760b8518fde49a943bed9fff4fd31118d88c191f4f",
+        "hash": "74a2be187b305d8f1dbc1068dd06365e93cce896001b0b569c45c509543f80ba"
+      },
+      {
+        "stepIndex": 47,
+        "timestamp": 1792342143515,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "9683f11f-5b12-4456-95f0-d88127687fd6",
+          "type": "mouseMove",
+          "target": {
+            "x": 1270,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342142284,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342143515,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "74a2be187b305d8f1dbc1068dd06365e93cce896001b0b569c45c509543f80ba",
+        "hash": "a2a91a7abbbcf80a23b293aec9150c855e138e8b572aac60422d54d6a77f94e3"
+      },
+      {
+        "stepIndex": 48,
+        "timestamp": 1792342143515,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "409417c0-4e74-403e-baa5-a028744a68a8",
+          "type": "mouseMove",
+          "target": {
+            "x": 1390,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342143515,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "a2a91a7abbbcf80a23b293aec9150c855e138e8b572aac60422d54d6a77f94e3",
+        "hash": "07b421af9eeb121a58c22ad3ef2d0b75e8256852b553dc3ac035015bc94bd175"
+      },
+      {
+        "stepIndex": 49,
+        "timestamp": 1792342144161,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "409417c0-4e74-403e-baa5-a028744a68a8",
+          "type": "mouseMove",
+          "target": {
+            "x": 1390,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342143515,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "07b421af9eeb121a58c22ad3ef2d0b75e8256852b553dc3ac035015bc94bd175",
+        "hash": "96dd9ebccebf50f79f2a7a6387d22e455b7ea60d25bfd3cd076e4d1945712ba9"
+      },
+      {
+        "stepIndex": 50,
+        "timestamp": 1792342144751,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "409417c0-4e74-403e-baa5-a028744a68a8",
+          "type": "mouseMove",
+          "target": {
+            "x": 1390,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342143515,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342144751,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "96dd9ebccebf50f79f2a7a6387d22e455b7ea60d25bfd3cd076e4d1945712ba9",
+        "hash": "edc5f2dbfd8b4e3c4dd0c4b6dc9122f1929a42bbce26f99dc4f0869100762aa2"
+      },
+      {
+        "stepIndex": 51,
+        "timestamp": 1792342144751,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "539d3f2b-3081-4775-9d4b-8a1265d4540b",
+          "type": "mouseMove",
+          "target": {
+            "x": 1510,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342144751,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "edc5f2dbfd8b4e3c4dd0c4b6dc9122f1929a42bbce26f99dc4f0869100762aa2",
+        "hash": "f06f0d8210b882b6f22b11d79f7a0e61aaf00328b4743133d8f2a1d42a82b9a4"
+      },
+      {
+        "stepIndex": 52,
+        "timestamp": 1792342145407,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "539d3f2b-3081-4775-9d4b-8a1265d4540b",
+          "type": "mouseMove",
+          "target": {
+            "x": 1510,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342144751,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "f06f0d8210b882b6f22b11d79f7a0e61aaf00328b4743133d8f2a1d42a82b9a4",
+        "hash": "c811e95cd869f06d2ef423f5d35c3b3a433a77cdc8a965847b19a268e123b716"
+      },
+      {
+        "stepIndex": 53,
+        "timestamp": 1792342146016,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "539d3f2b-3081-4775-9d4b-8a1265d4540b",
+          "type": "mouseMove",
+          "target": {
+            "x": 1510,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342144751,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342146015,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "c811e95cd869f06d2ef423f5d35c3b3a433a77cdc8a965847b19a268e123b716",
+        "hash": "15574ed86f27e33475d4bc144eadad0e117a39cc21f0246d165cba3dd13bebdd"
+      },
+      {
+        "stepIndex": 54,
+        "timestamp": 1792342146016,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "bb561236-5915-4303-bf9f-49d56a32a828",
+          "type": "mouseMove",
+          "target": {
+            "x": 1630,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342146015,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "15574ed86f27e33475d4bc144eadad0e117a39cc21f0246d165cba3dd13bebdd",
+        "hash": "982fde80caae6b91d625728c1203562f16a6e027f0c1df709c693d35d82cf575"
+      },
+      {
+        "stepIndex": 55,
+        "timestamp": 1792342146669,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "bb561236-5915-4303-bf9f-49d56a32a828",
+          "type": "mouseMove",
+          "target": {
+            "x": 1630,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342146015,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "982fde80caae6b91d625728c1203562f16a6e027f0c1df709c693d35d82cf575",
+        "hash": "8e8e18ba7b7e6f21d3ccc191a2a49d2dab236ff7cce1a53068651a9ddeff3724"
+      },
+      {
+        "stepIndex": 56,
+        "timestamp": 1792342147260,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "bb561236-5915-4303-bf9f-49d56a32a828",
+          "type": "mouseMove",
+          "target": {
+            "x": 1630,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342146015,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342147260,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "8e8e18ba7b7e6f21d3ccc191a2a49d2dab236ff7cce1a53068651a9ddeff3724",
+        "hash": "7ba75e220c6586c4493f1665bb3bc4142141afb15d74e59fecfe753198042b1f"
+      },
+      {
+        "stepIndex": 57,
+        "timestamp": 1792342147260,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "4ee9f14b-01c3-4c7b-9326-5a5cdb9c39a8",
+          "type": "mouseMove",
+          "target": {
+            "x": 1750,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342147260,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "7ba75e220c6586c4493f1665bb3bc4142141afb15d74e59fecfe753198042b1f",
+        "hash": "84c56d1ee6c8ad047c23d45488e2ee9538d570cb6ceb3b9b2307f1c3327b4e53"
+      },
+      {
+        "stepIndex": 58,
+        "timestamp": 1792342147902,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "4ee9f14b-01c3-4c7b-9326-5a5cdb9c39a8",
+          "type": "mouseMove",
+          "target": {
+            "x": 1750,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342147260,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "84c56d1ee6c8ad047c23d45488e2ee9538d570cb6ceb3b9b2307f1c3327b4e53",
+        "hash": "9437ba226977405d8d08d044e7ec8914f0a4201bb6653e80b506fbe4cd89d8c3"
+      },
+      {
+        "stepIndex": 59,
+        "timestamp": 1792342148564,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "4ee9f14b-01c3-4c7b-9326-5a5cdb9c39a8",
+          "type": "mouseMove",
+          "target": {
+            "x": 1750,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342147260,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342148564,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "9437ba226977405d8d08d044e7ec8914f0a4201bb6653e80b506fbe4cd89d8c3",
+        "hash": "479dcbbb6117305fd80bcad4aa288c9898128cae884a371933d1e0615eb8ee08"
+      },
+      {
+        "stepIndex": 60,
+        "timestamp": 1792342148564,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "3653e2f1-9513-49ca-8b75-15af62523cd2",
+          "type": "mouseMove",
+          "target": {
+            "x": 1850,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342148564,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "479dcbbb6117305fd80bcad4aa288c9898128cae884a371933d1e0615eb8ee08",
+        "hash": "c81f19acfb97b68764e69a19331aa31c419db8de4cc87dd702e3f05639626a6c"
+      },
+      {
+        "stepIndex": 61,
+        "timestamp": 1792342149219,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "3653e2f1-9513-49ca-8b75-15af62523cd2",
+          "type": "mouseMove",
+          "target": {
+            "x": 1850,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342148564,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "c81f19acfb97b68764e69a19331aa31c419db8de4cc87dd702e3f05639626a6c",
+        "hash": "922248d88aedb9fd69e2428e3af0143bb95d21f4e8dac560e96a56863251c57e"
+      },
+      {
+        "stepIndex": 62,
+        "timestamp": 1792342149933,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "3653e2f1-9513-49ca-8b75-15af62523cd2",
+          "type": "mouseMove",
+          "target": {
+            "x": 1850,
+            "y": 530
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342148564,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342149932,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "922248d88aedb9fd69e2428e3af0143bb95d21f4e8dac560e96a56863251c57e",
+        "hash": "7e0b7c32947c4ebd0e21c3a4128d9fc66f33403ee679a7f631f19e79280e72aa"
+      },
+      {
+        "stepIndex": 63,
+        "timestamp": 1792342149933,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "334dabe9-1d44-492a-a3bc-f0e66bbd0995",
+          "type": "mouseMove",
+          "target": {
+            "x": 1742,
+            "y": 477
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342149932,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "7e0b7c32947c4ebd0e21c3a4128d9fc66f33403ee679a7f631f19e79280e72aa",
+        "hash": "cf09c43894c27439aef484af47fdecb36d462b1a37a1635d58dd4e20c9ce9d0e"
+      },
+      {
+        "stepIndex": 64,
+        "timestamp": 1792342150602,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "334dabe9-1d44-492a-a3bc-f0e66bbd0995",
+          "type": "mouseMove",
+          "target": {
+            "x": 1742,
+            "y": 477
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342149932,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "cf09c43894c27439aef484af47fdecb36d462b1a37a1635d58dd4e20c9ce9d0e",
+        "hash": "1fcc74ea587d50fdab103404d524c1da7006ca0c07787e37596bbdad087be7ff"
+      },
+      {
+        "stepIndex": 65,
+        "timestamp": 1792342151195,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "334dabe9-1d44-492a-a3bc-f0e66bbd0995",
+          "type": "mouseMove",
+          "target": {
+            "x": 1742,
+            "y": 477
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342149932,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342151195,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "1fcc74ea587d50fdab103404d524c1da7006ca0c07787e37596bbdad087be7ff",
+        "hash": "a761a1eb8f4de0ef5b3bbdf402b39c9bc820aaf829891075ba2f5afd316505a4"
+      },
+      {
+        "stepIndex": 66,
+        "timestamp": 1792342151196,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "1ece72ae-e4ad-464a-9a1a-df4872212ca4",
+          "type": "mouseMove",
+          "target": {
+            "x": 1634,
+            "y": 424
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342151195,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "a761a1eb8f4de0ef5b3bbdf402b39c9bc820aaf829891075ba2f5afd316505a4",
+        "hash": "2060d10be61e576a96d40542bd0d4ee81b1ea58a4c4feed11144b1ec67d3f37b"
+      },
+      {
+        "stepIndex": 67,
+        "timestamp": 1792342151856,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "1ece72ae-e4ad-464a-9a1a-df4872212ca4",
+          "type": "mouseMove",
+          "target": {
+            "x": 1634,
+            "y": 424
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342151195,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "2060d10be61e576a96d40542bd0d4ee81b1ea58a4c4feed11144b1ec67d3f37b",
+        "hash": "99c055623e7ae9e535eaa3bf2e152bb13acc342c6b84b7aa69d089024a87dd96"
+      },
+      {
+        "stepIndex": 68,
+        "timestamp": 1792342152603,
+        "modelId": "local-movement-only",
+        "action": {
+          "id": "1ece72ae-e4ad-464a-9a1a-df4872212ca4",
+          "type": "mouseMove",
+          "target": {
+            "x": 1634,
+            "y": 424
+          },
+          "durationMs": 350,
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792342151195,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792342152603,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": false,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "unverified",
+        "approval": null,
+        "error": null,
+        "previousHash": "99c055623e7ae9e535eaa3bf2e152bb13acc342c6b84b7aa69d089024a87dd96",
+        "hash": "99dd4f4c0755d5e5e68454cbf9235a89e2b447479ffa0c9d823bf3168b827087"
+      }
+    ]
+  }
+}

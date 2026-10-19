@@ -1,0 +1,25 @@
+{
+  "result": "accepted_scoped_web_preview",
+  "sourceMatchesAttachment": true,
+  "files": [
+    {
+      "file": "MagicRings.jsx",
+      "sha256": "960c7b61da905155078dcea6a9ddef0d9d146c0cf61c6eebb2165943a747b7d2",
+      "bytes": 30920
+    },
+    {
+      "file": "MagicRings.css",
+      "sha256": "15d697f2684c9546671649fae007cc9338e76cca1b37a6ed6222b8a90643e399",
+      "bytes": 223
+    }
+  ],
+  "build": "passed",
+  "focusedServerTest": "passed",
+  "browserEscape": "passed",
+  "hostSize": "120px",
+  "colors": [
+    "#303b51",
+    "#68758d"
+  ],
+  "nativeWindowsChanged": false
+}

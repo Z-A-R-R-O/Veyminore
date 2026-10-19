@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": "./src/cli.js",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "demo": "node src/demo.js"
   }
 }

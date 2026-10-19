@@ -1,0 +1,28 @@
+{
+  "checkpoint": "2026-10-17T04:51:01Z",
+  "sharedInstructions": "Codex independent review update. Keep existing scope ownership and preserve other workers' changes. Zero live inference, no .env reads, no commits or pushes. Use minimal context and focused offline regressions. Update your receipt accurately. Do not expand scope without acceptance. Exact current instructions follow.",
+  "agents": {
+    "AGR-1": {
+      "taskId": "W1R2-AGR1-trust-compatibility",
+      "objective": "Your 83 tests pass but two P1 blockers remain. compatibility/dispatcher.js still treats raw receipt.checks objects {passed:true} as independent evidence and invents dispatcher_verifier. Only explicitly supplied options.trustedChecks may verify, with explicit verifier identity. Preserve ALL receipt checks as unverified worker claims. Test fabricated structured checks, strings, mixed claims and failed trusted checks. Also protocolAssignmentToDispatcherEnvelope returns allowedPaths as an object, but actual Dispatcher.validateEnvelope requires an array. Preserve authority while producing a valid consumer envelope, or reject unsupported asymmetric conversion until the consumer explicitly supports partitions. Test against actual Dispatcher.validateEnvelope using read-only imports; do not edit its package. Session/path/check-drop fixes were verified. Finish these blockers before policy-service dispatch."
+    },
+    "AGR-2": {
+      "taskId": "W1R-AGR2-validation",
+      "objective": "Steering within your current rework, not a duplicate assignment: the canonical scope fix is independently verified (13 focused tests pass). Updated source failure precedence looks correct. Before completion, add explicit regressions for transport failure before any edit and budget exhaustion before any edit. Assert original failureReason plus separate diffOutcome. Update your stale receipt and run full offline package tests. Then wait for acceptance before the tool registry task."
+    },
+    "AGR-3": {
+      "taskId": "W1R2-AGR3-fixture-isolation",
+      "objective": "Recovery corrections verified with 26 passing tests from a fresh temporary cwd. Finish P2 fixture safety: test/dispatcher.test.js lines 8-13 uses cwd/test-journal.jsonl and deletes a possibly pre-existing file. Its rm('...quarantine*') treats wildcard literally, leaving many source artifacts. Use per-run owned mkdtemp directories and cleanup hooks. Prove two repeated suite runs leave no source artifacts and preserve a sentinel cwd/test-journal.jsonl. Existing generated repository quarantine artifacts may be removed only after confirming their exact source-test location and generated origin, without broad deletion. Correct receipt wording 'fully crash-resilient' to the exact verified corruption/framing guarantees; no fsync/locking/integrity claims. After independent acceptance, durable TaskStore is next."
+    },
+    "AGR-4": {
+      "taskId": "W2-AGR4-providers",
+      "acceptance": "W1R adapter accepted as an isolated package increment: build and 18 offline tests pass with one live smoke skipped; agent-tools unit/integration pass. No live app compatibility claim.",
+      "ownedPaths": ["packages/model-providers/", "docs/execution/AGR-4.md"],
+      "objective": "Proceed now with W2-AGR4-providers from NEXT-TASKS.json. Create the dependency-free provider-neutral next/checkAccess contract and mocked OpenRouter/OpenCode/Groq-compatible adapters in packages/model-providers only. Use current official endpoints in FREE-PROVIDERS.md. Inject config/credentials/fetch; never read .env. Explicit metadata must identify model/tool support, price evidence, data policy and eligibility. Free-only routing rejects unknown/nonzero prices and unapproved destinations; no paid fallback. Tests cover malformed tools/usage, deadlines, 400/401/402/429/5xx, disabled live mode, transport uncertainty and secret redaction. Do not integrate into RCT until review. Gemini and other providers follow this first accepted adapter increment. Preserve earlier receipt and add W2 section."
+    },
+    "AGR-5": {
+      "taskId": "W1R-AGR5-baseline",
+      "objective": "Steering within current baseline rework: npm JS CLI resolution now passes independent focused workspace tests (7 pass, one file-symlink skip). Remaining P1: scripts/zetro-check.js around line 177 deletes ZETRO_LIVE_SMOKE only when parent is not '1', so deterministic npm test/check still executes live when inherited flag is '1'. Unconditionally disable live smoke in deterministic harness and test parent values 1/0/false/unset with a sentinel that fails if live discovery runs. Keep explicit live command separate. Then refresh full-suite counts/skips and receipt. Do not implement provider-config until independent acceptance."
+    }
+  }
+}

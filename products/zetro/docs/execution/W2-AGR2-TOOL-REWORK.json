@@ -1,0 +1,11 @@
+{
+  "taskId": "W2R-AGR2-scoped-tools",
+  "ownedPaths": ["packages/rct-runtime/", "docs/execution/AGR-2.md"],
+  "objective": "Independent review rejects W2 executable extensions despite32 focused passing tests. Preserve the useful registry and baseline compatibility. Fix the four blockers with fake adapters and harmless fixtures, zero live calls/env reads, no other worker edits or installs. Do not expand to more tools before acceptance.",
+  "findings": [
+    "P1 check_command accepts worker args --import ../../outside.mjs through Node test profile and has empty checkScope. Commands and argv must come from immutable supervisor-approved profiles, not arbitrary worker options. Reject Node loading/eval switches and paths outside explicit roots. Arbitrary shell and package scripts are not sandboxed by cwd. Prove denied request never spawns.",
+    "P1 git_readonly accepts diff --no-index outside files with empty checkScope. Replace blacklists with fixed operations and validated scoped paths. Start with one scoped status operation; disable external diff, textconv, pager and repository/config-driven process effects. No worker-controlled general argv. Prove outside reads/mutations never execute.",
+    "P1 build profile runs node -e process.exit(0), falsely certifying a build. Typecheck runs syntax checking. Remove these fake-success profiles. Unsupported checks return explicit unavailable without verification credit. Real checks require actual coordinator-selected executable/argv and relevant acceptance evidence.",
+    "P2 read preflight only checks used>=max: with99/100 bytes used a2-byte read still invokes handler. Enforce actual/reserved per-call and cumulative budget before handler, and carry remaining task deadline/output accounting into extensions. Test stub handler not called on this boundary. Ensure schema exposure intersects explicit options.tools with assignment write capability; read-only tasks must not advertise propose_patch."
+  ]
+}

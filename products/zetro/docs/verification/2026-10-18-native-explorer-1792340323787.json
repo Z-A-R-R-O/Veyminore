@@ -1,0 +1,393 @@
+{
+  "success": true,
+  "status": "completed",
+  "summary": "Goal independently verified",
+  "folderPath": "C:\\Users\\sunda\\Downloads\\zetro-qualification-f5f34500",
+  "native": true,
+  "sessionId": "explorer-686195b8-7466-4428-8ac9-b763cfcbb2c8",
+  "target": {
+    "hwnd": 920714,
+    "processId": 28968,
+    "processName": "explorer",
+    "minimized": false,
+    "visible": true,
+    "generation": "920714:28968:639279370333143415",
+    "title": "Downloads - File Explorer",
+    "bounds": {
+      "x": -8,
+      "y": -8,
+      "width": 1936,
+      "height": 1048
+    },
+    "dpi": 96
+  },
+  "steps": 4,
+  "journal": {
+    "id": "journal-683713b1-3a8e-4cdf-94ab-0e71902861b5",
+    "taskGoal": "Open File Explorer and create a folder named \"zetro-qualification-f5f34500\" in Downloads",
+    "startTime": 1792340328128,
+    "endTime": 1792340333296,
+    "summary": {
+      "id": "journal-683713b1-3a8e-4cdf-94ab-0e71902861b5",
+      "taskGoal": "Open File Explorer and create a folder named \"zetro-qualification-f5f34500\" in Downloads",
+      "durationMs": 5168,
+      "totalSteps": 10,
+      "modelsUsed": [
+        "bounded-local-explorer"
+      ],
+      "successfulSteps": 4,
+      "interruptedSteps": 0,
+      "failedSteps": 0,
+      "rejectedSteps": 0,
+      "approvalsRequested": 0,
+      "integrityVerified": true
+    },
+    "entries": [
+      {
+        "stepIndex": 0,
+        "timestamp": 1792340328709,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "635a084e-a1da-4b9e-a537-03e38fe108df",
+          "type": "pressKeys",
+          "keys": [
+            "Control",
+            "Shift",
+            "N"
+          ],
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340328708,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "caf0e623c9f7167b8e261c3e752141b89369c58df7db55dfde4d8d4d6a892c99"
+      },
+      {
+        "stepIndex": 1,
+        "timestamp": 1792340329738,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "635a084e-a1da-4b9e-a537-03e38fe108df",
+          "type": "pressKeys",
+          "keys": [
+            "Control",
+            "Shift",
+            "N"
+          ],
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340328708,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "caf0e623c9f7167b8e261c3e752141b89369c58df7db55dfde4d8d4d6a892c99",
+        "hash": "3995586e6a0941dd50e83688f5e743c8ecf09d8e8ce178d8c5c610859fc641de"
+      },
+      {
+        "stepIndex": 2,
+        "timestamp": 1792340330322,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "635a084e-a1da-4b9e-a537-03e38fe108df",
+          "type": "pressKeys",
+          "keys": [
+            "Control",
+            "Shift",
+            "N"
+          ],
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340328708,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792340330322,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "3995586e6a0941dd50e83688f5e743c8ecf09d8e8ce178d8c5c610859fc641de",
+        "hash": "ee81da22f2a6d533a756da2df921137cd7cf13f542b1ff99d491c5e829683b46"
+      },
+      {
+        "stepIndex": 3,
+        "timestamp": 1792340330322,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "6021b2f2-1718-407c-b136-c9ef3ef065ce",
+          "type": "typeText",
+          "text": "zetro-qualification-f5f34500",
+          "delayMs": 0,
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340330322,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "ee81da22f2a6d533a756da2df921137cd7cf13f542b1ff99d491c5e829683b46",
+        "hash": "f7fbdf86fe089cffb84aa927f6ccbb80a18387ca67bae7a674792b6c7312270c"
+      },
+      {
+        "stepIndex": 4,
+        "timestamp": 1792340331023,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "6021b2f2-1718-407c-b136-c9ef3ef065ce",
+          "type": "typeText",
+          "text": "zetro-qualification-f5f34500",
+          "delayMs": 0,
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340330322,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "f7fbdf86fe089cffb84aa927f6ccbb80a18387ca67bae7a674792b6c7312270c",
+        "hash": "1aeb7dfba76f9d66c87e07868a96c59e9a8710dcd59cf72dff7c52eef39c7808"
+      },
+      {
+        "stepIndex": 5,
+        "timestamp": 1792340331585,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "6021b2f2-1718-407c-b136-c9ef3ef065ce",
+          "type": "typeText",
+          "text": "zetro-qualification-f5f34500",
+          "delayMs": 0,
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340330322,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792340331585,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "1aeb7dfba76f9d66c87e07868a96c59e9a8710dcd59cf72dff7c52eef39c7808",
+        "hash": "b8d3b2ff8bfed3be94a340aa55dae08c0c85a2c9c79edcca10fdc27373f7c3cd"
+      },
+      {
+        "stepIndex": 6,
+        "timestamp": 1792340331585,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "7ad54c52-e585-47e7-8d46-90c01832c785",
+          "type": "pressKeys",
+          "keys": [
+            "Enter"
+          ],
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340331585,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "intent",
+        "approval": null,
+        "error": null,
+        "previousHash": "b8d3b2ff8bfed3be94a340aa55dae08c0c85a2c9c79edcca10fdc27373f7c3cd",
+        "hash": "8146becd6cad6d0467b34d118db522cbba670d132ff272f852c84b62c253f650"
+      },
+      {
+        "stepIndex": 7,
+        "timestamp": 1792340332720,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "7ad54c52-e585-47e7-8d46-90c01832c785",
+          "type": "pressKeys",
+          "keys": [
+            "Enter"
+          ],
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340331585,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "executed",
+        "approval": null,
+        "error": null,
+        "previousHash": "8146becd6cad6d0467b34d118db522cbba670d132ff272f852c84b62c253f650",
+        "hash": "0a47a29aaa45b1e96b9ddfad3e2a442915f202c99721577c4db35ee3e3e3cb56"
+      },
+      {
+        "stepIndex": 8,
+        "timestamp": 1792340333295,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "7ad54c52-e585-47e7-8d46-90c01832c785",
+          "type": "pressKeys",
+          "keys": [
+            "Enter"
+          ],
+          "riskLevel": "reversible_ui"
+        },
+        "observationBefore": {
+          "timestamp": 1792340331585,
+          "imageHash": null
+        },
+        "observationAfter": {
+          "timestamp": 1792340333294,
+          "imageHash": null
+        },
+        "executionResult": {
+          "success": true,
+          "durationMs": 0,
+          "details": null
+        },
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "0a47a29aaa45b1e96b9ddfad3e2a442915f202c99721577c4db35ee3e3e3cb56",
+        "hash": "f139e8ce878a98b541f9d62c69af952fbfe4981100fa808d7a927cf6707c68a1"
+      },
+      {
+        "stepIndex": 9,
+        "timestamp": 1792340333296,
+        "modelId": "bounded-local-explorer",
+        "action": {
+          "id": "66d2ea78-a655-4b49-b005-b7b300bed1da",
+          "type": "finish",
+          "success": true,
+          "summary": "",
+          "riskLevel": "benign"
+        },
+        "observationBefore": {
+          "timestamp": 1792340333294,
+          "imageHash": null
+        },
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": {
+          "verified": true,
+          "method": "visual",
+          "details": null
+        },
+        "riskLevel": "benign",
+        "status": "success",
+        "approval": null,
+        "error": null,
+        "previousHash": "f139e8ce878a98b541f9d62c69af952fbfe4981100fa808d7a927cf6707c68a1",
+        "hash": "b36b91b6e18e13844e0b4e3304dd10d04175ab9ddf0687fe9640e2d5035371af"
+      }
+    ]
+  },
+  "operator": "Codex",
+  "startedAt": 1792340323787,
+  "finishedAt": 1792340334069,
+  "independentDirectoryCheck": true,
+  "disposableFixtureCleaned": true,
+  "helloPreexisted": true,
+  "nativeNegativeChecks": [
+    {
+      "name": "foreign_pid",
+      "denied": true,
+      "code": "IDENTITY_MISMATCH"
+    },
+    {
+      "name": "expired_grant",
+      "denied": true,
+      "code": "GRANT_EXPIRED"
+    },
+    {
+      "name": "wrong_location",
+      "denied": true,
+      "code": "IDENTITY_MISMATCH"
+    },
+    {
+      "name": "wrong_focus",
+      "denied": true,
+      "code": "FOREGROUND_VERIFICATION_FAILED"
+    }
+  ],
+  "sourceHashes": {
+    "packages/computer-windows-provider/helper/ZetroWindowHelper.cs": "c172d1c636cf5642a898bbd44f2370acdc50f949fbb9b8bd9a2f686bb3c2a4e1",
+    "packages/computer-windows-provider/helper/ZetroWindowHelper.exe": "a10f9e879603d037a8bb8a32a7e29cfb0a235292b2e4c45403fc11d735ce5fde",
+    "packages/computer-agent/src/explorer-native-host.js": "c1bf69f0a1507ce58fafce990d19c48c5803487e05749ce761f592551a35b44b",
+    "packages/computer-agent/src/universal/universal-loop.js": "312e6228f5ac5505b2295c23c76c5c4306cb16d8c00a0c4292acb5ebbfa7c98a"
+  }
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ZETRO Orb</title>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:system-ui,-apple-system,sans-serif;color:#c8d0da}
+    body{display:flex;flex-direction:column;align-items:center;justify-content:center}
+    #orb-canvas{width:100%;height:100%;position:fixed;top:0;left:0;z-index:0}
+    .ui{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+    .ui button{
+      padding:8px 18px;border:1px solid rgba(255,255,255,.12);border-radius:100px;
+      background:rgba(255,255,255,.04);color:#c8d0da;font-size:13px;cursor:pointer;
+      backdrop-filter:blur(12px);transition:all .2s ease;letter-spacing:.3px;
+    }
+    .ui button:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+    .ui button[aria-pressed="true"]{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);color:#fff}
+    .ui button.stop{border-color:rgba(255,100,80,.3);color:rgba(255,140,120,.9)}
+    .ui button.stop:hover{background:rgba(255,80,60,.12)}
+    .state-label{
+      position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:10;
+      text-align:center;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+      color:rgba(200,210,220,.45);transition:opacity .4s ease;
+    }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="orb-canvas"></canvas>
+  <div class="state-label" id="state-label">DORMANT</div>
+  <div class="ui" role="group" aria-label="Orb states">
+    <button data-state="idle" aria-pressed="true">Idle</button>
+    <button data-state="activation" aria-pressed="false">Wake</button>
+    <button data-state="listening" aria-pressed="false">Listen</button>
+    <button data-state="thinking" aria-pressed="false">Think</button>
+    <button data-state="speaking" aria-pressed="false">Speak</button>
+    <button data-state="completion" aria-pressed="false">Complete</button>
+    <button data-state="idle" class="stop" aria-pressed="false">Reset</button>
+  </div>
+  <script type="module" src="./zetro-orb-engine.js"></script>
+</body>
+</html>

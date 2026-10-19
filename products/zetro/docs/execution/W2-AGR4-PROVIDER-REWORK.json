@@ -1,0 +1,13 @@
+{
+  "taskId": "W2R-AGR4-provider-containment",
+  "ownedPaths": ["packages/model-providers/", "docs/execution/AGR-4.md"],
+  "objective": "Independent review rejects W2 despite 33 passing mocks. Fix bounded issues below with fake keys and injected fetch only. No actual .env reads, network, or live inference. Preserve failed-review evidence and update receipt. Finish and wait for independent review.",
+  "findings": [
+    "P1 base.js modelsEndpoint accepts arbitrary destination and sends Bearer credential. Validate exact provider-specific chat/models/auth endpoints separately immediately before every request. Reject redirects and unapproved custom destinations. Test every request path with fake credentials and assert no fetch on rejection.",
+    "P1 metadata.js invents price0/tool support/context for arbitrary :free suffix; OpenRouter checkAccess infers modelAvailable from auth alone. Use verified metadata with source/time and explicit unknown/unavailable states. OpenCode IDs must be API slugs, not display names. Distinguish account free eligibility from proven zero route cost. Unknown prices/capabilities cannot authorize inference. Do not embed deprecated model IDs as verified-current defaults.",
+    "P1 base.js accepts negative/string token usage and defaults missing usage to0. Require finite nonnegative integers; missing usage must be explicit unknown/accounting failure, never zero-consumption evidence.",
+    "P2 base.js accepts tool names outside selected tools and args:null. Validate membership and a non-array object argument shape before returning to runtime. Test absent and malformed tool calls.",
+    "P2 errors.js leaves structured causes and aggregate errors containing synthetic keys unsanitized. Sanitize recursively with cycle protection, avoid echoing payloads, and scrub accepted key lengths. Test direct, nested, aggregate, cyclic and plain-object error forms.",
+    "Keep the transport configuration interface compatible with the central explicit live-authorization gate. Provider key presence alone must not enable calls. Parent's live benchmark uses a frozen legacy runtime and is separately authorized; do not reproduce it or copy keys."
+  ]
+}

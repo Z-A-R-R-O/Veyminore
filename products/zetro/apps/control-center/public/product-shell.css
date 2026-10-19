@@ -1,0 +1,779 @@
+/**
+ * @file product-shell.css
+ * ZETRO IFZ Unified Product Shell Stylesheet.
+ *
+ * Implements design tokens and layout rules from docs/IFZ-UNIFIED-APP-ARCHITECTURE.md:
+ * - Satoshi typography throughout
+ * - Black / white / graphite palette
+ * - Three-dock identity (left utility, center navigation, right utility) with magnification
+ * - Floating top navigation and grouped flyout menu (Product, IFZ, System)
+ * - Sliding left (Conversations) and right (Route, Context, Inspector) panels
+ * - Responsive breakpoints (wide desktop, laptop, tablet, mobile)
+ * - Reduced motion and accessible focus states
+ * - Scoped development tweak styling
+ */
+
+:root {
+  /* Global Design Tokens */
+  --ps-canvas: #08090A;
+  --ps-surface: #111216;
+  --ps-surface-raised: #17181D;
+  --ps-surface-glass: rgba(18, 20, 24, 0.92);
+  --ps-surface-glass-border: rgba(255, 255, 255, 0.10);
+
+  --ps-text-primary: #F4F4F2;
+  --ps-text-secondary: #9B9DA4;
+  --ps-text-quiet: #696C74;
+  --ps-divider: rgba(255, 255, 255, 0.09);
+  --ps-active: #FFFFFF;
+
+  /* Semantic Accents */
+  --ps-accent-green: #3fb950;
+  --ps-accent-amber: #d29922;
+  --ps-accent-red: #f85149;
+  --ps-accent-ring: rgba(140, 230, 184, 0.9);
+
+  /* Spacing Scale (4px base) */
+  --ps-space-4: 4px;
+  --ps-space-8: 8px;
+  --ps-space-12: 12px;
+  --ps-space-16: 16px;
+  --ps-space-24: 24px;
+  --ps-space-32: 32px;
+  --ps-space-48: 48px;
+
+  /* Typography */
+  --ps-font-sans: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ps-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Dock Geometry */
+  --ps-dock-height: 64px;
+  --ps-dock-tile-size: 46px;
+  --ps-dock-radius: 18px;
+  --ps-tile-radius: 11px;
+}
+
+/* Base Shell Reset */
+.ps-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--ps-canvas);
+  color: var(--ps-text-primary);
+  font-family: var(--ps-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ps-shell *,
+.ps-shell *::before,
+.ps-shell *::after {
+  box-sizing: inherit;
+}
+
+/* Focus Visibility */
+.ps-shell button:focus-visible,
+.ps-shell a:focus-visible,
+.ps-shell [tabindex]:focus-visible {
+  outline: 2px solid var(--ps-accent-ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Top Navigation Bar & Grouped Menu
+   ========================================================================== */
+
+.ps-top-nav-container {
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  padding: 0 var(--ps-space-16);
+  pointer-events: none;
+}
+
+.ps-top-nav {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1350px;
+  height: 52px;
+  padding: 0 var(--ps-space-16);
+  background: var(--ps-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--ps-surface-glass-border);
+  border-radius: 14px;
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.75), 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.ps-top-nav__left {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-space-12);
+}
+
+.ps-top-nav__menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ps-space-8);
+  height: 32px;
+  padding: 0 var(--ps-space-12);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--ps-text-primary);
+  font-family: var(--ps-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.ps-top-nav__menu-trigger:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ps-top-nav__center {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-space-12);
+  user-select: none;
+}
+
+.ps-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(180deg, #2A2A30 0%, #18191C 100%);
+  border-radius: 7px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22), 0 2px 6px rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 850;
+  letter-spacing: -0.06em;
+}
+
+.ps-brand-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--ps-text-primary);
+}
+
+.ps-route-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: var(--ps-space-12);
+  border-left: 1px solid var(--ps-divider);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ps-text-secondary);
+}
+
+.ps-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ps-accent-green);
+  box-shadow: 0 0 6px rgba(63, 185, 80, 0.8);
+  flex-shrink: 0;
+}
+
+.ps-status-dot--connected {
+  background: var(--ps-accent-green);
+  box-shadow: 0 0 6px rgba(63, 185, 80, 0.8);
+}
+
+.ps-status-dot--disconnected {
+  background: var(--ps-accent-red);
+  box-shadow: none;
+}
+
+.ps-status-dot--stale,
+.ps-status-dot--unknown {
+  background: var(--ps-accent-amber);
+  box-shadow: none;
+}
+
+.ps-status-dot--pulse {
+  animation: ps-pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes ps-pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.9); }
+}
+
+.ps-top-nav__right {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-space-12);
+}
+
+.ps-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 var(--ps-space-8);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 550;
+  color: var(--ps-text-secondary);
+}
+
+.ps-chip--quiet {
+  opacity: 0.65;
+  color: var(--ps-text-quiet);
+}
+
+.ps-chip--ifz {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--ps-text-primary);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.ps-chip--ifz-active {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+}
+
+.ps-chip--ifz-inactive {
+  opacity: 0.6;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--ps-text-quiet);
+}
+
+/* Grouped Top Menu Flyout */
+.ps-top-menu-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 110;
+  display: flex;
+  justify-content: center;
+  padding-top: 74px;
+}
+
+.ps-top-menu {
+  width: 100%;
+  max-width: 1120px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  background: var(--ps-surface);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 32px 72px -16px rgba(0, 0, 0, 0.9), 0 8px 24px rgba(0, 0, 0, 0.6);
+  padding: var(--ps-space-24);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--ps-space-24);
+}
+
+.ps-menu-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-space-12);
+}
+
+.ps-menu-group__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ps-text-primary);
+}
+
+.ps-menu-group__desc {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ps-text-quiet);
+}
+
+.ps-menu-group__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ps-space-4);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ps-menu-item-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--ps-space-8) var(--ps-space-12);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font-family: var(--ps-font-sans);
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.ps-menu-item-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.ps-menu-item-btn--active {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ps-menu-item__label {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--ps-text-primary);
+}
+
+.ps-menu-item__desc {
+  font-size: 11px;
+  color: var(--ps-text-quiet);
+}
+
+.ps-menu-item__badge-dev {
+  align-self: flex-start;
+  margin-top: 2px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(210, 153, 34, 0.18);
+  color: var(--ps-accent-amber);
+  border: 1px solid rgba(210, 153, 34, 0.35);
+}
+
+/* ==========================================================================
+   Main Viewport Content Area
+   ========================================================================== */
+
+.ps-main-viewport {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding-top: 76px;
+  padding-bottom: 96px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.ps-view-content {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 var(--ps-space-24);
+}
+
+.ps-view-header {
+  margin-bottom: var(--ps-space-24);
+}
+
+.ps-view-header__title {
+  margin: 0 0 var(--ps-space-4) 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ps-view-header__purpose {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ps-text-secondary);
+}
+
+/* ==========================================================================
+   Three Bottom Docks (Left Utility, Center Navigation, Right Utility)
+   ========================================================================== */
+
+.ps-docks-container {
+  position: fixed;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--ps-space-12);
+  z-index: 90;
+  pointer-events: none;
+  padding: 0 var(--ps-space-12);
+}
+
+.ps-dock {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--ps-space-8);
+  height: var(--ps-dock-height);
+  padding: 0 var(--ps-space-12);
+  background: var(--ps-surface-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--ps-surface-glass-border);
+  border-radius: var(--ps-dock-radius);
+  box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.85), 0 8px 24px -4px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.ps-dock-tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--ps-dock-tile-size);
+  height: var(--ps-dock-tile-size);
+  background: linear-gradient(180deg, #262932 0%, #181a20 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--ps-tile-radius);
+  color: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.18s cubic-bezier(0.2, 1.25, 0.4, 1), background 0.15s ease, border-color 0.15s ease;
+}
+
+/* Dock tile magnification on hover */
+.ps-dock-tile:hover {
+  transform: translateY(-5px) scale(1.18);
+  border-color: rgba(255, 255, 255, 0.28);
+  background: linear-gradient(180deg, #323642 0%, #1f222a 100%);
+  z-index: 5;
+}
+
+.ps-dock-tile:active {
+  transform: translateY(-2px) scale(1.08);
+  filter: brightness(0.85);
+}
+
+/* Tile Active Glow & Indicator Dot */
+.ps-dock-tile--active {
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2), 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.ps-dock-tile__indicator {
+  position: absolute;
+  bottom: -7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+/* Notification & Count Badges */
+.ps-dock-tile__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--ps-accent-red);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 750;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Dock Tooltip */
+.ps-dock-tile .ps-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: #121418;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.ps-dock-tile:hover .ps-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* Separator between items */
+.ps-dock__separator {
+  width: 1px;
+  height: 28px;
+  background: var(--ps-divider);
+  margin: 0 2px;
+}
+
+/* ==========================================================================
+   Side Panels (Left: Conversations | Right: Route, Context, Inspector)
+   ========================================================================== */
+
+.ps-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 85;
+  background: var(--ps-surface);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.24s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0.24s;
+  box-shadow: 0 0 48px rgba(0, 0, 0, 0.7);
+}
+
+.ps-panel:not(.ps-panel--open) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Left Panel (Conversations) */
+.ps-panel--left {
+  left: 0;
+  width: 380px;
+  border-right: 1px solid var(--ps-divider);
+  transform: translateX(-100%);
+}
+
+.ps-panel--left.ps-panel--open {
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+/* Right Panel (Route, Context, Inspector) */
+.ps-panel--right {
+  right: 0;
+  width: 440px;
+  border-left: 1px solid var(--ps-divider);
+  transform: translateX(100%);
+}
+
+.ps-panel--right.ps-panel--open {
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.ps-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 var(--ps-space-16);
+  border-bottom: 1px solid var(--ps-divider);
+}
+
+.ps-panel__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--ps-text-primary);
+}
+
+.ps-panel__close-btn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: var(--ps-text-secondary);
+  cursor: pointer;
+}
+
+.ps-panel__close-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ps-text-primary);
+}
+
+.ps-panel__tabs {
+  display: flex;
+  gap: var(--ps-space-4);
+  padding: var(--ps-space-8) var(--ps-space-16);
+  border-bottom: 1px solid var(--ps-divider);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ps-panel__tab-btn {
+  flex: 1;
+  padding: 6px var(--ps-space-8);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--ps-text-secondary);
+  font-family: var(--ps-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.ps-panel__tab-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ps-text-primary);
+}
+
+.ps-panel__tab-btn--active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.ps-panel__body {
+  flex: 1;
+  padding: var(--ps-space-16);
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   Development Tweak Modal (Explicitly Scoped from Product Authority)
+   ========================================================================== */
+
+.ps-tweak-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 120;
+  display: grid;
+  place-items: center;
+}
+
+.ps-tweak-card {
+  width: 90%;
+  max-width: 460px;
+  background: var(--ps-surface-raised);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: var(--ps-space-24);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85);
+}
+
+.ps-tweak-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: var(--ps-space-8);
+  padding: var(--ps-space-8) var(--ps-space-12);
+  margin-bottom: var(--ps-space-16);
+  border-radius: 6px;
+  background: rgba(210, 153, 34, 0.15);
+  border: 1px solid rgba(210, 153, 34, 0.3);
+  color: var(--ps-accent-amber);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Responsive Adaptations & Media Queries
+   ========================================================================== */
+
+/* Wide desktop: allows both panels to coexist without covering central content */
+@media (min-width: 1440px) {
+  .ps-shell--both-panels-open .ps-main-viewport {
+    padding-left: 390px;
+    padding-right: 450px;
+  }
+}
+
+/* Laptop: closes side panel if another is opened, slightly smaller docks */
+@media (max-width: 1200px) {
+  .ps-top-nav {
+    max-width: 96%;
+  }
+  .ps-top-menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet & Narrow Laptop */
+@media (max-width: 900px) {
+  .ps-panel--left,
+  .ps-panel--right {
+    width: 90vw;
+    max-width: 400px;
+  }
+  .ps-top-menu {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile: compact single dock, full-width overlay sheets */
+@media (max-width: 640px) {
+  .ps-top-nav {
+    height: 46px;
+  }
+  .ps-route-indicator,
+  .ps-chip:not(.ps-chip--ifz) {
+    display: none;
+  }
+  .ps-docks-container {
+    bottom: 8px;
+    gap: 6px;
+  }
+  .ps-dock {
+    height: 52px;
+    padding: 0 6px;
+    gap: 4px;
+  }
+  .ps-dock-tile {
+    width: 38px;
+    height: 38px;
+  }
+  .ps-panel--left,
+  .ps-panel--right {
+    width: 100vw;
+  }
+}
+
+/* ==========================================================================
+   Accessibility: Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-dock-tile,
+  .ps-dock-tile:hover,
+  .ps-panel,
+  .ps-top-nav__menu-trigger,
+  .ps-menu-item-btn {
+    transition: none !important;
+    transform: none !important;
+  }
+  .ps-status-dot {
+    box-shadow: none !important;
+  }
+}

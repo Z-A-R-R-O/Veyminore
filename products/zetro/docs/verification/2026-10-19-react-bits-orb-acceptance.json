@@ -1,0 +1,36 @@
+{
+  "acceptedAt": "2026-10-18T22:12:29.130Z",
+  "registry": "https://reactbits.dev/r/Orb-JS-CSS.json",
+  "source": [
+    {
+      "file": "Orb.jsx",
+      "sha256": "b3548d6fd0c47f3c600307de3e4f3bbe2d369aa30086fe2fd191ae8104cf58da",
+      "bytes": 19716
+    },
+    {
+      "file": "Orb.css",
+      "sha256": "7f1dd853ee98801256aaba5db5bb08bd738593ea76dd42e993d1403f6887816a",
+      "bytes": 206
+    }
+  ],
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "build": "passed",
+  "serverCheck": "passed",
+  "browser": {
+    "rendered": true,
+    "desktopCanvas": [
+      600,
+      600
+    ],
+    "escapeStop": true,
+    "horizontalOverflow": false,
+    "screenshot": "2026-10-19-react-bits-orb.png"
+  },
+  "scope": "web-preview-only",
+  "nativeWindowsRendererChanged": false,
+  "installer": "shadcn CLI stopped at configuration prompt; exact registry source installed manually",
+  "licenseMetadata": "Worker license field not independently verified; no license conclusion from this review"
+}

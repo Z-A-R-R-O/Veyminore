@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-17",
+  "status": "provisional_synthetic_candidate_only",
+  "preferredCandidate": {
+    "provider": "openrouter",
+    "model": "cohere/north-mini-code:free",
+    "routing": { "allowFallbacks": false, "requireParameters": true, "maxPromptPrice": 0, "maxCompletionPrice": 0 },
+    "verification": { "allPhases": "3/12", "correctedRequestPhase": "3/6", "numericFixture": "3/3", "greetingFixture": "0/3" },
+    "reportedTokensPerVerifiedResult": 1442.3333333333333,
+    "wallMsPerVerifiedResultIncludingFailures": 7424.333333333333,
+    "usageComplete": false
+  },
+  "runtimeDefault": "fake",
+  "generalLiveExecutionEnabled": false,
+  "repositorySourceTransmissionAuthorized": false,
+  "reason": "Only OpenRouter inference could be exercised. Cohere produced verified numeric edits but failed every greeting edit. This is not sufficient for a general RCT default.",
+  "blockedOrExcluded": {
+    "groq": "Supplied key rejected HTTP401 during access check; neither GPT-OSS model benchmarked.",
+    "openrouterPoolside": "All tested routes returned HTTP404; no verified result.",
+    "huggingface": "Authentication succeeded; inference excluded because current free-account pricing lists no included inference credits.",
+    "otherProviders": "Keys absent; not tested."
+  },
+  "nextGate": "Correct Groq credential; improve safe tool-failure diagnostics and reverify greeting fixture under a separately bounded live campaign before promoting any default.",
+  "evidence": "2026-10-17-provider-benchmark.json"
+}

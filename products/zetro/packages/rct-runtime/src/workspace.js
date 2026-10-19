@@ -12,17 +12,34 @@ export function cleanRelative(value) {
   return segments.join('/');
 }
 
+function freezeSet(set) {
+  set.add = () => { throw new Error('Cannot mutate frozen Set'); };
+  set.delete = () => { throw new Error('Cannot mutate frozen Set'); };
+  set.clear = () => { throw new Error('Cannot mutate frozen Set'); };
+  return Object.freeze(set);
+}
+
 export class ScopedWorkspace {
-  constructor(root, allowedPaths, limits = {}) {
+  constructor(root, allowedPaths, limits = {}, options = {}) {
     if (!path.isAbsolute(root)) throw new Error('Workspace root must be absolute');
     this.root = path.resolve(root);
 
+    this.admission = options.admission || limits.admission || limits.workspaceAdmission || null;
+    const rawBaseline = options.sourceBaselineRoot || limits.sourceBaselineRoot || this.admission?.sourceBaselineRoot || null;
+    this.sourceBaselineRoot = rawBaseline ? path.resolve(rawBaseline) : null;
+
     if (Array.isArray(allowedPaths)) {
-      this.allowed = new Set(allowedPaths.map(cleanRelative));
-      this.writePaths = new Set(this.allowed);
+      const cleaned = allowedPaths.map(cleanRelative);
+      this.allowed = freezeSet(new Set(cleaned));
+      this.writePaths = freezeSet(new Set(cleaned));
+      this.readPaths = freezeSet(new Set(cleaned));
     } else {
-      this.allowed = new Set([...(allowedPaths.readPaths || []), ...(allowedPaths.writePaths || [])].map(cleanRelative));
-      this.writePaths = new Set((allowedPaths.writePaths || []).map(cleanRelative));
+      const reads = (allowedPaths.readPaths || []).map(cleanRelative);
+      const writes = (allowedPaths.writePaths || []).map(cleanRelative);
+      const creates = (allowedPaths.createPaths || []).map(cleanRelative);
+      this.allowed = freezeSet(new Set([...reads, ...writes, ...creates]));
+      this.writePaths = freezeSet(new Set(writes));
+      this.readPaths = freezeSet(new Set(reads));
     }
 
     if (!this.allowed.size) throw new Error('At least one allowed file is required');
@@ -37,6 +54,21 @@ export class ScopedWorkspace {
     const name = cleanRelative(relative);
     if (!this.allowed.has(name)) throw new Error('Path outside assignment scope');
     if (write && !this.writePaths.has(name)) throw new Error('Path not in write scope');
+
+    if (this.admission?.scope) {
+      if (write && !this.admission.scope.writePaths.includes(name)) {
+        throw new Error('Path not in write scope');
+      }
+      const admittedAll = [
+        ...this.admission.scope.readPaths,
+        ...this.admission.scope.writePaths,
+        ...(this.admission.scope.createPaths || [])
+      ];
+      if (!admittedAll.includes(name)) {
+        throw new Error('Path outside assignment scope');
+      }
+    }
+
     const rootReal = await realpath(this.root);
     let current = rootReal;
     for (const segment of name.split('/')) {
@@ -46,6 +78,14 @@ export class ScopedWorkspace {
     }
     const resolved = await realpath(current);
     if (!resolved.startsWith(rootReal + path.sep)) throw new Error('Path escaped workspace');
+
+    if (this.sourceBaselineRoot) {
+      const sourceReal = await realpath(this.sourceBaselineRoot).catch(() => this.sourceBaselineRoot);
+      if (resolved === sourceReal || resolved.startsWith(sourceReal + path.sep)) {
+        throw new Error('Baseline escape denied: target resolves into source baseline repository');
+      }
+    }
+
     const stat = await lstat(resolved);
     if (!stat.isFile()) throw new Error('Only regular files are allowed');
     return resolved;
@@ -111,18 +151,44 @@ export class ScopedWorkspace {
     return hits;
   }
 
-  async proposePatch(relative, expectedSha256, content) {
+  async proposePatch(relative, expectedSha256, content, signal = null) {
+    if (signal?.aborted) {
+      const err = new Error('Operation aborted');
+      err.name = 'AbortError';
+      throw err;
+    }
     if (typeof content !== 'string' || typeof expectedSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(expectedSha256)) throw new Error('Invalid patch');
     const bytes = Buffer.from(content, 'utf8');
     if (bytes.length > 65536 || this.writeBytes + bytes.length > this.maxWriteBytes) throw new Error('Write budget exhausted');
     const file = await this.resolveFile(relative, true);
+    if (this.sourceBaselineRoot) {
+      const sourceReal = await realpath(this.sourceBaselineRoot).catch(() => path.resolve(this.sourceBaselineRoot));
+      if (file === sourceReal || file.startsWith(sourceReal + path.sep)) {
+        throw new Error('Baseline mutation denied: cannot write to source baseline repository');
+      }
+    }
+    if (signal?.aborted) {
+      const err = new Error('Operation aborted');
+      err.name = 'AbortError';
+      throw err;
+    }
     const before = await readFile(file);
+    if (signal?.aborted) {
+      const err = new Error('Operation aborted');
+      err.name = 'AbortError';
+      throw err;
+    }
     if (sha256(before) !== expectedSha256) throw new Error('Stale preimage');
     if (before.equals(bytes)) return { path: cleanRelative(relative), before: expectedSha256, after: expectedSha256, bytes: bytes.length, applied: false, reason: 'no_change' };
     // Recheck the path before writing. The pilot only runs in a private snapshot;
     // hostile concurrent filesystem mutation is not a supported security boundary.
     if (await this.resolveFile(relative, true) !== file) throw new Error('Path changed');
-    await writeFile(file, bytes, { flag: 'w' });
+    if (signal?.aborted) {
+      const err = new Error('Operation aborted');
+      err.name = 'AbortError';
+      throw err;
+    }
+    await writeFile(file, bytes, { flag: 'w', signal: signal || undefined });
     this.writeBytes += bytes.length;
     return { path: cleanRelative(relative), before: expectedSha256, after: sha256(bytes), bytes: bytes.length, applied: true };
   }

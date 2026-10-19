@@ -1,0 +1,71 @@
+{
+  "success": false,
+  "status": "failed",
+  "summary": "Port deadline exceeded",
+  "folderPath": "C:\\Users\\sunda\\Downloads\\zetro-qualification-73b13238",
+  "native": true,
+  "sessionId": "explorer-74628cff-b2a4-4e53-8c36-09d26b806e44",
+  "target": {
+    "hwnd": 593528,
+    "processId": 33688,
+    "processName": "explorer",
+    "minimized": false,
+    "visible": true,
+    "generation": "593528:33688:639279365292803202",
+    "title": "Downloads - File Explorer",
+    "bounds": {
+      "x": -8,
+      "y": -8,
+      "width": 1936,
+      "height": 1048
+    },
+    "dpi": 96
+  },
+  "steps": 1,
+  "journal": {
+    "id": "journal-264087f0-2746-4598-a26b-75b964d521af",
+    "taskGoal": "Open File Explorer and create a folder named \"zetro-qualification-73b13238\" in Downloads",
+    "startTime": 1792339768552,
+    "endTime": 1792339777339,
+    "summary": {
+      "id": "journal-264087f0-2746-4598-a26b-75b964d521af",
+      "taskGoal": "Open File Explorer and create a folder named \"zetro-qualification-73b13238\" in Downloads",
+      "durationMs": 8788,
+      "totalSteps": 1,
+      "modelsUsed": [
+        "none"
+      ],
+      "successfulSteps": 0,
+      "interruptedSteps": 0,
+      "failedSteps": 1,
+      "rejectedSteps": 0,
+      "approvalsRequested": 0,
+      "integrityVerified": true
+    },
+    "entries": [
+      {
+        "stepIndex": 0,
+        "timestamp": 1792339777338,
+        "modelId": "none",
+        "action": {
+          "type": "error"
+        },
+        "observationBefore": null,
+        "observationAfter": null,
+        "executionResult": null,
+        "verificationResult": null,
+        "riskLevel": "benign",
+        "status": "failed",
+        "approval": null,
+        "error": "Port deadline exceeded",
+        "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "6c93b762c8d1d2c9a67bfaa2bbfe2c87b5c161fb34e26d48eb99d219bba7427f"
+      }
+    ]
+  },
+  "startedAt": 1792339764633,
+  "finishedAt": 1792339777340,
+  "independentDirectoryCheck": false,
+  "disposableFixtureCleaned": false,
+  "helloPreexisted": true
+}

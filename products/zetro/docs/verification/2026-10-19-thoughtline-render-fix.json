@@ -1,0 +1,19 @@
+{
+  "result": "accepted_scoped_missing_text_fix",
+  "cause": "useRef missing from React hook imports in wrapper",
+  "implementation": "AGR-5",
+  "review": "Codex",
+  "build": "passed",
+  "focusedServerTest": "passed",
+  "browser": {
+    "primaryTextVisible": true,
+    "detailsExpand": true,
+    "simulatedCompletionVisible": true,
+    "escapeStateStopped": true
+  },
+  "remainingReview": [
+    "Screen-reader spoken status can retain prior phase after completion",
+    "Whole expanded panel line cap needs review; current history scroll cap may exclude metadata"
+  ],
+  "screenshot": "2026-10-19-thoughtline-render-fixed.png"
+}

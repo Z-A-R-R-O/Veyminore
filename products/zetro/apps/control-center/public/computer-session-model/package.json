@@ -1,0 +1,19 @@
+{
+  "name": "computer-session-model",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pure, dependency-free overlay session view-model for the Computer alpha (simulation flag separate from native; nativeAccess always false).",
+  "type": "module",
+  "main": "./model.js",
+  "exports": {
+    ".": "./model.js",
+    "./model.js": "./model.js",
+    "./projection.js": "./projection.js"
+  },
+  "scripts": {
+    "test": "node --test model.test.js projection.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

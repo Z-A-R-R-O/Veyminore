@@ -1,0 +1,50 @@
+{
+  "startedAt": 1792339881222,
+  "finishedAt": 1792339882316,
+  "target": {
+    "hwnd": 593528,
+    "processId": 33688,
+    "processName": "explorer",
+    "minimized": false,
+    "visible": true,
+    "generation": "593528:33688:639279365292803202",
+    "title": "Downloads - File Explorer",
+    "bounds": {
+      "x": -8,
+      "y": -8,
+      "width": 1936,
+      "height": 1048
+    },
+    "dpi": 96
+  },
+  "status": "explorer_state",
+  "window": {
+    "hwnd": 593528,
+    "processId": 33688,
+    "processName": "explorer",
+    "minimized": false,
+    "visible": true,
+    "generation": "593528:33688:639279365292803202",
+    "title": "Downloads - File Explorer",
+    "bounds": {
+      "x": -8,
+      "y": -8,
+      "width": 1936,
+      "height": 1048
+    },
+    "dpi": 96
+  },
+  "location": "C:\\Users\\sunda\\Downloads",
+  "focusedEdit": "New folder",
+  "renameActive": false,
+  "focusId": "",
+  "focusClass": "UIRenameTextElement",
+  "focusAncestors": "ControlType.Edit:UIRenameTextElement:/ControlType.List:UIItemsView:/ControlType.Pane:DUIListView:listview/ControlType.Pane:DUIViewWndClassName:/ControlType.Pane:ShellTabWindowClass:/ControlType.Window:CabinetWClass:/",
+  "displayBounds": {
+    "x": 0,
+    "y": 0,
+    "width": 1920,
+    "height": 1080
+  },
+  "fixtureCleaned": true
+}

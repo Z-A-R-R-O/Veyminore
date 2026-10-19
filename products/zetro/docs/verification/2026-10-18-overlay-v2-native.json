@@ -1,0 +1,22 @@
+{
+  "visualOnly": true,
+  "computerInputSent": false,
+  "code": 0,
+  "events": [
+    {
+      "event": "presented",
+      "sequence": 1
+    },
+    {
+      "event": "presented",
+      "sequence": 2
+    },
+    {
+      "event": "cleared",
+      "sequence": 2
+    }
+  ],
+  "errors": "",
+  "alphaCompositionAccepted": true,
+  "clearedOnExpiry": true
+}

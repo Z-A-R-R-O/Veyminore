@@ -129,7 +129,7 @@ export async function admitAssignment(manifestPath) {
   }
 
   // Scope
-  if (!manifest.scope || typeof manifest.scope !== 'object') {
+  if (!manifest.scope || typeof manifest.scope !== 'object' || Array.isArray(manifest.scope)) {
     return { accepted: false, reason: 'Missing or invalid scope object' };
   }
   const readPaths = [];
@@ -140,7 +140,7 @@ export async function admitAssignment(manifestPath) {
   for (const [key, arr, target] of [
     ['scope.readPaths', manifest.scope.readPaths, readPaths],
     ['scope.writePaths', manifest.scope.writePaths, writePaths],
-    ['scope.createPaths', manifest.scope.createPaths ?? [], createPaths]
+    ['scope.createPaths', manifest.scope.createPaths !== undefined ? manifest.scope.createPaths : [], createPaths]
   ]) {
     if (!Array.isArray(arr)) {
       return { accepted: false, reason: `${key} must be an array` };

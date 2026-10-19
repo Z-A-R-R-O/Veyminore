@@ -1,0 +1,26 @@
+{
+  "name": "@zetro/computer-contract",
+  "version": "0.1.0",
+  "description": "Dependency-free, read-only Computer alpha contract and validators: session/principal identity, observe request/result, target freshness, effect vs verification, audit evidence.",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/contract.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "private": true
+}
