@@ -16,6 +16,7 @@
 | [Decision records](decisions/README.md) | Accepted product architecture choices | A choice is made or reversed |
 | [Antigravity adapter](ANTIGRAVITY-ADAPTER.md) | First executable slice and live connection evidence | Adapter behavior or Antigravity support changes |
 | [RCT plan](RCT-PLAN.md) | In-built coding-worker phases and provider choice | RCT runtime, safety gates or benchmarking changes |
+| [IFZ unified app architecture](IFZ-UNIFIED-APP-ARCHITECTURE.md) | Any-to-any routing, Master Prompt, product pages, docks, navigation and global styles | IFZ, worker routing, application structure or product UI changes |
 
 ## Change control
 
