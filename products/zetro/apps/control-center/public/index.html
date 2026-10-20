@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="/worker-detail/style.css">
   <link rel="stylesheet" href="/computer-preview/style.css">
   <link rel="stylesheet" href="/computer-preview/orb.css">
+  <link rel="stylesheet" href="/ifz-work.css">
+  <link rel="stylesheet" href="/work.css">
   <noscript>
     <link rel="stylesheet" href="/product-shell.css">
     <link rel="stylesheet" href="/ifz-work.css">
@@ -20,6 +22,7 @@
   </noscript>
 </head>
 <body>
+  <div id="app-background" aria-hidden="true"></div>
   <div class="edge" aria-hidden="true"></div>
   <div class="shell">
     <header class="cardnav-wrapper" id="cardnav-root" role="navigation" aria-label="Workspace and System Controls"></header>
@@ -93,6 +96,7 @@
 
   <div id="announcement" class="sr-only" aria-live="polite"></div>
 
+  <script type="module" src="/background.js"></script>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

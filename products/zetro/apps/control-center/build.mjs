@@ -72,6 +72,39 @@ export async function buildBento() {
   return result;
 }
 
+export async function buildWork() {
+  const result = await esbuild.build({
+    entryPoints: [resolve(appDir, 'src/work-island.jsx')],
+    bundle: true,
+    minify: true,
+    format: 'esm',
+    target: 'es2022',
+    jsx: 'automatic',
+    loader: { '.js': 'jsx' },
+    outfile: resolve(appDir, 'public/work.js'),
+    define: {
+      'process.env.NODE_ENV': '"production"'
+    },
+    metafile: true
+  });
+  return result;
+}
+
+export async function buildBackground() {
+  return esbuild.build({
+    entryPoints: [resolve(appDir, 'src/background-island.jsx')],
+    bundle: true,
+    minify: true,
+    format: 'esm',
+    target: 'es2022',
+    jsx: 'automatic',
+    outfile: resolve(appDir, 'public/background.js'),
+    define: {
+      'process.env.NODE_ENV': '"production"'
+    }
+  });
+}
+
 export async function buildProductShell() {
   const result = await esbuild.build({
     entryPoints: [resolve(appDir, 'src/index.js')],
@@ -91,7 +124,7 @@ export async function buildProductShell() {
 }
 
 export async function buildAll() {
-  await Promise.all([buildOrb(), buildDock(), buildNav(), buildBento(), buildProductShell()]);
+  await Promise.all([buildOrb(), buildDock(), buildNav(), buildBento(), buildWork(), buildBackground(), buildProductShell()]);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

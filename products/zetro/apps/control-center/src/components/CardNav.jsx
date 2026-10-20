@@ -122,6 +122,8 @@ const contrastInk = color => {
 };
 
 const CardNav = ({
+  center,
+  right,
   logo,
   logoAlt = 'Logo',
   logoHref = '#',
@@ -163,7 +165,7 @@ const CardNav = ({
   const [shown, setShown] = useState(defaultOpen);
 
   const controlled = openProp !== undefined;
-  const hasCta = Boolean(cta);
+  const hasCta = Boolean(cta || right);
   const open = controlled ? openProp : openState;
 
   const settings = {
@@ -212,14 +214,36 @@ const CardNav = ({
     const content = contentRef.current;
     if (!panel || !content) return undefined;
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-    const state = { p: settingsRef.current.open ? 1 : 0, v: 0, height: content.offsetHeight, bar: 60 };
+
+    const measureHeight = () => {
+      if (!content) return 0;
+      const cardsEl = content.querySelector('.card-nav__cards');
+      const cardsH = cardsEl ? cardsEl.offsetHeight + 14 : 0;
+      return Math.max(content.scrollHeight, content.offsetHeight, cardsH);
+    };
+
+    const state = { p: settingsRef.current.open ? 1 : 0, v: 0, height: measureHeight(), bar: 60 };
     let raf = 0;
     let last = 0;
 
     const render = () => {
       const s = settingsRef.current;
       state.bar = parseFloat(getComputedStyle(panel).getPropertyValue('--cn-bar')) || 60;
-      panel.style.height = `${state.bar + Math.max(0, state.p) * state.height}px`;
+      // Smart shrink: ensure total panel height never overflows viewport or overlaps bottom docks
+      const viewportMax = typeof window !== 'undefined' ? window.innerHeight - 128 : 800;
+      const maxAllowedContentHeight = Math.max(120, viewportMax - state.bar);
+      const effectiveContentHeight = Math.min(state.height, maxAllowedContentHeight);
+
+      panel.style.height = `${state.bar + Math.max(0, state.p) * effectiveContentHeight}px`;
+
+      if (state.height > maxAllowedContentHeight) {
+        content.style.maxHeight = `${maxAllowedContentHeight}px`;
+        content.style.overflowY = 'auto';
+      } else {
+        content.style.maxHeight = '';
+        content.style.overflowY = '';
+      }
+
       const cards = cardRefs.current.filter(Boolean);
       const count = cards.length;
       const lag = count > 1 ? Math.min(s.stagger, 0.7 / (count - 1)) : 0;
@@ -282,21 +306,30 @@ const CardNav = ({
     engineRef.current = {
       wake,
       refresh: () => {
-        state.height = content.offsetHeight;
+        state.height = measureHeight();
         render();
       }
     };
 
     render();
     const observer = new ResizeObserver(() => {
-      state.height = content.offsetHeight;
+      state.height = measureHeight();
       render();
     });
     observer.observe(content);
+    const cardsEl = content.querySelector('.card-nav__cards');
+    if (cardsEl) observer.observe(cardsEl);
+
+    const onWindowResize = () => {
+      state.height = measureHeight();
+      render();
+    };
+    window.addEventListener('resize', onWindowResize);
 
     return () => {
       cancelAnimationFrame(raf);
       observer.disconnect();
+      window.removeEventListener('resize', onWindowResize);
       engineRef.current = null;
     };
   }, [items.length, hasCta, narrow]);
@@ -357,7 +390,7 @@ const CardNav = ({
         { clipPath: `inset(0px ${Math.max(0, (width - height) / 2)}px round ${height / 2}px)`, opacity: 0 },
         { clipPath: `inset(0px 0px round ${radius}px)`, opacity: 1 }
       ],
-      { duration: 820, easing: EASE_OUT, fill: 'backwards' }
+      { duration: 800, easing: EASE_OUT, fill: 'backwards' }
     );
     Array.from(bar.children).forEach((child, index) => {
       child.animate(
@@ -365,7 +398,7 @@ const CardNav = ({
           { opacity: 0, transform: 'translateY(8px)' },
           { opacity: 1, transform: 'translateY(0)' }
         ],
-        { duration: 560, delay: 220 + index * 70, easing: EASE_OUT, fill: 'backwards' }
+        { duration: 520, delay: 180 + index * 42, easing: EASE_OUT, fill: 'backwards' }
       );
     });
   }, []);
@@ -452,13 +485,19 @@ const CardNav = ({
             )}
           </button>
 
-          {logo && (
+          {center ? (
+            <div className="card-nav__center">{center}</div>
+          ) : logo ? (
             <LinkComponent href={logoHref} className={LOGO} aria-label={logoAlt}>
               {typeof logo === 'string' ? <img src={logo} alt="" draggable={false} /> : logo}
             </LinkComponent>
-          )}
+          ) : null}
 
-          {cta && !narrow && ctaButton(cta, false)}
+          {right ? (
+            <div className="card-nav__right">{right}</div>
+          ) : cta && !narrow ? (
+            ctaButton(cta, false)
+          ) : null}
         </div>
 
         <div ref={contentRef} id={contentId} className={CONTENT} aria-hidden={!open}>
@@ -484,7 +523,7 @@ const CardNav = ({
                         link,
                         {
                           className: LINK,
-                          'aria-label': link.ariaLabel,
+                          'aria-label': link.ariaLabel || link.label,
                           tabIndex: open ? undefined : -1,
                           onClick: event => {
                             onLinkClick?.(link, item, event);
@@ -496,16 +535,44 @@ const CardNav = ({
                             <HugeiconsIcon className={ARROW_OUT} icon={ArrowUpRight01Icon} size={14} strokeWidth={2} />
                             <HugeiconsIcon className={ARROW_IN} icon={ArrowUpRight01Icon} size={14} strokeWidth={2} />
                           </span>
-                          {link.label}
+                          <span className="card-nav__link-content">
+                            <span className="card-nav__link-label">{link.label}</span>
+                            {link.description && (
+                              <span className="card-nav__link-desc">{link.description}</span>
+                            )}
+                          </span>
+                          {link.badge && (
+                            <span className="card-nav__link-badge">{link.badge}</span>
+                          )}
                         </>
                       )}
                     </li>
                   ))}
                 </ul>
+                {item.extraSection && (
+                  <div className="card-nav__extra-section">
+                    <span className="card-nav__extra-title">{item.extraSection.title}</span>
+                    <div className="card-nav__extra-items">
+                      {item.extraSection.items.map((extra, ei) => (
+                        <a
+                          key={ei}
+                          href={extra.href}
+                          className="card-nav__extra-link"
+                          onClick={e => {
+                            onLinkClick?.(extra, item, e);
+                            setOpen(false);
+                          }}
+                        >
+                          {extra.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
-          {cta && narrow && (
+          {cta && narrow && !right && (
             <div
               ref={element => {
                 cardRefs.current[items.length] = element;

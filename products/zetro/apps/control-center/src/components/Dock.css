@@ -81,10 +81,28 @@
 
 .dock--left,
 .dock--right {
-  top: 50%;
+  position: fixed !important;
+  top: 14px !important;
   flex-direction: column;
   width: var(--dock-thickness);
-  transform: translateY(-50%);
+  transform: none !important;
+  padding: calc(var(--dock-pad) + 6px) var(--dock-pad);
+  z-index: 95 !important;
+}
+
+.dock.dock-side-left {
+  left: 32px !important;
+  right: auto !important;
+}
+
+.dock.dock-side-left {
+  left: 32px !important;
+  right: auto !important;
+}
+
+.dock.dock-side-right {
+  right: 32px !important;
+  left: auto !important;
 }
 
 .dock--bottom {
@@ -111,18 +129,78 @@
   transform: none !important;
 }
 
-@media (max-width: 1280px) {
+/* ==========================================================================
+   Responsive Smart Shrink & Collision Prevention
+   Eliminates horizontal and vertical dock overlap across all viewport sizes
+   ========================================================================== */
+
+@media (max-width: 1560px) {
+  .dock.dock-side-left,
+  .dock.dock-island-left {
+    left: 24px !important;
+  }
+  .dock.dock-side-right,
+  .dock.dock-island-right {
+    right: 24px !important;
+  }
+}
+
+@media (max-width: 1360px) {
+  .dock.dock-side-left,
   .dock.dock-island-left {
     left: 18px !important;
   }
+  .dock.dock-side-right,
   .dock.dock-island-right {
     right: 18px !important;
   }
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1180px) {
+  .dock.dock-side-left,
+  .dock.dock-island-left {
+    left: 14px !important;
+  }
+  .dock.dock-side-right,
+  .dock.dock-island-right {
+    right: 14px !important;
+  }
+}
+
+@media (max-width: 1000px) {
   .dock.dock-island-left,
   .dock.dock-island-right {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .dock.dock-side-left,
+  .dock.dock-side-right {
+    display: none !important;
+  }
+}
+
+/* Vertical Height Shrink Rules (Protects vertical clearance) */
+@media (max-height: 680px) {
+  .dock--bottom {
+    bottom: 14px !important;
+  }
+}
+
+@media (max-height: 540px) {
+  .dock--bottom {
+    bottom: 8px !important;
+  }
+  .dock.dock-side-left,
+  .dock.dock-side-right {
+    top: 8px !important;
+  }
+}
+
+@media (max-height: 440px) {
+  .dock.dock-side-left,
+  .dock.dock-side-right {
     display: none !important;
   }
 }
@@ -231,6 +309,13 @@
   transition: filter 0.2s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
+.dock-face svg {
+  width: calc(var(--dock-base) * 0.42) !important;
+  height: calc(var(--dock-base) * 0.42) !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .dock-item:hover .dock-face {
   background: linear-gradient(180deg, #2a2c34 0%, #1c1d22 100%);
   box-shadow:
@@ -286,16 +371,20 @@
   height: 17px;
   padding: 0 4px;
   border-radius: 9px;
-  background: #256645;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #ffffff;
+  background: var(--dock-badge, var(--accent, #3fb950));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: var(--dock-badge-ink, #ffffff);
   font-size: 10px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   line-height: 15px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7), 0 0 10px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.45);
   pointer-events: none;
+  transition: 
+    background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dock-badge:empty {
@@ -305,6 +394,8 @@
   width: 8px;
   height: 8px;
   padding: 0;
+  background: var(--dock-badge, var(--accent, #3fb950));
+  box-shadow: 0 0 8px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.6);
 }
 
 .dock-dot {
@@ -312,9 +403,10 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 4px #ffffff, 0 0 8px rgba(255, 255, 255, 0.6);
+  background: var(--accent, #ffffff);
+  box-shadow: 0 0 4px var(--accent, #ffffff), 0 0 8px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.6);
   pointer-events: none;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .dock--bottom .dock-dot,
@@ -513,8 +605,8 @@
   opacity: 0;
   pointer-events: none;
   transition:
-    transform 0.16s cubic-bezier(0.3, 0.8, 0.3, 1),
-    height 0.16s cubic-bezier(0.3, 0.8, 0.3, 1),
+    transform 0.16s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.16s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.12s ease;
 }
 

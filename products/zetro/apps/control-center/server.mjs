@@ -16,6 +16,7 @@ const routes = new Map([
   ['/worker-detail/view.js', ['worker-detail/view.js', 'text/javascript; charset=utf-8']],
   ['/worker-detail/style.css', ['worker-detail/style.css', 'text/css; charset=utf-8']],
   ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
+  ['/background.js', ['background.js', 'text/javascript; charset=utf-8']],
   ['/dock.js', ['dock.js', 'text/javascript; charset=utf-8']],
   ['/dock.css', ['dock.css', 'text/css; charset=utf-8']],
   ['/nav.js', ['nav.js', 'text/javascript; charset=utf-8']],
@@ -24,6 +25,8 @@ const routes = new Map([
   ['/bento.css', ['bento.css', 'text/css; charset=utf-8']],
   ['/product-shell.js', ['product-shell.js', 'text/javascript; charset=utf-8']],
   ['/product-shell.css', ['product-shell.css', 'text/css; charset=utf-8']],
+  ['/work.js', ['work.js', 'text/javascript; charset=utf-8']],
+  ['/work.css', ['work.css', 'text/css; charset=utf-8']],
   ['/ifz-work.css', ['ifz-work.css', 'text/css; charset=utf-8']],
   ['/style.css', ['style.css', 'text/css; charset=utf-8']],
   ['/fonts/Satoshi-Variable.ttf', ['fonts/Satoshi-Variable.ttf', 'font/ttf']]

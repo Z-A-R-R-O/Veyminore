@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { createIfzWorkModel } from './ifz-work-model.js';
+import React, { useState, useEffect, useRef } from 'react';
+import { createIfzWorkModel, MASTER_PRESETS, EFFORT_LEVELS } from './ifz-work-model.js';
 import IfzPromptBar from './ifz-prompt-bar.jsx';
+import WakeSlider from './components/WakeSlider.jsx';
+import GradientText from './components/GradientText.jsx';
 
 /* Clean Accessible Inline SVG Icons */
 function AlertTriangleIcon() {
@@ -13,9 +15,9 @@ function AlertTriangleIcon() {
   );
 }
 
-function SparkleIcon() {
+function EffortSparkleIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
     </svg>
   );
@@ -65,6 +67,23 @@ function ArrowRightIcon() {
   );
 }
 
+function ShieldIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}
+
 /**
  * Isolated IFZ Work Page Component.
  *
@@ -74,6 +93,7 @@ function ArrowRightIcon() {
  * - All controls use accessible inline SVGs with tooltips and aria-labels.
  * - Route suggestions populate draft but never auto-send.
  * - Live submit is visibly truthful (dry-run preview).
+ * - Full 4-layer Master Prompt inspector (Charter, Worker Knowledge, Project Context, Task Package).
  */
 export default function IfzWorkPage({
   initialFixture = null,
@@ -83,6 +103,8 @@ export default function IfzWorkPage({
 }) {
   const [model] = useState(() => modelInstance || createIfzWorkModel({ initialFixture, initialDraft, devLab }));
   const [snapshot, setSnapshot] = useState(() => model.getSnapshot());
+  const [showMasterPrompt, setShowMasterPrompt] = useState(false);
+  const [activeMasterPromptTab, setActiveMasterPromptTab] = useState('charter');
 
   useEffect(() => {
     const unsubscribe = model.subscribe(newSnap => {
@@ -90,6 +112,17 @@ export default function IfzWorkPage({
     });
     return unsubscribe;
   }, [model]);
+
+  // Global Esc hotkey handler for modal
+  useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.key === 'Escape' && showMasterPrompt) {
+        setShowMasterPrompt(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showMasterPrompt]);
 
   const {
     fixtureKey,
@@ -106,21 +139,28 @@ export default function IfzWorkPage({
     routePreview,
     availablePresets,
     availableWorkers,
-    savedWorkflows,
-    stats
+    savedWorkflows
   } = snapshot;
 
   const isRunning = status === 'running';
 
-  const handlePresetPrompt = promptText => {
-    // Route suggestions populate the prompt bar; they NEVER auto-send!
-    model.setDraft({ text: promptText });
-  };
+  const currentEffortName = draft?.effort || 'High';
+  const activeEffortIndex = Math.max(
+    0,
+    EFFORT_LEVELS.findIndex(
+      lvl => lvl.name.toLowerCase() === currentEffortName.toLowerCase() || lvl.id === currentEffortName.toLowerCase()
+    )
+  );
+  const activeEffortObj = EFFORT_LEVELS[activeEffortIndex] || EFFORT_LEVELS[2];
 
   return (
-    <div className="ifz-work-page" data-status={status} data-connection={connection}>
-      {/* Top Header */}
-      <header className="ifz-work-header">
+    <div
+      className={`ifz-work-page ${events.length === 0 && !activeRun ? 'is-empty' : 'is-active'}`}
+      data-status={status}
+      data-connection={connection}
+    >
+      {/* Top Header Strip */}
+      <header className={`ifz-work-header ${events.length === 0 && !activeRun ? 'empty-header' : 'active-header'}`}>
         <div className="header-meta">
           <div className="header-status-row">
             <span
@@ -142,6 +182,20 @@ export default function IfzWorkPage({
               {status.toUpperCase()}
             </span>
 
+            {/* Master Prompt Inspector Pill Trigger */}
+            <button
+              type="button"
+              className="header-master-prompt-pill"
+              onClick={() => setShowMasterPrompt(true)}
+              title="Open Master Prompt 4-layer inspector"
+              aria-label="Open Master Prompt inspector"
+            >
+              <span className="shield-icon" aria-hidden="true"><ShieldIcon /></span>
+              <span className="pill-label">Master Prompt:</span>
+              <span className="pill-name">{routePreview.preset}</span>
+              <span className="pill-ver">v1.2.0</span>
+            </button>
+
             {activeRun && (
               <span className="run-id-pill" title={`Active run identifier: ${activeRun.runId}`}>
                 Run #{activeRun.runId}
@@ -149,8 +203,12 @@ export default function IfzWorkPage({
             )}
           </div>
 
-          <h1 className="header-title">{title}</h1>
-          <p className="header-subtitle">{subtitle}</p>
+          {(events.length > 0 || activeRun) && (
+            <div className="header-titles">
+              <h1 className="header-title">{title}</h1>
+              {subtitle && <p className="header-subtitle">{subtitle}</p>}
+            </div>
+          )}
         </div>
 
         {/* Developer / Fixture Controls: EXPOSED ONLY WHEN devLab === true. Hidden in product UI. */}
@@ -175,7 +233,7 @@ export default function IfzWorkPage({
               <option value="partial_failure">Partial Failure</option>
               <option value="uncertain">Uncertain Delivery</option>
               <option value="cancelled">Cancelled Run</option>
-              <option value="complete">Complete & Verified</option>
+              <option value="complete">Complete &amp; Verified</option>
             </select>
           </div>
         )}
@@ -203,48 +261,16 @@ export default function IfzWorkPage({
           </div>
         ) : events.length === 0 ? (
           <div className="ifz-empty-state">
-            <div className="empty-glyph-icon" aria-hidden="true">
-              <SparkleIcon />
-            </div>
-            <h2 className="empty-heading">Ready for instruction</h2>
-            <p className="empty-sub">
-              Every request routes through IFZ. Select an example prompt or enter instructions into the composer below.
-            </p>
-            <div className="empty-prompts-grid" role="region" aria-label="Example prompt templates">
-              <button
-                type="button"
-                className="empty-prompt-card"
-                onClick={() => handlePresetPrompt('Refactor dock-island.jsx to mount unified Work destination')}
-                title="Load example prompt for dock refactor into composer"
-                aria-label="Load example prompt: Refactor navigation dock"
+            <h2 className="empty-startup-line">
+              <GradientText
+                colors={['#d9e9e6', 'var(--green, #8ce6b8)', '#a9c6ee', '#c7afe8']}
+                animationSpeed={8}
+                variant="flow"
+                glow={0.24}
               >
-                <span className="card-tag">EXAMPLE TEMPLATE · UI</span>
-                <strong>Refactor navigation dock</strong>
-                <small>Example prompt · Routing planned by IFZ upon dispatch</small>
-              </button>
-              <button
-                type="button"
-                className="empty-prompt-card"
-                onClick={() => handlePresetPrompt('Verify pointer lease mechanics on Windows desktop')}
-                title="Load example prompt for pointer lease into composer"
-                aria-label="Load example prompt: Verify pointer lease"
-              >
-                <span className="card-tag">EXAMPLE TEMPLATE · DESKTOP</span>
-                <strong>Verify pointer lease</strong>
-                <small>Example prompt · Routing planned by IFZ upon dispatch</small>
-              </button>
-              <button
-                type="button"
-                className="empty-prompt-card"
-                onClick={() => handlePresetPrompt('Run independent RCT verification on smart status controller')}
-                title="Load example prompt for review chain into composer"
-                aria-label="Load example prompt: Independent review chain"
-              >
-                <span className="card-tag">EXAMPLE TEMPLATE · VERIFICATION</span>
-                <strong>Independent review chain</strong>
-                <small>Example prompt · Routing planned by IFZ upon dispatch</small>
-              </button>
-            </div>
+                Evolve. Way Far Beyond.
+              </GradientText>
+            </h2>
           </div>
         ) : (
           <div className="ifz-events-list">
@@ -261,9 +287,11 @@ export default function IfzWorkPage({
       </main>
 
       {/* Floating Prompt Bar Composer at bottom */}
-      <footer className="ifz-prompt-bar-footer">
+      <div className="ifz-prompt-bar-footer" role="region" aria-label="Prompt composer">
         <IfzPromptBar
           draft={draft}
+          effort={draft?.effort || 'High'}
+          onSetEffort={eff => model.setEffort(eff)}
           routePreview={routePreview}
           availablePresets={availablePresets}
           availableWorkers={availableWorkers}
@@ -278,8 +306,343 @@ export default function IfzWorkPage({
           onRemoveAttachment={id => model.removeAttachment(id)}
           onSubmitPrompt={() => model.submitPrompt()}
           onStopActiveRun={() => model.stopActiveRun()}
+          onOpenMasterPrompt={() => setShowMasterPrompt(true)}
         />
-      </footer>
+      </div>
+
+      {/* Master Prompt 4-Layer Modal Inspector */}
+      {showMasterPrompt && (
+        <MasterPromptModal
+          activeTab={activeMasterPromptTab}
+          onSelectTab={setActiveMasterPromptTab}
+          onClose={() => setShowMasterPrompt(false)}
+          activePresetId={draft.presetId}
+          onSelectPreset={pId => model.setPreset(pId)}
+          activeEffortObj={activeEffortObj}
+          activeEffortIndex={activeEffortIndex}
+          onSelectEffort={eff => model.setEffort(eff)}
+          availablePresets={availablePresets}
+          availableWorkers={availableWorkers}
+          routePreview={routePreview}
+          draft={draft}
+        />
+      )}
+    </div>
+  );
+}
+
+/**
+ * Master Prompt 4-Layer Inspector Modal Component.
+ * Implements the four constitutional layers from docs/IFZ-UNIFIED-APP-ARCHITECTURE.md:
+ * 1. ZETRO Charter
+ * 2. Worker Knowledge
+ * 3. Project Context
+ * 4. Task Package
+ */
+function MasterPromptModal({
+  activeTab,
+  onSelectTab,
+  onClose,
+  activePresetId,
+  onSelectPreset,
+  activeEffortObj,
+  activeEffortIndex,
+  onSelectEffort,
+  availablePresets,
+  availableWorkers,
+  routePreview,
+  draft
+}) {
+  return (
+    <div
+      className="master-prompt-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Master Prompt and Authority Inspector"
+      onClick={e => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="master-prompt-modal-container">
+        {/* Modal Header */}
+        <div className="mp-modal-header">
+          <div className="mp-header-left">
+            <span className="mp-shield-icon" aria-hidden="true"><ShieldIcon /></span>
+            <div>
+              <div className="mp-header-title-row">
+                <h3 className="mp-modal-title">Master Prompt &amp; Authority Inspector</h3>
+                <span className="mp-version-tag">Version 1.2.0</span>
+                <span className="mp-preset-badge">{routePreview.preset}</span>
+              </div>
+              <p className="mp-modal-subtitle">
+                Inspect the four constitutional prompt layers and select guidance presets.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="mp-close-btn"
+            onClick={onClose}
+            title="Close inspector (Esc)"
+            aria-label="Close inspector"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        {/* Modal Navigation Tabs */}
+        <div className="mp-modal-tabs" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'charter'}
+            className={`mp-tab-btn ${activeTab === 'charter' ? 'active' : ''}`}
+            onClick={() => onSelectTab('charter')}
+          >
+            <span className="tab-num">1</span>
+            <span>ZETRO Charter</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'knowledge'}
+            className={`mp-tab-btn ${activeTab === 'knowledge' ? 'active' : ''}`}
+            onClick={() => onSelectTab('knowledge')}
+          >
+            <span className="tab-num">2</span>
+            <span>Worker Knowledge</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'context'}
+            className={`mp-tab-btn ${activeTab === 'context' ? 'active' : ''}`}
+            onClick={() => onSelectTab('context')}
+          >
+            <span className="tab-num">3</span>
+            <span>Project Context</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'task'}
+            className={`mp-tab-btn ${activeTab === 'task' ? 'active' : ''}`}
+            onClick={() => onSelectTab('task')}
+          >
+            <span className="tab-num">4</span>
+            <span>Task Package</span>
+          </button>
+        </div>
+
+        {/* Modal Body / Tab Content */}
+        <div className="mp-modal-body">
+          {activeTab === 'charter' && (
+            <div className="mp-layer-pane">
+              <div className="layer-intro-card">
+                <h4>Layer 1: Constitutional Authority</h4>
+                <p>
+                  The Charter defines product purpose, IFZ authority, verification rules, privacy rules,
+                  and delegation limits. Only the user can replace the Charter.
+                </p>
+              </div>
+
+              <div className="charter-principles-grid">
+                <div className="principle-card">
+                  <span className="p-num">01</span>
+                  <h5>Central Orchestration</h5>
+                  <p>All worker assignments and inter-worker requests flow through IFZ. Workers do not communicate directly.</p>
+                </div>
+                <div className="principle-card">
+                  <span className="p-num">02</span>
+                  <h5>Independent Verification</h5>
+                  <p>Completion requires external evidence, receipts, and check passes. Self-reported completion is strictly rejected.</p>
+                </div>
+                <div className="principle-card">
+                  <span className="p-num">03</span>
+                  <h5>Zero Secret Leakage</h5>
+                  <p>Credentials, auth tokens, and raw private model reasoning are strictly prohibited in context packages.</p>
+                </div>
+                <div className="principle-card">
+                  <span className="p-num">04</span>
+                  <h5>Strict Authority Ceilings</h5>
+                  <p>Sub-delegation and presets may narrow work but can never expand authority, scopes, or token budgets.</p>
+                </div>
+                <div className="principle-card">
+                  <span className="p-num">05</span>
+                  <h5>Exact Workspace Admittance</h5>
+                  <p>All tool effects and file modifications are constrained to canonical project workspace boundaries.</p>
+                </div>
+                <div className="principle-card">
+                  <span className="p-num">06</span>
+                  <h5>Bounded Delegation</h5>
+                  <p>Maximum delegation depth is capped at 2. No circular routes or repeated worker-task pairs are admitted.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'knowledge' && (
+            <div className="mp-layer-pane">
+              <div className="layer-intro-card">
+                <h4>Layer 2: Worker Knowledge &amp; Capability Contracts</h4>
+                <p>
+                  ZETRO dynamically generates this layer from the worker registry. It informs fresh workers
+                  of admitted peer identities, tool contracts, message protocols, and receipt formats.
+                </p>
+              </div>
+
+              <div className="workers-knowledge-grid">
+                {availableWorkers.map(w => (
+                  <div key={w.id} className="worker-knowledge-card">
+                    <div className="w-card-header">
+                      <span className="w-name">{w.name}</span>
+                      <span className={`w-status-tag ${w.available ? 'online' : 'offline'}`}>
+                        {w.available ? 'Online' : 'Offline'}
+                      </span>
+                    </div>
+                    <div className="w-role">{w.role}</div>
+                    <div className="w-meta">
+                      <span>Adapter: <strong>{w.adapter}</strong></span>
+                      <span>Envelopes: <strong>IFZ v1.2</strong></span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'context' && (
+            <div className="mp-layer-pane">
+              <div className="layer-intro-card">
+                <h4>Layer 3: Bounded Project Context</h4>
+                <p>
+                  Versioned and bounded repository context. A fresh worker does not receive an uncontrolled
+                  full transcript. Maximum 50 items per category with exact workspace verification.
+                </p>
+              </div>
+
+              <div className="context-sections">
+                <div className="context-item-card">
+                  <span className="c-label">CANONICAL WORKSPACE:</span>
+                  <code>{routePreview.authorityScope || 'zetro-workspace (Canonical Admittance)'}</code>
+                </div>
+                <div className="context-item-card">
+                  <span className="c-label">CURRENT MILESTONE:</span>
+                  <p>IFZ Unified App Architecture · Work Page &amp; Master Prompt System Refactor</p>
+                </div>
+                <div className="context-item-card">
+                  <span className="c-label">ACCEPTED BOUNDARIES:</span>
+                  <p>Six canonical routes (work, workers, runs, computer, evidence, settings), fixed floating dock navigation, 100% zero-overlap layout.</p>
+                </div>
+                <div className="context-item-card">
+                  <span className="c-label">VERIFICATION MANDATE:</span>
+                  <p>All modifications require automated test verification, zero lint regressions, and independent receipt records.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'task' && (
+            <div className="mp-layer-pane">
+              <div className="layer-intro-card">
+                <h4>Layer 4: Task Package Envelope</h4>
+                <p>
+                  The exact dispatch envelope packaging the request, route position, allowed actions,
+                  limits, checks, and required output format.
+                </p>
+              </div>
+
+              <div className="task-envelope-box">
+                <div className="envelope-row">
+                  <span className="e-key">Active Preset:</span>
+                  <span className="e-val highlight">{routePreview.preset}</span>
+                </div>
+                <div className="envelope-row">
+                  <span className="e-key">Route Strategy:</span>
+                  <span className="e-val">{routePreview.strategy}</span>
+                </div>
+                <div className="envelope-row">
+                  <span className="e-key">Dispatch Chain:</span>
+                  <span className="e-val">{routePreview.chips.join('  ➔  ')}</span>
+                </div>
+                <div className="envelope-row">
+                  <span className="e-key">Draft Objective:</span>
+                  <span className="e-val">{draft.text.trim() || '(No draft content entered yet)'}</span>
+                </div>
+                <div className="envelope-row effort-envelope-row">
+                  <span className="e-key">Reasoning Effort:</span>
+                  <div className="envelope-effort-inline">
+                    <div className="envelope-effort-head">
+                      <span className="e-val highlight">{activeEffortObj.name} ({activeEffortObj.label})</span>
+                      <span className="envelope-effort-desc">{activeEffortObj.desc}</span>
+                    </div>
+                    <div className="envelope-wakeslider-box">
+                      <WakeSlider
+                        value={activeEffortIndex}
+                        min={0}
+                        max={4}
+                        step={1}
+                        bars={30}
+                        height={42}
+                        restHeight={9}
+                        gap={3}
+                        fillColor="var(--accent, #8ce6b8)"
+                        trackColor="rgba(255, 255, 255, 0.08)"
+                        crestColor="#c4ffdf"
+                        sensitivity={1.1}
+                        reach={5}
+                        onChange={val => {
+                          const lvl = EFFORT_LEVELS[Math.round(val)];
+                          if (lvl) onSelectEffort?.(lvl.name);
+                        }}
+                        ariaLabel="Master Prompt Reasoning Effort"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="envelope-row">
+                  <span className="e-key">Budget Ceilings:</span>
+                  <span className="e-val">Max Depth: 2 · Max Parallel Branches: 4 · Timeout: 300s</span>
+                </div>
+                <div className="envelope-row">
+                  <span className="e-key">Receipt Requirement:</span>
+                  <span className="e-val">Markdown execution receipt with focused test command output</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Modal Footer: Preset Switcher */}
+        <div className="mp-modal-footer">
+          <div className="preset-switcher-header">
+            <span className="switcher-title">Switch Master Prompt Preset:</span>
+            <span className="switcher-desc">Presets alter task guidance without weakening authority or security policy.</span>
+          </div>
+
+          <div className="presets-cards-row">
+            {(availablePresets || MASTER_PRESETS).map(preset => {
+              const isSelected = activePresetId === preset.id;
+              return (
+                <button
+                  key={preset.id}
+                  type="button"
+                  className={`preset-select-card ${isSelected ? 'active' : ''}`}
+                  onClick={() => onSelectPreset(preset.id)}
+                  title={`${preset.name}: ${preset.desc}`}
+                  aria-pressed={isSelected}
+                >
+                  <div className="p-card-top">
+                    <span className="p-card-name">{preset.name}</span>
+                    {isSelected && <span className="p-active-badge">ACTIVE</span>}
+                  </div>
+                  <div className="p-card-desc">{preset.desc}</div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

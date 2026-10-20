@@ -441,15 +441,15 @@ export default function Dock({
   panelHeight = 64,
   gap = 8,
   roundness = 0.65,
-  spring = { mass: 0.1, stiffness: 160, damping: 14 },
+  spring = { mass: 0.1, stiffness: 150, damping: 12 },
   bounce = true,
   autoHide = false,
   tiles = true,
   showLabels = true,
   showIndicators = true,
   showBadges = true,
-  badgeColor = '#3a5c4c',
-  accentColor = '#476b5e',
+  badgeColor,
+  accentColor,
   intro = true,
   introDelay = 0,
   className = '',
@@ -480,7 +480,11 @@ export default function Dock({
   const base = rawBase * fit;
   const peak = rawPeak * fit;
   const thickness = rawThickness * fit;
-  const tokens = { ...(THEMES[theme] ?? THEMES.dark), '--dock-accent': accentColor, '--dock-badge': badgeColor };
+  const tokens = {
+    ...(THEMES[theme] ?? THEMES.dark),
+    ...(accentColor ? { '--dock-accent': accentColor } : {}),
+    ...(badgeColor ? { '--dock-badge': badgeColor } : {})
+  };
 
   const settings = {
     items,
@@ -493,8 +497,8 @@ export default function Dock({
     gap: rawGap * fit,
     distance: Math.max(1, distance) * fit,
     mass: Math.max(0.01, spring?.mass ?? 0.1),
-    stiffness: Math.max(1, spring?.stiffness ?? 160),
-    damping: Math.max(0, spring?.damping ?? 14),
+    stiffness: Math.max(1, spring?.stiffness ?? 150),
+    damping: Math.max(0, spring?.damping ?? 12),
     bounce,
     autoHide
   };
@@ -519,15 +523,41 @@ export default function Dock({
     const width = root.offsetWidth;
     const height = root.offsetHeight;
     if (width === 0 || height === 0) return;
-    const radius = parseFloat(getComputedStyle(root).borderTopLeftRadius) || (height / 2);
-    const pillInset = Math.max(0, (width - height) / 2);
+    const radius = parseFloat(getComputedStyle(root).borderTopLeftRadius) || (Math.min(width, height) / 2);
+    const side = settingsRef.current.side;
+    const isVertical = side === 'left' || side === 'right';
+    const insetX = isVertical ? 0 : Math.max(0, (width - height) / 2);
+    const insetY = isVertical ? Math.max(0, height - width) : 0;
+    const capRadius = Math.min(width, height) / 2;
     const EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
-    const isCenter = root.classList.contains('dock-island-center');
-    const transformStart = isCenter ? 'translateX(-50%) translateY(14px)' : 'translateY(14px)';
-    const transformEnd = isCenter ? 'translateX(-50%) translateY(0)' : 'translateY(0)';
+
+    let transformStart = 'translateY(14px)';
+    let transformEnd = 'translateY(0)';
+    let childStart = 'translateY(8px) scale(0.92)';
+    let childEnd = 'translateY(0) scale(1)';
+
+    if (side === 'left') {
+      transformStart = 'translateX(-14px)';
+      transformEnd = 'translateX(0)';
+      childStart = 'translateX(-8px) scale(0.92)';
+      childEnd = 'translateX(0) scale(1)';
+    } else if (side === 'right') {
+      transformStart = 'translateX(14px)';
+      transformEnd = 'translateX(0)';
+      childStart = 'translateX(8px) scale(0.92)';
+      childEnd = 'translateX(0) scale(1)';
+    } else if (root.classList.contains('dock-island-center')) {
+      transformStart = 'translateX(-50%) translateY(14px)';
+      transformEnd = 'translateX(-50%) translateY(0)';
+    }
+
+    const clipStart = isVertical
+      ? `inset(0px 0px ${insetY}px 0px round ${capRadius}px)`
+      : `inset(0px ${insetX}px 0px ${insetX}px round ${capRadius}px)`;
+
     root.animate(
       [
-        { clipPath: `inset(0px ${pillInset}px round ${height / 2}px)`, opacity: 0, transform: transformStart },
+        { clipPath: clipStart, opacity: 0, transform: transformStart },
         { clipPath: `inset(0px 0px round ${radius}px)`, opacity: 1, transform: transformEnd }
       ],
       { duration: 800, delay: introDelay || 0, easing: EASE_OUT, fill: 'backwards' }
@@ -536,8 +566,8 @@ export default function Dock({
     children.forEach((child, index) => {
       child.animate(
         [
-          { opacity: 0, transform: 'translateY(8px) scale(0.92)' },
-          { opacity: 1, transform: 'translateY(0) scale(1)' }
+          { opacity: 0, transform: childStart },
+          { opacity: 1, transform: childEnd }
         ],
         { duration: 520, delay: (introDelay || 0) + 180 + index * 42, easing: EASE_OUT, fill: 'backwards' }
       );
@@ -547,17 +577,25 @@ export default function Dock({
   useIsomorphicLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
-    const host = root.offsetParent ?? document.documentElement;
     const measure = () => {
       const s = settingsRef.current;
-      const room = (s.vertical ? host.clientHeight : host.clientWidth) - EDGE * 2;
-      const next = s.length > 0 ? Math.min(1, Math.max(0.4, room / s.length)) : 1;
+      const vHeight = window.innerHeight || document.documentElement.clientHeight;
+      const vWidth = window.innerWidth || document.documentElement.clientWidth;
+      const vClearance = s.clearance ?? (s.vertical ? 122 : EDGE * 2);
+      const hClearance = s.clearance ?? (EDGE * 2);
+      const room = (s.vertical ? vHeight - vClearance : vWidth - hClearance);
+      const next = s.length > 0 ? Math.min(1, Math.max(0.35, room / s.length)) : 1;
       setFit(Math.round(next * 1000) / 1000);
     };
     measure();
+    window.addEventListener('resize', measure);
+    const host = root.offsetParent ?? document.documentElement;
     const observer = new ResizeObserver(measure);
     observer.observe(host);
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener('resize', measure);
+      observer.disconnect();
+    };
   }, [length, vertical, rawPeak, rawBase]);
 
   useEffect(() => {

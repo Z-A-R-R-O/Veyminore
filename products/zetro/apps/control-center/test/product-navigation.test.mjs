@@ -29,7 +29,9 @@ import {
   handlePopState,
   resolveRefreshRoute,
   formatShareableRouteUrl,
-  resolveCopiedRouteUrl
+  resolveCopiedRouteUrl,
+  ROUTE_LABELS,
+  createDynamicRegistries
 } from '../src/product-navigation.js';
 
 test('CANONICAL_ROUTES defines exactly the 6 approved primary product routes', () => {
@@ -567,3 +569,42 @@ test('Closed side panels and modals guarantee null panel state and clean focus r
   assert.equal(navigatedState.activeRoute, 'computer');
   assert.equal(navigatedState.returnFocusTo, 'ps-menu-trigger');
 });
+
+test('ROUTE_LABELS provides consistent readable labels for all 6 canonical routes', () => {
+  const expectedRoutes = ['work', 'workers', 'runs', 'computer', 'evidence', 'settings'];
+  assert.deepEqual(Object.keys(ROUTE_LABELS), expectedRoutes);
+  assert.equal(ROUTE_LABELS.work, 'Work');
+  assert.equal(ROUTE_LABELS.workers, 'Workers');
+  assert.equal(ROUTE_LABELS.runs, 'Runs');
+  assert.equal(ROUTE_LABELS.computer, 'Computer');
+  assert.equal(ROUTE_LABELS.evidence, 'Evidence');
+  assert.equal(ROUTE_LABELS.settings, 'Settings');
+});
+
+test('createDynamicRegistries creates non-hardcoded fleets and saved routes from live state', () => {
+  // Empty state supplies safe default dynamic registries
+  const defaultRegistries = createDynamicRegistries();
+  assert.ok(Array.isArray(defaultRegistries.workerGroups));
+  assert.ok(Array.isArray(defaultRegistries.savedRoutes));
+  assert.ok(Array.isArray(defaultRegistries.recentConversations));
+
+  // Dynamic state derives fleets from observed workers
+  const liveRegistries = createDynamicRegistries({
+    workers: [
+      { name: 'AGR-1', group: 'AGR' },
+      { name: 'OCR-2', group: 'OCR' },
+      { name: 'CUSTOM-1', group: 'CUSTOM' }
+    ],
+    savedRoutes: [
+      { id: 'custom-route', label: 'Custom Pipeline' }
+    ],
+    recentConversations: [
+      { id: 'session-42', title: 'Session 42 Work' }
+    ]
+  });
+
+  assert.deepEqual(liveRegistries.workerGroups, ['AGR', 'OCR', 'CUSTOM']);
+  assert.equal(liveRegistries.savedRoutes[0].label, 'Custom Pipeline');
+  assert.equal(liveRegistries.recentConversations[0].title, 'Session 42 Work');
+});
+

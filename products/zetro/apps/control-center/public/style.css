@@ -8,6 +8,8 @@
   --green:#8ce6b8;
   --soft-green:rgba(62,115,88,0.2);
   --accent:#3fb950;
+  --dock-badge:#3fb950;
+  --dock-badge-ink:#ffffff;
   --row:23px;
   --panel-bg:#121418;
   --panel-border:rgba(255,255,255,0.08);
@@ -31,8 +33,17 @@
   --mb-glow-alpha: 0.55;
   --mb-spot-alpha: 0.045;
   --mb-radius: 20px;
-  --mb-inner-radius: 12px;
   --mb-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* Unified Motion & Animation System */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-quad: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-instant: 120ms;
+  --dur-fast: 180ms;
+  --dur-normal: 280ms;
+  --dur-expand: 440ms;
+  --dur-intro: 800ms;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--canvas);color:var(--ink);font:15px/1.5 Satoshi,-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
@@ -47,7 +58,33 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.55;strok
 small{font-size:12px}
 
 /* Application Shell */
-.shell{margin-left:0;min-height:100vh;display:flex;flex-direction:column;width:100%;position:relative}
+.shell{margin-left:0;min-height:100vh;display:flex;flex-direction:column;width:100%;position:relative;z-index:1}
+
+#app-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.46;
+}
+
+#app-background .gradient-ascii-container,
+#app-background .gradient-ascii-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+#app-background .gradient-ascii-container {
+  position: relative;
+  overflow: hidden;
+}
+
+#app-background .gradient-ascii-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
 
 /* CardNav Fixed Top Navigation Container */
 .cardnav-wrapper {
@@ -56,15 +93,55 @@ small{font-size:12px}
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 0 32px;
+  /* Clearance padding: Left dock (32px + 68px = 100px) + 16px gap = 116px */
+  padding: 0 116px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   pointer-events: none;
+  transition: 
+    padding-left 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    padding-right 0.38s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cardnav-wrapper > * {
   pointer-events: auto;
+}
+
+/* Dynamic clearance when side panels are expanded */
+body[data-left-expanded] .cardnav-wrapper {
+  /* Left panel expanded width (260px) + 32px margin + 20px clearance gap */
+  padding-left: 312px;
+}
+
+body[data-right-expanded] .cardnav-wrapper {
+  /* Right panel expanded width (420px) + 32px margin + 20px clearance gap */
+  padding-right: 472px;
+}
+
+@media (max-width: 1280px) {
+  .cardnav-wrapper {
+    /* 18px margin + 68px dock + 14px gap */
+    padding: 0 100px;
+  }
+  body[data-left-expanded] .cardnav-wrapper {
+    padding-left: 298px;
+  }
+  body[data-right-expanded] .cardnav-wrapper {
+    padding-right: 458px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardnav-wrapper {
+    padding: 0 14px;
+  }
+  body[data-left-expanded] .cardnav-wrapper {
+    padding-left: 14px;
+  }
+  body[data-right-expanded] .cardnav-wrapper {
+    padding-right: 14px;
+  }
 }
 
 /* Full-Width Fixed Top Bar with Dock-Style Inner Items */
@@ -257,7 +334,7 @@ header.app-header {
 }
 .workspace[aria-expanded="true"] .workspace-popover {
   display: block;
-  animation: top-dock-popover-enter .2s cubic-bezier(.2, 1, .3, 1);
+  animation: top-dock-popover-enter .2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @keyframes top-dock-popover-enter {
   from { opacity: 0; transform: translateY(-6px) scale(0.97); }
@@ -664,7 +741,64 @@ header.app-header.collapsed:hover .top-dock-toggle .toggle-icon {
 }
 
 /* Main Content Area — With 60px top clearance for Fixed Top Bar */
-main{width:100%;max-width:1350px;padding:36px 46px 180px;margin-top:60px;flex:1;align-self:center}
+main {
+  width: 100%;
+  max-width: 1350px;
+  padding: 36px 46px 180px;
+  margin-top: 60px;
+  flex: 1;
+  align-self: center;
+  transition: 
+    padding-left 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    padding-right 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body[data-left-expanded] main {
+  padding-left: calc(260px + 46px);
+}
+
+body[data-right-expanded] main {
+  padding-right: calc(420px + 46px);
+}
+
+@media (max-width: 1280px) {
+  body[data-left-expanded] main {
+    padding-left: calc(260px + 28px);
+  }
+  body[data-right-expanded] main {
+    padding-right: calc(420px + 28px);
+  }
+}
+
+/* Dedicated Work View Layout (Eliminates excessive padding and aligns to 860px column) */
+body[data-view="work"] main {
+  padding: 10px 24px 0;
+  max-width: 100%;
+  width: 100%;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body[data-view="work"][data-left-expanded] main {
+  padding-left: calc(260px + 32px);
+}
+
+body[data-view="work"][data-right-expanded] main {
+  padding-right: calc(420px + 32px);
+}
+
+body[data-view="work"] .work-mount-container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+body[data-view="work"] .shell > footer {
+  display: none !important;
+}
 .eyebrow{font-size:10px;font-weight:750;letter-spacing:.15em;color:#6e7681}
 .hero{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:34px}
 .hero h1{font-size:46px;line-height:1.14;font-weight:650;letter-spacing:-.055em;margin:13px 0 14px;color:#ffffff}
@@ -772,7 +906,7 @@ dialog#worker-dialog::after,
   isolation: isolate;
   box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.95), 0 8px 24px -4px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
 }
-.card-nav__panel > * {
+.card-nav__panel > .card-nav__bar {
   position: relative;
   z-index: 2;
 }
@@ -1468,7 +1602,7 @@ dialog::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);-webkit-b
   box-shadow:0 16px 36px -8px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
   z-index:900;
   color:#e6edf3;
-  animation:popover-enter .15s cubic-bezier(.2,1,.3,1);
+  animation:popover-enter .15s cubic-bezier(0.22, 1, 0.36, 1);
   overflow:hidden;
 }
 .tweak summary{display:none}
@@ -1547,7 +1681,7 @@ dialog::backdrop{background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);-webkit-b
 .expanded .stream-desc{font-size:12px}
 .compact{--row:15px}
 .compact .worker-table td{padding-top:11px;padding-bottom:11px}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);top:0;left:0;margin:-1px;padding:0;border:0}
 
 /* Primary Navigation: Floating Dock Container */
 #dock-root{position:fixed;bottom:0;left:0;right:0;height:0;display:flex;justify-content:center;z-index:1000;pointer-events:none}

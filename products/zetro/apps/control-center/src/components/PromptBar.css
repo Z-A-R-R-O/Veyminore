@@ -1,0 +1,831 @@
+/* ==========================================================================
+   PromptBar.css — Integrated React Bits Composer for ZETRO IFZ Work Page
+   - Theme: ZETRO Graphite & Dark Carbon with Magic Bento borders
+   - Satoshi Typography
+   - Animated Canvas Sparks driven by typing speed at Max Effort
+   - Morphing Send/Stop SVG Path Button
+   ========================================================================== */
+
+/* ==========================================================================
+   Master Composer Capsule (.prompt-bar / .ifz-prompt-capsule)
+   - Unified luxury glass enclosure with Magic Bento hover dynamics
+   - CardNav-style global intro clip-path unroll & child stagger reveal
+   - Opposite-direction hover spring (hops up towards canvas center)
+   ========================================================================== */
+
+.prompt-bar {
+  --pb-bg: linear-gradient(180deg, rgba(20, 22, 28, 0.94) 0%, rgba(14, 15, 20, 0.97) 100%);
+  --pb-ink: #f4f4f2;
+  --pb-menu: #181a20;
+  --pb-w: 860px;
+  --pb-radius: 18px;
+  --pb-press: 0.96;
+  --pb-spark: var(--accent, #8ce6b8);
+  --pb-ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --pb-muted: rgba(244, 244, 242, 0.5);
+  --pb-hover: rgba(255, 255, 255, 0.08);
+
+  position: relative;
+  width: min(var(--pb-w), 100%);
+  color: var(--pb-ink);
+  font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  box-sizing: border-box;
+  border-radius: var(--pb-radius);
+  background: var(--pb-bg);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 24px 64px -16px rgba(0, 0, 0, 0.9),
+    0 8px 24px -4px rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  backdrop-filter: blur(28px) saturate(1.8);
+  isolation: isolate;
+  transition:
+    transform 0.36s var(--pb-ease-spring),
+    box-shadow 0.32s var(--pb-ease-spring),
+    border-color 0.25s ease;
+}
+
+/* Magic Bento Dynamic Cursor Spotlight for PromptBar Capsule */
+.prompt-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(var(--mb-glow-rgb, 140, 230, 184), calc(var(--mb-spot-alpha, 0.045) * var(--mouse-hot, 0) * 2.2)) 0%,
+    rgba(var(--mb-glow-rgb, 140, 230, 184), calc(var(--mb-spot-alpha, 0.045) * var(--mouse-hot, 0) * 0.8)) 35%,
+    rgba(var(--mb-glow-rgb, 140, 230, 184), 0) 100%
+  );
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Magic Bento Dynamic Hairline Masked Border Glow for PromptBar Capsule */
+.prompt-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  box-sizing: border-box;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(var(--mb-glow-rgb, 140, 230, 184), calc(var(--mb-glow-alpha, 0.55) * var(--mouse-hot, 0) * 1.15)) 0%,
+    rgba(var(--mb-glow-rgb, 140, 230, 184), calc(var(--mb-glow-alpha, 0.55) * var(--mouse-hot, 0) * 0.45)) 42%,
+    rgba(var(--mb-glow-rgb, 140, 230, 184), 0) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Opposite-Direction Hover Spring: Hop Upwards into Canvas Center */
+@media (hover: hover) {
+  .prompt-bar:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 32px 76px -16px rgba(0, 0, 0, 0.98),
+      0 12px 28px -4px rgba(0, 0, 0, 0.82),
+      0 0 24px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.12);
+  }
+}
+
+.prompt-bar:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 36px 84px -14px rgba(0, 0, 0, 1),
+    0 16px 36px -4px rgba(0, 0, 0, 0.85),
+    0 0 32px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.18);
+}
+
+/* ==========================================================================
+   Dropdown Popover Menus (@ sources, / commands, models, effort slider)
+   ========================================================================== */
+
+.prompt-bar__menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  left: 0;
+  z-index: 25;
+  padding: 6px;
+  border-radius: 14px;
+  background: var(--pb-menu);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 20px 54px -10px rgba(0, 0, 0, 0.85),
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  backdrop-filter: blur(24px) saturate(1.8);
+  transform-origin: bottom center;
+  animation: prompt-bar-spring-pop 240ms var(--pb-ease-spring) both;
+}
+
+.prompt-bar__menu[data-kind='model'] {
+  right: auto;
+  width: 250px;
+  transform-origin: bottom left;
+}
+
+.prompt-bar__menu[data-kind='effort'] {
+  right: auto;
+  width: 260px;
+  padding: 14px 16px 16px;
+  transform-origin: bottom left;
+}
+
+@keyframes prompt-bar-spring-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.prompt-bar__glow {
+  position: absolute;
+  right: 6px;
+  left: 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    top 200ms var(--pb-ease-out),
+    height 200ms var(--pb-ease-out),
+    opacity 150ms ease;
+}
+
+.prompt-bar__row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.12s ease;
+}
+
+.prompt-bar__row:hover,
+.prompt-bar__row[aria-selected='true'] {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.prompt-bar__row-icon {
+  display: inline-flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  color: var(--accent, #8ce6b8);
+}
+
+.prompt-bar__row-name {
+  flex: none;
+  font-size: 13.5px;
+  font-weight: 550;
+  color: #f4f4f2;
+}
+
+.prompt-bar__row-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--pb-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.prompt-bar__row-tag {
+  flex: none;
+  margin-left: auto;
+  color: var(--accent, #8ce6b8);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.prompt-bar__row-check {
+  display: inline-flex;
+  flex: none;
+  justify-content: center;
+  width: 16px;
+  color: var(--accent, #8ce6b8);
+  opacity: 0;
+}
+
+.prompt-bar__row-check[data-on] {
+  opacity: 1;
+}
+
+.prompt-bar__empty {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 10px;
+  color: var(--pb-muted);
+  font-size: 12.5px;
+}
+
+/* ==========================================================================
+   Main Composer Field Surface
+   ========================================================================== */
+
+.prompt-bar__field {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 18px 12px;
+  border-radius: var(--pb-radius);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: text;
+}
+
+/* Dynamic Radial Aura on Max Effort */
+.prompt-bar__field::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    140% 120% at 0% 100%,
+    rgba(var(--mb-glow-rgb, 140, 230, 184), 0.22),
+    transparent 65%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+}
+
+.prompt-bar__field[data-max]::before {
+  opacity: 1;
+}
+
+.prompt-bar__sparks {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Attachment Chips
+   ========================================================================== */
+
+.prompt-bar__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.prompt-bar__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 6px 0 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  color: #f4f4f2;
+  animation: prompt-bar-pop 200ms var(--pb-ease-out) both;
+}
+
+.prompt-bar__chip-name {
+  max-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.prompt-bar__chip-x {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 120ms ease, background-color 120ms ease;
+}
+
+.prompt-bar__chip-x:hover {
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Textarea Input
+   ========================================================================== */
+
+.prompt-bar__input {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f4f4f2;
+  font-family: inherit;
+  font-size: 14.5px;
+  line-height: 22px;
+  resize: none;
+  outline: none;
+  overflow-wrap: anywhere;
+}
+
+.prompt-bar__input::placeholder {
+  color: rgba(244, 244, 242, 0.42);
+}
+
+@media (pointer: coarse) {
+  .prompt-bar__input {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================================
+   Toolbar Controls (Tools, Pickers, Send)
+   ========================================================================== */
+
+.prompt-bar__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+/* Inline Reasoning Effort Controller (WakeSlider) inside PromptBar */
+.prompt-bar__effort-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 6px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.prompt-bar__effort-control:hover,
+.prompt-bar__effort-control:focus-within,
+.prompt-bar__effort-control[data-interacting='true'] {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Minimal Floating Micro-Capsule: Appears ONLY on hover or interaction beside the bar */
+.prompt-bar__effort-tooltip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: rgba(20, 22, 29, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 16px -2px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 20;
+  transition:
+    opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prompt-bar__effort-control:hover .prompt-bar__effort-tooltip,
+.prompt-bar__effort-control:focus-within .prompt-bar__effort-tooltip,
+.prompt-bar__effort-control[data-interacting='true'] .prompt-bar__effort-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.effort-tooltip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent, #8ce6b8);
+  box-shadow: 0 0 8px var(--accent, #8ce6b8);
+  flex-shrink: 0;
+}
+
+.effort-tooltip-name {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #f4f4f2;
+}
+
+.effort-tooltip-sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(244, 244, 242, 0.45);
+  padding-left: 5px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.01em;
+}
+
+.prompt-bar__effort-wake {
+  width: 154px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prompt-bar__effort-wake .wake-slider {
+  height: 100%;
+  gap: 0;
+}
+
+.prompt-bar__effort-wake .wake-slider__track {
+  min-height: 0 !important;
+  height: 20px !important;
+  cursor: grab;
+}
+
+.prompt-bar__effort-wake .wake-slider__track:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 680px) {
+  .prompt-bar__effort-wake {
+    width: 110px;
+  }
+}
+
+.prompt-bar__spacer {
+  flex: 1 1 auto;
+}
+
+/* Smartly hidden Send Button slot: Fades and scales in when input is entered, gradual 1.2s fade-out */
+.prompt-bar__send-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 1.2s;
+}
+
+.prompt-bar__send-slot[data-visible='true'] {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  transition:
+    opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s;
+}
+
+.prompt-bar__tool,
+.prompt-bar__pick,
+.prompt-bar__send {
+  flex: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.prompt-bar__tool {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(244, 244, 242, 0.65);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    transform 160ms var(--pb-ease-out);
+}
+
+.prompt-bar__tool:active {
+  transform: scale(0.94);
+}
+
+.prompt-bar__pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(244, 244, 242, 0.8);
+  font-size: 12.5px;
+  font-weight: 550;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.prompt-bar__tool[data-on],
+.prompt-bar__pick[data-on] {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .prompt-bar__tool:hover,
+  .prompt-bar__pick:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+}
+
+.prompt-bar__pick[data-max] {
+  color: var(--accent, #8ce6b8);
+  border-color: rgba(var(--mb-glow-rgb, 140, 230, 184), 0.35);
+  background: rgba(var(--mb-glow-rgb, 140, 230, 184), 0.1);
+}
+
+/* ==========================================================================
+   Effort Slider Popover
+   ========================================================================== */
+
+.prompt-bar__effort-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.prompt-bar__effort-title {
+  color: var(--pb-muted);
+}
+
+.prompt-bar__effort-level {
+  font-weight: 600;
+  color: var(--accent, #8ce6b8);
+}
+
+.prompt-bar__effort-help {
+  display: inline-flex;
+  margin-left: auto;
+  color: var(--pb-muted);
+}
+
+.prompt-bar__effort-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  color: var(--pb-muted);
+  font-size: 11.5px;
+  line-height: 16px;
+}
+
+.prompt-bar__effort-track {
+  position: relative;
+  height: 22px;
+  margin-top: 8px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  outline: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.prompt-bar__effort-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--pb-effort-fill);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.18);
+  transition:
+    width 220ms var(--pb-ease-out),
+    background-color 300ms ease;
+}
+
+.prompt-bar__effort-dot {
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.prompt-bar__effort-thumb {
+  position: absolute;
+  top: -3px;
+  left: var(--pb-effort-x);
+  width: 14px;
+  height: 28px;
+  margin-left: -7px;
+  border-radius: 7px;
+  background: #f4f4f2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition:
+    left 220ms var(--pb-ease-out),
+    background-color 300ms ease;
+}
+
+.prompt-bar[data-max] .prompt-bar__effort-fill {
+  background: rgba(var(--mb-glow-rgb, 140, 230, 184), 0.35);
+}
+
+.prompt-bar[data-max] .prompt-bar__effort-thumb {
+  background: var(--accent, #8ce6b8);
+  box-shadow: 0 0 10px rgba(var(--mb-glow-rgb, 140, 230, 184), 0.6);
+}
+
+/* ==========================================================================
+   Voice Dictation Visualizer
+   ========================================================================== */
+
+.prompt-bar__eq {
+  display: flex;
+  align-items: center;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.prompt-bar__eq i {
+  display: block;
+  width: 2.5px;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent, #8ce6b8);
+  transform-origin: center;
+  animation: prompt-bar-eq 900ms ease-in-out infinite;
+}
+
+.prompt-bar__eq i:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.prompt-bar__eq i:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes prompt-bar-eq {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* ==========================================================================
+   Morphing Send / Stop Button
+   ========================================================================== */
+
+.prompt-bar__send {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.35);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    transform 160ms var(--pb-ease-out),
+    box-shadow 200ms ease;
+}
+
+.prompt-bar__send:disabled {
+  cursor: default;
+}
+
+.prompt-bar__send[data-armed] {
+  background: #f4f4f2;
+  color: #090a0c;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.prompt-bar[data-busy] .prompt-bar__send[data-armed] {
+  background: #f87171;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(248, 113, 113, 0.45);
+}
+
+.prompt-bar__send[data-pressed] {
+  transform: scale(var(--pb-press));
+}
+
+.prompt-bar__glyph {
+  display: block;
+  width: 17px;
+  height: 17px;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-bar,
+  .prompt-bar:hover,
+  .prompt-bar:focus-within {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .prompt-bar__menu,
+  .prompt-bar__chip {
+    animation: none !important;
+  }
+
+  .prompt-bar__glow {
+    transition: opacity 150ms ease;
+  }
+
+  .prompt-bar__effort-fill,
+  .prompt-bar__effort-thumb {
+    transition: background-color 300ms ease;
+  }
+
+  .prompt-bar__tool:active,
+  .prompt-bar__send[data-pressed] {
+    transform: none;
+  }
+}

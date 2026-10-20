@@ -3,6 +3,7 @@ import { mountDock } from '/dock.js';
 import { mountCardNav } from '/nav.js';
 import { mountMagicBento } from '/bento.js';
 import { mountComputerPreview, getComputerPreviewHtml } from '/computer-preview/app.js';
+import { mountIfzWorkPage } from '/work.js';
 
 const paths = {
   grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
@@ -21,10 +22,22 @@ const paths = {
 };
 const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name] || paths.layers}</svg>`;
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
-const labels = { overview:'Overview', readiness:'RCT readiness', workers:'Workers', activity:'Activity', requirements:'Requirements', computer:'Computer Agent' };
+const labels = {
+  work: 'Work',
+  overview: 'Work',
+  conversations: 'Conversations',
+  workers: 'Workers',
+  runs: 'Runs',
+  activity: 'Runs',
+  computer: 'Computer',
+  evidence: 'Evidence',
+  readiness: 'Evidence',
+  settings: 'Settings',
+  requirements: 'Roadmap'
+};
 
 const initialHash = window.location.hash.replace(/^#\/?/, '');
-const defaultView = labels[initialHash] ? initialHash : (initialHash === 'computer-preview' ? 'computer' : 'overview');
+const defaultView = labels[initialHash] ? initialHash : (initialHash === 'computer-preview' ? 'computer' : 'work');
 const state = { data:null, view:defaultView, group:'all', detail:'focused', error:false, selectedWorker:null };
 const content = document.querySelector('#content');
 
@@ -55,6 +68,10 @@ function applyAccent(accentId) {
   root.style.setProperty('--accent', accent.beacon);
   root.style.setProperty('--green', accent.hex);
   root.style.setProperty('--soft-green', accent.soft);
+  root.style.setProperty('--dock-badge', accent.beacon);
+  root.style.setProperty('--dock-badge-ink', accent.id === 'silver' ? '#090a0c' : '#ffffff');
+  root.setAttribute('data-accent', accent.id);
+  document.body.setAttribute('data-accent', accent.id);
 
   document.querySelectorAll('.accent-chip').forEach(chip => {
     chip.classList.toggle('active', chip.dataset.accent === accent.id);
@@ -270,23 +287,60 @@ function plan() {
 let dock = null;
 let currentPreviewController = null;
 let bentoController = null;
+let workPageController = null;
 
 function render() {
   if (!state.data) return;
 
   if (state.view === 'computer') {
+    if (workPageController) {
+      workPageController.destroy();
+      workPageController = null;
+    }
     if (!currentPreviewController) {
       document.body.dataset.view = 'computer';
       content.innerHTML = getComputerPreviewHtml();
       currentPreviewController = mountComputerPreview(content);
+    }
+  } else if (state.view === 'work') {
+    if (currentPreviewController) {
+      currentPreviewController.destroy();
+      currentPreviewController = null;
+    }
+    document.body.dataset.view = 'work';
+    if (!workPageController) {
+      content.innerHTML = '<div class="work-mount-container"></div>';
+      const mountEl = content.querySelector('.work-mount-container');
+      const searchParams = new URLSearchParams(window.location.search);
+      const fixtureParam = searchParams.get('fixture');
+      workPageController = mountIfzWorkPage(mountEl, {
+        initialFixture: fixtureParam || null,
+        devLab: window.location.search.includes('dev=true') || window.location.hash.startsWith('#lab')
+      });
     }
   } else {
     if (currentPreviewController) {
       currentPreviewController.destroy();
       currentPreviewController = null;
     }
+    if (workPageController) {
+      workPageController.destroy();
+      workPageController = null;
+    }
     document.body.dataset.view = state.view;
-    content.innerHTML = ({ overview, readiness, workers, activity, requirements: plan }[state.view] || overview)();
+    const viewRenderers = {
+      overview,
+      conversations: overview,
+      workers,
+      runs: activity,
+      activity,
+      computer: getComputerPreviewHtml,
+      evidence: readiness,
+      readiness,
+      settings: overview,
+      requirements: plan
+    };
+    content.innerHTML = (viewRenderers[state.view] || overview)();
   }
 
   // Handle MagicBento Mount/Unmount
@@ -492,14 +546,18 @@ async function refresh() {
       textSpan.textContent = next.live.sources.every(source => source.available) ? 'Live workspace' : 'Partial connection';
       connEl.classList.remove('offline');
     }
+    cardNav?.setConnectionStatus?.({ connected: true, label: 'Connected' });
+    if (next.workspace) cardNav?.setWorkspace?.(next.workspace);
     if (changed) render();
     if (document.querySelector('#worker-dialog').open && state.selectedWorker) inspectWorker(state.selectedWorker);
     const updatedEl = document.querySelector('#updated');
     if (updatedEl) {
       updatedEl.textContent = `Checked ${new Date(next.live.observedAt).toLocaleTimeString()} - auto refresh 10s`;
     }
-  } catch {
+  } catch (err) {
+    console.error('[REFRESH CAUGHT ERROR]:', err);
     state.error = true;
+    cardNav?.setConnectionStatus?.({ connected: false, label: 'Connection unavailable' });
     const connEl = document.querySelector('#connection');
     if (connEl) {
       const textSpan = connEl.querySelector('.connection-text') || connEl;
@@ -770,7 +828,7 @@ function updateMagicBentoHover() {
   const cx = lastPointerEvent.clientX;
   const cy = lastPointerEvent.clientY;
   const targets = document.querySelectorAll(
-    '.panel, .fleet-team, .fleet-worker, .plan-phase, .metric-card, dialog#worker-dialog, .card-nav__panel, .dock, .card-nav__card'
+    '.panel, .fleet-team, .fleet-worker, .plan-phase, .metric-card, dialog#worker-dialog, .card-nav__panel, .dock, .card-nav__card, .prompt-bar, .empty-prompt-card'
   );
   const reach = 160;
   for (let i = 0; i < targets.length; i++) {

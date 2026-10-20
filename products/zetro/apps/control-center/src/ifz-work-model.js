@@ -29,6 +29,14 @@ export const MASTER_PRESETS = Object.freeze([
   { id: 'custom', name: 'Custom', desc: 'User-managed instructions' }
 ]);
 
+export const EFFORT_LEVELS = Object.freeze([
+  { id: 'low', name: 'Low', label: 'Fast', desc: 'Minimal reasoning steps, quick shallow passes' },
+  { id: 'medium', name: 'Medium', label: 'Balanced', desc: 'Standard deliberation with direct checks' },
+  { id: 'high', name: 'High', label: 'Deep', desc: 'Extended reasoning with multi-step verification' },
+  { id: 'strict', name: 'Strict', label: 'Strict', desc: 'Rigid boundary checks and proof receipts' },
+  { id: 'max', name: 'Max', label: 'Maximum', desc: 'Exhaustive qualification, deep reasoning & proof' }
+]);
+
 export const REGISTERED_WORKERS = Object.freeze([
   { id: 'AGR-1', name: 'AGR-1', role: 'Architecture & Verification', adapter: 'antigravity', available: true },
   { id: 'AGR-2', name: 'AGR-2', role: 'Computer Agent & Windows', adapter: 'antigravity', available: true },
@@ -575,6 +583,7 @@ export function generateRoutePreview(draft = {}, options = {}) {
     description,
     chips,
     authorityScope,
+    effort: draft.effort || 'High',
     verificationRequired: true
   };
 }
@@ -642,6 +651,7 @@ export function createIfzWorkModel(options = {}) {
     manualWorkers: [],
     savedWorkflowId: 'sequential_review',
     presetId: 'zetro-standard',
+    effort: 'High',
     ...(options.initialDraft || loadDraftFromStorage())
   };
 
@@ -686,6 +696,7 @@ export function createIfzWorkModel(options = {}) {
         connection: fixtureData.connection
       }),
       availablePresets: MASTER_PRESETS,
+      availableEfforts: EFFORT_LEVELS,
       availableWorkers: hasConnectedGateway ? REGISTERED_WORKERS : [],
       savedWorkflows: SAVED_WORKFLOWS,
       stats: {
@@ -705,6 +716,15 @@ export function createIfzWorkModel(options = {}) {
     draft = { ...draft, ...partial };
     saveDraftToStorage(draft);
     emitChange();
+  }
+
+  function setEffort(effort) {
+    if (EFFORT_LEVELS.some(e => e.name.toLowerCase() === String(effort).toLowerCase() || e.id === String(effort).toLowerCase())) {
+      const match = EFFORT_LEVELS.find(e => e.name.toLowerCase() === String(effort).toLowerCase() || e.id === String(effort).toLowerCase());
+      setDraft({ effort: match ? match.name : effort });
+    } else if (typeof effort === 'string' && effort.trim().length > 0) {
+      setDraft({ effort: effort.trim() });
+    }
   }
 
   function setRouteMode(mode) {
@@ -820,7 +840,7 @@ export function createIfzWorkModel(options = {}) {
       source: 'IFZ',
       target: 'User',
       timestamp,
-      content: `[DRY-RUN PREVIEW] Envelope parsed by IFZ. Target: ${preview.target} · Strategy: ${preview.strategy}`,
+      content: `[DRY-RUN PREVIEW] Envelope parsed by IFZ. Target: ${preview.target} · Strategy: ${preview.strategy} · Reasoning Effort: ${draft.effort || 'High'}`,
       details: 'Live provider transmission and dispatch are disabled in this build. Prompt was safely preserved in draft history.'
     };
 
@@ -835,6 +855,7 @@ export function createIfzWorkModel(options = {}) {
         target: 'IFZ',
         prompt: promptText,
         routePreview: preview,
+        effort: draft.effort || 'High',
         timestamp
       }
     };
@@ -877,6 +898,7 @@ export function createIfzWorkModel(options = {}) {
     toggleManualWorker,
     setPreset,
     setSavedWorkflow,
+    setEffort,
     addAttachment,
     removeAttachment,
     toggleBranch,

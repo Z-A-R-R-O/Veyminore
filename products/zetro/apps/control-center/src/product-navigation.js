@@ -69,6 +69,52 @@ export const CANONICAL_ROUTES = [
 ];
 
 /**
+ * Standard readable label mapping for the 6 canonical routes.
+ */
+export const ROUTE_LABELS = {
+  work: 'Work',
+  workers: 'Workers',
+  runs: 'Runs',
+  computer: 'Computer',
+  evidence: 'Evidence',
+  settings: 'Settings'
+};
+
+/**
+ * Factory for dynamic registries (worker groups, saved routes, recent conversations).
+ * Ensures worker fleets and saved templates are not hardcoded into navigation components.
+ */
+export function createDynamicRegistries(state = {}) {
+  const workerGroups = Array.isArray(state?.workerGroups) && state.workerGroups.length > 0
+    ? state.workerGroups
+    : Array.isArray(state?.workers) && state.workers.length > 0
+      ? [...new Set(state.workers.map(w => w.group).filter(Boolean))]
+      : ['RCT', 'AGR', 'OCR'];
+
+  const savedRoutes = Array.isArray(state?.savedRoutes) && state.savedRoutes.length > 0
+    ? state.savedRoutes
+    : [
+        { id: 'agr-5-rct', label: 'AGR × 5 → RCT', strategy: 'Parallel 5-worker review + RCT synthesis' },
+        { id: 'ocr-codex', label: 'OCR → Codex review', strategy: 'OCR extraction + dual pass' },
+        { id: 'full-qual', label: 'Full qualification', strategy: 'All-agent benchmark suite' }
+      ];
+
+  const recentConversations = Array.isArray(state?.recentConversations) && state.recentConversations.length > 0
+    ? state.recentConversations
+    : [
+        { id: 'unified-app', title: 'Unified app architecture' },
+        { id: 'computer-agent-qual', title: 'Computer agent qualification' },
+        { id: 'rct-review', title: 'RCT provider review' }
+      ];
+
+  return {
+    workerGroups,
+    savedRoutes,
+    recentConversations
+  };
+}
+
+/**
  * Former primary destinations removed per IFZ architecture.
  */
 export const REMOVED_PRIMARY_ROUTES = [
