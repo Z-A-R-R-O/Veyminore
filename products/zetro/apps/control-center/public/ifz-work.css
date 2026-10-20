@@ -441,7 +441,7 @@
 .ifz-prompt-bar-footer {
   position: fixed;
   bottom: 128px;
-  left: 0;
+  left: var(--app-sidebar-offset, 0px);
   right: 0;
   display: flex;
   justify-content: center;
