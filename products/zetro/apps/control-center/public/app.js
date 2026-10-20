@@ -287,6 +287,7 @@ let dock = null;
 let currentPreviewController = null;
 let bentoController = null;
 let workPageController = null;
+let lastAnimatedView = null;
 
 function render() {
   if (!state.data) return;
@@ -394,7 +395,10 @@ function render() {
     updatedEl.textContent = `Saved evidence -- ${state.data.evidenceUpdatedAt ? new Date(state.data.evidenceUpdatedAt).toLocaleString([], { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' }) : 'not available'}`;
   }
   updateIcons();
-  animateViewIntro(content);
+  if (lastAnimatedView !== state.view) {
+    animateViewIntro(content);
+    lastAnimatedView = state.view;
+  }
 }
 
 let isFirstRender = true;
@@ -406,7 +410,6 @@ function animateViewIntro(container) {
   const baseOffset = isFirstRender ? 140 : 0;
   isFirstRender = false;
 
-  // 1. Hero Section: Staggered upward flow
   const hero = container.querySelector('.hero');
   if (hero) {
     const eyebrow = hero.querySelector('.eyebrow');
@@ -418,15 +421,14 @@ function animateViewIntro(container) {
     heroElements.forEach((el, index) => {
       el.animate(
         [
-          { opacity: 0, transform: 'translateY(12px)' },
+          { opacity: 0, transform: 'translateY(10px)' },
           { opacity: 1, transform: 'translateY(0)' }
         ],
-        { duration: 560, delay: baseOffset + index * 50, easing: EASE_OUT, fill: 'backwards' }
+        { duration: 680, delay: baseOffset + index * 55, easing: EASE_OUT, fill: 'backwards' }
       );
     });
   }
 
-  // 2. Section Headings, Notices & Filter Tabs
   const sectionHeadings = container.querySelectorAll('.section-heading, .notice, .group-tabs');
   sectionHeadings.forEach((heading, index) => {
     heading.animate(
@@ -434,32 +436,27 @@ function animateViewIntro(container) {
         { opacity: 0, transform: 'translateY(10px)' },
         { opacity: 1, transform: 'translateY(0)' }
       ],
-      { duration: 500, delay: baseOffset + 80 + index * 40, easing: EASE_OUT, fill: 'backwards' }
+      { duration: 620, delay: baseOffset + 90 + index * 45, easing: EASE_OUT, fill: 'backwards' }
     );
   });
 
-  // 3. Primary Cards & Panels: Signature Unroll / Spring Elevation
-  // Targets .fleet-team, .metric-card, .panel, .plan-phase
   const cards = Array.from(container.querySelectorAll('.fleet-team, .metric-card, .panel, .plan-phase'));
   cards.forEach((card, index) => {
-    const cardDelay = baseOffset + 80 + Math.min(index * 60, 360);
+    const cardDelay = baseOffset + 100 + Math.min(index * 55, 330);
     card.animate(
       [
         {
           opacity: 0,
-          clipPath: 'inset(2px 5% round 20px)',
-          transform: 'translateY(16px) scale(0.985)'
+          transform: 'translateY(14px) scale(0.99)'
         },
         {
           opacity: 1,
-          clipPath: 'inset(0px 0px round 20px)',
           transform: 'translateY(0) scale(1)'
         }
       ],
-      { duration: 640, delay: cardDelay, easing: EASE_OUT, fill: 'backwards' }
+      { duration: 720, delay: cardDelay, easing: EASE_OUT, fill: 'backwards' }
     );
 
-    // 4. Staggered Inner Tiles inside each card (e.g. .fleet-worker, .stream-row, .requirement, .timeline-item, .next-step)
     const tiles = Array.from(card.querySelectorAll('.fleet-worker, .stream-row, .requirement, .timeline-item, .next-step'));
     tiles.forEach((tile, tileIndex) => {
       tile.animate(
@@ -467,12 +464,11 @@ function animateViewIntro(container) {
           { opacity: 0, transform: 'translateY(8px)' },
           { opacity: 1, transform: 'translateY(0)' }
         ],
-        { duration: 460, delay: cardDelay + 100 + tileIndex * 30, easing: EASE_OUT, fill: 'backwards' }
+        { duration: 540, delay: cardDelay + 110 + Math.min(tileIndex * 24, 240), easing: EASE_OUT, fill: 'backwards' }
       );
     });
   });
 
-  // 5. Worker Table Rows (if present)
   const workerTable = container.querySelector('.worker-table');
   if (workerTable) {
     const rows = Array.from(workerTable.querySelectorAll('tbody tr'));
@@ -482,12 +478,11 @@ function animateViewIntro(container) {
           { opacity: 0, transform: 'translateY(6px)' },
           { opacity: 1, transform: 'translateY(0)' }
         ],
-        { duration: 400, delay: baseOffset + 180 + Math.min(index * 20, 240), easing: EASE_OUT, fill: 'backwards' }
+        { duration: 520, delay: baseOffset + 180 + Math.min(index * 24, 240), easing: EASE_OUT, fill: 'backwards' }
       );
     });
   }
 
-  // 6. Section Intro Note
   const intros = container.querySelectorAll('.section-intro');
   intros.forEach((introEl, index) => {
     introEl.animate(
@@ -495,7 +490,7 @@ function animateViewIntro(container) {
         { opacity: 0 },
         { opacity: 1 }
       ],
-      { duration: 440, delay: baseOffset + 260 + index * 40, easing: 'ease-out', fill: 'backwards' }
+      { duration: 560, delay: baseOffset + 260 + index * 40, easing: EASE_OUT, fill: 'backwards' }
     );
   });
 }

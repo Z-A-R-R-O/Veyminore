@@ -207,6 +207,12 @@
   line-height: 1.1;
   letter-spacing: -0.045em;
   white-space: nowrap;
+  animation: work-title-arrive 1100ms cubic-bezier(.22,1,.36,1) 120ms both;
+}
+
+@keyframes work-title-arrive {
+  from { opacity:0; transform:translateY(18px) scale(.985); filter:blur(3px); }
+  to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
 }
 
 .loading-spinner {
@@ -448,7 +454,13 @@
   padding: 0 20px;
   pointer-events: none;
   z-index: 100;
-  transition: bottom 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: bottom 0.44s cubic-bezier(0.22, 1, 0.36, 1), right 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: work-composer-arrive 900ms cubic-bezier(.22,1,.36,1) 330ms both;
+}
+
+@keyframes work-composer-arrive {
+  from { opacity:0; transform:translateY(18px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
 @media (max-height: 840px) {
