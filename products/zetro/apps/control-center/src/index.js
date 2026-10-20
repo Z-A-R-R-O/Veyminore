@@ -4,7 +4,7 @@
  *
  * Implements live application integration:
  * - Mounts IfzWorkPage in ProductShell as default live route ('work').
- * - Preserves three-dock identity, sliding panels, and top navigation.
+ * - Keeps canonical navigation state for the composed product shell.
  * - Wires canonical URL hash, history state, popstate back/forward, and copied-route resolution.
  * - Consumes read-only status data truthfully without inventing counts, connections, or paths.
  * - Protects read-only authority: Composer remains visibly dry-run with zero mutation endpoints.

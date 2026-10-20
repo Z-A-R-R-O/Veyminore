@@ -1,6 +1,5 @@
 import { renderWorkerDetail } from '/worker-detail/view.js';
 import { mountDock } from '/dock.js';
-import { mountCardNav } from '/nav.js';
 import { mountMagicBento } from '/bento.js';
 import { mountComputerPreview, getComputerPreviewHtml } from '/computer-preview/app.js';
 import { mountIfzWorkPage } from '/work.js';
@@ -358,21 +357,18 @@ function render() {
           window.location.hash = 'computer';
           render();
           dock?.setView('computer');
-          cardNav?.setView('computer');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else if (item.title?.includes('Observation') || item.title?.includes('Orchestration')) {
           state.view = 'workers';
           window.location.hash = 'workers';
           render();
           dock?.setView('workers');
-          cardNav?.setView('workers');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else if (item.title?.includes('Policy') || item.title?.includes('Containment')) {
           state.view = 'readiness';
           window.location.hash = 'readiness';
           render();
           dock?.setView('readiness');
-          cardNav?.setView('readiness');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
@@ -392,11 +388,6 @@ function render() {
   }
   if (dock) {
     dock.setView(state.view);
-    if (state.data?.workers) dock.setWorkerCount(state.data.workers.length);
-  }
-  if (cardNav) {
-    cardNav.setView(state.view);
-    if (state.data?.workers) cardNav.setWorkerCount(state.data.workers.length);
   }
   const updatedEl = document.querySelector('#updated');
   if (updatedEl) {
@@ -546,8 +537,9 @@ async function refresh() {
       textSpan.textContent = next.live.sources.every(source => source.available) ? 'Live workspace' : 'Partial connection';
       connEl.classList.remove('offline');
     }
-    cardNav?.setConnectionStatus?.({ connected: true, label: 'Connected' });
-    if (next.workspace) cardNav?.setWorkspace?.(next.workspace);
+    const allSourcesAvailable = next.live.sources.every(source => source.available);
+    dock?.setConnectionStatus?.({ connected: allSourcesAvailable, label: allSourcesAvailable ? 'Connected' : 'Partial connection' });
+    if (next.workspace) dock?.setWorkspace?.(next.workspace);
     if (changed) render();
     if (document.querySelector('#worker-dialog').open && state.selectedWorker) inspectWorker(state.selectedWorker);
     const updatedEl = document.querySelector('#updated');
@@ -557,7 +549,7 @@ async function refresh() {
   } catch (err) {
     console.error('[REFRESH CAUGHT ERROR]:', err);
     state.error = true;
-    cardNav?.setConnectionStatus?.({ connected: false, label: 'Connection unavailable' });
+    dock?.setConnectionStatus?.({ connected: false, label: 'Connection unavailable' });
     const connEl = document.querySelector('#connection');
     if (connEl) {
       const textSpan = connEl.querySelector('.connection-text') || connEl;
@@ -578,21 +570,17 @@ function updateIcons() {
   });
 }
 
-// Mount CardNav Top Navigation
-let cardNav = null;
+// Mount the unified bottom navigation.
 try {
-  const navRoot = document.querySelector('#cardnav-root');
-  if (navRoot) {
-    cardNav = mountCardNav(navRoot, {
+  const dockRoot = document.querySelector('#dock-root');
+  if (dockRoot) {
+    dock = mountDock(dockRoot, {
       initialView: state.view,
-      workerCount: state.data?.workers?.length || 10,
       onViewChange: targetView => {
         if (state.view !== targetView) {
           state.view = targetView;
           window.location.hash = targetView;
           render();
-          dock?.setView(state.view);
-          cardNav?.setView(state.view);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       },
@@ -602,8 +590,6 @@ try {
         window.location.hash = 'workers';
         render();
         dock?.setView('workers');
-        cardNav?.setView('workers');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       onRefresh: () => {
         refresh();
@@ -611,60 +597,12 @@ try {
       onAppearanceChange: (setting, value) => {
         if (setting === 'density') {
           document.body.classList.toggle('compact', value === 'compact');
-          const sel = document.querySelector('#density');
-          if (sel) sel.value = value;
-          dock?.setDensity(value);
+          const select = document.querySelector('#density');
+          if (select) select.value = value;
         } else if (setting === 'detail') {
           document.body.classList.toggle('expanded', value === 'expanded');
-          const sel = document.querySelector('#detail');
-          if (sel) sel.value = value;
-          dock?.setDetail(value);
-        } else if (setting === 'accent') {
-          applyAccent(value);
-        }
-      }
-    });
-  }
-} catch (err) {
-  console.error('Failed to initialize CardNav top navigation:', err);
-}
-
-// Mount the Floating Dock Primary Navigation
-try {
-  const dockRoot = document.querySelector('#dock-root');
-  if (dockRoot) {
-    dock = mountDock(dockRoot, {
-      initialView: state.view,
-      workerCount: 0,
-      onViewChange: targetView => {
-        if (state.view !== targetView) {
-          state.view = targetView;
-          window.location.hash = targetView;
-          render();
-          cardNav?.setView(state.view);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      },
-      onGroupFilter: group => {
-        state.view = 'workers';
-        state.group = group;
-        window.location.hash = 'workers';
-        render();
-        cardNav?.setView('workers');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      },
-      onRefresh: () => {
-        refresh();
-      },
-      onAppearanceChange: (setting, value) => {
-        if (setting === 'density') {
-          document.body.classList.toggle('compact', value === 'compact');
-          const sel = document.querySelector('#density');
-          if (sel) sel.value = value;
-        } else if (setting === 'detail') {
-          document.body.classList.toggle('expanded', value === 'expanded');
-          const sel = document.querySelector('#detail');
-          if (sel) sel.value = value;
+          const select = document.querySelector('#detail');
+          if (select) select.value = value;
         } else if (setting === 'accent') {
           applyAccent(value);
         }
@@ -787,38 +725,7 @@ setInterval(() => {
   if (!document.hidden) refresh();
 }, 10000);
 
-// Top Dock Smart Collapse on scroll & Manual Toggle
-const topDock = document.querySelector('#top-dock');
-const topDockToggle = document.querySelector('#top-dock-toggle');
-let lastScrollY = window.scrollY;
-let isManuallyCollapsed = false;
-
-if (topDock) {
-  window.addEventListener('scroll', () => {
-    const currentY = window.scrollY;
-    const delta = currentY - lastScrollY;
-
-    if (!isManuallyCollapsed) {
-      if (currentY > 80 && delta > 8) {
-        topDock.classList.add('collapsed');
-      } else if (currentY < 30 || delta < -12) {
-        topDock.classList.remove('collapsed');
-      }
-    }
-    lastScrollY = currentY;
-  }, { passive: true });
-
-  if (topDockToggle) {
-    topDockToggle.addEventListener('click', e => {
-      e.stopPropagation();
-      const isCurrentlyCollapsed = topDock.classList.contains('collapsed');
-      isManuallyCollapsed = !isCurrentlyCollapsed;
-      topDock.classList.toggle('collapsed', isManuallyCollapsed);
-    });
-  }
-}
-
-// Global MagicBento Smart Spotlight & Hairline Border Glow Tracking for Cards, Top Bar & Docks
+// Global MagicBento Smart Spotlight & Hairline Border Glow Tracking for Cards and Composer
 let pointerRaf = 0;
 let lastPointerEvent = null;
 
@@ -828,7 +735,7 @@ function updateMagicBentoHover() {
   const cx = lastPointerEvent.clientX;
   const cy = lastPointerEvent.clientY;
   const targets = document.querySelectorAll(
-    '.panel, .fleet-team, .fleet-worker, .plan-phase, .metric-card, dialog#worker-dialog, .card-nav__panel, .dock, .card-nav__card, .prompt-bar, .empty-prompt-card'
+    '.panel, .fleet-team, .fleet-worker, .plan-phase, .metric-card, dialog#worker-dialog, .bottom-nav, .prompt-bar, .empty-prompt-card'
   );
   const reach = 160;
   for (let i = 0; i < targets.length; i++) {

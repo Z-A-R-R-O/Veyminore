@@ -113,6 +113,16 @@ export default function IfzWorkPage({
     return unsubscribe;
   }, [model]);
 
+  useEffect(() => {
+    const openFromNavigation = event => {
+      const tab = event.detail?.tab;
+      setActiveMasterPromptTab(['charter', 'knowledge', 'context', 'task'].includes(tab) ? tab : 'charter');
+      setShowMasterPrompt(true);
+    };
+    window.addEventListener('zetro:open-master-prompt', openFromNavigation);
+    return () => window.removeEventListener('zetro:open-master-prompt', openFromNavigation);
+  }, []);
+
   // Global Esc hotkey handler for modal
   useEffect(() => {
     const handleKeyDown = e => {

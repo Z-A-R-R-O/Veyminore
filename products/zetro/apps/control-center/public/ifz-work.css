@@ -71,10 +71,7 @@
 }
 
 .ifz-work-header.empty-header {
-  padding: 4px 0 2px;
-  background: transparent;
-  border: none;
-  justify-content: center;
+  display: none;
 }
 
 .ifz-work-header.empty-header .header-meta {
@@ -440,7 +437,7 @@
   color: var(--ifz-text-secondary);
 }
 
-/* Prompt Bar Footer (Fixed floating cleanly with 46px clearance above bottom navigation docks) */
+/* Prompt bar clears the unified bottom navigation. */
 .ifz-prompt-bar-footer {
   position: fixed;
   bottom: 128px;
@@ -456,13 +453,13 @@
 
 @media (max-height: 840px) {
   .ifz-prompt-bar-footer {
-    bottom: 98px;
+    bottom: 112px;
   }
 }
 
 @media (max-height: 720px) {
   .ifz-prompt-bar-footer {
-    bottom: 78px;
+    bottom: 94px;
   }
 }
 

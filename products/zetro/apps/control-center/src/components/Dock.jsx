@@ -930,6 +930,14 @@ export default function Dock({
     return true;
   };
 
+  useEffect(() => {
+    const onOpen = event => {
+      if (event.detail?.dock === className) openMenu(event.detail.index, 'keyboard');
+    };
+    window.addEventListener('zetro:open-dock-menu', onOpen);
+    return () => window.removeEventListener('zetro:open-dock-menu', onOpen);
+  });
+
   const endPress = () => {
     const press = pressRef.current;
     if (!press) return;
@@ -1050,6 +1058,10 @@ export default function Dock({
             onClick={event => {
               if (skipRef.current === index) {
                 skipRef.current = -1;
+                return;
+              }
+              if (item.openMenuOnClick && item.menu?.length) {
+                openMenu(index, 'keyboard');
                 return;
               }
               actionsRef.current?.hop(index);

@@ -38,23 +38,6 @@ export async function buildDock() {
   return result;
 }
 
-export async function buildNav() {
-  const result = await esbuild.build({
-    entryPoints: [resolve(appDir, 'src/nav-island.jsx')],
-    bundle: true,
-    minify: true,
-    format: 'esm',
-    target: 'es2022',
-    jsx: 'automatic',
-    outfile: resolve(appDir, 'public/nav.js'),
-    define: {
-      'process.env.NODE_ENV': '"production"'
-    },
-    metafile: true
-  });
-  return result;
-}
-
 export async function buildBento() {
   const result = await esbuild.build({
     entryPoints: [resolve(appDir, 'src/bento-island.jsx')],
@@ -124,7 +107,7 @@ export async function buildProductShell() {
 }
 
 export async function buildAll() {
-  await Promise.all([buildOrb(), buildDock(), buildNav(), buildBento(), buildWork(), buildBackground(), buildProductShell()]);
+  await Promise.all([buildOrb(), buildDock(), buildBento(), buildWork(), buildBackground(), buildProductShell()]);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

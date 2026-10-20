@@ -86,64 +86,6 @@ small{font-size:12px}
   display: block;
 }
 
-/* CardNav Fixed Top Navigation Container */
-.cardnav-wrapper {
-  position: fixed;
-  top: 14px;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  /* Clearance padding: Left dock (32px + 68px = 100px) + 16px gap = 116px */
-  padding: 0 116px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
-  transition: 
-    padding-left 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-    padding-right 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cardnav-wrapper > * {
-  pointer-events: auto;
-}
-
-/* Dynamic clearance when side panels are expanded */
-body[data-left-expanded] .cardnav-wrapper {
-  /* Left panel expanded width (260px) + 32px margin + 20px clearance gap */
-  padding-left: 312px;
-}
-
-body[data-right-expanded] .cardnav-wrapper {
-  /* Right panel expanded width (420px) + 32px margin + 20px clearance gap */
-  padding-right: 472px;
-}
-
-@media (max-width: 1280px) {
-  .cardnav-wrapper {
-    /* 18px margin + 68px dock + 14px gap */
-    padding: 0 100px;
-  }
-  body[data-left-expanded] .cardnav-wrapper {
-    padding-left: 298px;
-  }
-  body[data-right-expanded] .cardnav-wrapper {
-    padding-right: 458px;
-  }
-}
-
-@media (max-width: 768px) {
-  .cardnav-wrapper {
-    padding: 0 14px;
-  }
-  body[data-left-expanded] .cardnav-wrapper {
-    padding-left: 14px;
-  }
-  body[data-right-expanded] .cardnav-wrapper {
-    padding-right: 14px;
-  }
-}
-
 /* Full-Width Fixed Top Bar with Dock-Style Inner Items */
 header.app-header {
   position: fixed;
@@ -740,12 +682,12 @@ header.app-header.collapsed:hover .top-dock-toggle .toggle-icon {
   transform: rotate(0deg);
 }
 
-/* Main Content Area — With 60px top clearance for Fixed Top Bar */
+/* Main content sits below the browser edge; navigation lives at the bottom. */
 main {
   width: 100%;
   max-width: 1350px;
   padding: 36px 46px 180px;
-  margin-top: 60px;
+  margin-top: 0;
   flex: 1;
   align-self: center;
   transition: 
@@ -753,40 +695,16 @@ main {
     padding-right 0.38s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-body[data-left-expanded] main {
-  padding-left: calc(260px + 46px);
-}
-
-body[data-right-expanded] main {
-  padding-right: calc(420px + 46px);
-}
-
-@media (max-width: 1280px) {
-  body[data-left-expanded] main {
-    padding-left: calc(260px + 28px);
-  }
-  body[data-right-expanded] main {
-    padding-right: calc(420px + 28px);
-  }
-}
 
 /* Dedicated Work View Layout (Eliminates excessive padding and aligns to 860px column) */
 body[data-view="work"] main {
   padding: 10px 24px 0;
   max-width: 100%;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-}
-
-body[data-view="work"][data-left-expanded] main {
-  padding-left: calc(260px + 32px);
-}
-
-body[data-view="work"][data-right-expanded] main {
-  padding-right: calc(420px + 32px);
 }
 
 body[data-view="work"] .work-mount-container {
