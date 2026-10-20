@@ -442,7 +442,7 @@
   position: fixed;
   bottom: 128px;
   left: var(--app-sidebar-offset, 0px);
-  right: 0;
+  right: var(--app-toolrail-offset, 0px);
   display: flex;
   justify-content: center;
   padding: 0 20px;

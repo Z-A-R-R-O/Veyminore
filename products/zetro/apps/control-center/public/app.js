@@ -680,6 +680,23 @@ if (refreshBtn) refreshBtn.addEventListener('click', refresh);
 const closeDialogBtn = document.querySelector('#close-dialog');
 if (closeDialogBtn) closeDialogBtn.addEventListener('click', () => document.querySelector('#worker-dialog').close());
 
+const toolrailToggle = document.querySelector('#app-toolrail-toggle');
+if (toolrailToggle) {
+  const setToolrailOpen = open => {
+    document.body.classList.toggle('toolrail-closed', !open);
+    toolrailToggle.setAttribute('aria-expanded', String(open));
+    const label = open ? 'Hide tool navigation' : 'Show tool navigation';
+    toolrailToggle.setAttribute('aria-label', label);
+    toolrailToggle.title = label;
+  };
+  setToolrailOpen(localStorage.getItem('zetro_toolrail_open') !== 'false');
+  toolrailToggle.addEventListener('click', () => {
+    const open = toolrailToggle.getAttribute('aria-expanded') !== 'true';
+    setToolrailOpen(open);
+    localStorage.setItem('zetro_toolrail_open', String(open));
+  });
+}
+
 const closeTweakBtn = document.querySelector('#close-tweak');
 if (closeTweakBtn) {
   closeTweakBtn.addEventListener('click', () => {
