@@ -3,6 +3,7 @@ import { mountDock } from '/dock.js';
 import { mountMagicBento } from '/bento.js';
 import { mountComputerPreview, getComputerPreviewHtml } from '/computer-preview/app.js';
 import { mountIfzWorkPage } from '/work.js';
+import { mountAgentNav } from '/agent-nav.js';
 
 const paths = {
   grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
@@ -288,6 +289,7 @@ let currentPreviewController = null;
 let bentoController = null;
 let workPageController = null;
 let lastAnimatedView = null;
+const agentNav = mountAgentNav(document.querySelector('#agent-nav'), inspectWorker);
 
 function render() {
   if (!state.data) return;
@@ -526,6 +528,7 @@ async function refresh() {
     const changed = !state.data || JSON.stringify(next.workers) !== JSON.stringify(state.data.workers);
     state.data = next;
     state.error = false;
+    agentNav.update(next);
     const connEl = document.querySelector('#connection');
     if (connEl) {
       const textSpan = connEl.querySelector('.connection-text') || connEl;
@@ -544,6 +547,7 @@ async function refresh() {
   } catch (err) {
     console.error('[REFRESH CAUGHT ERROR]:', err);
     state.error = true;
+    agentNav.update(state.data, true);
     dock?.setConnectionStatus?.({ connected: false, label: 'Connection unavailable' });
     const connEl = document.querySelector('#connection');
     if (connEl) {

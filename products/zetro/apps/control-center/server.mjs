@@ -16,6 +16,7 @@ const routes = new Map([
   ['/worker-detail/view.js', ['worker-detail/view.js', 'text/javascript; charset=utf-8']],
   ['/worker-detail/style.css', ['worker-detail/style.css', 'text/css; charset=utf-8']],
   ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
+  ['/agent-nav.js', ['agent-nav.js', 'text/javascript; charset=utf-8']],
   ['/background.js', ['background.js', 'text/javascript; charset=utf-8']],
   ['/dock.js', ['dock.js', 'text/javascript; charset=utf-8']],
   ['/dock.css', ['dock.css', 'text/css; charset=utf-8']],
