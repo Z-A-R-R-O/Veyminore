@@ -677,6 +677,8 @@ if (closeDialogBtn) closeDialogBtn.addEventListener('click', () => document.quer
 
 const toolrailToggle = document.querySelector('#app-toolrail-toggle');
 if (toolrailToggle) {
+  const mobileToolrail = window.matchMedia('(max-width: 600px)');
+  const storageKey = () => mobileToolrail.matches ? 'zetro_toolrail_open_mobile' : 'zetro_toolrail_open';
   const setToolrailOpen = open => {
     document.body.classList.toggle('toolrail-closed', !open);
     toolrailToggle.setAttribute('aria-expanded', String(open));
@@ -684,11 +686,16 @@ if (toolrailToggle) {
     toolrailToggle.setAttribute('aria-label', label);
     toolrailToggle.title = label;
   };
-  setToolrailOpen(localStorage.getItem('zetro_toolrail_open') !== 'false');
+  const restoreToolrail = () => {
+    const saved = localStorage.getItem(storageKey());
+    setToolrailOpen(mobileToolrail.matches ? saved === 'true' : saved !== 'false');
+  };
+  restoreToolrail();
+  mobileToolrail.addEventListener('change', restoreToolrail);
   toolrailToggle.addEventListener('click', () => {
     const open = toolrailToggle.getAttribute('aria-expanded') !== 'true';
     setToolrailOpen(open);
-    localStorage.setItem('zetro_toolrail_open', String(open));
+    localStorage.setItem(storageKey(), String(open));
   });
 }
 

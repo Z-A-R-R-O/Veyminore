@@ -42,7 +42,7 @@ export default function IfzPromptBar({
       <PromptBar
         value={draft?.text ?? ''}
         onChange={text => onSetDraft?.({ text })}
-        placeholder="Ask IFZ to plan, execute, or coordinate work across workers… (Enter to send, Shift+Enter for newline)"
+        placeholder="Ask IFZ to plan, execute, or coordinate work…"
         sources={[]}
         commands={[]}
         models={[]}

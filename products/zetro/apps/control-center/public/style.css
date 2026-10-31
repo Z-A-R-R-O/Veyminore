@@ -101,9 +101,9 @@ small{font-size:12px}
   position: fixed;
   z-index: 90;
   top: 14px;
-  bottom: 104px;
   right: 18px;
   width: 64px;
+  height: min(340px, calc(100vh - 118px));
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -141,11 +141,17 @@ body.toolrail-closed .app-toolrail { opacity:0; transform:translateX(18px); visi
   .app-sidebar__section { padding:0; width:100%; }
   .app-sidebar__slot { justify-content:center; height:34px; padding:0; background:transparent; }
   .app-sidebar__slot b { display:none; }
-  .app-toolrail { top:8px; bottom:82px; right:8px; width:48px; padding:56px 4px 8px; border-radius:18px; gap:10px; }
+  .app-toolrail { top:8px; right:8px; width:48px; height:min(290px, calc(100vh - 96px)); padding:56px 4px 8px; border-radius:18px; gap:10px; }
   .app-toolrail-toggle { top:16px; right:15px; width:34px; height:34px; border-radius:10px; }
   .app-toolrail__slots i,.app-toolrail__footer { width:34px; height:34px; border-radius:10px; }
   .app-toolrail__label { display:none; }
   .app-toolrail__divider { width:28px; }
+}
+
+@media(max-width:600px) {
+  :root { --app-sidebar-offset:64px; }
+  .app-sidebar { width:48px; padding:8px 4px; }
+  .app-sidebar__divider { width:28px; }
 }
 
 #app-background {
@@ -806,6 +812,9 @@ body[data-view="work"] .work-mount-container {
 
 body[data-view="work"] .shell > footer {
   display: none !important;
+}
+@media(max-width:600px) {
+  body[data-view="work"] main { padding-inline:10px; }
 }
 .eyebrow{font-size:10px;font-weight:750;letter-spacing:.15em;color:#6e7681}
 .hero{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:34px}
