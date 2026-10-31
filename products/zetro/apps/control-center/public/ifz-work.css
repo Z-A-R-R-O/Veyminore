@@ -207,13 +207,13 @@
   line-height: 1.1;
   letter-spacing: -0.045em;
   white-space: nowrap;
-  animation: work-title-arrive 1150ms cubic-bezier(.22,1,.36,1) 120ms both;
+  animation: work-title-arrive 1250ms cubic-bezier(.22,1,.36,1) 180ms both;
 }
 
 @keyframes work-title-arrive {
-  from { opacity:0; clip-path:inset(0 100% 0 0); transform:translateY(14px); filter:blur(3px); }
-  55% { opacity:1; filter:blur(0); }
-  to { opacity:1; clip-path:inset(0 0 0 0); transform:translateY(0); filter:blur(0); }
+  from { opacity:0; transform:translateY(34px); filter:blur(5px); }
+  55% { opacity:.9; filter:blur(1px); }
+  to { opacity:1; transform:translateY(0); filter:blur(0); }
 }
 
 .loading-spinner {
