@@ -1,35 +1,65 @@
 # Veyminore
 
-Veyminore is the engineering ecosystem for products we ship, ideas we explore, and technology we reuse.
+**A technology venture in planning and development.**
 
-## Mental model
+Veyminore is the technology venture I’m building toward: a home for software products, experiments, reusable technology, and the engineering systems around them.
+
+The ambition is long-term. The company and its products still have to earn their place through execution. This repository is an engineering workspace, not a claim that every planned product or company function is already launched.
+
+## What this repository is
+
+The public workspace gives projects a shared structure for decisions, standards, experiments, and reusable implementation. Its current organization separates product work from research and supporting technology.
 
 | Area | Purpose |
 | --- | --- |
-| `products/` | Durable customer-facing products Veyminore owns and ships. |
-| `labs/` | Experiments, research, and prototypes that have not yet become products. |
-| `packages/` | Shared internal technology that can be consumed across products. |
-| `infrastructure/` | Platform configuration for cloud, delivery, data, monitoring, and security. |
-| `docs/` | Architecture, standards, decisions, and product knowledge. |
-| `company/` | Brand, strategy, legal, operations, and shared company assets. |
-| `templates/` | Starting points for consistent new work. |
-| `scripts/` | Repository automation. |
+| products/ | Product code and documentation with a defined direction |
+| labs/ | Experiments, research, and prototypes not yet promoted to products |
+| packages/ | Reusable technology shared across projects |
+| infrastructure/ | Delivery, data, monitoring, and security configuration |
+| docs/ | Architecture, standards, and engineering decisions |
+| company/ | Brand, strategy, operations, and shared company material |
+| templates/ | Repeatable starting points |
+| scripts/ | Repository automation |
 
-## Lifecycle
+A folder is a boundary, not proof that everything inside it is complete.
 
-`labs` → `products` and/or `packages` → `infrastructure`
+## Current initiatives
 
-An experiment graduates only when it has a clear owner, purpose, and support expectation. Promote reusable technology into `packages/`; promote a shippable offering into `products/`.
+### [ZETRO](products/zetro/README.md)
 
-## Current product
+ZETRO explores controlled computer execution and agent-runtime infrastructure. Its documented executable slice is an Antigravity adapter plus a synthetic RCT pilot, both still in development. The generic computer runtime and dispatcher remain planned.
 
-- [ZETRO](products/zetro/README.md) — local computer execution and agent orchestration. Its Antigravity adapter is the first executable slice.
+[Public repository](https://github.com/Z-A-R-R-O/zetro)
 
-## Getting started
+### InterFrozt
 
-1. Install Node.js and pnpm versions compatible with the root `package.json`.
-2. Run `pnpm install`.
-3. Copy the closest template from `templates/` when starting new work.
-4. Add a `veyminore.json` manifest to every product and package.
+InterFrozt is an initiative under Veyminore focused on software products and startup-building. Its [public-facing site](https://interfrozt.vercel.app) is available; its source repository is private.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for naming, placement, and contribution rules.
+**Veyminore is the umbrella. InterFrozt belongs within it.** It is not a separate company.
+
+## How work moves
+
+The intended lifecycle is:
+
+**Labs → Products and/or Packages → Infrastructure**
+
+An experiment should graduate only when it has a clear purpose, an owner, evidence that it works, and an explicit support expectation. Reusable implementation belongs in packages; a shippable customer-facing offering belongs in products.
+
+## Local development
+
+Requirements: Node.js 20+ and pnpm 11+.
+
+- Install: **pnpm install**
+- Develop: **pnpm dev**
+- Build: **pnpm build**
+- Lint: **pnpm lint**
+- Test: **pnpm test**
+- Type-check: **pnpm typecheck**
+
+These workspace commands are entry points, not a guarantee that every project passes every check. Evaluate each workspace on its own current implementation and verification evidence.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for repository conventions.
+
+## Operating principle
+
+Build the structure only as fast as the work can support it. A roadmap is not a release; a folder is not a product; a successful command is not a verified outcome.
