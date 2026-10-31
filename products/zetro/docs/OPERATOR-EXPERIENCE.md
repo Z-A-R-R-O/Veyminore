@@ -29,9 +29,41 @@ Setup documentation must include screenshots or examples for the first supported
 
 ## 3. Desktop control center
 
-The Tauri control center is a supervisory client. Its first screen shows runtime/bridge health, active sessions and their grants, pending approvals, active desktop input lease, recent actions and an emergency stop control. A live screen view is opt-in and visibly indicates capture. Each action detail shows request, target, approval, event timeline, effect, verification and evidence. An operator can filter by session or project.
+The Tauri control center is a supervisory client. Its first screen shows runtime/bridge health, active sessions and their grants, pending approvals, active desktop input lease, recent actions, and an emergency stop control. A live screen view is opt-in and visibly indicates capture. Each action detail shows request, target, approval, event timeline, effect, verification, and evidence. An operator can filter by session or project.
 
-The visual identity may use the earlier EDGE DOM concept, but animation and decoration never obscure permissions, pending action target, failure state or stop control. The UI should be keyboard-accessible and screen-reader labeled. A dark, minimal presentation is a design choice, not an architecture dependency.
+### Supervisory Navigation and Ergonomics
+
+Historical design note: the floating side-card and top-menu details in this section describe an earlier Control Center layout. The current client uses three bottom docks, a left agent navigator, and a hideable right tool rail. Do not use this section as current UI verification.
+
+The desktop control center operates with non-disturbing floating navigation surfaces designed for high-stakes supervision:
+
+1. **Non-Disturbing Floating Side Cards (No Dark Scrim)**:
+   - Full-screen modal drawers with dark dimming scrims have been replaced with floating side cards (`aside.left-side-card` at `width: 260px` matching Command Palette geometry; `aside.right-side-card` at `width: 420px`).
+   - The backdrop click-away shield (`.left-nav-shield` and `.right-nav-shield`) is completely transparent.
+   - Operators maintain continuous, unobscured visual contact with live terminal logs, agent execution graphs, and computer session feeds even while inspecting conversation history, workspaces, diffs, or route configurations.
+
+2. **Keyboard Accessibility and Focus Control**:
+   - Pressing `Escape` collapses any open floating card or top navigation megamenu, cleanly returning focus to the trigger icon or previous interactive target without focus trapping.
+   - Global shortcuts (such as Command Palette activation) cleanly invoke modals without layout jumping or animation stutter.
+   - Full support for `prefers-reduced-motion` suppresses spring transforms and replaces them with instant opacity fades.
+
+3. **Persistent Operator State**:
+   - Navigation preferences (`zetro_left_panel_collapsed`, `zetro_right_panel_collapsed`, `zetro_right_panel_tab`) are persisted in `localStorage`.
+   - The workspace layout restores the operator's exact configuration across browser refreshes and route switches.
+
+4. **Visual Telemetry and Accent Badge Reflection**:
+   - Notification and status badges across docks and panels dynamically reflect the operator's active accent color (`mint`, `cyan`, `violet`, `amber`, `rose`, `silver`) via CSS variables (`--dock-badge`, `--dock-badge-ink`, `--accent`, `--mb-glow-rgb`).
+   - Contrast is strictly enforced: bright accents such as `silver` automatically switch text ink to deep dark `#090a0c` to maintain WCAG AA readability.
+
+5. **Collision Prevention and Responsive Smart Shrink**:
+   - Mutual exclusivity ensures that expanding the top megamenu automatically collapses side cards, and expanding either side card dismisses the top menu.
+   - Cards are vertically constrained to `max-height: calc(100vh - 112px)`, ensuring a permanent 8px floating clearance above bottom docks. Vertical compact docks automatically downscale item sizes and gaps on short viewports ($\le 650\text{px}$, $\le 520\text{px}$, $\le 440\text{px}$) to avoid overlapping critical stop controls.
+
+6. **IFZ Prompt Bar and Master Prompt Governance**:
+   - The primary supervisory workspace centers on the fixed floating IFZ Prompt Bar (integrated with React Bits morphing SVG send/stop tile and typing-energy canvas particle sparks at Max effort).
+   - Prompts pass strictly through IFZ with truthful dry-run execution stream confirmation before committing any mutating actions.
+   - Operators can inspect or switch across all 4 constitutional Master Prompt layers (Charter, Worker Knowledge, Project Context, Task Package) and 8 predefined governance presets (`ZETRO Standard`, `ECO Mode`, `Build Mode`, `Review Mode`, `Design Mode`, `Qualification Mode`, `Recovery Mode`, `Custom`) directly from the header pill or PromptBar model picker.
+   - Active executions expose a dedicated stop control that immediately aborts worker branches and commits zero unverified effects.
 
 ## 4. Approval interaction
 

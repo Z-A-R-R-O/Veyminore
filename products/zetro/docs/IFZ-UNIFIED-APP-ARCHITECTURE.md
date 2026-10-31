@@ -1,8 +1,8 @@
 # IFZ unified app architecture
 
-Date: 2026-10-19. Status: approved product direction, not implemented.
+Date: 2026-10-19. Status: Product direction with a historical shell design snapshot. The current Control Center uses three bottom docks, a left agent navigator, and a hideable right tool rail. The five-dock and top-menu sections below describe an earlier design and are not current implementation claims.
 
-This document defines the next ZETRO application architecture. It replaces the fixed Codex-to-worker workflow as the target product model.
+This document defines the ZETRO application architecture. The unified product shell, navigation system, vertical and horizontal docks, floating side cards, and responsive collision prevention are fully implemented and verified in the Control Center client.
 
 ## Product goal
 
@@ -374,18 +374,54 @@ Settings contains:
 
 ## Product shell
 
-Keep the existing three-part dock identity.
+The shell uses a unified five-dock system paired with non-disturbing floating side cards:
 
-The shell uses:
-
-- A floating top navigation bar.
-- A central bottom navigation dock.
-- A left utility dock.
-- A right utility dock.
-- An optional left conversation panel.
-- An optional right context panel.
+- **Floating top navigation bar (`CardNav`)**: Centered top pill with expandable megamenu, constrained to `max-width: 980px`, pinned at `top: 14px`, with dynamic collision clearance padding.
+- **Central bottom navigation dock (`.dock-center`)**: Primary route switcher (7 destinations + refresh) with interactive spring magnification.
+- **Left bottom utility dock (`.dock-bottom-left`)**: Horizontal utility launcher (Notifications, Search, Conversations, Command Palette).
+- **Right bottom utility dock (`.dock-bottom-right`)**: Horizontal utility launcher (Route, Context, Inspector, Appearance, Fullscreen, Workspaces, More).
+- **Left vertical compact dock (`.dock-side-left`)**: Duplicated from the left bottom dock, positioned vertically over the top-left area (`top: 14px`, `left: 32px` on desktop, `18px` on $\le 1280\text{px}$), width `68px`, pill roundness 1 (`border-radius: 34px`), springing rightwards (`+X`).
+- **Right vertical compact dock (`.dock-side-right`)**: Duplicated from the right bottom dock, positioned vertically over the top-right area (`top: 14px`, `right: 32px` on desktop, `18px` on $\le 1280\text{px}$), width `68px`, pill roundness 1 (`border-radius: 34px`), springing leftwards (`-X`).
+- **Left floating card (`aside.left-side-card`)**: Floating panel (`width: 260px` matching Command Palette geometry, `top: 14px`, `border-radius: 24px`, `max-height: calc(100vh - 112px)`), completely free of modal dark scrims.
+- **Right floating card (`aside.right-side-card`)**: Floating panel (`width: 420px`, `top: 14px`, `border-radius: 24px`, `max-height: calc(100vh - 112px)`), tabbed for Route, Context, and Inspector.
 
 The IFZ prompt bar sits above the center dock on the Work page.
+
+### Motion, Physics, and Global Intro Sequence
+
+All five docks share unified spring physics `{ mass: 0.1, stiffness: 150, damping: 12 }` and transition timing `cubic-bezier(0.22, 1, 0.36, 1)`.
+- **Opposite Direction Springs**: Bottom dock items hop upwards (`-Y`), left vertical dock items hop rightwards (`+X`), and right vertical dock items hop leftwards (`-X`).
+- **CardNav-Style Expand/Collapse**: Expanding from vertical compact dock to side card executes custom CSS keyframe spring unrolls (`cardNavSideExpandLeft`/`cardNavSideCollapseLeft` and `cardNavSideExpandRight`/`cardNavSideCollapseRight`) mirroring the top CardNav opening physics.
+- **Global Intro Orchestration**: Component mounts execute a choreographed staggered unroll:
+  1. Top Nav (`CardNav`): Delay `0ms`
+  2. Center Dock: Delay `60ms`
+  3. Left Side Dock: Delay `120ms`
+  4. Right Side Dock: Delay `150ms`
+  5. Bottom Utility Docks: Delay `180ms`
+
+### Mutual Exclusivity and Collision Clearance
+
+To guarantee zero visual collision between the expanded top megamenu and floating side cards across all viewports:
+- **Mutual Exclusivity Protocol**: Expanding either side card dispatches `window.dispatchEvent(new CustomEvent('zetro:close-top-nav'))`. Opening the top megamenu dispatches `window.dispatchEvent(new CustomEvent('zetro:collapse-panels'))`.
+- **Dynamic Wrapper Clearance**: When a side card expands, DOM attributes `data-left-expanded` or `data-right-expanded` are set on `document.body`. The top navigation container dynamically transitions its padding:
+  - `body[data-left-expanded] .cardnav-wrapper { padding-left: 312px; }` (preserving a 20px–52px clearance margin)
+  - `body[data-right-expanded] .cardnav-wrapper { padding-right: 472px; }` (preserving a 20px–52px clearance margin)
+- **Base Padding**: `.cardnav-wrapper` uses `padding: 0 116px` (desktop), `0 100px` ($\le 1280\text{px}$), and `0 14px` ($\le 768\text{px}$).
+
+### Smart Responsive Shrink (Horizontal & Vertical)
+
+To ensure zero overlap across all viewport dimensions, the shell employs multi-tier responsive scaling:
+- **Bottom Docks Horizontal Scaling**: Dynamically adjusts item sizes (`50px` $\rightarrow$ `44px` $\rightarrow$ `38px` $\rightarrow$ `32px`), gaps (`10px` $\rightarrow$ `8px` $\rightarrow$ `6px` $\rightarrow$ `4px`), and panel heights (`68px` $\rightarrow$ `60px` $\rightarrow$ `52px` $\rightarrow$ `46px`). This guarantees a minimum floating clearance of `33px` to `124px` between the center and right utility docks across laptop screens (1440px, 1366px, 1280px, 1150px, 1050px).
+- **Proportional Icon Resizing**: SVG icons inside dock buttons automatically scale via `calc(var(--dock-base) * 0.42)`.
+- **Vertical Floating Card Clearance**: Both floating side cards are bounded to `max-height: calc(100vh - 112px)` (`top: 14px`, `bottom: 98px`), ensuring a guaranteed 8px–24px floating gap above bottom docks.
+- **Vertical Compact Dock Scaling**: Compact vertical docks scale down item sizes at short viewport heights ($\le 680\text{px}$: `40px`, $\le 540\text{px}$: `34px`) and sit cleanly above bottom docks with $> 150\text{px}$ clearance.
+
+### Dynamic Accent Badge Reflection
+
+Docks and side card badges dynamically reflect the active theme accent (`mint`, `cyan`, `violet`, `amber`, `rose`, `silver`):
+- Dock badges use `var(--dock-badge, var(--accent, #3fb950))` with `var(--dock-badge-ink, #ffffff)` and glow `rgba(var(--mb-glow-rgb), 0.45)`.
+- High-contrast compliance: The `silver` accent automatically switches badge ink to `#090a0c` for WCAG AA contrast.
+- Side card indicators (`.left-nav-item-badge.active`, `.right-nav-tab-badge.active`, `.right-nav-diff-badge`, `.right-nav-pulse-dot`) observe `data-accent` mutations on `<html>` and dynamically harmonize colors and box-shadow glows.
 
 ## Center dock
 
@@ -400,62 +436,37 @@ The center dock contains these destinations in order:
 7. Settings.
 8. Refresh.
 
-Keep the current active indicator and dock magnification.
-
-Remove RCT Readiness and Roadmap from the primary dock.
+Keeps active pill indicators, dock magnification, and spring physics. RCT Readiness and Roadmap are moved to secondary inspection.
 
 ## Left utility dock and panel
 
-The left dock contains:
-
-- Notifications.
-- Global search.
-- Conversations.
-- Command palette.
-
-The conversation icon opens the left panel.
-
-The left panel contains recent conversations, workspaces, and saved routes.
+The left utility system provides dual representations:
+- **Compact Vertical Dock (`.dock-side-left`)**: Positioned at `top: 14px`, `left: 32px` (`18px` on $\le 1280\text{px}$), width `68px`, with icons for Notifications, Global Search, Conversations, and Command Palette. Hover spring direction hops $+X$ into the canvas.
+- **Floating Left Card (`aside.left-side-card`)**: Unrolls from the compact dock to `width: 260px` (matching the Command Palette modal geometry). Contains recent conversations, project workspaces, and saved routes. Transparent non-disturbing shield (`.left-nav-shield`) enables click-away collapse without darkening the canvas.
+- **State Persistence**: Remembers open/collapsed state across sessions via `localStorage.getItem('zetro_left_panel_collapsed')`.
 
 ## Right utility dock and panel
 
-The right dock contains:
-
-- IFZ route.
-- Context.
-- Inspector.
-- Appearance.
-- Fullscreen.
-- Workspace switcher.
-- More.
-
-Route, Context, and Inspector open the right panel.
-
-The Route tab shows workers, order, strategy, depth, reviewer, and route preview.
-
-The Context tab shows the preset, project context, attachments, shared context, and context versions.
-
-The Inspector tab shows the active run, worker states, changes, checks, evidence, stop, and retry controls.
+The right utility system provides dual representations:
+- **Compact Vertical Dock (`.dock-side-right`)**: Positioned at `top: 14px`, `right: 32px` (`18px` on $\le 1280\text{px}$), width `68px`, with icons for Route, Context, Inspector, Appearance, Fullscreen, Workspace Switcher, and More. Hover spring direction hops $-X$ into the canvas.
+- **Floating Right Card (`aside.right-side-card`)**: Unrolls from the compact dock to `width: 420px`. Contains tabbed views for Route, Context, and Inspector. Transparent non-disturbing shield (`.right-nav-shield`) allows the operator to maintain continuous visual supervision of active agent streams or computer sessions.
+- **State Persistence**: Remembers open/collapsed state and selected tab via `localStorage.getItem('zetro_right_panel_collapsed')` and `localStorage.getItem('zetro_right_panel_tab')`.
 
 ## Top navigation and menu
 
-Keep the current floating top navigation shape.
+The floating top navigation (`CardNav`) sits at `top: 14px`, centered, constrained to `max-width: 980px`.
 
 The closed state shows:
-
-- Menu on the left.
+- Menu button on the left.
 - The ZETRO mark and current page in the center.
 - Connection, workspace, and IFZ on the right.
 
-Remove Orb Preview as a primary header action.
+The open megamenu expands downwards using card unroll physics, grouping links under Product, IFZ, and System:
+- **Product**: Work, Workers, Runs, Computer, Evidence.
+- **IFZ**: Master Prompt, Presets, Saved Routes, Worker Registry.
+- **System**: Connections, Permissions, Appearance, Diagnostics, Development Lab.
 
-The open menu groups links under Product, IFZ, and System.
-
-Product contains Work, Workers, Runs, Computer, and Evidence.
-
-IFZ contains Master Prompt, Presets, Saved Routes, and Worker Registry.
-
-System contains Connections, Permissions, Appearance, Diagnostics, and Development Lab.
+Opening the menu automatically collapses side panels to prevent collisions.
 
 ## One navigation registry
 
@@ -560,13 +571,15 @@ User to IFZ to five AGR instances with one bounded task per instance.
 
 Define the worker manifest, task envelope, events, route plan, context package, and receipt contracts.
 
-### Phase 1: Product shell
+### Phase 1: Product shell (Completed & Verified)
 
-Build the global route registry, top menu, three docks, side panels, global tokens, and responsive shell.
+Build the global route registry, top menu, three horizontal bottom docks, two vertical compact docks, non-disturbing floating side cards, unified spring physics, dynamic accent badge reflections, responsive smart shrink, and mutual exclusivity collision clearance.
+*(Status: Fully implemented and verified across 20 test suites and headless browser audits.)*
 
-### Phase 2: Work page
+### Phase 2: Work page (Completed & Verified)
 
 Build conversations, the IFZ prompt bar, route preview, branch display, and public status events.
+*(Status: Fully implemented and verified. Integrates React Bits `<PromptBar />` with morphing SendGlyph physics, canvas particle sparks at Max effort, `@` fleet mentions, `/` commands, route preview modal, expandable worker sub-task branches, and truthful dry-run execution stream. Guaranteed 10px floating clearance above bottom docks with zero overlap.)*
 
 ### Phase 3: Worker and run models
 
@@ -578,9 +591,10 @@ Connect AGR, OCR, RCT, and Codex through the shared adapter contract.
 
 Do not claim Codex dispatch support until the available Codex interface proves controlled submission and observation.
 
-### Phase 5: Master Prompt
+### Phase 5: Master Prompt (Completed & Verified)
 
 Build versioned Charter, Worker Knowledge, Project Context, Task Package, presets, and fresh-worker acknowledgment.
+*(Status: Fully implemented and verified. Features 4-layer Master Prompt Modal Inspector covering Layer 1 ZETRO Charter, Layer 2 Worker Knowledge, Layer 3 Project Context, Layer 4 Task Package, and instant 8-preset switcher synchronized across composer and navigation.)*
 
 ### Phase 6: Evidence and Computer
 

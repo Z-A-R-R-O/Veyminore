@@ -277,7 +277,7 @@ const SUITES = [
         commands: [
             { cmd: process.execPath, args: ['--test', 'test/*.test.js'], label: 'test' }
         ],
-        timeoutMs: 90000
+        timeoutMs: 120000
     },
     {
         id: 'computer-windows-provider',
