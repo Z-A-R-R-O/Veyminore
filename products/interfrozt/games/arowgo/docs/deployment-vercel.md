@@ -61,3 +61,12 @@ Production updated from commit `203f62c`; deployment `dpl_4d4G6hkHjyYG6SqU75YYKo
 - Three generated transparent PNG assets loaded successfully from production. Phone smoke check confirmed the new hero, generated hearts, one-heart loss on a blocked move and the Hint ring, with no browser page errors.
 - TypeScript/production build, formatting and Capacitor web-asset sync pass. The affected desktop/phone suite covers campaign, layouts, rewards, heart break and victory. Two initial layout cases encountered a stale Vite module response; the dev server was restarted and these cases rerun separately.
 - Exact image prompts, built-in generation method, hashes and atlas layout: [generated art](assets/generated-art.md).
+
+## Profile/shop and stable completion release — 10 November 2026
+
+- Source: `2ce3698`.
+- Production: `dpl_Cy1gKYY9iixhZK9amjvmFnZVyUBK`, Ready at https://arowgo.vercel.app.
+- 51 unit tests pass. All 24 affected desktop/phone browser tests pass, including purchase persistence, actual equipped arrow colour, full campaign, viewport fit, reward/retry and stable result frames.
+- TypeScript build, formatting and Capacitor asset sync pass. Native compilation/physical-device verification remain separate.
+- Public-site verification checks fresh Guest, Settings only in the top header, four shop cosmetics and a completed level whose snake exit settles before results.
+- Contract: [guest profile, shop and result timing](profile-shop-and-results.md). Scenery component and image assets have no changes in this release.

@@ -36,3 +36,5 @@ While results are open, the underlying header/game are inert. Focus moves to the
 ## Verification
 
 Unit checks cover Guest fallback, corrupted profile recovery, affordability, duplicate purchase prevention, spend totals and serialization. Browser checks cover profile name/avatar persistence, top-only Settings, cancellation, purchase/equip persistence, actual arrow colour and wallet deduction. The completion regression watches the last snake animation, asserts no result before the exit settles, then samples 30 animation frames to verify stable full-viewport bounds and opacity before proceeding to the next level. Existing phone sizes, campaign progression, rewards and retry tests are also run. Native-device testing remains separate.
+
+Catalog prices are part of the profile-v1 persistence contract because spend is derived from ownership. Future price changes require a migration or an explicit stored purchase ledger; do not retroactively rebalance these prices without handling existing purchases.
