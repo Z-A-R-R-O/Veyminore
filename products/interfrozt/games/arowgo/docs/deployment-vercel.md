@@ -27,3 +27,7 @@ After deployment, check the public URL, font/scenery requests, arrow interaction
 - [Live screenshot](verification/vercel-live.png).
 
 Vercel linked `Z-A-R-R-O/Veyminore` automatically. Project build settings point to `products/interfrozt/games/arowgo`, `pnpm build`, output `dist`. This production release used the locally prepared static build; no Git push or Git-triggered build was performed or verified. Local account tokens and Vercel environment files remain ignored.
+
+## Curved recoil / tools release — 10 November 2026
+
+Production updated from commit `203f62c`; deployment `dpl_4d4G6hkHjyYG6SqU75YYKorjPCsY`. Public alias remains https://arowgo.vercel.app. Anonymous live smoke check passed: HTTP 200, Analyze absent, Hint spark present, blocked D costs one heart, confirmed Erase removes D and persists after reload, no page errors. Local validation: eight affected desktop/phone browser cases plus two dedicated curved-recoil cases passed; formatting, typecheck, production build and Android asset sync passed.
