@@ -1,5 +1,13 @@
 # Documentation changelog
 
+## Reusable rewards and Satoshi — 10 November 2026
+
+- Bundled supplied Satoshi font files and applied a local typographic system.
+- Extracted shared coin, animated counter, heart token and encouragement components.
+- Added heart-splitting feedback, reassuring retry copy, a welcome and a win good-wish.
+- Kept balance/save semantics intact and documented reuse plus font provenance.
+
+
 ## Victory recognition — 10 November 2026
 
 - Added a staged golden emblem, earned-star reveal and actual first-clear coin count-up after the last arrow exits.

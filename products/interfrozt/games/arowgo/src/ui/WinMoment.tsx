@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Coin, CountUp } from "./elements/Rewards";
 import type { Session } from "../application/session";
 
 export function WinMoment({
@@ -8,23 +8,6 @@ export function WinMoment({
   state: Session;
   animate: boolean;
 }) {
-  const [coins, setCoins] = useState(state.reward);
-  useEffect(() => {
-    if (!animate || !state.reward) {
-      setCoins(state.reward);
-      return;
-    }
-    setCoins(0);
-    let frame = 0;
-    const start = performance.now() + 1250;
-    const tick = (now: number) => {
-      const progress = Math.max(0, Math.min(1, (now - start) / 850));
-      setCoins(Math.round(state.reward * (1 - Math.pow(1 - progress, 3))));
-      if (progress < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [animate, state.reward]);
   const mastery =
     state.mode === "practice"
       ? "A little more confident."
@@ -40,8 +23,16 @@ export function WinMoment({
       </div>
       {state.mode === "story" && state.reward > 0 && (
         <div className="coin-reveal" aria-hidden="true">
-          <span className="prize-coin">✦</span>
-          <strong>+{coins}</strong>
+          <Coin variant="prize" />
+          <strong>
+            <CountUp
+              value={state.reward}
+              from={0}
+              animate={animate}
+              delay={1250}
+              prefix="+"
+            />
+          </strong>
           <span>coins earned</span>
         </div>
       )}

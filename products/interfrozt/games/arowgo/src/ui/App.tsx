@@ -5,7 +5,8 @@ import { Board, type BoardHandle } from "../game/Board";
 import { checkExit } from "../domain/rules";
 import { fixtures } from "../domain/fixtures";
 import { WinMoment } from "./WinMoment";
-import { Heart, Icon } from "./Icons";
+import { Coin, CountUp, HeartToken, Encouragement } from "./elements/Rewards";
+import { Icon } from "./Icons";
 import { Scenery, Celebration } from "./Scenery";
 import { useMotion } from "./useMotion";
 
@@ -240,6 +241,7 @@ export function App({ controller }: { controller: Controller }) {
         </button>
       </header>
       <main inert={modalOpen}>
+        {!lab && <Encouragement kind="welcome" />}
         <section className="level-heading">
           <div className="world-label">
             <span /> {lab ? "Discover the mechanic" : "World 1 · Bloom Valley"}{" "}
@@ -303,13 +305,12 @@ export function App({ controller }: { controller: Controller }) {
               <div className="hud glass-panel">
                 <div
                   className="balance"
-                  key={`coins-${state.coins}`}
                   aria-label={`${state.coins} earned coins`}
                 >
-                  <span className="coin">
-                    <span>✦</span>
-                  </span>
-                  <strong>{state.coins}</strong>
+                  <Coin />
+                  <strong>
+                    <CountUp value={state.coins} animate={!motion.reduced} />
+                  </strong>
                   <small>COINS</small>
                 </div>
                 <div className="hud-divider" />
@@ -326,7 +327,15 @@ export function App({ controller }: { controller: Controller }) {
                     <span className="infinity">∞</span>
                   ) : (
                     [0, 1, 2].map((i) => (
-                      <Heart key={i} filled={i < 3 - state.mistakes} />
+                      <HeartToken
+                        key={i}
+                        filled={i < 3 - state.mistakes}
+                        breaking={
+                          !motion.reduced &&
+                          pulse.kind === "blocked" &&
+                          i === 3 - state.mistakes
+                        }
+                      />
                     ))
                   )}
                   <small>
@@ -421,7 +430,7 @@ export function App({ controller }: { controller: Controller }) {
                       ? state.mode === "practice"
                         ? "Practice complete. No stars or coins are awarded."
                         : `${stars(state)} of 3 stars · ${state.mistakes} mistakes${state.assisted ? " · Assisted" : ""}`
-                      : "Three blocked moves. Try again, or explore with unlimited mistakes."}
+                      : "Your coins and best stars are safe. Retry with three fresh hearts, or explore in Practice."}
                   </p>
                   {state.status === "complete" && state.mode === "story" && (
                     <p className="reward">
@@ -436,6 +445,9 @@ export function App({ controller }: { controller: Controller }) {
                       animate={celebrating && !motion.reduced}
                     />
                   )}
+                  <Encouragement
+                    kind={state.status === "complete" ? "win" : "retry"}
+                  />
                   <button
                     className="primary-button"
                     onClick={() => reset(state.mode)}

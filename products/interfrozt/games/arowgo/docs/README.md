@@ -1,5 +1,7 @@
 # AROWGO documentation index
 
+[Reusable reward elements and Satoshi](reusable-elements.md).
+
 Current visual implementation: [motion and art](motion-and-art.md), [verification](verification/bloom-motion.md), [asset prompts](assets/bloom-valley.md).
 
 [Game overview](../README.md) · [Working masterplan](../MASTERPLAN.md) · [Reference images](../references/README.md)

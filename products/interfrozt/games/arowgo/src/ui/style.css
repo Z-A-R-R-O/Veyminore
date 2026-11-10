@@ -1,6 +1,48 @@
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-BlackItalic.otf") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
 :root {
   font-family:
-    Inter,
+    Satoshi,
     ui-sans-serif,
     system-ui,
     -apple-system,
@@ -326,7 +368,7 @@ main {
   font-weight: 700;
 }
 .journey-note h2 {
-  font-family: Georgia, serif;
+  font-family: Satoshi, ui-sans-serif, system-ui, sans-serif;
   font-size: 36px;
   line-height: 1.18;
   font-weight: 400;
@@ -1836,4 +1878,130 @@ main {
 
 .win-result:not(.fresh-win) {
   animation: none;
+}
+
+.count-up {
+  font-variant-numeric: tabular-nums;
+}
+.heart-token {
+  position: relative;
+  display: inline-flex;
+  width: 36px;
+  height: 34px;
+  flex-shrink: 0;
+}
+.heart-token > .heart-icon {
+  width: 100%;
+  height: 100%;
+}
+.heart-fragment {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.heart-fragment .heart-icon {
+  width: 100%;
+  height: 100%;
+}
+.heart-fragment.left {
+  clip-path: polygon(0 0, 53% 0, 45% 33%, 57% 50%, 45% 67%, 51% 100%, 0 100%);
+  animation: heart-break-left 0.85s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.heart-fragment.right {
+  clip-path: polygon(
+    53% 0,
+    100% 0,
+    100% 100%,
+    51% 100%,
+    45% 67%,
+    57% 50%,
+    45% 33%
+  );
+  animation: heart-break-right 0.85s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes heart-break-left {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-3px, 0) rotate(-8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-10px, 13px) rotate(-18deg);
+  }
+}
+@keyframes heart-break-right {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translate(3px, 0) rotate(8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(10px, 13px) rotate(18deg);
+  }
+}
+.encouragement {
+  color: #79568e;
+  line-height: 1.5;
+  font-size: 12px;
+}
+.encouragement-welcome {
+  text-align: center;
+  margin: 0 auto 16px;
+  padding: 0 18px;
+  animation: screen-enter 0.65s both;
+}
+.result-overlay .encouragement {
+  max-width: 310px;
+  margin: 0 0 14px;
+  font-size: 12px;
+}
+.result-overlay:not(.win-result) .result-symbol {
+  animation: reassure-heart 1.5s ease-in-out 2;
+}
+@keyframes reassure-heart {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+    color: #d784bc;
+  }
+}
+@media (max-width: 680px) {
+  .heart-token {
+    width: 29px;
+    height: 28px;
+  }
+  .encouragement-welcome {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  .result-overlay .encouragement {
+    font-size: 10px;
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+  .win-result .win-moment {
+    margin-bottom: 4px;
+  }
+  .win-result .win-keepsake {
+    display: none;
+  }
+}
+.app-shell[data-motion="reduced"] .heart-fragment {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .heart-fragment {
+    display: none;
+  }
 }
