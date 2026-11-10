@@ -87,9 +87,8 @@ export function HeartToken({
 export function Encouragement({ kind }: { kind: "welcome" | "win" | "retry" }) {
   const copy = {
     welcome: "A little pause, a fresh perspective. Glad you’re here.",
-    win: "Take that little win with you. Hope your day feels brighter.",
-    retry:
-      "A blocked path is a clue, not a setback. Take a breath — try a new order.",
+    win: "A little win. A brighter day.",
+    retry: "Take a breath. Try a new order.",
   };
   return (
     <p className={`encouragement encouragement-${kind}`}>

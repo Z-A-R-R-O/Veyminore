@@ -4,7 +4,7 @@ test("local Satoshi, heart break and reassuring retry", async ({
 }, info) => {
   await page.goto("/");
   await expect(
-    page.getByText("A little pause, a fresh perspective. Glad you’re here."),
+    page.getByText("A little play. A little practice in thinking."),
   ).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check("14px Satoshi"))).toBe(
@@ -26,7 +26,7 @@ test("local Satoshi, heart break and reassuring retry", async ({
     page.getByText("Your coins and best stars are safe.", { exact: false }),
   ).toBeVisible();
   await expect(
-    page.getByText("A blocked path is a clue, not a setback.", {
+    page.getByText("Take a breath. Try a new order.", {
       exact: false,
     }),
   ).toBeVisible();

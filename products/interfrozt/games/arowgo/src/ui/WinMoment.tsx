@@ -36,10 +36,6 @@ export function WinMoment({
           <span>coins earned</span>
         </div>
       )}
-      <span className="win-keepsake">
-        Bloom Valley ·{" "}
-        {state.active.length === 0 ? "10 / 10 paths cleared" : "Complete"}
-      </span>
     </div>
   );
 }

@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## Essential typography — 10 November 2026
+
+- Centered the board and removed decorative side essays, micro-captions and repeated victory text.
+- Increased essential Satoshi labels and actions; kept accessible reward summaries and save errors.
+- Added a thinking-practice motto and a sourced psychology/design rationale without unproven cognitive-benefit claims.
+
+
 ## Reusable rewards and Satoshi — 10 November 2026
 
 - Bundled supplied Satoshi font files and applied a local typographic system.

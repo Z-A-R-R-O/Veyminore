@@ -19,9 +19,7 @@ export function App({ controller }: { controller: Controller }) {
   const [lab, setLab] = useState(false),
     [fixture, setFixture] = useState(5);
   const [hints, setHints] = useState<string[]>([]);
-  const [feedback, setFeedback] = useState(
-    "Tap an arrow with a clear path. Clear arrows flow out along their path.",
-  );
+  const [feedback, setFeedback] = useState("Tap an arrow to clear its path.");
   const [busy, setBusy] = useState(false),
     [settings, setSettings] = useState(false);
   const [restart, setRestart] = useState<Mode | null>(null);
@@ -122,7 +120,7 @@ export function App({ controller }: { controller: Controller }) {
     clearHints();
     const result = controller.select(id);
     if (result.exit?.clear) {
-      setFeedback(`Arrow ${id} found its way. Keep going.`);
+      setFeedback("Nice move.");
       setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
     } else if (result.exit) {
       setFeedback(
@@ -216,7 +214,7 @@ export function App({ controller }: { controller: Controller }) {
           <span className="brand-icon">
             <Icon name="arrow" />
           </span>
-          AROWGO <span className="prototype">FIRST BLOOM</span>
+          AROWGO
         </a>
         <nav aria-label="Prototype navigation">
           <button
@@ -241,7 +239,11 @@ export function App({ controller }: { controller: Controller }) {
         </button>
       </header>
       <main inert={modalOpen}>
-        {!lab && <Encouragement kind="welcome" />}
+        {!lab && (
+          <p className="game-motto">
+            A little play. A little practice in thinking.
+          </p>
+        )}
         <section className="level-heading">
           <div className="world-label">
             <span /> {lab ? "Discover the mechanic" : "World 1 · Bloom Valley"}{" "}
@@ -262,25 +264,6 @@ export function App({ controller }: { controller: Controller }) {
           )}
         </section>
         <div className="play-layout">
-          <aside className="journey-note">
-            <span className="chapter-label">✧ FIRST BLOOM</span>
-            <h2>
-              A little room
-              <br />
-              to think.
-            </h2>
-            <p>
-              Every arrow has a way out.
-              <br />
-              Sometimes, another path
-              <br />
-              needs to go first.
-            </p>
-            <div className="quiet-note">
-              <Icon name="leaf" />
-              No timer. Take your time.
-            </div>
-          </aside>
           <section
             className="game-card"
             aria-label={lab ? "Rule proof board" : "Bloom Valley level 1"}
@@ -311,7 +294,6 @@ export function App({ controller }: { controller: Controller }) {
                   <strong>
                     <CountUp value={state.coins} animate={!motion.reduced} />
                   </strong>
-                  <small>COINS</small>
                 </div>
                 <div className="hud-divider" />
                 <div
@@ -338,9 +320,6 @@ export function App({ controller }: { controller: Controller }) {
                       />
                     ))
                   )}
-                  <small>
-                    {state.mode === "practice" ? "PRACTICE" : "MISTAKE HEARTS"}
-                  </small>
                 </div>
                 <div className="hud-divider" />
                 <button
@@ -402,11 +381,6 @@ export function App({ controller }: { controller: Controller }) {
                   <div className="result-symbol">
                     {state.status === "complete" ? "✦" : "♡"}
                   </div>
-                  <span className="eyebrow">
-                    {state.status === "complete"
-                      ? "A MOMENT OF CLARITY"
-                      : "THERE’S ALWAYS ANOTHER WAY"}
-                  </span>
                   <h2>
                     {state.status === "complete"
                       ? "Beautifully cleared."
@@ -425,15 +399,21 @@ export function App({ controller }: { controller: Controller }) {
                       ))}
                     </div>
                   )}
-                  <p>
+                  <p
+                    className={
+                      state.status === "complete" && state.mode === "story"
+                        ? "sr-only"
+                        : "result-detail"
+                    }
+                  >
                     {state.status === "complete"
                       ? state.mode === "practice"
                         ? "Practice complete. No stars or coins are awarded."
                         : `${stars(state)} of 3 stars · ${state.mistakes} mistakes${state.assisted ? " · Assisted" : ""}`
-                      : "Your coins and best stars are safe. Retry with three fresh hearts, or explore in Practice."}
+                      : "Your coins and best stars are safe."}
                   </p>
                   {state.status === "complete" && state.mode === "story" && (
-                    <p className="reward">
+                    <p className={state.reward ? "sr-only" : "reward"}>
                       {state.reward
                         ? "+25 coins · First clear reward"
                         : "First-clear reward already collected"}
@@ -476,7 +456,7 @@ export function App({ controller }: { controller: Controller }) {
               {lab
                 ? labMessage
                 : eraseMode
-                  ? "Choose an arrow to erase. You’ll confirm before it disappears."
+                  ? "Choose an arrow to erase."
                   : feedback}
               {eraseMode && (
                 <button onClick={() => setEraseMode(false)}>Cancel</button>
@@ -510,7 +490,6 @@ export function App({ controller }: { controller: Controller }) {
                       <i />
                     </span>
                     <strong>Hint</strong>
-                    <small>Reveal one path</small>
                   </button>
                   <button
                     className="tool-card analyze-tool"
@@ -525,7 +504,6 @@ export function App({ controller }: { controller: Controller }) {
                       <Icon name="analyze" />
                     </span>
                     <strong>Analyze</strong>
-                    <small>Find every exit</small>
                   </button>
                   <button
                     className={`tool-card erase-tool ${eraseMode ? "selected" : ""}`}
@@ -544,17 +522,12 @@ export function App({ controller }: { controller: Controller }) {
                       <Icon name="erase" />
                     </span>
                     <strong>Erase</strong>
-                    <small>Remove one arrow</small>
                   </button>
                 </div>
-                <p className="tool-policy">
-                  Free tools in this prototype · Using a tool marks the run
-                  assisted
-                </p>
                 <div className="card-footer">
-                  <span>
-                    {controller.notice || "✓ Progress saved on this device"}
-                  </span>
+                  {controller.notice && (
+                    <span role="status">{controller.notice}</span>
+                  )}
                   <button
                     onClick={() =>
                       setRestart(state.mode === "story" ? "practice" : "story")
@@ -568,31 +541,7 @@ export function App({ controller }: { controller: Controller }) {
               </>
             )}
           </section>
-          <aside className="world-note">
-            <span className="world-emblem">✿</span>
-            <span className="chapter-label">BLOOM VALLEY</span>
-            <p>
-              Think.
-              <br />
-              Clear.
-              <br />
-              <em>Go.</em>
-            </p>
-            <span className="world-note-line" />
-            <small>
-              A little space.
-              <br />A fresh perspective.
-            </small>
-          </aside>
         </div>
-        <footer className="page-footer">
-          <span>
-            INTERFROZT <i> / </i> AROWGO
-          </span>
-          <span>
-            A small beginning. <span className="tiny-flower">✳</span>
-          </span>
-        </footer>
       </main>
       {modalOpen && (
         <div className="modal-shade">

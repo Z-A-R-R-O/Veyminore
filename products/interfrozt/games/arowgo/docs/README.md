@@ -1,5 +1,7 @@
 # AROWGO documentation index
 
+[Game psychology and essential typography](game-psychology-and-typography.md).
+
 [Reusable reward elements and Satoshi](reusable-elements.md).
 
 Current visual implementation: [motion and art](motion-and-art.md), [verification](verification/bloom-motion.md), [asset prompts](assets/bloom-valley.md).

@@ -2005,3 +2005,187 @@ main {
     display: none;
   }
 }
+
+/* Essential game typography: one focal board, readable actions, no caption clutter. */
+:root {
+  font-size: 16px;
+}
+.play-layout {
+  display: block;
+  max-width: 580px;
+  margin: 0 auto;
+}
+.game-motto {
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: #654978;
+  margin: 0 16px 18px;
+}
+.level-heading {
+  margin-bottom: 20px;
+}
+.world-label {
+  font-size: 17px;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+.level-heading h1 {
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 900;
+  font-style: normal;
+  letter-spacing: -1.5px;
+  margin: 8px 0 14px;
+}
+.topbar nav button {
+  font-size: 16px;
+}
+.hud {
+  min-height: 76px;
+}
+.balance {
+  padding-bottom: 0;
+}
+.balance strong {
+  font-size: 30px;
+}
+.hearts {
+  padding-bottom: 0;
+}
+.feedback {
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 44px;
+  color: #654477;
+}
+.tool-card strong {
+  font-size: 18px;
+}
+.tool-card {
+  min-height: 112px;
+}
+.card-footer {
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+.card-footer button,
+.card-footer > span {
+  font-size: 15px;
+}
+.result-overlay h2,
+.win-result h2 {
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+}
+.result-overlay p,
+.result-overlay .encouragement,
+.win-result .reward {
+  font-size: 16px;
+  line-height: 1.45;
+}
+.result-overlay .primary-button,
+.result-overlay .text-button {
+  font-size: 17px;
+}
+.mastery-ribbon {
+  font-size: 15px;
+}
+.coin-reveal {
+  font-size: 16px;
+}
+.coin-reveal strong {
+  font-size: 32px;
+}
+.result-stars,
+.win-result .result-stars {
+  font-size: 40px;
+  gap: 14px;
+}
+.modal p,
+.setting small,
+.setting strong,
+.setting select,
+.modal .primary-button {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+@media (max-width: 680px) {
+  .game-motto {
+    font-size: 15px;
+    margin: 0 12px 14px;
+  }
+  .world-label {
+    font-size: 16px;
+  }
+  .level-heading h1 {
+    font-size: 40px;
+    margin: 8px 0 10px;
+  }
+  .level-heading {
+    margin-bottom: 18px;
+  }
+  .topbar nav button {
+    font-size: 14px;
+  }
+  .balance strong {
+    font-size: 27px;
+  }
+  .feedback {
+    font-size: 14px;
+  }
+  .tool-card strong {
+    font-size: 17px;
+  }
+  .tool-card {
+    min-height: 104px;
+  }
+  .card-footer button {
+    font-size: 15px;
+  }
+  .result-overlay h2,
+  .win-result h2 {
+    font-size: 27px;
+    margin: 6px 0;
+  }
+  .result-overlay p,
+  .result-overlay .encouragement,
+  .win-result .reward {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .mastery-ribbon {
+    font-size: 14px;
+  }
+  .result-stars,
+  .win-result .result-stars {
+    font-size: 30px;
+  }
+  .coin-reveal {
+    font-size: 15px;
+  }
+  .coin-reveal strong {
+    font-size: 28px;
+  }
+  .result-overlay .primary-button,
+  .result-overlay .text-button {
+    font-size: 16px;
+  }
+  .win-moment {
+    gap: 7px;
+    margin: 6px 0;
+  }
+}
