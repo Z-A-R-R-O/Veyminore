@@ -64,3 +64,9 @@ The selected arrow translates toward its first swept blocker, stopping short by 
 Regression checks exercise approach direction and distance, return-to-origin, unchanged path and ten active arrows, blocker opacity recovery, one lost heart and reload persistence, plus existing rapid-tap and reduced-motion flows.
 
 [Blocked contact animation recording](verification/blocked-contact.webm).
+
+## Curved blocked moves and two-tool tray — 10 November 2026
+
+Blocked moves now animate a constant-length snake along the authored bends, then reverse the same distance back to the exact path. Rule validation remains the conservative swept-body rule. A body-only obstruction is still indicated at its validated collision cell; the decorative head motion does not redefine legality. Hint traces a gold spark along the suggested path over 850 ms with a bulb bounce and retained glow. Confirmed Erase wipes strokes with SVG dash offset over 460 ms, fading the head; cancelling the dialog does nothing. Starting a move cancels an in-flight hint trace. Reduced motion skips travel and tool movement.
+
+Analyze was removed from the playable UI; Hint and Erase use a two-column tray. The legacy application command remains compatible internally, but there is no player-facing Analyze action. Earlier three-tool descriptions are historical and superseded here.

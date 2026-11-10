@@ -317,6 +317,36 @@ class PuzzleScene extends Phaser.Scene {
       ]);
       this.drawVector(element, points, arrow.id);
       if (highlighted && !this.reduced) {
+        const path = element.querySelector(".arrow-body") as SVGPathElement;
+        const spark = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle",
+        );
+        spark.setAttribute("r", "5");
+        spark.setAttribute("fill", "#fff3b0");
+        spark.setAttribute("stroke", "#d9a64c");
+        spark.setAttribute("stroke-width", "2");
+        const first = path.getPointAtLength(0);
+        spark.setAttribute("cx", String(first.x));
+        spark.setAttribute("cy", String(first.y));
+        spark.classList.add("hint-spark");
+        element.appendChild(spark);
+        const trace = { progress: 0 };
+        group.setData("travel", trace);
+        this.tweens.add({
+          targets: trace,
+          progress: 1,
+          duration: 850,
+          ease: "Sine.easeInOut",
+          onUpdate: () => {
+            const p = path.getPointAtLength(
+              path.getTotalLength() * trace.progress,
+            );
+            spark.setAttribute("cx", String(p.x));
+            spark.setAttribute("cy", String(p.y));
+          },
+          onComplete: () => spark.remove(),
+        });
         const halo = element.querySelector(".arrow-halo")!;
         const pulse = { alpha: 0.32 };
         group.setData("pulse", pulse);
@@ -367,15 +397,45 @@ class PuzzleScene extends Phaser.Scene {
     const id = result.arrowId,
       shape = this.shapes.get(id);
     if (!shape) return;
+    const previousTravel = shape.getData("travel");
+    if (previousTravel) this.tweens.killTweensOf(previousTravel);
+    (shape.getData("vector") as SVGGElement)
+      .querySelector(".hint-spark")
+      ?.remove();
     this.animating.add(id);
     const arrow = this.level.arrows.find((a) => a.id === id)!;
     const [hx, hy] = arrow.points.at(-1)!;
     if (result.erased) {
-      this.burst(this.coord(hx), this.coord(hy), 0xf5a4d5, 16);
+      const element = shape.getData("vector") as SVGGElement;
+      const body = element.querySelector(".arrow-body") as SVGPathElement;
+      const total = body.getTotalLength();
+      const wipe = { progress: 0 };
+      shape.setData("travel", wipe);
+      element.dataset.motion = "erase";
+      element.querySelector("text")!.textContent = "";
+      const paths = [
+        ...element.querySelectorAll<SVGPathElement>("path:not(.arrow-head)"),
+      ];
+      paths.forEach((path) =>
+        path.setAttribute("stroke-dasharray", `${total} ${total}`),
+      );
+      this.burst(this.coord(hx), this.coord(hy), 0xf5a4d5, 12);
       this.tweens.add({
-        targets: shape,
-        alpha: 0,
-        duration: reduced ? 0 : 300,
+        targets: wipe,
+        progress: 1,
+        duration: reduced ? 0 : 460,
+        ease: "Sine.easeInOut",
+        onUpdate: () => {
+          paths.forEach((path) =>
+            path.setAttribute(
+              "stroke-dashoffset",
+              String(total * wipe.progress),
+            ),
+          );
+          element
+            .querySelector(".arrow-head")!
+            .setAttribute("opacity", String(1 - wipe.progress));
+        },
         onComplete: () => {
           this.dispose(shape);
           this.shapes.delete(id);
@@ -453,12 +513,20 @@ class PuzzleScene extends Phaser.Scene {
         settle();
         return;
       }
+      const points: Point[] = arrow.points.map(([x, y]) => [
+        this.coord(x),
+        this.coord(y),
+      ]);
+      const travel = { distance: 0 };
+      shape.setData("travel", travel);
+      const redraw = () =>
+        this.drawVector(element, snake(points, travel.distance));
       element.dataset.motion = "blocked";
       if (blocker) this.animating.add(blocked.blocker);
       this.tweens.add({
-        targets: shape,
-        x: dx * distance,
-        y: dy * distance,
+        targets: travel,
+        distance,
+        onUpdate: redraw,
         duration: 200,
         ease: "Sine.easeInOut",
         onComplete: () => {
@@ -476,9 +544,9 @@ class PuzzleScene extends Phaser.Scene {
               ease: "Sine.easeInOut",
             });
           this.tweens.add({
-            targets: shape,
-            x: 0,
-            y: 0,
+            targets: travel,
+            distance: 0,
+            onUpdate: redraw,
             duration: 360,
             ease: "Cubic.easeOut",
             onComplete: settle,

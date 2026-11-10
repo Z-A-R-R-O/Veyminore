@@ -139,16 +139,12 @@ export function App({ controller }: { controller: Controller }) {
     setCelebrating(false);
     setFeedback("A fresh start. Look for arrows near an open edge.");
   }
-  function assist(type: "hint" | "analyze") {
+  function assist() {
     setEraseMode(false);
-    const result = controller.hint(type);
+    const result = controller.hint();
     setHints(result.hints ?? []);
     setPulse((p) => ({ id: p.id + 1, kind: "hint" }));
-    setFeedback(
-      type === "hint"
-        ? `Try arrow ${result.hints?.[0]}. This run is now assisted.`
-        : `${result.hints?.length ?? 0} arrows can leave right now. This run is now assisted.`,
-    );
+    setFeedback(`Try arrow ${result.hints?.[0]}. This run is now assisted.`);
     clearTimeout(hintTimer.current);
     hintTimer.current = setTimeout(() => setHints([]), 5000);
   }
@@ -477,10 +473,11 @@ export function App({ controller }: { controller: Controller }) {
               <>
                 <div className="tool-tray" aria-label="Puzzle tools">
                   <button
-                    className="tool-card hint-tool"
+                    key={`hint-${pulse.kind === "hint" ? pulse.id : 0}`}
+                    className={`tool-card hint-tool ${pulse.kind === "hint" ? "tool-used" : ""}`}
                     aria-label="A little hint"
                     disabled={busy || state.status !== "playing"}
-                    onClick={() => assist("hint")}
+                    onClick={assist}
                   >
                     <span className="tool-badge" aria-hidden="true">
                       ∞
@@ -490,20 +487,6 @@ export function App({ controller }: { controller: Controller }) {
                       <i />
                     </span>
                     <strong>Hint</strong>
-                  </button>
-                  <button
-                    className="tool-card analyze-tool"
-                    aria-label="Analyze"
-                    disabled={busy || state.status !== "playing"}
-                    onClick={() => assist("analyze")}
-                  >
-                    <span className="tool-badge" aria-hidden="true">
-                      ∞
-                    </span>
-                    <span className="tool-art analyze-art">
-                      <Icon name="analyze" />
-                    </span>
-                    <strong>Analyze</strong>
                   </button>
                   <button
                     className={`tool-card erase-tool ${eraseMode ? "selected" : ""}`}
@@ -613,8 +596,8 @@ export function App({ controller }: { controller: Controller }) {
                 </label>
                 <p>
                   Story has three mistake hearts. Practice has unlimited
-                  mistakes and no campaign rewards. All three tools are free in
-                  this prototype and mark a run assisted.
+                  mistakes and no campaign rewards. Both tools are free in this
+                  prototype and mark a run assisted.
                 </p>
                 <p className="muted">
                   Motion preferences stay on this device. Gameplay uses no

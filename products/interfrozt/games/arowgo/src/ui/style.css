@@ -2189,3 +2189,35 @@ main {
     margin: 6px 0;
   }
 }
+
+.tool-tray {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 460px;
+  margin-inline: auto;
+}
+.tool-used .bulb-art {
+  animation: hint-tap 0.6s ease-out;
+}
+.erase-tool.selected .erase-art {
+  animation: eraser-ready 0.65s ease-in-out 2;
+}
+@keyframes hint-tap {
+  0% {
+    transform: scale(0.85);
+  }
+  50% {
+    transform: scale(1.2) rotate(-8deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes eraser-ready {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: translateX(6px) rotate(-12deg);
+  }
+}

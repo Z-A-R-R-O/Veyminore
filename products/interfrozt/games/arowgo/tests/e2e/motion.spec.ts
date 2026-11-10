@@ -16,10 +16,10 @@ test("tools are functional, Erase is cancellable, and reduced motion survives re
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   await expect(page.locator("canvas[data-ready=true]")).toBeVisible();
-  await page.getByRole("button", { name: "Analyze", exact: true }).click();
-  await expect(
-    page.getByText("4 arrows can leave right now.", { exact: false }),
-  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "A little hint", exact: true })
+    .click();
+  await expect(page.getByText("Try arrow A.", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Erase", exact: true }).click();
   await select(page, "B");
   await expect(page.getByRole("dialog")).toBeVisible();

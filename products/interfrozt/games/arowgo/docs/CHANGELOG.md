@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## Curved recoil and tool animations — 10 November 2026
+
+- Changed blocked presentation to snake advance/reverse along curved paths.
+- Added a travelling hint spark, bulb response and confirmed erase wipe.
+- Removed Analyze from the playable tool tray and updated guidance to two tools.
+
+
 ## Blocked-arrow contact — 10 November 2026
 
 - Added a smooth approach, collision pulse and return animation for blocked moves.
