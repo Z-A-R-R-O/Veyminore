@@ -6,6 +6,7 @@ import { checkExit } from "../domain/rules";
 import { fixtures } from "../domain/fixtures";
 import { WinMoment } from "./WinMoment";
 import { Coin, CountUp, HeartToken, Encouragement } from "./elements/Rewards";
+import { GameArt } from "./elements/GameArt";
 import { Icon } from "./Icons";
 import { Scenery, Celebration } from "./Scenery";
 import { useMotion } from "./useMotion";
@@ -535,7 +536,7 @@ export function App({
                       ∞
                     </span>
                     <span className="tool-art bulb-art">
-                      <Icon name="bulb" />
+                      <GameArt kind="hint" />
                       <i />
                     </span>
                     <strong>Hint</strong>
@@ -554,7 +555,7 @@ export function App({
                       ∞
                     </span>
                     <span className="tool-art erase-art">
-                      <Icon name="erase" />
+                      <GameArt kind="erase" />
                     </span>
                     <strong>Erase</strong>
                   </button>

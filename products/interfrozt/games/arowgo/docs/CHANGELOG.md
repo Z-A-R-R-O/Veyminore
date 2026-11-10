@@ -102,3 +102,7 @@ Added Home, Worlds, Progress and Settings pages; four-tab hub navigation and iso
 ### Reference-aligned presentation
 
 Archived six renewed references with SHA-256 manifest and per-screen adaptation notes. Added functional Modes, an original winding five-level map, a dimensional Home hero, glossy shortcut/world cards and earned milestone collection. Retained focused gameplay and real progression.
+
+## Generated art finish — 10 November 2026
+
+User requested generated illustrations instead of hardcoded decorative artwork. Runtime now uses an original transparent floating island, six-item game atlas and three-item reward atlas. Hero/map art, Worlds/Modes/Story/trophy/Hint/Erase icons, coins and animated hearts use these assets. Live text, navigation and vector puzzle mechanics remain interactive. See [asset inventory and exact prompts](assets/generated-art.md).

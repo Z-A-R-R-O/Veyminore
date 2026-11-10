@@ -54,3 +54,5 @@ Current visual implementation: [motion and art](motion-and-art.md), [verificatio
 - Engineering: decisions → gameplay → architecture → quality → execution backlog.
 - Content: gameplay → content/generation → quality → level-review template.
 - Release: roadmap → quality → risk/publishing → release evidence. Historical policy claims must be verified before use.
+
+[Generated island, game icons and reward art](assets/generated-art.md) — runtime asset inventory, exact built-in generation prompts and provenance.

@@ -48,7 +48,9 @@ export function CountUp({
 export function Coin({ variant = "hud" }: { variant?: "hud" | "prize" }) {
   return (
     <span
-      className={variant === "hud" ? "coin" : "prize-coin"}
+      className={
+        variant === "hud" ? "coin generated-coin" : "prize-coin generated-coin"
+      }
       aria-hidden="true"
     >
       <span>✦</span>
@@ -69,14 +71,14 @@ export function HeartToken({
       className={`heart-token ${breaking ? "is-breaking" : ""}`}
       aria-hidden="true"
     >
-      <Heart filled={filled} />
+      {filled ? <span className="heart-art" /> : <Heart filled={false} />}
       {breaking && (
         <>
           <span className="heart-fragment left">
-            <Heart filled />
+            <span className="heart-art" />
           </span>
           <span className="heart-fragment right">
-            <Heart filled />
+            <span className="heart-art" />
           </span>
         </>
       )}

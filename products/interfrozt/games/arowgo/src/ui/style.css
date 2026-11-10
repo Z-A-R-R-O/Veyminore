@@ -3760,3 +3760,381 @@ main {
     display: none;
   }
 }
+/* UI finish: scalable original artwork and a consistent tactile hierarchy. */
+.hub-shell .glass-panel {
+  border: 1.5px solid #fff9;
+  background-color: #f8efff9c;
+  box-shadow:
+    inset 0 2px 7px #fff9,
+    0 8px 20px #704b9d20;
+}
+.hub-content .page-heading h1 {
+  font-size: clamp(28px, 4.6vh, 38px);
+  letter-spacing: -1px;
+}
+.hub-content .page-heading p {
+  font-size: 15px;
+}
+.home-hero {
+  position: relative;
+  justify-content: flex-start;
+  padding-top: 4px;
+  isolation: isolate;
+}
+.home-hero h1 {
+  font-size: clamp(42px, 7.5vh, 66px);
+  margin-bottom: 7px;
+  z-index: 1;
+}
+.home-hero p {
+  font-size: 14px;
+  z-index: 1;
+}
+.hero-sigil {
+  font-size: 30px;
+  z-index: 1;
+}
+.hero-island {
+  position: absolute;
+  width: 100%;
+  height: 75%;
+  bottom: -15px;
+  object-fit: contain;
+  z-index: -1;
+  pointer-events: none;
+  filter: drop-shadow(0 7px 12px #b4a0d030);
+}
+.home-shortcuts button {
+  padding: 7px;
+  gap: 0;
+}
+.game-art {
+  display: block;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 3px #8960b01c);
+}
+.home-shortcuts strong {
+  font-size: 16px;
+}
+.world-banner {
+  background:
+    linear-gradient(90deg, #c3a4ecf5, #d5bceea0),
+    url("/assets/bloom-valley-landscape.png") 70% 45% / cover;
+}
+.world-banner strong {
+  color: #56327a;
+}
+.world-banner > span:last-child {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: #fff9;
+  border-radius: 50%;
+  font-size: 22px;
+}
+.page-worlds .page-heading {
+  padding-bottom: 0;
+}
+.map-island {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: -2;
+}
+.world-map .level-tile {
+  width: 62%;
+  border: 2px solid #fffd;
+  background: #f5eaffdf;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 5px 0 #c7addf,
+    0 10px 18px #75559824;
+}
+.world-map .level-tile.locked {
+  opacity: 1;
+  color: #87739d;
+  background: #dfd6ecd9;
+  border-color: #f7efffa6;
+  box-shadow: 0 4px 0 #b6a7c5;
+}
+.world-map .level-tile.current-level {
+  background: linear-gradient(145deg, #d7a0ff, #a969e0 65%, #9b59d1);
+  color: white;
+  box-shadow:
+    0 4px 0 #925bbf,
+    0 0 22px #f4baff;
+}
+.world-map .level-number {
+  font-weight: 800;
+  background: linear-gradient(#fff, #e8d6fa);
+  box-shadow: 0 3px 0 #b29bc9;
+}
+.world-map .current-level .level-number {
+  background: #ffffff30;
+  box-shadow: none;
+}
+.mode-art {
+  width: 120px;
+  height: 120px;
+  right: 8px;
+  top: 12px;
+  opacity: 0.85;
+  transform: rotate(8deg);
+  font-size: inherit;
+}
+.mode-art .game-art {
+  width: 100%;
+  height: 100%;
+}
+.mode-card > div {
+  width: 100%;
+}
+.mode-card .eyebrow {
+  max-width: 65%;
+  line-height: 1.6;
+}
+.mode-card h2 {
+  font-size: 30px;
+}
+.mode-card p {
+  max-width: 65%;
+  color: #71538b;
+}
+.mode-card .primary-button {
+  border: 1px solid #f4d9ff;
+  box-shadow:
+    inset 0 2px 4px #fff8,
+    0 5px 12px #9554ce32;
+}
+.progress-orbit {
+  align-self: center;
+  width: min(100%, 220px);
+  max-height: 220px;
+  aspect-ratio: 1;
+  border: 8px solid #d3b5f09c;
+  border-top-color: #ad72dc;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8, #eddbfc55);
+  box-shadow:
+    inset 0 3px 10px #fff8,
+    0 9px 20px #8f62ad14;
+}
+.stat-grid section {
+  border-radius: 22px;
+}
+.milestone {
+  opacity: 1;
+  background: #eee4f4a8 !important;
+}
+.milestone:not(.earned) {
+  color: #887695;
+}
+.milestone.earned {
+  background: linear-gradient(145deg, #fff4d5dd, #f2dbffdd) !important;
+}
+.bottom-nav {
+  padding: 5px;
+  gap: 2px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #fffb, #e6d1f7d9) !important;
+}
+.bottom-nav a[aria-current="page"] {
+  box-shadow:
+    inset 0 2px 5px #e5b9ff,
+    0 4px 12px #af7ed345;
+}
+@media (max-height: 700px) {
+  .home-hero {
+    min-height: 84px;
+    padding: 0;
+  }
+  .home-hero h1 {
+    font-size: 40px;
+    margin: 0 0 4px;
+  }
+  .hero-sigil {
+    display: none;
+  }
+  .hero-island {
+    height: 85%;
+    bottom: -20px;
+    opacity: 0.9;
+  }
+  .home-hero p {
+    font-size: 12px;
+  }
+  .home-shortcuts .game-art {
+    height: 34px;
+    width: 42px;
+  }
+  .home-shortcuts strong {
+    font-size: 14px;
+  }
+  .world-map .level-tile {
+    width: 70%;
+  }
+  .mode-art {
+    width: 78px;
+    height: 78px;
+    right: 9px;
+    top: 15px;
+  }
+  .mode-card h2 {
+    font-size: 23px;
+  }
+  .mode-card p {
+    max-width: 72%;
+    font-size: 13px;
+  }
+  .progress-orbit {
+    max-height: 110px;
+    width: 110px;
+    border-width: 5px;
+  }
+  .page-progress .progress-orbit strong {
+    font-size: 32px;
+  }
+  .progress-orbit span {
+    font-size: 12px;
+  }
+  .hub-content .page-heading h1 {
+    font-size: 28px;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-island {
+    display: none;
+  }
+  .home-hero {
+    min-height: 70px;
+  }
+  .map-island {
+    opacity: 0.25;
+  }
+  .world-map .level-tile {
+    width: auto;
+  }
+  .mode-art {
+    width: 65px;
+    height: 65px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hub-shell[data-motion="full"] .hero-island {
+    animation: island-drift 7s ease-in-out infinite alternate;
+  }
+  @keyframes island-drift {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-6px);
+    }
+  }
+}
+/* Generated PNGs remain intact; atlas cells are selected without raster edits. */
+.generated-art {
+  background-image: url("/assets/generated/game-icons-v1.png");
+  background-size: 300% 200%;
+  background-repeat: no-repeat;
+  aspect-ratio: 1;
+}
+.art-world {
+  background-position: 0 0;
+}
+.art-modes,
+.art-infinity {
+  background-position: 50% 0;
+}
+.art-trophy {
+  background-position: 100% 0;
+}
+.art-flag {
+  background-position: 0 100%;
+}
+.art-hint {
+  background-position: 50% 100%;
+}
+.art-erase {
+  background-position: 100% 100%;
+}
+.generated-coin,
+.hero-sigil,
+.heart-art {
+  background-image: url("/assets/generated/rewards-v1.png");
+  background-size: 300% 100%;
+  background-repeat: no-repeat;
+}
+.generated-coin {
+  background-position: 0 0;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+.generated-coin > span {
+  display: none;
+}
+.heart-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: 50% 0;
+}
+.hero-sigil {
+  display: block;
+  height: 42px;
+  width: 42px;
+  background-position: 100% 0;
+  transform: none;
+}
+.hub-shell .page-home .continue-card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.hero-island {
+  height: 78%;
+  bottom: -12px;
+}
+.map-island {
+  opacity: 0.7;
+  object-fit: contain;
+}
+.tool-art .game-art {
+  width: 100%;
+  height: 100%;
+}
+.bulb-art i {
+  display: none;
+}
+.mode-art .game-art {
+  filter: drop-shadow(0 5px 5px #9e72b122);
+}
+@media (max-height: 700px) {
+  .hero-sigil {
+    display: none;
+  }
+  .hero-island {
+    height: 90%;
+    bottom: -20px;
+  }
+}
+.home-hero p {
+  display: none;
+}
+@media (min-height: 501px) {
+  .hud .heart-token {
+    width: 34px;
+    height: 34px;
+  }
+  .hud .coin {
+    width: 36px;
+    height: 36px;
+  }
+}

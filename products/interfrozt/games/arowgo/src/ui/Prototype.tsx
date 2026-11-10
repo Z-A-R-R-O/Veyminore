@@ -5,6 +5,7 @@ import { SaveStore, SAVE_KEY } from "../storage/save";
 import { levels, levelNames } from "../domain/campaign";
 import { Scenery } from "./Scenery";
 import { Icon, type IconName } from "./Icons";
+import { GameArt } from "./elements/GameArt";
 import { Coin } from "./elements/Rewards";
 import { useMotion } from "./useMotion";
 const store = {
@@ -110,11 +111,14 @@ export function Prototype() {
         {page === "home" && (
           <>
             <div className="home-intro home-hero">
-              <span className="hero-sigil" aria-hidden="true">
-                ➤
-              </span>
+              <span className="hero-sigil" aria-hidden="true"></span>
               <h1>AROWGO</h1>
               <p>A little play. A clearer path.</p>
+              <img
+                className="hero-island"
+                src="/assets/generated/bloom-island-v1.png"
+                alt=""
+              />
             </div>
             <section className="continue-card glass-panel">
               <div>
@@ -136,17 +140,15 @@ export function Prototype() {
             </section>
             <div className="home-shortcuts">
               <button className="glass-panel" onClick={() => go("worlds")}>
-                <span className="shortcut-art">✿</span>
+                <GameArt kind="world" />
                 <strong>Worlds</strong>
               </button>
               <button className="glass-panel" onClick={() => go("modes")}>
-                <span className="shortcut-art">
-                  <Icon name="gamepad" />
-                </span>
+                <GameArt kind="modes" />
                 <strong>Modes</strong>
               </button>
               <button className="glass-panel" onClick={() => go("progress")}>
-                <span className="shortcut-art golden">★</span>
+                <GameArt kind="trophy" />
                 <strong>My journey</strong>
               </button>
             </div>
@@ -174,6 +176,11 @@ export function Prototype() {
               <p>Five moments of clarity.</p>
             </div>
             <div className="level-list world-map">
+              <img
+                className="map-island"
+                src="/assets/generated/bloom-island-v1.png"
+                alt=""
+              />
               <svg
                 className="map-trail"
                 viewBox="0 0 400 500"
@@ -218,8 +225,8 @@ export function Prototype() {
               <p>A challenge, or a little room to explore.</p>
             </div>
             <section className="mode-card story-card glass-panel">
-              <span className="mode-art" aria-hidden="true">
-                ⚑
+              <span className="mode-art">
+                <GameArt kind="flag" />
               </span>
               <div>
                 <span className="eyebrow">YOUR VALLEY JOURNEY</span>
@@ -234,8 +241,8 @@ export function Prototype() {
               </div>
             </section>
             <section className="mode-card practice-card glass-panel">
-              <span className="mode-art" aria-hidden="true">
-                ∞
+              <span className="mode-art">
+                <GameArt kind="infinity" />
               </span>
               <div>
                 <span className="eyebrow">NO PRESSURE</span>

@@ -22,3 +22,7 @@ The supplied archive contained font files only, with no license document. Preser
 ## Experience
 
 Opening shows a welcoming line without blocking play. A lost heart splits gently over 850 ms. Failure offers an encouraging interpretation and explains that saved earnings remain safe. The retry emblem breathes twice and settles. Winning adds a short good-wish message; no claim of mental-health improvement or guaranteed psychological effect is made. Reduced motion stops these animations. There are no daily penalties or fabricated currency gifts.
+
+## Generated decorative assets
+
+Coin and HeartToken now use the transparent `public/assets/generated/rewards-v1.png` atlas. Animated counts and clipped heart-break fragments remain reusable live components. `GameArt.tsx` selects generated Worlds/Modes/trophy/Story/Hint/Erase artwork from a 3×2 atlas. See [generation prompts and manifest](assets/generated-art.md).
