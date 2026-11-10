@@ -52,3 +52,12 @@ Production updated from commit `203f62c`; deployment `dpl_4d4G6hkHjyYG6SqU75YYKo
 - Public-site smoke check: HTTP 200; all five hub pages show navigation and fit the phone document viewport; Practice launches without bottom navigation; landscape board/HUD/tools/settings fit; new Hint ring renders; no browser page errors.
 - Live captures: `verification/refresh-home.png`, `refresh-worlds.png`, `refresh-modes.png`, `refresh-progress.png`, `refresh-settings.png`.
 - Android web assets synced. Native compile and physical-device validation remain pending.
+
+## Generated-art release — 10 November 2026
+
+- Source commit: `88d86aa`.
+- Production deployment: `dpl_8Az1sSe3NG7Xa24U6P3FzvY44YUo` (Ready).
+- Public URL: https://arowgo.vercel.app
+- Three generated transparent PNG assets loaded successfully from production. Phone smoke check confirmed the new hero, generated hearts, one-heart loss on a blocked move and the Hint ring, with no browser page errors.
+- TypeScript/production build, formatting and Capacitor web-asset sync pass. The affected desktop/phone suite covers campaign, layouts, rewards, heart break and victory. Two initial layout cases encountered a stale Vite module response; the dev server was restarted and these cases rerun separately.
+- Exact image prompts, built-in generation method, hashes and atlas layout: [generated art](assets/generated-art.md).
