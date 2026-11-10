@@ -45,11 +45,21 @@ export class Controller {
     this.commit(result.state);
     return result;
   }
-  hint(): Outcome {
+  hint(type: "hint" | "analyze" = "hint"): Outcome {
     const result = resolve(this.level, this.state, {
       id: this.id(),
       attemptId: this.state.attemptId,
-      type: "hint",
+      type,
+    });
+    this.commit(result.state);
+    return result;
+  }
+  erase(arrowId: string): Outcome {
+    const result = resolve(this.level, this.state, {
+      id: this.id(),
+      attemptId: this.state.attemptId,
+      type: "erase",
+      arrowId,
     });
     this.commit(result.state);
     return result;

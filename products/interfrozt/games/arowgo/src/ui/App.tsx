@@ -1,74 +1,75 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { Controller } from "../application/controller";
 import { stars, type Mode, type Outcome } from "../application/session";
-import { Board } from "../game/Board";
+import { Board, type BoardHandle } from "../game/Board";
 import { checkExit } from "../domain/rules";
 import { fixtures } from "../domain/fixtures";
-
-function Icon({
-  name,
-}: {
-  name: "arrow" | "reset" | "bulb" | "leaf" | "sound" | "close";
-}) {
-  const paths = {
-    arrow: "M5 17V7h14m-5-5 5 5-5 5",
-    reset: "M4 10a8 8 0 1 1 1 8M4 3v7h7",
-    bulb: "M9 18h6m-5 4h4M8 14a6 6 0 1 1 8 0c-1 1-1 2-1 4H9c0-2 0-3-1-4",
-    leaf: "M20 3C7 1 2 10 7 16s15 0 13-13ZM5 21 16 8",
-    sound: "m4 10 4 0 5-5v14l-5-5H4Zm13-3c3 3 3 7 0 10",
-    close: "m6 6 12 12M6 18 18 6",
-  };
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d={paths[name]} />
-    </svg>
-  );
-}
+import { Heart, Icon } from "./Icons";
+import { Scenery, Celebration } from "./Scenery";
+import { useMotion } from "./useMotion";
 
 export function App({ controller }: { controller: Controller }) {
   const state = useSyncExternalStore(
     controller.subscribe,
     controller.getSnapshot,
   );
+  const motion = useMotion();
   const [lab, setLab] = useState(false),
     [fixture, setFixture] = useState(5);
-  const [hint, setHint] = useState<string[]>([]);
+  const [hints, setHints] = useState<string[]>([]);
   const [feedback, setFeedback] = useState(
-    "Find a path with room to leave. Tap anywhere along an arrow.",
+    "Tap an arrow with a clear path. The whole shape slides together.",
   );
   const [busy, setBusy] = useState(false),
-    [restart, setRestart] = useState<Mode | null>(null);
-  const [settings, setSettings] = useState(false);
-  const [reduced, setReduced] = useState(
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
+    [settings, setSettings] = useState(false);
+  const [restart, setRestart] = useState<Mode | null>(null);
+  const [eraseMode, setEraseMode] = useState(false),
+    [eraseTarget, setEraseTarget] = useState<string | null>(null);
+  const [pulse, setPulse] = useState({ id: 0, kind: "idle" });
+  const [celebrating, setCelebrating] = useState(false);
+  const boardRef = useRef<BoardHandle | null>(null);
   const cooldown = useRef(0),
     timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  useEffect(() => () => clearTimeout(timer.current), []);
+  const hintTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+  const previousStatus = useRef(state.status);
+  const level = controller.level;
+  const cleared = level.arrows.length - state.active.length;
+  const modalOpen = settings || restart !== null || eraseTarget !== null;
+
+  useEffect(
+    () => () => {
+      clearTimeout(timer.current);
+      clearTimeout(hintTimer.current);
+    },
+    [],
+  );
   useEffect(() => {
-    if (!restart && !settings) return;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+    if (previousStatus.current !== "complete" && state.status === "complete") {
+      setCelebrating(true);
+      timeout = setTimeout(() => setCelebrating(false), 2000);
+    }
+    previousStatus.current = state.status;
+    return () => clearTimeout(timeout);
+  }, [state.status]);
+  useEffect(() => {
+    if (!modalOpen) return;
     const previous = document.activeElement as HTMLElement | null;
     const dialog = document.querySelector<HTMLElement>('[role="dialog"]');
     const controls = () =>
       Array.from(
-        dialog?.querySelectorAll<HTMLElement>("button:not(:disabled),input") ??
-          [],
+        dialog?.querySelectorAll<HTMLElement>(
+          "button:not(:disabled),input:not(:disabled),select",
+        ) ?? [],
       );
     controls()[0]?.focus();
-    const handle = (e: KeyboardEvent) => {
+    const key = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setRestart(null);
         setSettings(false);
+        setRestart(null);
+        setEraseTarget(null);
       }
       if (e.key === "Tab") {
         const items = controls(),
@@ -83,42 +84,87 @@ export function App({ controller }: { controller: Controller }) {
         }
       }
     };
-    document.addEventListener("keydown", handle);
+    document.addEventListener("keydown", key);
     return () => {
-      document.removeEventListener("keydown", handle);
+      document.removeEventListener("keydown", key);
       previous?.focus();
     };
-  }, [restart, settings]);
-  const level = controller.level;
-  const select = (id: string): Outcome | undefined => {
+  }, [modalOpen]);
+
+  function gate() {
+    cooldown.current = performance.now() + (motion.reduced ? 140 : 520);
+    setBusy(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(
+      () => setBusy(false),
+      motion.reduced ? 140 : 520,
+    );
+  }
+  function clearHints() {
+    clearTimeout(hintTimer.current);
+    setHints([]);
+  }
+  function select(id: string): Outcome | undefined {
     if (
       lab ||
       performance.now() < cooldown.current ||
       state.status !== "playing" ||
-      restart ||
-      settings
+      modalOpen
     )
       return;
-    cooldown.current = performance.now() + 520;
-    setBusy(true);
-    setHint([]);
-    const outcome = controller.select(id);
-    if (outcome.exit?.clear)
+    if (eraseMode) {
+      setEraseTarget(id);
+      return;
+    }
+    gate();
+    clearHints();
+    const result = controller.select(id);
+    if (result.exit?.clear) {
       setFeedback(`Arrow ${id} found its way. Keep going.`);
-    else if (outcome.exit)
+      setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
+    } else if (result.exit) {
       setFeedback(
-        `Arrow ${id} is blocked by ${outcome.exit.blocker}. The whole shape needs a clear path.`,
+        `Arrow ${id} is blocked by ${result.exit.blocker}. The whole shape needs a clear path.`,
       );
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => setBusy(false), 520);
-    return outcome;
-  };
-  const reset = (mode: Mode) => {
+      setPulse((p) => ({ id: p.id + 1, kind: "blocked" }));
+    }
+    return result;
+  }
+  function reset(mode: Mode) {
     controller.restart(mode);
     setRestart(null);
-    setHint([]);
+    setEraseMode(false);
+    setEraseTarget(null);
+    clearHints();
+    setCelebrating(false);
     setFeedback("A fresh start. Look for arrows near an open edge.");
-  };
+  }
+  function assist(type: "hint" | "analyze") {
+    setEraseMode(false);
+    const result = controller.hint(type);
+    setHints(result.hints ?? []);
+    setPulse((p) => ({ id: p.id + 1, kind: "hint" }));
+    setFeedback(
+      type === "hint"
+        ? `Try arrow ${result.hints?.[0]}. This run is now assisted.`
+        : `${result.hints?.length ?? 0} arrows can leave right now. This run is now assisted.`,
+    );
+    clearTimeout(hintTimer.current);
+    hintTimer.current = setTimeout(() => setHints([]), 5000);
+  }
+  function confirmErase() {
+    if (!eraseTarget) return;
+    gate();
+    const result = controller.erase(eraseTarget);
+    boardRef.current?.animate(result);
+    setFeedback(
+      `Arrow ${eraseTarget} gently erased. This run is now assisted.`,
+    );
+    setEraseTarget(null);
+    setEraseMode(false);
+    clearHints();
+    setPulse((p) => ({ id: p.id + 1, kind: "erase" }));
+  }
   const f = fixtures[fixture];
   const [labActive, setLabActive] = useState(f.level.arrows.map((a) => a.id));
   const [labMessage, setLabMessage] = useState(
@@ -129,7 +175,8 @@ export function App({ controller }: { controller: Controller }) {
     setLabActive(fixtures[index].level.arrows.map((a) => a.id));
     setLabMessage("Select A to test the expected result.");
   }
-  const labSelect = (id: string): Outcome => {
+  function labSelect(id: string): Outcome | undefined {
+    if (modalOpen || !labActive.includes(id)) return;
     const exit = checkExit(f.level, labActive, id);
     if (exit.clear) {
       setLabActive(labActive.filter((a) => a !== id));
@@ -141,36 +188,44 @@ export function App({ controller }: { controller: Controller }) {
         `${id}: blocked by ${exit.blocker} at (${exit.cell.join(", ")}), step ${exit.step}.`,
       );
     return { state, exit, arrowId: id };
-  };
-  const cleared = level.arrows.length - state.active.length;
+  }
+  function showLab(value: boolean) {
+    setLab(value);
+    setEraseMode(false);
+    clearHints();
+  }
   return (
-    <div className="app-shell">
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
-      <header className="topbar">
+    <div
+      className="app-shell"
+      data-motion={motion.reduced ? "reduced" : "full"}
+      data-effects={motion.rich ? "rich" : "subtle"}
+      data-paused={motion.hidden ? "true" : "false"}
+    >
+      <Scenery rich={motion.rich} />
+      <header className="topbar" inert={modalOpen}>
         <a
           className="wordmark"
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            setLab(false);
+            showLab(false);
           }}
         >
           <span className="brand-icon">
             <Icon name="arrow" />
           </span>
-          AROWGO<span className="prototype">FIRST BLOOM</span>
+          AROWGO <span className="prototype">FIRST BLOOM</span>
         </a>
         <nav aria-label="Prototype navigation">
           <button
-            className={lab ? "" : "nav-active"}
-            onClick={() => setLab(false)}
+            className={!lab ? "nav-active" : ""}
+            onClick={() => showLab(false)}
           >
             Play
           </button>
           <button
             className={lab ? "nav-active" : ""}
-            onClick={() => setLab(true)}
+            onClick={() => showLab(true)}
           >
             Rule lab <span>↗</span>
           </button>
@@ -180,94 +235,61 @@ export function App({ controller }: { controller: Controller }) {
           aria-label="Settings"
           onClick={() => setSettings(true)}
         >
-          ⚙
+          <Icon name="settings" />
         </button>
       </header>
-      <main>
-        <section className="intro">
-          <span className="eyebrow">
-            <span /> {lab ? "EXPLORE THE MECHANIC" : "WORLD 01 · BLOOM VALLEY"}
-          </span>
-          <h1>
-            {lab ? "A little room for proof." : "A little room to think."}
-          </h1>
-          <p>
-            {lab
-              ? "Small boards. Clear answers. See why the whole arrow matters."
-              : "Follow the arrows. Find the quiet way out."}
-          </p>
+      <main inert={modalOpen}>
+        <section className="level-heading">
+          <div className="world-label">
+            <span /> {lab ? "Discover the mechanic" : "World 1 · Bloom Valley"}{" "}
+            <span />
+          </div>
+          <h1>{lab ? "Rule lab" : "Level 01"}</h1>
+          {lab ? (
+            <p className="level-subtitle">A little room for proof.</p>
+          ) : (
+            <div
+              className="progress-dots"
+              aria-label={`${cleared} of ${level.arrows.length} paths cleared`}
+            >
+              {level.arrows.map((a, i) => (
+                <span key={a.id} className={i < cleared ? "complete" : ""} />
+              ))}
+            </div>
+          )}
         </section>
         <div className="play-layout">
-          <aside className="journey-card">
-            <div className="island-art" aria-hidden="true">
-              <div className="sun" />
-              <div className="cloud cloud-one" />
-              <div className="cloud cloud-two" />
-              <div className="island">
-                <div className="grass" />
-                <div className="waterfall" />
-                <div className="tree">
-                  <i />
-                  <b />
-                  <span />
-                  <em />
-                </div>
-                <div className="stone-arch" />
-              </div>
-              <span className="petal p1" />
-              <span className="petal p2" />
-              <span className="petal p3" />
-            </div>
-            <div className="journey-content">
-              <span className="eyebrow">YOUR FIRST STEPS</span>
-              <h2>
-                Every path
-                <br />
-                has a way.
-              </h2>
-              <p>
-                An arrow slides as one whole shape in the direction it points.
-                Clear the ones in its way first.
-              </p>
-              <div className="lesson">
-                <span>01</span>
-                <div>
-                  <strong>Look at the whole arrow</strong>
-                  <small>A clear tip isn’t always a clear path.</small>
-                </div>
-              </div>
-              <div className="lesson">
-                <span>02</span>
-                <div>
-                  <strong>Make a little space</strong>
-                  <small>Each exit opens new possibilities.</small>
-                </div>
-              </div>
-              <div className="quiet-note">
-                <Icon name="leaf" />
-                <span>No timer. Take your time.</span>
-              </div>
+          <aside className="journey-note">
+            <span className="chapter-label">✧ FIRST BLOOM</span>
+            <h2>
+              A little room
+              <br />
+              to think.
+            </h2>
+            <p>
+              Every arrow has a way out.
+              <br />
+              Sometimes, another path
+              <br />
+              needs to go first.
+            </p>
+            <div className="quiet-note">
+              <Icon name="leaf" />
+              No timer. Take your time.
             </div>
           </aside>
           <section
             className="game-card"
             aria-label={lab ? "Rule proof board" : "Bloom Valley level 1"}
           >
-            <div className="game-heading">
-              <div>
-                <span className="eyebrow">
-                  {lab
-                    ? "RULE LAB"
-                    : state.mode === "practice"
-                      ? "PRACTICE · UNLIMITED MISTAKES"
-                      : "STORY · FIRST BLOOM"}
-                </span>
-                <h2>
-                  {lab ? f.name : "Level 01"}
-                  <span className="difficulty">{lab ? "PROOF" : "GENTLE"}</span>
-                </h2>
-              </div>
-              {lab ? (
+            {lab ? (
+              <div className="lab-header glass-panel">
+                <div>
+                  <span className="eyebrow">
+                    EXPERIMENT {fixture + 1} / {fixtures.length}
+                  </span>
+                  <h2>{f.name}</h2>
+                </div>
                 <button
                   className="icon-button"
                   aria-label="Reset proof"
@@ -275,17 +297,53 @@ export function App({ controller }: { controller: Controller }) {
                 >
                   <Icon name="reset" />
                 </button>
-              ) : (
+              </div>
+            ) : (
+              <div className="hud glass-panel">
                 <div
                   className="balance"
+                  key={`coins-${state.coins}`}
                   aria-label={`${state.coins} earned coins`}
                 >
-                  <span>✦</span>
-                  {state.coins}
+                  <span className="coin">
+                    <span>✦</span>
+                  </span>
+                  <strong>{state.coins}</strong>
+                  <small>COINS</small>
                 </div>
-              )}
-            </div>
-            {lab ? (
+                <div className="hud-divider" />
+                <div
+                  className={`hearts ${pulse.kind === "blocked" ? "heart-loss" : ""}`}
+                  key={`hearts-${state.mistakes}`}
+                  aria-label={
+                    state.mode === "practice"
+                      ? "Unlimited mistakes"
+                      : `${Math.max(0, 3 - state.mistakes)} hearts remaining`
+                  }
+                >
+                  {state.mode === "practice" ? (
+                    <span className="infinity">∞</span>
+                  ) : (
+                    [0, 1, 2].map((i) => (
+                      <Heart key={i} filled={i < 3 - state.mistakes} />
+                    ))
+                  )}
+                  <small>
+                    {state.mode === "practice" ? "PRACTICE" : "MISTAKE HEARTS"}
+                  </small>
+                </div>
+                <div className="hud-divider" />
+                <button
+                  className="icon-button restart-button"
+                  disabled={busy}
+                  aria-label="Restart"
+                  onClick={() => setRestart(state.mode)}
+                >
+                  <Icon name="reset" />
+                </button>
+              </div>
+            )}
+            {lab && (
               <div className="fixture-tabs" aria-label="Rule examples">
                 {fixtures.map((item, i) => (
                   <button
@@ -297,62 +355,40 @@ export function App({ controller }: { controller: Controller }) {
                   </button>
                 ))}
               </div>
-            ) : (
-              <div className="status-row">
-                <div
-                  className="hearts"
-                  aria-label={
-                    state.mode === "practice"
-                      ? "Unlimited mistakes"
-                      : `${Math.max(0, 3 - state.mistakes)} hearts remaining`
-                  }
-                >
-                  {state.mode === "practice" ? (
-                    <span className="infinity">∞</span>
-                  ) : (
-                    [0, 1, 2].map((i) => (
-                      <span
-                        key={i}
-                        className={i < 3 - state.mistakes ? "" : "empty-heart"}
-                      >
-                        ♥
-                      </span>
-                    ))
-                  )}
-                  <small>
-                    {state.mode === "practice" ? "Practice" : "Mistake hearts"}
-                  </small>
-                </div>
-                <div className="progress-label">
-                  <strong>
-                    {cleared}
-                    <span> / {level.arrows.length}</span>
-                  </strong>
-                  <small>paths cleared</small>
-                </div>
-              </div>
             )}
-            <div className="board-wrap">
+            <div className={`board-wrap ${eraseMode ? "erase-selection" : ""}`}>
+              <div className="board-rim" />
               <Board
+                apiRef={boardRef}
                 key={lab ? `proof-${fixture}` : "campaign"}
                 level={lab ? f.level : level}
                 active={lab ? labActive : state.active}
-                hints={lab ? [] : hint}
+                hints={lab ? [] : hints}
                 disabled={
-                  !lab &&
-                  (busy || state.status !== "playing" || !!restart || settings)
+                  modalOpen || (!lab && (busy || state.status !== "playing"))
                 }
-                reduced={reduced}
+                reduced={motion.reduced}
+                rich={motion.rich}
                 onSelect={lab ? labSelect : select}
               />
+              {!lab && pulse.kind === "hint" && !motion.reduced && (
+                <div
+                  key={`scan-${pulse.id}`}
+                  className="board-scan"
+                  aria-hidden="true"
+                />
+              )}
               {!lab && state.status !== "playing" && (
                 <div className="result-overlay" role="status">
+                  {celebrating && !motion.reduced && motion.rich && (
+                    <Celebration />
+                  )}
                   <div className="result-symbol">
                     {state.status === "complete" ? "✦" : "♡"}
                   </div>
                   <span className="eyebrow">
                     {state.status === "complete"
-                      ? "A LITTLE MOMENT OF CLARITY"
+                      ? "A MOMENT OF CLARITY"
                       : "THERE’S ALWAYS ANOTHER WAY"}
                   </span>
                   <h2>
@@ -360,6 +396,19 @@ export function App({ controller }: { controller: Controller }) {
                       ? "Beautifully cleared."
                       : "Take a fresh look."}
                   </h2>
+                  {state.status === "complete" && state.mode === "story" && (
+                    <div className="result-stars" aria-hidden="true">
+                      {[1, 2, 3].map((n) => (
+                        <span
+                          key={n}
+                          className={n <= stars(state) ? "earned" : ""}
+                          style={{ animationDelay: `${n * 0.13}s` }}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <p>
                     {state.status === "complete"
                       ? state.mode === "practice"
@@ -392,83 +441,138 @@ export function App({ controller }: { controller: Controller }) {
                 </div>
               )}
             </div>
-            <div className="feedback" aria-live="polite">
-              <span className="feedback-dot" />
-              {lab ? labMessage : feedback}
+            <div
+              className={`feedback ${eraseMode ? "choosing" : ""}`}
+              aria-live="polite"
+            >
+              <span className="feedback-icon">
+                {eraseMode ? "◇" : pulse.kind === "blocked" ? "!" : "✧"}
+              </span>
+              {lab
+                ? labMessage
+                : eraseMode
+                  ? "Choose an arrow to erase. You’ll confirm before it disappears."
+                  : feedback}
+              {eraseMode && (
+                <button onClick={() => setEraseMode(false)}>Cancel</button>
+              )}
             </div>
             {lab ? (
-              <div className="lab-explanation">
+              <div className="lab-explanation glass-panel">
                 <strong>
                   Expected: {f.clear ? "clear exit" : "blocked exit"}
                 </strong>
                 <p>{f.description}</p>
                 <small>
-                  Remove blockers and test again. The laboratory does not change
-                  campaign progress.
+                  Remove blockers and test again. The lab never changes campaign
+                  progress.
                 </small>
               </div>
             ) : (
-              <div className="game-actions">
-                <button
-                  className="hint-button"
-                  disabled={busy || state.status !== "playing"}
-                  onClick={() => {
-                    const r = controller.hint();
-                    setHint(r.hints ?? []);
-                    setFeedback(
-                      `Try arrow ${r.hints?.[0]}. Hints mark this run as assisted.`,
-                    );
-                  }}
-                >
-                  <Icon name="bulb" />
-                  <div>
-                    <strong>A little hint</strong>
-                    <small>Marks this run assisted</small>
-                  </div>
-                  <span>↗</span>
-                </button>
-                <button
-                  className="restart-button"
-                  disabled={busy}
-                  onClick={() => setRestart(state.mode)}
-                >
-                  <Icon name="reset" />
-                  <span>Restart</span>
-                </button>
-              </div>
-            )}
-            {!lab && (
-              <div className="card-footer">
-                <span>
-                  {controller.notice || "Progress saved on this device"}
-                </span>
-                <button
-                  onClick={() =>
-                    setRestart(state.mode === "story" ? "practice" : "story")
-                  }
-                >
-                  {state.mode === "story"
-                    ? "Switch to Practice"
-                    : "Switch to Story"}
-                </button>
-              </div>
+              <>
+                <div className="tool-tray" aria-label="Puzzle tools">
+                  <button
+                    className="tool-card hint-tool"
+                    aria-label="A little hint"
+                    disabled={busy || state.status !== "playing"}
+                    onClick={() => assist("hint")}
+                  >
+                    <span className="tool-badge" aria-hidden="true">
+                      ∞
+                    </span>
+                    <span className="tool-art bulb-art">
+                      <Icon name="bulb" />
+                      <i />
+                    </span>
+                    <strong>Hint</strong>
+                    <small>Reveal one path</small>
+                  </button>
+                  <button
+                    className="tool-card analyze-tool"
+                    aria-label="Analyze"
+                    disabled={busy || state.status !== "playing"}
+                    onClick={() => assist("analyze")}
+                  >
+                    <span className="tool-badge" aria-hidden="true">
+                      ∞
+                    </span>
+                    <span className="tool-art analyze-art">
+                      <Icon name="analyze" />
+                    </span>
+                    <strong>Analyze</strong>
+                    <small>Find every exit</small>
+                  </button>
+                  <button
+                    className={`tool-card erase-tool ${eraseMode ? "selected" : ""}`}
+                    aria-label="Erase"
+                    aria-pressed={eraseMode}
+                    disabled={busy || state.status !== "playing"}
+                    onClick={() => {
+                      clearHints();
+                      setEraseMode(!eraseMode);
+                    }}
+                  >
+                    <span className="tool-badge" aria-hidden="true">
+                      ∞
+                    </span>
+                    <span className="tool-art erase-art">
+                      <Icon name="erase" />
+                    </span>
+                    <strong>Erase</strong>
+                    <small>Remove one arrow</small>
+                  </button>
+                </div>
+                <p className="tool-policy">
+                  Free tools in this prototype · Using a tool marks the run
+                  assisted
+                </p>
+                <div className="card-footer">
+                  <span>
+                    {controller.notice || "✓ Progress saved on this device"}
+                  </span>
+                  <button
+                    onClick={() =>
+                      setRestart(state.mode === "story" ? "practice" : "story")
+                    }
+                  >
+                    {state.mode === "story"
+                      ? "Switch to Practice"
+                      : "Switch to Story"}
+                  </button>
+                </div>
+              </>
             )}
           </section>
+          <aside className="world-note">
+            <span className="world-emblem">✿</span>
+            <span className="chapter-label">BLOOM VALLEY</span>
+            <p>
+              Think.
+              <br />
+              Clear.
+              <br />
+              <em>Go.</em>
+            </p>
+            <span className="world-note-line" />
+            <small>
+              A little space.
+              <br />A fresh perspective.
+            </small>
+          </aside>
         </div>
         <footer className="page-footer">
           <span>
-            INTERFROZT <i> / </i> A SMALL BEGINNING
+            INTERFROZT <i> / </i> AROWGO
           </span>
           <span>
-            One level. A world of possibility.{" "}
-            <span className="tiny-flower">✳</span>
+            A small beginning. <span className="tiny-flower">✳</span>
           </span>
         </footer>
       </main>
-      {(restart || settings) && (
+      {modalOpen && (
         <div className="modal-shade">
           <section
-            className="modal"
+            className="modal glass-panel"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
@@ -479,37 +583,91 @@ export function App({ controller }: { controller: Controller }) {
               onClick={() => {
                 setRestart(null);
                 setSettings(false);
+                setEraseTarget(null);
               }}
             >
               <Icon name="close" />
             </button>
+            <span className="eyebrow">
+              {settings
+                ? "YOUR QUIET CORNER"
+                : eraseTarget
+                  ? "A LITTLE HELP"
+                  : "BLOOM VALLEY"}
+            </span>
             <h2 id="modal-title">
-              {settings ? "Make yourself comfortable." : "A fresh beginning?"}
+              {settings
+                ? "Make yourself comfortable."
+                : eraseTarget
+                  ? `Erase arrow ${eraseTarget}?`
+                  : "A fresh beginning?"}
             </h2>
             {settings ? (
               <>
                 <label className="setting">
-                  <span>Reduce motion</span>
+                  <span>
+                    <strong>Reduce motion</strong>
+                    <small>
+                      {motion.systemReduced
+                        ? "Enabled by your device preference"
+                        : "Keep the scene still and skip particle effects"}
+                    </small>
+                  </span>
                   <input
                     type="checkbox"
-                    checked={reduced}
-                    onChange={(e) => setReduced(e.target.checked)}
+                    checked={motion.reduced}
+                    disabled={motion.systemReduced}
+                    onChange={(e) =>
+                      motion.update({ reduced: e.target.checked })
+                    }
                   />
+                </label>
+                <label className="setting">
+                  <span>
+                    <strong>Visual effects</strong>
+                    <small>Choose how lively the valley feels</small>
+                  </span>
+                  <select
+                    value={motion.rich ? "rich" : "subtle"}
+                    onChange={(e) =>
+                      motion.update({ rich: e.target.value === "rich" })
+                    }
+                  >
+                    <option value="rich">Rich</option>
+                    <option value="subtle">Subtle</option>
+                  </select>
                 </label>
                 <p>
                   Story has three mistake hearts. Practice has unlimited
-                  mistakes and no campaign rewards. Hints are free in this
-                  prototype.
+                  mistakes and no campaign rewards. All three tools are free in
+                  this prototype and mark a run assisted.
                 </p>
                 <p className="muted">
-                  Movement rule v1 · First playable · No account or network
-                  required during play.
+                  Motion preferences stay on this device. Gameplay uses no
+                  account or network after loading.
                 </p>
                 <button
                   className="primary-button"
                   onClick={() => setSettings(false)}
                 >
                   Back to the puzzle
+                </button>
+              </>
+            ) : eraseTarget ? (
+              <>
+                <p>
+                  This removes the whole arrow, even if its exit is blocked.
+                  Your run will be marked assisted. No coins or hearts are
+                  spent.
+                </p>
+                <button className="primary-button" onClick={confirmErase}>
+                  Erase arrow {eraseTarget}
+                </button>
+                <button
+                  className="text-button"
+                  onClick={() => setEraseTarget(null)}
+                >
+                  Keep the arrow
                 </button>
               </>
             ) : (

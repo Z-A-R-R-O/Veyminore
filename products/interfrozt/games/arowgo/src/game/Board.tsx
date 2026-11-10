@@ -1,7 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useImperativeHandle, type Ref } from "react";
 import Phaser from "phaser";
 import { direction, type Level } from "../domain/rules";
 import type { Outcome } from "../application/session";
+export interface BoardHandle {
+  animate: (outcome: Outcome) => void;
+}
 
 export function Board({
   level,
@@ -9,6 +12,8 @@ export function Board({
   hints,
   disabled,
   reduced,
+  rich = true,
+  apiRef,
   onSelect,
 }: {
   level: Level;
@@ -16,6 +21,8 @@ export function Board({
   hints: string[];
   disabled: boolean;
   reduced: boolean;
+  rich?: boolean;
+  apiRef?: Ref<BoardHandle>;
   onSelect: (id: string) => Outcome | undefined;
 }) {
   const host = useRef<HTMLDivElement>(null);
@@ -23,6 +30,14 @@ export function Board({
   const press = useRef<{ x: number; y: number } | null>(null);
   const latest = useRef({ active, hints, disabled, reduced, onSelect });
   latest.current = { active, hints, disabled, reduced, onSelect };
+  useImperativeHandle(
+    apiRef,
+    () => ({
+      animate: (outcome) =>
+        sceneRef.current?.animate(outcome, latest.current.reduced),
+    }),
+    [],
+  );
   useEffect(() => {
     const scene = new PuzzleScene(level, (id) => {
       const props = latest.current;
@@ -48,14 +63,24 @@ export function Board({
       },
     });
     scene.sync(latest.current.active, latest.current.hints);
+    scene.setMotion(reduced, rich);
+    const visibility = () => {
+      if (document.hidden) game.loop.sleep();
+      else game.loop.wake();
+    };
+    document.addEventListener("visibilitychange", visibility);
     return () => {
       sceneRef.current = null;
+      document.removeEventListener("visibilitychange", visibility);
       game.destroy(true);
     };
   }, [level]);
   useEffect(() => {
     sceneRef.current?.sync(active, hints);
   }, [active, hints]);
+  useEffect(() => {
+    sceneRef.current?.setMotion(reduced, rich);
+  }, [reduced, rich]);
   const cell = 480 / level.board.columns;
   return (
     <div
@@ -123,6 +148,9 @@ class PuzzleScene extends Phaser.Scene {
   private active: string[] = [];
   private hints: string[] = [];
   private ready = false;
+  private reduced = false;
+  private rich = true;
+  private particles = new Set<Phaser.GameObjects.Graphics>();
   private cell: number;
   constructor(
     private level: Level,
@@ -134,7 +162,7 @@ class PuzzleScene extends Phaser.Scene {
   create() {
     this.ready = true;
     const grid = this.add.graphics();
-    grid.fillStyle(0xcfc5e3, 0.55);
+    grid.fillStyle(0xb4a0d9, 0.23);
     for (let x = 0; x < this.level.board.columns; x++)
       for (let y = 0; y < this.level.board.rows; y++)
         grid.fillCircle(this.coord(x), this.coord(y), 2);
@@ -169,52 +197,138 @@ class PuzzleScene extends Phaser.Scene {
   private coord(n: number) {
     return 60 + (n + 0.5) * this.cell;
   }
+  setMotion(reduced: boolean, rich: boolean) {
+    if (this.reduced === reduced && this.rich === rich) return;
+    this.reduced = reduced;
+    this.rich = rich;
+    if (!this.ready) return;
+    this.tweens.killAll();
+    for (const p of this.particles) p.destroy();
+    this.particles.clear();
+    this.animating.clear();
+    this.sync(this.active, this.hints);
+  }
+  private dispose(shape: Phaser.GameObjects.Container) {
+    this.tweens.killTweensOf([shape, ...shape.list]);
+    shape.destroy();
+  }
+  private burst(x: number, y: number, color: number, count: number) {
+    if (this.reduced || !this.rich) return;
+    for (let i = 0; i < count && this.particles.size < 36; i++) {
+      const g = this.add.graphics().setPosition(x, y).setDepth(5);
+      const size = 2 + (i % 3);
+      g.fillStyle(color, 0.9);
+      g.fillCircle(0, 0, size);
+      g.lineStyle(1, 0xffffff, 0.9);
+      g.lineBetween(-size * 2, 0, size * 2, 0);
+      g.lineBetween(0, -size * 2, 0, size * 2);
+      this.particles.add(g);
+      const angle = i * 2.39996,
+        distance = 24 + (i % 5) * 11;
+      this.tweens.add({
+        targets: g,
+        x: x + Math.cos(angle) * distance,
+        y: y + Math.sin(angle) * distance,
+        alpha: 0,
+        scale: 0.2,
+        duration: 420 + (i % 4) * 70,
+        ease: "Cubic.easeOut",
+        onComplete: () => {
+          this.particles.delete(g);
+          g.destroy();
+        },
+      });
+    }
+  }
+  private ring(x: number, y: number, color: number) {
+    if (this.reduced || this.particles.size >= 36) return;
+    const ring = this.add.graphics().setPosition(x, y).setDepth(4);
+    ring.lineStyle(3, color, 0.75);
+    ring.strokeCircle(0, 0, 12);
+    this.particles.add(ring);
+    this.tweens.add({
+      targets: ring,
+      scale: 2.7,
+      alpha: 0,
+      duration: 420,
+      ease: "Quad.easeOut",
+      onComplete: () => {
+        this.particles.delete(ring);
+        ring.destroy();
+      },
+    });
+  }
   sync(active: string[], hints: string[]) {
     this.active = active;
     this.hints = hints;
     if (!this.ready) return;
     for (const [id, shape] of this.shapes)
       if (!this.animating.has(id)) {
-        shape.destroy();
+        this.dispose(shape);
         this.shapes.delete(id);
       }
     for (const arrow of this.level.arrows) {
       if (!active.includes(arrow.id) || this.animating.has(arrow.id)) continue;
-      const color = hints.includes(arrow.id) ? 0x9c69df : 0x3d305b;
+      const highlighted = hints.includes(arrow.id);
+      const color = highlighted ? 0x8a44d4 : 0x3c2365;
       const g = this.add.graphics();
-      g.lineStyle(14, color, 1);
-      g.beginPath();
-      arrow.points.forEach(([x, y], i) =>
-        i
-          ? g.lineTo(this.coord(x), this.coord(y))
-          : g.moveTo(this.coord(x), this.coord(y)),
-      );
-      g.strokePath();
-      g.fillStyle(color);
-      for (const [x, y] of arrow.points)
-        g.fillCircle(this.coord(x), this.coord(y), 7);
+      const drawPath = (
+        target: Phaser.GameObjects.Graphics,
+        width: number,
+        tint: number,
+        alpha: number,
+        offset = 0,
+      ) => {
+        target.lineStyle(width, tint, alpha);
+        target.beginPath();
+        arrow.points.forEach(([x, y], i) =>
+          i
+            ? target.lineTo(this.coord(x), this.coord(y) + offset)
+            : target.moveTo(this.coord(x), this.coord(y) + offset),
+        );
+        target.strokePath();
+        target.fillStyle(tint, alpha);
+        for (const [x, y] of arrow.points)
+          target.fillCircle(this.coord(x), this.coord(y) + offset, width / 2);
+      };
+      const glow = this.add.graphics();
+      if (highlighted) {
+        drawPath(glow, 34, 0xc78aff, 0.4);
+        if (!this.reduced)
+          this.tweens.add({
+            targets: glow,
+            alpha: 0.25,
+            yoyo: true,
+            repeat: -1,
+            duration: 750,
+          });
+      }
+      drawPath(g, 23, 0x735295, 0.13, 5);
+      drawPath(g, 19, color, 1);
+      drawPath(g, 5, 0xdbc6ff, 0.15, -3);
+      g.fillStyle(color, 1);
       const [dx, dy] = direction(arrow),
         [hx, hy] = arrow.points.at(-1)!;
       const x = this.coord(hx),
         y = this.coord(hy);
       g.fillTriangle(
-        x + dx * 15,
-        y + dy * 15,
-        x - dx * 9 - dy * 14,
-        y - dy * 9 + dx * 14,
-        x - dx * 9 + dy * 14,
-        y - dy * 9 - dx * 14,
+        x + dx * 18,
+        y + dy * 18,
+        x - dx * 10 - dy * 16,
+        y - dy * 10 + dx * 16,
+        x - dx * 10 + dy * 16,
+        y - dy * 10 - dx * 16,
       );
       const [tx, ty] = arrow.points[0];
       const label = this.add
         .text(this.coord(tx) - 17, this.coord(ty) + 14, arrow.id, {
           fontFamily: "Arial",
           fontSize: "13px",
-          color: "#8c7da5",
+          color: "#806997",
           fontStyle: "bold",
         })
         .setOrigin(0.5);
-      const group = this.add.container(0, 0, [g, label]);
+      const group = this.add.container(0, 0, [glow, g, label]);
       this.shapes.set(arrow.id, group);
     }
   }
@@ -224,17 +338,45 @@ class PuzzleScene extends Phaser.Scene {
       shape = this.shapes.get(id);
     if (!shape) return;
     this.animating.add(id);
+    const arrow = this.level.arrows.find((a) => a.id === id)!;
+    const [hx, hy] = arrow.points.at(-1)!;
+    if (result.erased) {
+      this.burst(this.coord(hx), this.coord(hy), 0xf5a4d5, 16);
+      this.tweens.add({
+        targets: shape,
+        alpha: 0,
+        duration: reduced ? 0 : 300,
+        onComplete: () => {
+          this.dispose(shape);
+          this.shapes.delete(id);
+          this.animating.delete(id);
+          this.sync(this.active, this.hints);
+        },
+      });
+      return;
+    }
     if (result.exit.clear) {
-      const arrow = this.level.arrows.find((a) => a.id === id)!;
       const [dx, dy] = direction(arrow);
+      this.ring(this.coord(hx), this.coord(hy), 0xbc8af3);
+      this.burst(this.coord(hx), this.coord(hy), 0xd9b1ff, 8);
+      let lastTrail = 0;
       this.tweens.add({
         targets: shape,
         x: dx * (result.exit.distance + 2) * this.cell,
         y: dy * (result.exit.distance + 2) * this.cell,
         duration: reduced ? 0 : 360,
         ease: "Cubic.easeIn",
+        onUpdate: () => {
+          if (reduced || !this.rich || this.time.now - lastTrail < 90) return;
+          lastTrail = this.time.now;
+          const [tx, ty] = arrow.points[0],
+            x = this.coord(tx) + shape.x,
+            y = this.coord(ty) + shape.y;
+          if (x > 25 && x < 575 && y > 25 && y < 575)
+            this.burst(x, y, 0xe4c9ff, 2);
+        },
         onComplete: () => {
-          shape.destroy();
+          this.dispose(shape);
           this.shapes.delete(id);
           this.animating.delete(id);
           this.sync(this.active, this.hints);
@@ -242,9 +384,14 @@ class PuzzleScene extends Phaser.Scene {
       });
     } else {
       const blocker = this.shapes.get(result.exit.blocker);
+      this.ring(
+        this.coord(result.exit.cell[0]),
+        this.coord(result.exit.cell[1]),
+        0xe76d9c,
+      );
       this.tweens.add({
         targets: [shape, ...(blocker ? [blocker] : [])],
-        alpha: 0.35,
+        alpha: 0.5,
         duration: reduced ? 0 : 120,
         yoyo: true,
         repeat: reduced ? 0 : 1,

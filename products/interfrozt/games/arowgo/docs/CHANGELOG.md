@@ -1,5 +1,14 @@
 # Documentation changelog
 
+## Bloom motion enhancement — 10 November 2026
+
+- Added original desktop/portrait Bloom Valley scenery, glossy HUD, vector icons and responsive tool cards.
+- Added bounded arrow particles, hint pulses, blocked feedback, drifting petals, light and completion effects.
+- Added persistent Rich/Subtle and reduced-motion controls, system preference support and hidden-page pausing.
+- Implemented free assisted Analyze and confirmed Erase, with backward-compatible save migration.
+- Added five state tests and four browser cases; retained the original level and rigid movement rules.
+- Documented art provenance, motion architecture and remaining native/performance validation.
+
 ## First playable 0.1.0 — 10 November 2026
 
 - Implemented a pure rigid-arrow domain, independent dependency solver and one original ten-arrow level.

@@ -1,5 +1,7 @@
 # First playable — engineering evidence
 
+Historical baseline. See [Bloom motion verification](bloom-motion.md) for subsequent UI/tool changes and current checks.
+
 Date: 10 November 2026. Build: `@veyminore/arowgo@0.1.0`. Rules/schema/content: version 1. [Game README](../../README.md) · [Rule proof](../rule-proof.md)
 
 ## What exists
