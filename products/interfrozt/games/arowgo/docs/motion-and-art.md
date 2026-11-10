@@ -46,3 +46,13 @@ The user requested crisp arrows and snake-like exits. Live SVG replaces the fixe
 Geometry tests cover constant length, corner traversal, full exit and nonmutation. Renderer verification covers one vector layer after remount, evolving bent-arrow path and removal cleanup. [DPR 2 capture](verification/vector-arrows.png) and [exit recording](verification/snake-exit.webm).
 
 Validation: 43 unit tests passed; 10 existing desktop/phone browser cases plus two new vector lifecycle/animation cases passed. Typecheck, formatting, production build and Android asset sync passed. DPR 2 screenshot visually inspected. Native device/8K display performance has not been measured.
+
+## Victory sequence — 10 November 2026
+
+A fresh completion lets the 620 ms arrow exit finish, then reveals the result over 450 ms. A golden emblem blooms, earned stars arrive in order, and the existing first-clear reward counts from zero to 25. All presentation settles after 3.6 seconds. Reloading a completed save shows the settled result immediately. Reduced motion shows final values without the sequence. Rich mode retains the decorative burst; Subtle keeps the smaller result transitions.
+
+The intent is to make completion legible and satisfying through anticipation, recognition and closure. This is a design hypothesis, not a claim of measured dopamine release or retention improvement. The mastery ribbon reflects the actual run: a clean unassisted solve, an assisted solve, practice or recovery from mistakes. Ten cleared paths are acknowledged. Rewards remain deterministic; no new currency, random payout, loss-aversion timer or forced replay was added. Replay stays voluntary and does not grant another first-clear reward.
+
+Validation includes desktop/phone victory layout, final coin value, settled state on reload and unchanged existing gameplay flows. Native device performance remains pending.
+
+Victory captures: [desktop](verification/victory-desktop.png) · [phone](verification/victory-phone.png).

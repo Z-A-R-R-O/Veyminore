@@ -4,6 +4,7 @@ import { stars, type Mode, type Outcome } from "../application/session";
 import { Board, type BoardHandle } from "../game/Board";
 import { checkExit } from "../domain/rules";
 import { fixtures } from "../domain/fixtures";
+import { WinMoment } from "./WinMoment";
 import { Heart, Icon } from "./Icons";
 import { Scenery, Celebration } from "./Scenery";
 import { useMotion } from "./useMotion";
@@ -49,7 +50,7 @@ export function App({ controller }: { controller: Controller }) {
     let timeout: ReturnType<typeof setTimeout> | undefined;
     if (previousStatus.current !== "complete" && state.status === "complete") {
       setCelebrating(true);
-      timeout = setTimeout(() => setCelebrating(false), 2000);
+      timeout = setTimeout(() => setCelebrating(false), 3600);
     }
     previousStatus.current = state.status;
     return () => clearTimeout(timeout);
@@ -379,9 +380,15 @@ export function App({ controller }: { controller: Controller }) {
                 />
               )}
               {!lab && state.status !== "playing" && (
-                <div className="result-overlay" role="status">
+                <div
+                  className={`result-overlay ${state.status === "complete" ? "win-result" : ""} ${celebrating && !motion.reduced ? "fresh-win" : ""}`}
+                  role="status"
+                >
                   {celebrating && !motion.reduced && motion.rich && (
                     <Celebration />
+                  )}
+                  {state.status === "complete" && (
+                    <div className="victory-halo" aria-hidden="true" />
                   )}
                   <div className="result-symbol">
                     {state.status === "complete" ? "✦" : "♡"}
@@ -402,7 +409,7 @@ export function App({ controller }: { controller: Controller }) {
                         <span
                           key={n}
                           className={n <= stars(state) ? "earned" : ""}
-                          style={{ animationDelay: `${n * 0.13}s` }}
+                          style={{ animationDelay: `${0.75 + n * 0.22}s` }}
                         >
                           ★
                         </span>
@@ -422,6 +429,12 @@ export function App({ controller }: { controller: Controller }) {
                         ? "+25 coins · First clear reward"
                         : "First-clear reward already collected"}
                     </p>
+                  )}
+                  {state.status === "complete" && (
+                    <WinMoment
+                      state={state}
+                      animate={celebrating && !motion.reduced}
+                    />
                   )}
                   <button
                     className="primary-button"

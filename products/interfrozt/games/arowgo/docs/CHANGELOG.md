@@ -1,5 +1,13 @@
 # Documentation changelog
 
+## Victory recognition — 10 November 2026
+
+- Added a staged golden emblem, earned-star reveal and actual first-clear coin count-up after the last arrow exits.
+- Added outcome-specific mastery recognition and a completed-path keepsake.
+- Kept reward logic unchanged, reduced-motion support and immediate settled results on reload.
+- Added desktop/phone victory layout and reload checks.
+
+
 ## Arrow rendering repair — 10 November 2026
 
 - Reproduced two vector layers in the user's live tab, with removed C/H arrows still visible and straight shafts missing due to an old object-bounding-box gradient.

@@ -1667,3 +1667,173 @@ main {
   pointer-events: none;
   overflow: hidden;
 }
+
+/* Victory has a brief reveal, then settles into a quiet keepsake. */
+.win-result {
+  isolation: isolate;
+}
+.win-result .result-symbol {
+  font-size: 54px;
+  margin: 0;
+  color: #dca334;
+  text-shadow:
+    0 2px 0 #9b6b23,
+    0 0 32px #f8d777;
+}
+.win-result h2 {
+  margin-top: 8px;
+}
+.win-result .result-stars > span {
+  animation: none;
+}
+.win-result.fresh-win {
+  animation: result-appear 0.45s 0.62s both;
+}
+.fresh-win .result-symbol {
+  animation: victory-bloom 0.8s 0.68s both;
+}
+.fresh-win .result-stars > span.earned {
+  animation: star-pop 0.6s both;
+}
+.victory-halo {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: 300px;
+  height: 300px;
+  top: -70px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #fff5bd88,
+    #efc6ff33 55%,
+    transparent 70%
+  );
+}
+.fresh-win .victory-halo {
+  animation: victory-bloom 1.3s 0.65s both;
+}
+.win-moment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+.mastery-ribbon {
+  color: #744a91;
+  background: #fff8;
+  border: 1px solid #e1c9ee;
+  border-radius: 99px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.mastery-ribbon span {
+  color: #bf8a2f;
+}
+.coin-reveal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9b7025;
+  font-size: 12px;
+}
+.coin-reveal strong {
+  font-variant-numeric: tabular-nums;
+  font-size: 25px;
+  min-width: 48px;
+}
+.prize-coin {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #ffe3a1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffeaa6, #f3b82e);
+  color: #fff9df;
+  box-shadow:
+    0 3px 0 #d69a27,
+    0 0 18px #f9cf7044;
+  font-size: 23px;
+}
+.fresh-win .coin-reveal {
+  animation: victory-bloom 0.6s 1.25s both;
+}
+.win-keepsake {
+  font-size: 10px;
+  color: #856692;
+}
+.win-result .reward {
+  margin: 4px 0 10px;
+}
+@keyframes victory-bloom {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.65);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 680px) {
+  .win-result {
+    padding: 10px;
+  }
+  .win-result .result-symbol {
+    font-size: 26px;
+  }
+  .win-result h2 {
+    font-size: 22px;
+    margin: 4px 0;
+  }
+  .win-result .result-stars {
+    font-size: 24px;
+    margin: 0;
+  }
+  .win-moment {
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .mastery-ribbon {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+  .coin-reveal {
+    font-size: 10px;
+  }
+  .coin-reveal strong {
+    font-size: 20px;
+  }
+  .prize-coin {
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+  }
+  .win-keepsake {
+    font-size: 9px;
+  }
+  .win-result .reward {
+    margin: 2px 0 5px;
+  }
+}
+.app-shell[data-motion="reduced"] .win-result *,
+.app-shell[data-motion="reduced"] .win-result {
+  animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .win-result,
+  .win-result * {
+    animation: none !important;
+  }
+}
+
+.win-result:not(.fresh-win) {
+  animation: none;
+}
