@@ -31,3 +31,13 @@ Vercel linked `Z-A-R-R-O/Veyminore` automatically. Project build settings point 
 ## Curved recoil / tools release — 10 November 2026
 
 Production updated from commit `203f62c`; deployment `dpl_4d4G6hkHjyYG6SqU75YYKorjPCsY`. Public alias remains https://arowgo.vercel.app. Anonymous live smoke check passed: HTTP 200, Analyze absent, Hint spark present, blocked D costs one heart, confirmed Erase removes D and persists after reload, no page errors. Local validation: eight affected desktop/phone browser cases plus two dedicated curved-recoil cases passed; formatting, typecheck, production build and Android asset sync passed.
+
+## Mobile viewport release — 10 November 2026
+
+- Source commit: `4c66813`.
+- Production deployment: `dpl_BVbKM9RBPEoDGgeZE2sBHJEoEjX2` (Ready).
+- Live URL: https://arowgo.vercel.app
+- Verified production HTTP 200 and no browser page errors in mobile emulation.
+- Verified 390x844 portrait and rotation to 844x390 landscape: board, HUD, tools and mode controls remain within the viewport, without document scrolling.
+- Local layout coverage also includes 320x568, 375x667 and 412x915; gameplay, retry and victory checks pass.
+- Evidence: [Live mobile capture](verification/vercel-mobile-fit.png).
