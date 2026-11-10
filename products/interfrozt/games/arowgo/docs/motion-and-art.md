@@ -16,7 +16,7 @@ No additional animation package or plugin is needed for this slice. Existing Pha
 | --- | --- |
 | Arrow exit | Tail follows the original bends while the head extends forward; 620 ms sine ease-in-out |
 | Erase | Confirm first, then 300 ms fade and pink burst |
-| Blocked move | Brief alpha feedback and collision ring; no illegal translation |
+| Blocked move | 200 ms cosmetic approach to contact, blocker pulse, then 360 ms return; no occupancy change |
 | Hint | Separate glow pulses over 750 ms; highlight expires after five seconds |
 | Particles | Maximum 36 concurrent Phaser effects; short-lived and destroyed |
 | Ambient petals | 14 Rich / 5 Subtle; slow 16–28 second cycles |
@@ -56,3 +56,11 @@ The intent is to make completion legible and satisfying through anticipation, re
 Validation includes desktop/phone victory layout, final coin value, settled state on reload and unchanged existing gameplay flows. Native device performance remains pending.
 
 Victory captures: [desktop](verification/victory-desktop.png) · [phone](verification/victory-phone.png).
+
+## Blocked-move contact — 10 November 2026
+
+The selected arrow translates toward its first swept blocker, stopping short by the visible head/stroke clearance. At contact the blocker pulses and a ring marks the collision; the selected arrow returns to its exact origin. Both render objects remain protected from redraw during the sequence. The 560 ms presentation fits inside the existing 680 ms input gate. Pure collision rules, saved positions and one-mistake accounting are unchanged. Reduced motion skips approach/recoil and retains text/heart feedback. Motion-setting changes cancel tweens and redraw the committed state.
+
+Regression checks exercise approach direction and distance, return-to-origin, unchanged path and ten active arrows, blocker opacity recovery, one lost heart and reload persistence, plus existing rapid-tap and reduced-motion flows.
+
+[Blocked contact animation recording](verification/blocked-contact.webm).

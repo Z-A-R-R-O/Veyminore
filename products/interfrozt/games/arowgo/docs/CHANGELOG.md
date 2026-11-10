@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## Blocked-arrow contact — 10 November 2026
+
+- Added a smooth approach, collision pulse and return animation for blocked moves.
+- Kept both participating arrows stable during render updates; reduced motion skips travel.
+- Added desktop/phone regression coverage for exact return, one-heart deduction and persistence.
+
+
 ## Essential typography — 10 November 2026
 
 - Centered the board and removed decorative side essays, micro-captions and repeated victory text.

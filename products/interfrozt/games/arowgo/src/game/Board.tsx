@@ -336,6 +336,7 @@ class PuzzleScene extends Phaser.Scene {
     for (const shape of this.shapes.values()) {
       const element = shape.getData("vector") as SVGGElement;
       element.setAttribute("opacity", String(shape.alpha));
+      element.setAttribute("transform", `translate(${shape.x} ${shape.y})`);
     }
   }
   private drawVector(element: SVGGElement, points: Point[], label = "") {
@@ -425,21 +426,63 @@ class PuzzleScene extends Phaser.Scene {
         onComplete: finish,
       });
     } else {
-      const blocker = this.shapes.get(result.exit.blocker);
-      this.ring(
-        this.coord(result.exit.cell[0]),
-        this.coord(result.exit.cell[1]),
-        0xe76d9c,
-      );
+      const blocked = result.exit;
+      const blocker = this.shapes.get(blocked.blocker);
+      const element = shape.getData("vector") as SVGGElement;
+      const [dx, dy] = direction(arrow);
+      // Stop the visible stroke/head just before contact, not at overlapping centers.
+      const movingHead =
+        hx === blocked.cell[0] - dx * blocked.step &&
+        hy === blocked.cell[1] - dy * blocked.step;
+      const blockerHead = this.level.arrows
+        .find((a) => a.id === blocked.blocker)!
+        .points.at(-1)!;
+      const hitsHead =
+        blockerHead[0] === blocked.cell[0] &&
+        blockerHead[1] === blocked.cell[1];
+      const clearance = (movingHead ? 19 : 10) + (hitsHead ? 19 : 10) + 2;
+      const distance = Math.max(0, blocked.step * this.cell - clearance);
+      const settle = () => {
+        shape.setPosition(0, 0).setAlpha(1);
+        blocker?.setAlpha(1);
+        this.animating.delete(id);
+        this.animating.delete(blocked.blocker);
+        this.sync(this.active, this.hints);
+      };
+      if (reduced) {
+        settle();
+        return;
+      }
+      element.dataset.motion = "blocked";
+      if (blocker) this.animating.add(blocked.blocker);
       this.tweens.add({
-        targets: [shape, ...(blocker ? [blocker] : [])],
-        alpha: 0.5,
-        duration: reduced ? 0 : 120,
-        yoyo: true,
-        repeat: reduced ? 0 : 1,
+        targets: shape,
+        x: dx * distance,
+        y: dy * distance,
+        duration: 200,
+        ease: "Sine.easeInOut",
         onComplete: () => {
-          this.animating.delete(id);
-          this.sync(this.active, this.hints);
+          this.ring(
+            this.coord(blocked.cell[0]),
+            this.coord(blocked.cell[1]),
+            0xe76d9c,
+          );
+          if (blocker)
+            this.tweens.add({
+              targets: blocker,
+              alpha: 0.55,
+              duration: 90,
+              yoyo: true,
+              ease: "Sine.easeInOut",
+            });
+          this.tweens.add({
+            targets: shape,
+            x: 0,
+            y: 0,
+            duration: 360,
+            ease: "Cubic.easeOut",
+            onComplete: settle,
+          });
         },
       });
     }
