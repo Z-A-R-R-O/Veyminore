@@ -41,3 +41,14 @@ Production updated from commit `203f62c`; deployment `dpl_4d4G6hkHjyYG6SqU75YYKo
 - Verified 390x844 portrait and rotation to 844x390 landscape: board, HUD, tools and mode controls remain within the viewport, without document scrolling.
 - Local layout coverage also includes 320x568, 375x667 and 412x915; gameplay, retry and victory checks pass.
 - Evidence: [Live mobile capture](verification/vercel-mobile-fit.png).
+
+## v0.1 campaign and reference refresh — 10 November 2026
+
+- Source commit: `6c82b03`.
+- Production deployment: `dpl_GtoKY33r5re9EKpRrWX9Q16EBRGW`, Ready.
+- Public URL: https://arowgo.vercel.app
+- Immutable URL: https://arowgo-cq5lbb8xy-zarros-projects-e983b612.vercel.app
+- Final build, TypeScript, formatting and 49 unit tests pass; six final campaign/page-flow browser tests pass across desktop and phone. Existing gameplay, motion, collision and layout coverage was verified during the release and affected cases rerun after fixes; see the v0.1 verification report.
+- Public-site smoke check: HTTP 200; all five hub pages show navigation and fit the phone document viewport; Practice launches without bottom navigation; landscape board/HUD/tools/settings fit; new Hint ring renders; no browser page errors.
+- Live captures: `verification/refresh-home.png`, `refresh-worlds.png`, `refresh-modes.png`, `refresh-progress.png`, `refresh-settings.png`.
+- Android web assets synced. Native compile and physical-device validation remain pending.
