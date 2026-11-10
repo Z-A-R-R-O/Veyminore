@@ -94,3 +94,11 @@
 - Cataloged all six supplied visual references with provenance and screen-specific findings.
 - Proposed corrections to movement/animation, blocked-action state, Erase, scoring, hearts, navigation and milestone definitions.
 - No game implementation, technical spike, external policy verification or release gate completion is claimed.
+
+## v0.1 campaign prototype — 10 November 2026
+
+Added Home, Worlds, Progress and Settings pages; four-tab hub navigation and isolated gameplay. Added four validated boards for five total levels, sequential unlocks, independent saved attempts, aggregate rewards and next-level results. Replaced tracing Hint with a breathing tip ring. Expanded adaptive desktop/mobile layouts and campaign verification. See [current contract](v0.1-prototype.md).
+
+### Reference-aligned presentation
+
+Archived six renewed references with SHA-256 manifest and per-screen adaptation notes. Added functional Modes, an original winding five-level map, a dimensional Home hero, glossy shortcut/world cards and earned milestone collection. Retained focused gameplay and real progression.

@@ -14,9 +14,16 @@ for (const [width, height] of [
       deviceScaleFactor: 1,
     });
     const page = await context.newPage();
-    await page.goto("/");
+    await page.goto("/#play/1");
     await page.locator("canvas[data-ready=true]").waitFor();
-    for (const selector of [".board", ".tool-tray", ".card-footer", ".hud"]) {
+    for (const selector of [
+      ".board",
+      ".tool-tray",
+      ".card-footer",
+      ".hud",
+      ".settings-button",
+      ".topbar",
+    ]) {
       const box = await page.locator(selector).boundingBox();
       expect(box!.y).toBeGreaterThanOrEqual(0);
       expect(box!.y + box!.height).toBeLessThanOrEqual(height + 1);

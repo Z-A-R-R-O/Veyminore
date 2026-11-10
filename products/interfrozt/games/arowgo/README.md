@@ -1,6 +1,6 @@
 # AROWGO — First Bloom
 
-A playable bent-arrow puzzle under **Veyminore → InterFrozt**. One original level, a calm lavender interface, and a nine-example Rule lab.
+A playable bent-arrow puzzle under **Veyminore → InterFrozt**. Five playable levels, Home/Worlds/Modes/Progress/Settings pages, a focused puzzle view, and a nine-example Rule lab.
 
 **Status:** Browser prototype implemented. Android project generated and synced; native build and physical-device validation pending. AROWGO remains a working name.
 
@@ -17,9 +17,9 @@ Open [AROWGO locally](http://127.0.0.1:4173). The tested host is Node 25.1.0; us
 
 ## Play
 
-Tap anywhere along an arrow to send it out with a flowing snake animation. Legality still checks the entire rigid swept path; another arrow anywhere in that path blocks the move. Clear all ten paths. Story has three mistake hearts; Practice has unlimited mistakes. Hint reveals one legal arrow with a tracing spark. Erase wipes a chosen arrow after confirmation. Both tools are free in this prototype and mark the result assisted. Restart asks before resetting your current run.
+Tap anywhere along an arrow to send it out with a flowing snake animation. Legality still checks the entire rigid swept path; another arrow anywhere in that path blocks the move. Clear every path. Story has three mistake hearts; Practice has unlimited mistakes. Hint reveals one legal arrow with a gentle breathing ring. Erase wipes a chosen arrow after confirmation. Both tools are free in this prototype and mark the result assisted. Restart asks before resetting your current run.
 
-Keyboard: Tab to an arrow, then Enter. Open **Rule lab** to explore small clear/blocked examples, especially the bent-body obstruction. Settings includes persistent Rich/Subtle effects and reduced motion, respecting the system preference. Progress saves on this browser/device. The first Story clear grants 25 prototype coins; replay does not repeat that reward.
+Keyboard: Tab to an arrow, then Enter. Open **Settings → Rule lab** to explore small clear/blocked examples, especially the bent-body obstruction. Settings includes persistent Rich/Subtle effects and reduced motion, respecting the system preference. Progress saves on this browser/device. The first Story clear of each level grants 25 prototype coins and unlocks the next level; replay does not repeat that reward.
 
 ## Checks
 
@@ -45,6 +45,8 @@ The native project is in `android/`. Install the compatible JDK and Android SDK/
 
 ## Documentation
 
+- [Current v0.1 prototype contract](docs/v0.1-prototype.md) — pages, all five levels, saves, animation and acceptance scope.
+
 - [Motion and art approach](docs/motion-and-art.md)
 - [Bloom motion verification](docs/verification/bloom-motion.md)
 
@@ -55,4 +57,4 @@ The native project is in `android/`. Install the compatible JDK and Android SDK/
 - [Build guide](docs/build-guide.md) and [execution backlog](docs/execution-backlog.md)
 - [Original references](references/README.md)
 
-**Owner:** Veyminore; product acceptance and named release ownership remain to be assigned. No account, ads, purchases, analytics SDK, campaign expansion or server is implemented. The original reference images remain evidence; runtime scenery is original generated artwork; paths, icons and effects are drawn from code.
+**Owner:** Veyminore; product acceptance and named release ownership remain to be assigned. No account, ads, purchases, analytics SDK or server is implemented. The original reference images remain evidence; runtime scenery is original generated artwork; paths, icons and effects are drawn from code.

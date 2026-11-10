@@ -317,35 +317,33 @@ class PuzzleScene extends Phaser.Scene {
       ]);
       this.drawVector(element, points, arrow.id);
       if (highlighted && !this.reduced) {
-        const path = element.querySelector(".arrow-body") as SVGPathElement;
+        const tip = points.at(-1)!;
         const spark = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "circle",
         );
-        spark.setAttribute("r", "5");
-        spark.setAttribute("fill", "#fff3b0");
-        spark.setAttribute("stroke", "#d9a64c");
-        spark.setAttribute("stroke-width", "2");
-        const first = path.getPointAtLength(0);
-        spark.setAttribute("cx", String(first.x));
-        spark.setAttribute("cy", String(first.y));
-        spark.classList.add("hint-spark");
+        spark.setAttribute("cx", String(tip[0]));
+        spark.setAttribute("cy", String(tip[1]));
+        spark.setAttribute("r", "22");
+        spark.setAttribute("fill", "none");
+        spark.setAttribute("stroke", "#e6ae4f");
+        spark.setAttribute("stroke-width", "2.5");
+        spark.classList.add("hint-spark", "hint-beacon");
         element.appendChild(spark);
-        const trace = { progress: 0 };
-        group.setData("travel", trace);
+        const breath = { radius: 22, opacity: 1 };
+        group.setData("travel", breath);
         this.tweens.add({
-          targets: trace,
-          progress: 1,
-          duration: 850,
+          targets: breath,
+          radius: 38,
+          opacity: 0.15,
+          duration: 1100,
           ease: "Sine.easeInOut",
+          yoyo: true,
+          repeat: -1,
           onUpdate: () => {
-            const p = path.getPointAtLength(
-              path.getTotalLength() * trace.progress,
-            );
-            spark.setAttribute("cx", String(p.x));
-            spark.setAttribute("cy", String(p.y));
+            spark.setAttribute("r", String(breath.radius));
+            spark.setAttribute("opacity", String(breath.opacity));
           },
-          onComplete: () => spark.remove(),
         });
         const halo = element.querySelector(".arrow-halo")!;
         const pulse = { alpha: 0.32 };

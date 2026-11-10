@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 test("vector paths remain unique and bent arrow flows out", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/#play/1");
   await expect(page.locator("canvas[data-ready=true]")).toBeVisible();
   await expect(page.locator(".vector-arrows")).toHaveCount(1);
   await expect(page.locator('[data-arrow="D"] .arrow-body')).toHaveAttribute(
@@ -34,6 +34,7 @@ test("vector paths remain unique and bent arrow flows out", async ({
   );
   await expect(body).not.toHaveAttribute("d", before!);
   await expect(page.locator('[data-arrow="D"]')).toHaveCount(0);
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
   await page.getByRole("button", { name: "Rule lab" }).click();
   await expect(page.locator(".vector-arrows")).toHaveCount(1);
 });

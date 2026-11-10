@@ -1,5 +1,7 @@
 # Execution backlog
 
+> Current implemented release: [v0.1 prototype](v0.1-prototype.md). Five levels and hub navigation supersede the original one-level slice; remaining masterplan features remain future scope.
+
 [Index](README.md) · [Release gates](specs/quality-and-release.md)
 
 See the current status below; planned scope remains in the task table. The [build guide](build-guide.md) defines the shared architecture, save contract and first-slice evidence requirements. Owners below are roles to assign, not confirmed staff. A first browser implementation is available; native acceptance remains pending.

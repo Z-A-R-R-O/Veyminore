@@ -26,9 +26,12 @@ export function useMotion() {
     const query = matchMedia("(prefers-reduced-motion: reduce)");
     const change = () => setSystemReduced(query.matches);
     const visibility = () => setHidden(document.hidden);
+    const sync = () => setPreferences(load());
+    window.addEventListener("arowgo-preferences", sync);
     query.addEventListener("change", change);
     document.addEventListener("visibilitychange", visibility);
     return () => {
+      window.removeEventListener("arowgo-preferences", sync);
       query.removeEventListener("change", change);
       document.removeEventListener("visibilitychange", visibility);
     };
@@ -38,6 +41,7 @@ export function useMotion() {
     setPreferences(value);
     try {
       localStorage.setItem(MOTION_KEY, JSON.stringify(value));
+      window.dispatchEvent(new Event("arowgo-preferences"));
     } catch {
       /* Keep the preference for this session. */
     }

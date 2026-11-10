@@ -2645,3 +2645,1118 @@ main {
     z-index: 10;
   }
 }
+/* v0.1: application pages share one viewport; the puzzle has no tab bar. */
+.hub-shell {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: max(12px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+  color: #503174;
+  position: relative;
+  isolation: isolate;
+}
+.hub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  width: min(100%, 700px);
+  margin: 0 auto;
+  z-index: 1;
+}
+.hub-coins {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #ffffff90;
+  border: 1px solid #fff;
+  border-radius: 30px;
+  padding: 7px 16px;
+  font-size: 20px;
+}
+.hub-coins .coin {
+  width: 27px;
+  height: 27px;
+  font-size: 24px;
+}
+.hub-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  width: min(100%, 620px);
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: page-arrive 0.35s ease-out;
+}
+.hub-content h1 {
+  font-size: clamp(28px, 5.5vh, 48px);
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+  margin: 10px 0;
+  font-weight: 700;
+}
+.hub-content h2 {
+  font-size: clamp(20px, 2.8vh, 27px);
+  line-height: 1.2;
+  margin: 6px 0;
+}
+.hub-content p {
+  font-size: 16px;
+  line-height: 1.45;
+  margin: 0;
+  color: #816495;
+}
+.home-intro {
+  text-align: center;
+  padding-top: clamp(0px, 3vh, 30px);
+}
+.valley-emblem {
+  flex: 1;
+  min-height: 40px;
+  max-height: 260px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.valley-emblem svg {
+  height: 100%;
+  max-height: 210px;
+  width: min(100%, 240px);
+  fill: none;
+  stroke: #8d50c7;
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 10px 12px #6f35a42b);
+}
+.valley-emblem .emblem-soft {
+  stroke: #bd96e0;
+  stroke-width: 10;
+}
+.valley-emblem > span,
+.valley-emblem > i {
+  position: absolute;
+  color: #d8a444;
+  font-size: 32px;
+  left: 25%;
+  top: 16%;
+}
+.valley-emblem > i {
+  left: auto;
+  right: 24%;
+  top: 65%;
+  font-style: normal;
+}
+.continue-card {
+  padding: 22px;
+  text-align: center;
+  border-radius: 28px;
+}
+.continue-card .primary-button {
+  width: 100%;
+  margin-top: 14px;
+  min-height: 56px;
+  font-size: 24px;
+}
+.home-summary {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 16px;
+  padding: 2px 0 10px;
+}
+.bottom-nav {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  width: min(100%, 620px);
+  margin: 0 auto;
+  padding: 6px;
+  border-radius: 25px;
+  gap: 4px;
+}
+.bottom-nav a {
+  flex: 1;
+  min-width: 0;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #75588d;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.bottom-nav a[aria-current="page"] {
+  background: linear-gradient(145deg, #bd87f2, #9251d1);
+  color: white;
+  box-shadow: 0 5px 16px #9d66ce40;
+}
+.bottom-nav svg {
+  width: 23px;
+  height: 23px;
+}
+.page-heading {
+  padding: 10px 3px 4px;
+}
+.level-list {
+  display: grid;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  padding-bottom: 10px;
+}
+.level-tile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 18px;
+  text-align: left;
+  border-radius: 22px;
+  min-height: 52px;
+}
+.level-tile > span:nth-child(2) {
+  flex: 1;
+}
+.level-tile strong {
+  font-size: clamp(16px, 2.2vh, 21px);
+  display: block;
+}
+.level-tile small {
+  display: block;
+  font-size: 14px;
+  margin-top: 3px;
+  color: #947449;
+}
+.level-number {
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  width: 48px;
+  height: 48px;
+  background: #ae79df26;
+  color: #8d50bc;
+  font-size: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.level-tile.locked {
+  opacity: 0.64;
+  cursor: default;
+}
+.progress-orbit {
+  flex: 1;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.progress-orbit strong {
+  font-size: clamp(48px, 11vh, 88px);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+.progress-orbit small {
+  font-size: 28px;
+  color: #ac8fc1;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.stat-grid section {
+  padding: 18px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.stat-grid strong {
+  font-size: 28px;
+}
+.stat-grid section > span {
+  color: #d8a444;
+  font-size: 28px;
+  height: 32px;
+}
+.hub-content .hub-note {
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.6;
+}
+.settings-panel,
+.how-to {
+  padding: 10px 20px;
+  border-radius: 24px;
+}
+.settings-panel .setting {
+  gap: 12px;
+  min-height: 82px;
+  margin: 0;
+}
+.setting input {
+  min-width: 24px;
+  min-height: 24px;
+  accent-color: #9958cd;
+}
+.setting select {
+  min-height: 44px;
+  max-width: 110px;
+}
+.how-to {
+  padding: 20px;
+}
+.how-to p + p {
+  margin-top: 10px;
+}
+.hint-wash {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  box-shadow: inset 0 0 30px #e9c57655;
+  animation: hint-welcome 1s ease-out both;
+}
+@keyframes hint-welcome {
+  from {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes page-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (min-width: 901px) {
+  .app-shell {
+    height: 100dvh;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 24px;
+    overflow: hidden;
+  }
+  .app-shell .topbar {
+    height: 48px;
+    min-height: 48px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .app-shell main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .app-shell .game-motto {
+    display: none;
+  }
+  .app-shell .level-heading {
+    margin: 4px 0 10px;
+  }
+  .app-shell .level-heading h1 {
+    font-size: 30px;
+    margin: 4px;
+  }
+  .app-shell .play-layout {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .app-shell .game-card {
+    height: 100%;
+    width: min(100%, 620px);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .app-shell .hud {
+    height: 54px;
+    min-height: 54px;
+    padding: 4px 20px;
+  }
+  .app-shell .board-wrap {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    animation: none;
+    isolation: auto;
+  }
+  .app-shell .board,
+  .app-shell .board-rim {
+    width: var(--board-size, 100%);
+    height: var(--board-size, 100%);
+    max-width: 100%;
+  }
+  .app-shell .feedback {
+    min-height: 28px;
+    font-size: 14px;
+    margin: 0;
+  }
+  .app-shell .tool-tray {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 0;
+    height: 54px;
+    flex-shrink: 0;
+  }
+  .app-shell .tool-card {
+    width: 160px;
+    min-height: 54px;
+    padding: 6px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    border-radius: 18px;
+  }
+  .app-shell .tool-art,
+  .app-shell .tool-art svg {
+    height: 32px;
+    width: 32px;
+  }
+  .app-shell .tool-card strong {
+    font-size: 17px;
+  }
+  .app-shell .card-footer {
+    min-height: 32px;
+    margin: 0;
+  }
+  .app-shell .card-footer button {
+    min-height: 32px;
+  }
+}
+@media (max-height: 700px) {
+  .hub-shell {
+    gap: 7px;
+  }
+  .hub-content {
+    gap: 10px;
+  }
+  .home-intro {
+    padding-top: 0;
+  }
+  .hub-content h1 {
+    font-size: 30px;
+  }
+  .continue-card {
+    padding: 14px;
+  }
+  .continue-card .primary-button {
+    min-height: 48px;
+    margin-top: 8px;
+    font-size: 21px;
+  }
+  .level-list {
+    gap: 6px;
+  }
+  .level-tile {
+    padding: 6px 12px;
+    border-radius: 18px;
+  }
+  .level-number {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+  .settings-panel .setting {
+    min-height: 66px;
+  }
+  .how-to {
+    padding: 12px;
+  }
+  .how-to p,
+  .setting small {
+    font-size: 14px;
+  }
+  .stat-grid section {
+    padding: 10px;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .hub-header {
+    min-height: 36px;
+  }
+  .hub-content {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .page-home {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 8px 20px;
+  }
+  .home-intro {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .valley-emblem {
+    display: none;
+  }
+  .continue-card {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .home-summary {
+    grid-column: 1/3;
+    padding: 0;
+  }
+  .bottom-nav a {
+    min-height: 44px;
+    flex-direction: row;
+  }
+  .level-list {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 60px);
+  }
+  .page-heading {
+    padding: 0;
+  }
+  .page-heading h1 {
+    font-size: 24px;
+    margin: 2px 0;
+  }
+  .page-heading p {
+    display: none;
+  }
+  .level-tile {
+    gap: 7px;
+  }
+  .level-tile strong {
+    font-size: 14px;
+  }
+  .level-tile small {
+    font-size: 12px;
+  }
+}
+[data-motion="reduced"] .hub-content,
+[data-motion="reduced"] .hint-wash {
+  animation: none;
+}
+.page-settings {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 8px;
+}
+.page-settings > * {
+  flex-shrink: 0;
+}
+@media (max-width: 380px) and (min-height: 501px) {
+  .page-settings {
+    gap: 8px;
+  }
+  .page-settings .page-heading h1 {
+    font-size: 26px;
+  }
+  .page-settings .settings-panel {
+    padding: 4px 12px;
+  }
+  .page-settings .setting {
+    min-height: 62px;
+  }
+  .page-settings .how-to h2 {
+    font-size: 18px;
+  }
+  .page-settings .how-to p {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .page-settings .hub-note {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+}
+@media (min-width: 901px) {
+  .app-shell[data-view="play"]:not([data-status="playing"]) main {
+    z-index: 10;
+  }
+  .result-overlay {
+    position: fixed;
+    inset: 24px max(24px, calc((100vw - 680px) / 2));
+    z-index: 30;
+    padding: 24px;
+    border-radius: 30px;
+  }
+}
+@media (max-height: 700px) {
+  .result-overlay {
+    gap: 4px;
+    padding: 12px;
+  }
+  .result-overlay h2 {
+    font-size: 28px;
+    margin: 4px 0;
+  }
+  .result-overlay .result-symbol {
+    font-size: 30px;
+  }
+  .result-overlay .result-stars {
+    font-size: 32px;
+    margin: 4px 0;
+  }
+  .result-overlay .win-moment {
+    margin: 6px 0;
+    gap: 6px;
+  }
+  .result-overlay .encouragement {
+    margin: 4px 0;
+    font-size: 15px;
+  }
+  .result-overlay .primary-button {
+    min-height: 44px;
+    padding: 10px 20px;
+    font-size: 20px;
+  }
+  .result-overlay .text-button {
+    min-height: 40px;
+    padding: 6px 12px;
+  }
+  .result-overlay .coin-reveal strong {
+    font-size: 36px;
+  }
+}
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .topbar .settings-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+/* Reference-inspired v0.1 presentation, authored as responsive live UI. */
+.home-hero {
+  flex: 1;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+.home-hero h1 {
+  font-size: clamp(46px, 8.5vh, 76px);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -3px;
+  color: #fff9ff;
+  text-shadow:
+    0 3px 0 #c5a3ec,
+    0 6px 0 #9970c7,
+    0 12px 22px #60358b50;
+  margin: 0 0 12px;
+}
+.home-hero p {
+  font-size: 16px;
+  color: #674389;
+}
+.hero-sigil {
+  font-size: clamp(30px, 5vh, 48px);
+  line-height: 1.2;
+  color: #ffd26c;
+  transform: rotate(-35deg);
+  text-shadow:
+    0 3px 0 #c99251,
+    0 0 24px #fff;
+}
+.page-home .continue-card {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding: 0 14px;
+  border-radius: 0;
+}
+.page-home .continue-card h2 {
+  display: none;
+}
+.page-home .continue-card .primary-button {
+  margin-top: 8px;
+  min-height: 62px;
+  border-radius: 40px;
+  border: 2px solid #fbe6ff;
+  box-shadow:
+    0 0 12px #fff9,
+    inset 0 3px 8px #fff8,
+    0 8px 24px #9655d175;
+  font-size: 30px;
+  background: linear-gradient(165deg, #dc9aff, #a357e5 60%, #9a50d9);
+}
+.home-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.home-shortcuts button {
+  padding: 10px 6px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-height: 80px;
+}
+.home-shortcuts strong {
+  font-size: 16px;
+}
+.shortcut-art {
+  font-size: 34px;
+  color: #b777e9;
+  line-height: 1;
+  filter: drop-shadow(0 3px 1px #78469240);
+}
+.shortcut-art svg {
+  height: 34px;
+  width: 34px;
+  stroke-width: 2.5;
+}
+.shortcut-art.golden {
+  color: #efbb4e;
+}
+.world-banner {
+  min-height: 78px;
+  padding: 14px 20px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  background:
+    linear-gradient(90deg, #d4b7f9ee, #cdb2ee66),
+    url("/assets/bloom-valley-landscape.png") center 45% / cover;
+}
+.world-banner strong {
+  font-size: 24px;
+  display: block;
+  font-style: italic;
+}
+.world-banner small {
+  display: block;
+  font-size: 14px;
+  margin-top: 3px;
+}
+.page-home .home-summary {
+  font-size: 13px;
+  padding-bottom: 0;
+}
+.bottom-nav {
+  border: 1.5px solid #fffc;
+  box-shadow:
+    0 7px 24px #9060bd30,
+    inset 0 1px 5px #fff;
+}
+.bottom-nav a {
+  font-size: 12px;
+}
+.world-map {
+  position: relative;
+  isolation: isolate;
+  gap: 0;
+  padding: 6px 12px 12px;
+}
+.map-trail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: visible;
+}
+.map-trail path {
+  fill: none;
+  stroke: #fff6ff;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 7px #d083ed);
+}
+.world-map .level-tile {
+  grid-row: calc(5 - var(--stop));
+  width: 65%;
+  min-height: 0;
+  align-self: center;
+  border-radius: 35px;
+  padding: 6px 10px;
+  gap: 12px;
+  box-shadow:
+    0 5px 0 #ba9cd36b,
+    0 9px 20px #75559824;
+}
+.world-map .level-tile:nth-of-type(even) {
+  margin-left: 35%;
+}
+.world-map .level-tile:nth-of-type(5) {
+  margin-left: 15%;
+}
+.world-map .level-number {
+  border-radius: 50%;
+  background: #fff7;
+  width: 44px;
+  height: 44px;
+}
+.world-map .level-tile strong {
+  font-size: 16px;
+}
+.world-map .level-tile small {
+  font-size: 12px;
+}
+.world-map .level-tile.current-level {
+  background: linear-gradient(135deg, #dda5ff, #a260dc);
+  color: white;
+  border-color: #fff;
+  box-shadow:
+    0 0 18px #ebc0ff,
+    0 5px 0 #9a66c4;
+}
+.world-map .current-level .level-number {
+  background: #ffffff30;
+  color: white;
+}
+.world-map .current-level small {
+  color: #fff4bd;
+}
+.world-map .level-tile.locked {
+  opacity: 0.8;
+  background: #e9dcf2c9;
+}
+.page-worlds .page-heading {
+  text-align: center;
+}
+.page-worlds h1 {
+  font-style: italic;
+}
+.mode-card {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: 24px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.mode-card > div {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.mode-card p {
+  max-width: 80%;
+}
+.mode-card .primary-button {
+  font-size: 18px;
+  min-height: 46px;
+  padding: 10px 20px;
+  margin-top: 18px;
+}
+.mode-art {
+  position: absolute;
+  right: 16px;
+  top: 10px;
+  font-size: 110px;
+  line-height: 1;
+  color: #b577df;
+  opacity: 0.35;
+  transform: rotate(12deg);
+  text-shadow: 0 5px 0 #8b55b4;
+}
+.story-card {
+  background:
+    linear-gradient(100deg, #f7eaffed 45%, #e8cdff77),
+    url("/assets/bloom-valley-landscape.png") center/cover;
+}
+.practice-card {
+  background: linear-gradient(140deg, #e8d9ffed, #fbedffd9);
+}
+.milestone-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.milestone {
+  padding: 10px 4px;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 3px;
+  opacity: 0.65;
+}
+.milestone.earned {
+  opacity: 1;
+  box-shadow: 0 0 18px #ffe3a655;
+}
+.milestone > span {
+  font-size: 27px;
+  color: #b995d4;
+}
+.milestone.earned > span {
+  color: #dca73a;
+}
+.milestone strong {
+  font-size: 13px;
+}
+.milestone small {
+  font-size: 11px;
+}
+.page-progress .progress-orbit {
+  min-height: 50px;
+}
+.page-progress .progress-orbit strong {
+  font-size: clamp(38px, 8vh, 66px);
+}
+@media (max-height: 700px) {
+  .home-hero {
+    min-height: 64px;
+  }
+  .home-hero h1 {
+    font-size: 44px;
+    margin: 0 0 6px;
+  }
+  .hero-sigil {
+    font-size: 26px;
+  }
+  .home-hero p {
+    font-size: 14px;
+  }
+  .page-home .continue-card .primary-button {
+    min-height: 48px;
+    font-size: 24px;
+  }
+  .home-shortcuts {
+    gap: 8px;
+  }
+  .home-shortcuts button {
+    min-height: 60px;
+    padding: 6px;
+    gap: 3px;
+    border-radius: 18px;
+  }
+  .shortcut-art,
+  .shortcut-art svg {
+    font-size: 26px;
+    height: 26px;
+    width: 26px;
+  }
+  .home-shortcuts strong {
+    font-size: 14px;
+  }
+  .world-banner {
+    min-height: 52px;
+    padding: 8px 14px;
+    border-radius: 18px;
+  }
+  .world-banner strong {
+    font-size: 19px;
+  }
+  .world-banner small {
+    font-size: 12px;
+    margin: 0;
+  }
+  .page-home .home-summary {
+    font-size: 11px;
+  }
+  .world-map .level-number {
+    width: 34px;
+    height: 34px;
+    font-size: 19px;
+  }
+  .world-map .level-tile {
+    padding: 4px 8px;
+    gap: 7px;
+    width: 70%;
+  }
+  .world-map .level-tile:nth-of-type(even) {
+    margin-left: 30%;
+  }
+  .world-map .level-tile strong {
+    font-size: 14px;
+  }
+  .mode-card {
+    padding: 14px;
+  }
+  .mode-card h2 {
+    font-size: 24px;
+  }
+  .mode-card p {
+    font-size: 14px;
+  }
+  .mode-card .primary-button {
+    margin-top: 10px;
+    min-height: 44px;
+    font-size: 16px;
+  }
+  .mode-art {
+    font-size: 85px;
+  }
+  .page-progress {
+    gap: 8px;
+  }
+  .page-progress .page-heading {
+    padding: 0;
+  }
+  .page-progress h1 {
+    font-size: 26px;
+  }
+  .page-progress .page-heading p {
+    display: none;
+  }
+  .page-progress .progress-orbit {
+    min-height: 40px;
+    gap: 2px;
+  }
+  .page-progress .progress-orbit strong {
+    font-size: 38px;
+  }
+  .page-progress .stat-grid section {
+    padding: 7px;
+    gap: 3px;
+  }
+  .page-progress .stat-grid strong {
+    font-size: 23px;
+  }
+  .page-progress .stat-grid p {
+    font-size: 13px;
+  }
+  .milestone {
+    padding: 6px 2px;
+  }
+  .milestone > span {
+    font-size: 22px;
+  }
+  .milestone strong {
+    font-size: 11px;
+  }
+  .milestone small {
+    font-size: 10px;
+  }
+  .page-progress .hub-note {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .page-home {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .home-hero {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .page-home .continue-card {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .home-shortcuts {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .world-banner {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .page-home .home-summary {
+    display: none;
+  }
+  .world-map {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: visible;
+  }
+  .world-map .map-trail {
+    display: none;
+  }
+  .world-map .level-tile {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+    margin: 0 !important;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    padding: 8px 3px;
+  }
+  .world-map .level-tile > span:last-child {
+    display: none;
+  }
+  .world-map .level-tile strong {
+    font-size: 12px;
+  }
+  .page-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .page-modes .page-heading,
+  .page-modes .hub-note {
+    grid-column: 1/3;
+  }
+  .mode-card p {
+    font-size: 13px;
+  }
+  .mode-card .eyebrow {
+    display: none;
+  }
+}
+@media (max-height: 700px) {
+  .mode-card .eyebrow {
+    display: none;
+  }
+  .mode-card {
+    padding: 10px 14px;
+  }
+  .mode-card h2 {
+    margin: 0 0 5px;
+    font-size: 23px;
+  }
+  .mode-card p {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  .mode-card .primary-button {
+    margin-top: 8px;
+    padding: 8px 15px;
+    min-height: 44px;
+  }
+  .page-modes > .hub-note {
+    display: none;
+  }
+}

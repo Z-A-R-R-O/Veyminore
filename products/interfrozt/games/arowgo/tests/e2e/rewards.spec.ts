@@ -2,10 +2,9 @@ import { test, expect } from "@playwright/test";
 test("local Satoshi, heart break and reassuring retry", async ({
   page,
 }, info) => {
-  await page.goto("/");
+  await page.goto("/#play/1");
   const motto = page.getByText("A little play. A little practice in thinking.");
-  if (info.project.name === "phone") await expect(motto).toBeHidden();
-  else await expect(motto).toBeVisible();
+  await expect(motto).toBeHidden();
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check("14px Satoshi"))).toBe(
     true,

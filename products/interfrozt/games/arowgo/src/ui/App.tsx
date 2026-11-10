@@ -10,7 +10,19 @@ import { Icon } from "./Icons";
 import { Scenery, Celebration } from "./Scenery";
 import { useMotion } from "./useMotion";
 
-export function App({ controller }: { controller: Controller }) {
+export function App({
+  controller,
+  onHome,
+  onNext,
+  levelNumber = 1,
+  otherCoins = 0,
+}: {
+  controller: Controller;
+  onHome?: () => void;
+  onNext?: () => void;
+  levelNumber?: number;
+  otherCoins?: number;
+}) {
   const state = useSyncExternalStore(
     controller.subscribe,
     controller.getSnapshot,
@@ -137,9 +149,7 @@ export function App({ controller }: { controller: Controller }) {
       setFeedback("Nice move.");
       setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
     } else if (result.exit) {
-      setFeedback(
-        `Arrow ${id} is blocked by ${result.exit.blocker}. The whole shape needs a clear path.`,
-      );
+      setFeedback(`A little blocked. Try another path.`);
       setPulse((p) => ({ id: p.id + 1, kind: "blocked" }));
     }
     return result;
@@ -158,7 +168,11 @@ export function App({ controller }: { controller: Controller }) {
     const result = controller.hint();
     setHints(result.hints ?? []);
     setPulse((p) => ({ id: p.id + 1, kind: "hint" }));
-    setFeedback(`Try arrow ${result.hints?.[0]}. This run is now assisted.`);
+    setFeedback(
+      motion.reduced
+        ? "The highlighted arrow has a clear path."
+        : "Follow the breathing ring.",
+    );
     clearTimeout(hintTimer.current);
     hintTimer.current = setTimeout(() => setHints([]), 5000);
   }
@@ -220,7 +234,7 @@ export function App({ controller }: { controller: Controller }) {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            showLab(false);
+            onHome ? onHome() : showLab(false);
           }}
         >
           <span className="brand-icon">
@@ -229,18 +243,12 @@ export function App({ controller }: { controller: Controller }) {
           AROWGO
         </a>
         <nav aria-label="Prototype navigation">
-          <button
-            className={!lab ? "nav-active" : ""}
-            onClick={() => showLab(false)}
-          >
-            Play
-          </button>
-          <button
-            className={lab ? "nav-active" : ""}
-            onClick={() => showLab(true)}
-          >
-            Rule lab <span>↗</span>
-          </button>
+          {onHome && (
+            <button onClick={onHome} aria-label="Leave puzzle">
+              Home
+            </button>
+          )}
+          {lab && <button onClick={() => showLab(false)}>Play</button>}
         </nav>
         <button
           className="icon-button settings-button"
@@ -261,7 +269,9 @@ export function App({ controller }: { controller: Controller }) {
             <span /> {lab ? "Discover the mechanic" : "World 1 · Bloom Valley"}{" "}
             <span />
           </div>
-          <h1>{lab ? "Rule lab" : "Level 01"}</h1>
+          <h1>
+            {lab ? "Rule lab" : `Level ${String(levelNumber).padStart(2, "0")}`}
+          </h1>
           {lab ? (
             <p className="level-subtitle">A little room for proof.</p>
           ) : (
@@ -278,7 +288,9 @@ export function App({ controller }: { controller: Controller }) {
         <div className="play-layout">
           <section
             className="game-card"
-            aria-label={lab ? "Rule proof board" : "Bloom Valley level 1"}
+            aria-label={
+              lab ? "Rule proof board" : `Bloom Valley level ${levelNumber}`
+            }
           >
             {lab ? (
               <div className="lab-header glass-panel">
@@ -300,11 +312,14 @@ export function App({ controller }: { controller: Controller }) {
               <div className="hud glass-panel">
                 <div
                   className="balance"
-                  aria-label={`${state.coins} earned coins`}
+                  aria-label={`${state.coins + otherCoins} earned coins`}
                 >
                   <Coin />
                   <strong>
-                    <CountUp value={state.coins} animate={!motion.reduced} />
+                    <CountUp
+                      value={state.coins + otherCoins}
+                      animate={!motion.reduced}
+                    />
                   </strong>
                 </div>
                 <div className="hud-divider" />
@@ -378,7 +393,7 @@ export function App({ controller }: { controller: Controller }) {
               {!lab && pulse.kind === "hint" && !motion.reduced && (
                 <div
                   key={`scan-${pulse.id}`}
-                  className="board-scan"
+                  className="hint-wash"
                   aria-hidden="true"
                 />
               )}
@@ -445,11 +460,29 @@ export function App({ controller }: { controller: Controller }) {
                   />
                   <button
                     className="primary-button"
-                    onClick={() => reset(state.mode)}
+                    onClick={() =>
+                      state.status === "complete" && onNext
+                        ? onNext()
+                        : reset(state.mode)
+                    }
                   >
-                    {state.status === "complete" ? "Play again" : "Try again"}{" "}
-                    <span>↗</span>
+                    {state.status === "complete"
+                      ? onNext
+                        ? levelNumber < 5
+                          ? "Next level"
+                          : "Back to Worlds"
+                        : "Play again"
+                      : "Try again"}{" "}
+                    <span aria-hidden="true">↗</span>
                   </button>
+                  {state.status === "complete" && onNext && (
+                    <button
+                      className="text-button"
+                      onClick={() => reset(state.mode)}
+                    >
+                      Play again
+                    </button>
+                  )}
                   {state.status === "failed" && (
                     <button
                       className="text-button"
@@ -618,6 +651,15 @@ export function App({ controller }: { controller: Controller }) {
                   mistakes and no campaign rewards. Both tools are free in this
                   prototype and mark a run assisted.
                 </p>
+                <button
+                  className="text-button"
+                  onClick={() => {
+                    setSettings(false);
+                    showLab(true);
+                  }}
+                >
+                  Rule lab
+                </button>
                 <p className="muted">
                   Motion preferences stay on this device. Gameplay uses no
                   account or network after loading.

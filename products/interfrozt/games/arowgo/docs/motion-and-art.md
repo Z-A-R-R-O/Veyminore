@@ -74,3 +74,7 @@ Analyze was removed from the playable UI; Hint and Erase use a two-column tray. 
 ## Mobile game surface — 10 November 2026
 
 Mobile uses a fixed `100dvh` shell with safe-area insets. The page does not scroll. A ResizeObserver measures the board region so the square puzzle fits the remaining height and width without stretching hit targets. HUD, feedback, compact Hint/Erase controls and mode switch remain visible. In landscape the board and controls sit side by side. The motto is omitted during mobile play. Result screens use the full safe viewport; long Settings content can scroll inside its dialog, without scrolling the game. Browser toolbar changes and rotation resize the available region automatically.
+
+## v0.1 hint and adaptive pages
+
+The current Hint replaces the earlier traveling spark with a breathing gold ring at a legal arrow tip (1100 ms eased expansion/reversal) and retained halo. Reduced motion keeps a static highlight. Hub navigation is separate from focused play. Desktop now also fits the available viewport. See [v0.1 contract](v0.1-prototype.md) for page layouts and current scope; earlier single-level descriptions remain historical evidence.

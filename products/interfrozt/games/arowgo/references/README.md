@@ -45,3 +45,7 @@ Use lavender/pink atmosphere, blossoms, waterfalls and floating islands around a
 ### REF-06 — Gameplay
 
 ![Gameplay concept](06-gameplay.png)
+
+## Latest reference refresh
+
+The user supplied a renewed six-screen set on 10 November 2026. Originals, hashes, gallery and implementation mapping are in [the refresh archive](2026-11-10-refresh/README.md). Current implementation adopts the hero/title, glossy hierarchy, world trail, mode cards and milestone collection while retaining the prototype's real five-level scope. Earlier three-tool wording is historical: the current game has Hint and Erase only.

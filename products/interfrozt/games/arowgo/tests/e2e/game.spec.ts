@@ -13,11 +13,11 @@ test("blocked feedback, saved progress, full clear and no duplicate replay rewar
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
+  await page.goto("/#play/1");
   await expect(page.locator('canvas[data-ready="true"]')).toBeVisible();
   await arrow(page, "B");
   await expect(
-    page.getByText("Arrow B is blocked by A.", { exact: false }),
+    page.getByText("A little blocked. Try another path.", { exact: false }),
   ).toBeVisible();
   await expect(page.getByLabel("2 hearts remaining")).toBeVisible();
   await arrow(page, "A");
@@ -42,7 +42,7 @@ test("blocked feedback, saved progress, full clear and no duplicate replay rewar
 test("real pointer input, restart cancellation, practice and rule lab isolation", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/#play/1");
   await expect(page.locator('canvas[data-ready="true"]')).toBeVisible();
   const box = (await page.getByTestId("board").boundingBox())!;
   // Midpoint on A between logical cells: (150,120) in the 600 px scene.
@@ -62,6 +62,7 @@ test("real pointer input, restart cancellation, practice and rule lab isolation"
   await page.getByRole("button", { name: "Switch to Practice" }).click();
   await page.getByRole("button", { name: "Start fresh" }).click();
   await expect(page.getByLabel("Unlimited mistakes")).toBeVisible();
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
   await page.getByRole("button", { name: "Rule lab" }).click();
   await arrow(page, "A");
   await expect(
@@ -84,7 +85,7 @@ test("real pointer input, restart cancellation, practice and rule lab isolation"
 test("rapid taps cost one heart, failure can resume, and dialogs support keyboard dismissal", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/#play/1");
   await expect(page.locator('canvas[data-ready="true"]')).toBeVisible();
   const box = (await page.getByTestId("board").boundingBox())!;
   await page.mouse.dblclick(

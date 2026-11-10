@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 test("victory recognizes mastery, settles, and does not replay on reload", async ({
   page,
 }, info) => {
-  await page.goto("/");
+  await page.goto("/#play/1");
   for (const id of ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]) {
     const button = page.getByRole("button", {
       name: `Slide arrow ${id}`,

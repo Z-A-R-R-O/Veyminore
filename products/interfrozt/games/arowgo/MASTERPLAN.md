@@ -1,5 +1,7 @@
 # AROWGO — Masterplan 2.3
 
+> Current implemented release: [v0.1 prototype](docs/v0.1-prototype.md). Five levels and hub navigation supersede the original one-level slice; remaining masterplan features remain future scope.
+
 **Edition:** Build-ready documentation and consistency corrections, 10 November 2026.\
 **Parent:** InterFrozt / Veyminore.\
 **Status:** First browser mechanic proof and one playable level implemented; campaign and native acceptance remain pending.\

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 test("blocked curved arrow approaches, recoils, and costs exactly one heart", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/#play/1");
   await expect(
     page.getByRole("button", { name: "Analyze", exact: true }),
   ).toHaveCount(0);

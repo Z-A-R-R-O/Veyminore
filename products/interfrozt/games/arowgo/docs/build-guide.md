@@ -1,5 +1,7 @@
 # AROWGO build guide
 
+> Current implemented scope: [v0.1 prototype](v0.1-prototype.md). The one-level steps below describe the original foundation; five-level campaign persistence and routing are now implemented.
+
 Working implementation plan · 10 November 2026 · [Masterplan](../MASTERPLAN.md) · [Backlog](execution-backlog.md)
 
 ## Outcome first

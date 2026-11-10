@@ -1,5 +1,7 @@
 # AROWGO documentation index
 
+> Current implemented release: [v0.1 prototype](v0.1-prototype.md). Five levels and hub navigation supersede the original one-level slice; remaining masterplan features remain future scope.
+
 [Game psychology and essential typography](game-psychology-and-typography.md).
 
 [Reusable reward elements and Satoshi](reusable-elements.md).
@@ -9,6 +11,9 @@ Current visual implementation: [motion and art](motion-and-art.md), [verificatio
 [Game overview](../README.md) · [Working masterplan](../MASTERPLAN.md) · [Reference images](../references/README.md)
 
 ## Implemented prototype
+
+- [v0.1 current contract](v0.1-prototype.md): pages, five levels, local progression and animation.
+- [v0.1 verification](verification/v0.1.md): campaign and layout acceptance evidence.
 
 - [Rule proof](rule-proof.md): nine interactive examples and independent checker comparison.
 - [Verification report](verification/first-playable.md): tested behavior, native build blocker and known limits.

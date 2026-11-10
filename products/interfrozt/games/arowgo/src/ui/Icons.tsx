@@ -8,9 +8,12 @@ export type IconName =
   | "leaf"
   | "close"
   | "settings"
-  | "home";
+  | "home"
+  | "gamepad";
 export function Icon({ name }: { name: IconName }) {
   const paths: Record<IconName, string> = {
+    gamepad:
+      "M8 7h8c3 0 4 2 5 8s-2 6-5 2H8c-3 4-6 4-5-2s2-8 5-8Zm-1 3v6m-3-3h6m5-2h.01m3 3h.01",
     arrow: "M5 17V7h14m-5-5 5 5-5 5",
     reset: "M4 10a8 8 0 1 1 1 8M4 3v7h7",
     bulb: "M9 18h6m-5 4h4M8 14a6 6 0 1 1 8 0c-1 1-1 2-1 4H9c0-2 0-3-1-4",

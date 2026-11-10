@@ -14,12 +14,14 @@ test("tools are functional, Erase is cancellable, and reduced motion survives re
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
+  await page.goto("/#play/1");
   await expect(page.locator("canvas[data-ready=true]")).toBeVisible();
   await page
     .getByRole("button", { name: "A little hint", exact: true })
     .click();
-  await expect(page.getByText("Try arrow A.", { exact: false })).toBeVisible();
+  await expect(
+    page.getByText("Follow the breathing ring.", { exact: false }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Erase", exact: true }).click();
   await select(page, "B");
   await expect(page.getByRole("dialog")).toBeVisible();
@@ -77,7 +79,7 @@ test("system reduced motion disables ambient animation and touch layout stays wi
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/#play/1");
   await expect(page.locator(".app-shell")).toHaveAttribute(
     "data-motion",
     "reduced",

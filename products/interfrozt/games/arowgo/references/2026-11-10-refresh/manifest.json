@@ -1,0 +1,38 @@
+[
+  {
+    "file": "01-home.png",
+    "source": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-54f3cfb5-a48c-4f34-8bbe-a2d0794f8f6d.png",
+    "sha256": "28ebe771ee2fdaa5042c82d34d295b78cbecdae53f3a52be8128b75f7c8d734c",
+    "role": "User supplied design reference; not a runtime asset"
+  },
+  {
+    "file": "02-modes.png",
+    "source": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-f7c65f3a-6dce-4ac4-8829-5b6b7890b17c.png",
+    "sha256": "8f704d5645b2e9b5f7f460c819156b4a37ce12bd2e0eee9d1af10235839d9a85",
+    "role": "User supplied design reference; not a runtime asset"
+  },
+  {
+    "file": "03-world.png",
+    "source": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-b54aefc9-bf5e-4c82-913b-d935af4d2424.png",
+    "sha256": "8a96f03efa656f4397db281a301b2d4522c63cdb35b66c18615babceab17decf",
+    "role": "User supplied design reference; not a runtime asset"
+  },
+  {
+    "file": "04-shop.png",
+    "source": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-374f76ed-039b-4307-a20c-2bd60c7a88fc.png",
+    "sha256": "52d436baf2b41ec7f899790e86174e42f8efc7ce34b542fde692e083e6d1acad",
+    "role": "User supplied design reference; not a runtime asset"
+  },
+  {
+    "file": "05-profile.png",
+    "source": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-dbc92845-064c-4135-854b-a8dc29a28ef9.png",
+    "sha256": "ac4c4fce3d6d97f61e9aa6b858145fdb1a652addbf7b17e007ef04222cacafeb",
+    "role": "User supplied design reference; not a runtime asset"
+  },
+  {
+    "file": "06-gameplay.png",
+    "source": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\codex-clipboard-c749c946-24ad-476e-b981-918fd7511e99.png",
+    "sha256": "26857367405205615f8dc913ba50ee727251ca5de3b1cdb49adada54dc19733f",
+    "role": "User supplied design reference; not a runtime asset"
+  }
+]
