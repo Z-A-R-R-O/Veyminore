@@ -5,6 +5,10 @@ test("vector paths remain unique and bent arrow flows out", async ({
   await page.goto("/");
   await expect(page.locator("canvas[data-ready=true]")).toBeVisible();
   await expect(page.locator(".vector-arrows")).toHaveCount(1);
+  await expect(page.locator('[data-arrow="D"] .arrow-body')).toHaveAttribute(
+    "stroke",
+    "#422563",
+  );
   await expect(page.locator('[data-arrow="D"]')).toHaveCount(1);
   for (const id of ["A", "B", "C"]) {
     const button = page.getByRole("button", {

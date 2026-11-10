@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## Arrow rendering repair — 10 November 2026
+
+- Reproduced two vector layers in the user's live tab, with removed C/H arrows still visible and straight shafts missing due to an old object-bounding-box gradient.
+- Renderer startup now removes stale vector layers owned by its host. Arrow bodies use a solid stroke without shared gradient IDs.
+- Reloaded the user tab and verified one layer with exactly saved active arrows E/F/G/I/J, intact shafts, 25 coins and three hearts.
+
+
 ## Vector arrows and snake exits — 10 November 2026
 
 - Replaced fixed-resolution arrow drawing with SVG, rounded bends and rounded arrowheads.

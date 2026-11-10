@@ -174,7 +174,11 @@ class PuzzleScene extends Phaser.Scene {
     this.vector.setAttribute("viewBox", "0 0 600 600");
     this.vector.setAttribute("aria-hidden", "true");
     this.vector.classList.add("vector-arrows");
-    this.vector.innerHTML = `<defs><linearGradient id="arrow-ink" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="600" y2="600"><stop stop-color="#65428b"/><stop offset=".5" stop-color="#422563"/><stop offset="1" stop-color="#301a50"/></linearGradient></defs>`;
+    // React hot reload can leave DOM owned by an older Phaser scene behind.
+    // The current host owns exactly one vector layer, independent of old cleanup code.
+    this.game.canvas
+      .parentElement!.querySelectorAll(".vector-arrows")
+      .forEach((layer) => layer.remove());
     this.game.canvas.parentElement!.appendChild(this.vector);
     this.events.once("shutdown", () => this.vector.remove());
     const grid = this.add.graphics();
@@ -300,7 +304,7 @@ class PuzzleScene extends Phaser.Scene {
         "g",
       );
       element.dataset.arrow = arrow.id;
-      element.innerHTML = `<path class="arrow-halo" fill="none" stroke="#c78aff" stroke-width="32" opacity="${highlighted ? 0.32 : 0}"/><path class="arrow-shadow" fill="none" stroke="#735295" stroke-width="21" opacity=".14" transform="translate(0 4)"/><path class="arrow-body" fill="none" stroke="${highlighted ? "#914bd0" : "url(#arrow-ink)"}" stroke-width="18"/><path class="arrow-sheen" fill="none" stroke="#ddcaff" stroke-width="3" opacity=".24" transform="translate(-1 -2)"/><path class="arrow-head" fill="${highlighted ? "#914bd0" : "#422563"}" stroke="${highlighted ? "#914bd0" : "#422563"}" stroke-width="3"/><text font-family="Arial" font-size="12" fill="#806997" text-anchor="middle"></text>`;
+      element.innerHTML = `<path class="arrow-halo" fill="none" stroke="#c78aff" stroke-width="32" opacity="${highlighted ? 0.32 : 0}"/><path class="arrow-shadow" fill="none" stroke="#735295" stroke-width="21" opacity=".14" transform="translate(0 4)"/><path class="arrow-body" fill="none" stroke="${highlighted ? "#914bd0" : "#422563"}" stroke-width="18"/><path class="arrow-sheen" fill="none" stroke="#ddcaff" stroke-width="3" opacity=".24" transform="translate(-1 -2)"/><path class="arrow-head" fill="${highlighted ? "#914bd0" : "#422563"}" stroke="${highlighted ? "#914bd0" : "#422563"}" stroke-width="3"/><text font-family="Arial" font-size="12" fill="#806997" text-anchor="middle"></text>`;
       element.querySelectorAll("path").forEach((path) => {
         path.setAttribute("stroke-linecap", "round");
         path.setAttribute("stroke-linejoin", "round");
