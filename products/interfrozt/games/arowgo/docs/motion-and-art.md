@@ -6,7 +6,7 @@ Implemented 10 November 2026. Scope: one playable level, existing Rule lab and l
 
 1. **Environment:** original portrait/landscape raster scenery behind live UI. CSS petals, mist, rays and fireflies supply slow 2D motion. Keep the board opaque enough to protect arrow contrast.
 2. **Interface:** React owns state and accessible controls; CSS supplies brief entrance, press, heart, coin and tool feedback. Icons and hearts are SVG, so they stay sharp at different screen sizes.
-3. **Gameplay:** Phaser draws paths, rigid exit tweens, collision rings, hint glows and short particle trails. The pure domain commits and saves the result before presentation starts. No decorative randomness enters collision, rewards or saves.
+3. **Gameplay:** SVG draws resolution-independent paths and rounded arrowheads; Phaser drives snake exit timing, collision rings and hint glows. The pure domain commits and saves the result before presentation starts. No decorative randomness enters collision, rewards or saves.
 
 No additional animation package or plugin is needed for this slice. Existing Phaser handles board effects; CSS handles ambient/interface effects. Add a new runtime only for a demonstrated requirement such as authored skeletal characters, after checking bundle and device costs.
 
@@ -14,7 +14,7 @@ No additional animation package or plugin is needed for this slice. Existing Pha
 
 | Effect | Implemented behavior |
 | --- | --- |
-| Arrow exit | Whole shape translates in 360 ms; never retracts around bends |
+| Arrow exit | Tail follows the original bends while the head extends forward; 620 ms sine ease-in-out |
 | Erase | Confirm first, then 300 ms fade and pink burst |
 | Blocked move | Brief alpha feedback and collision ring; no illegal translation |
 | Hint | Separate glow pulses over 750 ms; highlight expires after five seconds |
@@ -38,3 +38,11 @@ The additive `erased: string[]` session field records bypass removals. Original 
 - [Asset provenance and exact prompts](assets/bloom-valley.md)
 - [Verification and screenshots](verification/bloom-motion.md)
 - Next: physical Android profiling, sound/haptics with mute controls, then additional authored levels. Keep collision tests as the gate for any movement change.
+
+## Vector/snake amendment — 10 November 2026
+
+The user requested crisp arrows and snake-like exits. Live SVG replaces the fixed-resolution arrow raster; curves and rounded tips scale to display density and zoom, including 8K displays, without an 8K bitmap allocation. This is not a claim of measured 8K frame rate. The successful-exit presentation now advances a constant-length body along its original route, then off the board. Existing conservative whole-body swept collision validation remains unchanged; blocked arrows never use the snake exit. This explicitly supersedes earlier rigid-only animation guidance, not the domain rule. Input cooldown is 680 ms to cover the 620 ms animation. Reduced motion skips the successful tween.
+
+Geometry tests cover constant length, corner traversal, full exit and nonmutation. Renderer verification covers one vector layer after remount, evolving bent-arrow path and removal cleanup. [DPR 2 capture](verification/vector-arrows.png) and [exit recording](verification/snake-exit.webm).
+
+Validation: 43 unit tests passed; 10 existing desktop/phone browser cases plus two new vector lifecycle/animation cases passed. Typecheck, formatting, production build and Android asset sync passed. DPR 2 screenshot visually inspected. Native device/8K display performance has not been measured.

@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## Vector arrows and snake exits — 10 November 2026
+
+- Replaced fixed-resolution arrow drawing with SVG, rounded bends and rounded arrowheads.
+- Added constant-length snake exit presentation with 620 ms easing; kept swept collision rules unchanged.
+- Added geometry and browser lifecycle/motion tests; documented the user-requested animation amendment.
+
+
 ## Bloom motion enhancement — 10 November 2026
 
 - Added original desktop/portrait Bloom Valley scenery, glossy HUD, vector icons and responsive tool cards.

@@ -18,7 +18,7 @@ export function App({ controller }: { controller: Controller }) {
     [fixture, setFixture] = useState(5);
   const [hints, setHints] = useState<string[]>([]);
   const [feedback, setFeedback] = useState(
-    "Tap an arrow with a clear path. The whole shape slides together.",
+    "Tap an arrow with a clear path. Clear arrows flow out along their path.",
   );
   const [busy, setBusy] = useState(false),
     [settings, setSettings] = useState(false);
@@ -92,12 +92,12 @@ export function App({ controller }: { controller: Controller }) {
   }, [modalOpen]);
 
   function gate() {
-    cooldown.current = performance.now() + (motion.reduced ? 140 : 520);
+    cooldown.current = performance.now() + (motion.reduced ? 140 : 680);
     setBusy(true);
     clearTimeout(timer.current);
     timer.current = setTimeout(
       () => setBusy(false),
-      motion.reduced ? 140 : 520,
+      motion.reduced ? 140 : 680,
     );
   }
   function clearHints() {

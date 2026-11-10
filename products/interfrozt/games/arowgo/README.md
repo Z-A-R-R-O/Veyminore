@@ -17,7 +17,7 @@ Open [AROWGO locally](http://127.0.0.1:4173). The tested host is Node 25.1.0; us
 
 ## Play
 
-Tap anywhere along an arrow to slide its entire shape in the direction it points. Another arrow anywhere in its swept path blocks it. Clear all ten paths. Story has three mistake hearts; Practice has unlimited mistakes. Hint reveals one legal arrow; Analyze reveals all currently legal arrows. Erase removes a chosen arrow after confirmation. All three tools are free in this prototype and mark the result assisted. Restart asks before resetting your current run.
+Tap anywhere along an arrow to send it out with a flowing snake animation. Legality still checks the entire rigid swept path; another arrow anywhere in that path blocks the move. Clear all ten paths. Story has three mistake hearts; Practice has unlimited mistakes. Hint reveals one legal arrow; Analyze reveals all currently legal arrows. Erase removes a chosen arrow after confirmation. All three tools are free in this prototype and mark the result assisted. Restart asks before resetting your current run.
 
 Keyboard: Tab to an arrow, then Enter. Open **Rule lab** to explore small clear/blocked examples, especially the bent-body obstruction. Settings includes persistent Rich/Subtle effects and reduced motion, respecting the system preference. Progress saves on this browser/device. The first Story clear grants 25 prototype coins; replay does not repeat that reward.
 

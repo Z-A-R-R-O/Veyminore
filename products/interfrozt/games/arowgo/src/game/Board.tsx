@@ -1,5 +1,6 @@
 import { useEffect, useRef, useImperativeHandle, type Ref } from "react";
 import Phaser from "phaser";
+import { snake, roundedPath, length, type Point } from "./arrowGeometry";
 import { direction, type Level } from "../domain/rules";
 import type { Outcome } from "../application/session";
 export interface BoardHandle {
@@ -72,6 +73,7 @@ export function Board({
     return () => {
       sceneRef.current = null;
       document.removeEventListener("visibilitychange", visibility);
+      scene.retire();
       game.destroy(true);
     };
   }, [level]);
@@ -143,6 +145,12 @@ export function Board({
 }
 
 class PuzzleScene extends Phaser.Scene {
+  private vector!: SVGSVGElement;
+  private retired = false;
+  retire() {
+    this.retired = true;
+    this.vector?.remove();
+  }
   private shapes = new Map<string, Phaser.GameObjects.Container>();
   private animating = new Set<string>();
   private active: string[] = [];
@@ -160,7 +168,15 @@ class PuzzleScene extends Phaser.Scene {
     this.cell = 480 / level.board.columns;
   }
   create() {
+    if (this.retired) return;
     this.ready = true;
+    this.vector = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    this.vector.setAttribute("viewBox", "0 0 600 600");
+    this.vector.setAttribute("aria-hidden", "true");
+    this.vector.classList.add("vector-arrows");
+    this.vector.innerHTML = `<defs><linearGradient id="arrow-ink" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="600" y2="600"><stop stop-color="#65428b"/><stop offset=".5" stop-color="#422563"/><stop offset="1" stop-color="#301a50"/></linearGradient></defs>`;
+    this.game.canvas.parentElement!.appendChild(this.vector);
+    this.events.once("shutdown", () => this.vector.remove());
     const grid = this.add.graphics();
     grid.fillStyle(0xb4a0d9, 0.23);
     for (let x = 0; x < this.level.board.columns; x++)
@@ -209,7 +225,15 @@ class PuzzleScene extends Phaser.Scene {
     this.sync(this.active, this.hints);
   }
   private dispose(shape: Phaser.GameObjects.Container) {
-    this.tweens.killTweensOf([shape, ...shape.list]);
+    this.tweens.killTweensOf(
+      [
+        shape,
+        ...shape.list,
+        shape.getData("pulse"),
+        shape.getData("travel"),
+      ].filter(Boolean),
+    );
+    (shape.getData("vector") as SVGGElement | undefined)?.remove();
     shape.destroy();
   }
   private burst(x: number, y: number, color: number, count: number) {
@@ -270,67 +294,68 @@ class PuzzleScene extends Phaser.Scene {
     for (const arrow of this.level.arrows) {
       if (!active.includes(arrow.id) || this.animating.has(arrow.id)) continue;
       const highlighted = hints.includes(arrow.id);
-      const color = highlighted ? 0x8a44d4 : 0x3c2365;
-      const g = this.add.graphics();
-      const drawPath = (
-        target: Phaser.GameObjects.Graphics,
-        width: number,
-        tint: number,
-        alpha: number,
-        offset = 0,
-      ) => {
-        target.lineStyle(width, tint, alpha);
-        target.beginPath();
-        arrow.points.forEach(([x, y], i) =>
-          i
-            ? target.lineTo(this.coord(x), this.coord(y) + offset)
-            : target.moveTo(this.coord(x), this.coord(y) + offset),
-        );
-        target.strokePath();
-        target.fillStyle(tint, alpha);
-        for (const [x, y] of arrow.points)
-          target.fillCircle(this.coord(x), this.coord(y) + offset, width / 2);
-      };
-      const glow = this.add.graphics();
-      if (highlighted) {
-        drawPath(glow, 34, 0xc78aff, 0.4);
-        if (!this.reduced)
-          this.tweens.add({
-            targets: glow,
-            alpha: 0.25,
-            yoyo: true,
-            repeat: -1,
-            duration: 750,
-          });
-      }
-      drawPath(g, 23, 0x735295, 0.13, 5);
-      drawPath(g, 19, color, 1);
-      drawPath(g, 5, 0xdbc6ff, 0.15, -3);
-      g.fillStyle(color, 1);
-      const [dx, dy] = direction(arrow),
-        [hx, hy] = arrow.points.at(-1)!;
-      const x = this.coord(hx),
-        y = this.coord(hy);
-      g.fillTriangle(
-        x + dx * 18,
-        y + dy * 18,
-        x - dx * 10 - dy * 16,
-        y - dy * 10 + dx * 16,
-        x - dx * 10 + dy * 16,
-        y - dy * 10 - dx * 16,
+      const group = this.add.container(0, 0);
+      const element = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "g",
       );
-      const [tx, ty] = arrow.points[0];
-      const label = this.add
-        .text(this.coord(tx) - 17, this.coord(ty) + 14, arrow.id, {
-          fontFamily: "Arial",
-          fontSize: "13px",
-          color: "#806997",
-          fontStyle: "bold",
-        })
-        .setOrigin(0.5);
-      const group = this.add.container(0, 0, [glow, g, label]);
+      element.dataset.arrow = arrow.id;
+      element.innerHTML = `<path class="arrow-halo" fill="none" stroke="#c78aff" stroke-width="32" opacity="${highlighted ? 0.32 : 0}"/><path class="arrow-shadow" fill="none" stroke="#735295" stroke-width="21" opacity=".14" transform="translate(0 4)"/><path class="arrow-body" fill="none" stroke="${highlighted ? "#914bd0" : "url(#arrow-ink)"}" stroke-width="18"/><path class="arrow-sheen" fill="none" stroke="#ddcaff" stroke-width="3" opacity=".24" transform="translate(-1 -2)"/><path class="arrow-head" fill="${highlighted ? "#914bd0" : "#422563"}" stroke="${highlighted ? "#914bd0" : "#422563"}" stroke-width="3"/><text font-family="Arial" font-size="12" fill="#806997" text-anchor="middle"></text>`;
+      element.querySelectorAll("path").forEach((path) => {
+        path.setAttribute("stroke-linecap", "round");
+        path.setAttribute("stroke-linejoin", "round");
+      });
+      group.setData("vector", element);
+      this.vector.appendChild(element);
+      const points: Point[] = arrow.points.map(([x, y]) => [
+        this.coord(x),
+        this.coord(y),
+      ]);
+      this.drawVector(element, points, arrow.id);
+      if (highlighted && !this.reduced) {
+        const halo = element.querySelector(".arrow-halo")!;
+        const pulse = { alpha: 0.32 };
+        group.setData("pulse", pulse);
+        this.tweens.add({
+          targets: pulse,
+          alpha: 0.12,
+          yoyo: true,
+          repeat: -1,
+          duration: 750,
+          onUpdate: () => halo.setAttribute("opacity", String(pulse.alpha)),
+        });
+      }
       this.shapes.set(arrow.id, group);
     }
+  }
+  update() {
+    for (const shape of this.shapes.values()) {
+      const element = shape.getData("vector") as SVGGElement;
+      element.setAttribute("opacity", String(shape.alpha));
+    }
+  }
+  private drawVector(element: SVGGElement, points: Point[], label = "") {
+    const d = roundedPath(points);
+    for (const selector of [
+      ".arrow-halo",
+      ".arrow-shadow",
+      ".arrow-body",
+      ".arrow-sheen",
+    ])
+      element.querySelector(selector)!.setAttribute("d", d);
+    const [x, y] = points.at(-1)!,
+      [px, py] = points.at(-2)!;
+    const angle = (Math.atan2(y - py, x - px) * 180) / Math.PI;
+    const head = element.querySelector(".arrow-head")!;
+    head.setAttribute(
+      "d",
+      "M 16 0 Q 18 0 15 -2 L -8 -13 Q -11 -15 -10 -11 L -6 0 L -10 11 Q -11 15 -8 13 L 15 2 Q 18 0 16 0 Z",
+    );
+    head.setAttribute("transform", `translate(${x} ${y}) rotate(${angle})`);
+    const text = element.querySelector("text")!;
+    text.textContent = label;
+    text.setAttribute("x", String(points[0][0] - 17));
+    text.setAttribute("y", String(points[0][1] + 19));
   }
   animate(result: Outcome, reduced: boolean) {
     if (!this.ready || !result.exit || !result.arrowId) return;
@@ -356,31 +381,44 @@ class PuzzleScene extends Phaser.Scene {
       return;
     }
     if (result.exit.clear) {
+      const points: Point[] = arrow.points.map(([x, y]) => [
+        this.coord(x),
+        this.coord(y),
+      ]);
+      const element = shape.getData("vector") as SVGGElement;
+      const travel = { distance: 0 };
+      shape.setData("travel", travel);
+      element.dataset.motion = "snake";
       const [dx, dy] = direction(arrow);
+      const head = points.at(-1)!;
+      const boundary =
+        dx > 0
+          ? 640 - head[0]
+          : dx < 0
+            ? head[0] + 40
+            : dy > 0
+              ? 640 - head[1]
+              : head[1] + 40;
+      const finish = () => {
+        this.dispose(shape);
+        this.shapes.delete(id);
+        this.animating.delete(id);
+        this.sync(this.active, this.hints);
+      };
+      if (reduced) {
+        finish();
+        return;
+      }
       this.ring(this.coord(hx), this.coord(hy), 0xbc8af3);
-      this.burst(this.coord(hx), this.coord(hy), 0xd9b1ff, 8);
-      let lastTrail = 0;
+      this.burst(this.coord(hx), this.coord(hy), 0xd9b1ff, 6);
       this.tweens.add({
-        targets: shape,
-        x: dx * (result.exit.distance + 2) * this.cell,
-        y: dy * (result.exit.distance + 2) * this.cell,
-        duration: reduced ? 0 : 360,
-        ease: "Cubic.easeIn",
-        onUpdate: () => {
-          if (reduced || !this.rich || this.time.now - lastTrail < 90) return;
-          lastTrail = this.time.now;
-          const [tx, ty] = arrow.points[0],
-            x = this.coord(tx) + shape.x,
-            y = this.coord(ty) + shape.y;
-          if (x > 25 && x < 575 && y > 25 && y < 575)
-            this.burst(x, y, 0xe4c9ff, 2);
-        },
-        onComplete: () => {
-          this.dispose(shape);
-          this.shapes.delete(id);
-          this.animating.delete(id);
-          this.sync(this.active, this.hints);
-        },
+        targets: travel,
+        distance: length(points) + boundary,
+        duration: 620,
+        ease: "Sine.easeInOut",
+        onUpdate: () =>
+          this.drawVector(element, snake(points, travel.distance)),
+        onComplete: finish,
       });
     } else {
       const blocker = this.shapes.get(result.exit.blocker);
