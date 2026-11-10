@@ -16,4 +16,14 @@ Select the intended account/team and AROWGO project when linking. The preparatio
 
 After deployment, check the public URL, font/scenery requests, arrow interaction, saved-progress reload and completion. Browser localStorage belongs to each origin: localhost saves do not automatically transfer to the public Vercel URL. Keep the production alias stable for future visits.
 
-Deployment status: package prepared; Vercel authentication is required before publishing. No live URL has been created by this workflow yet.
+## Production record — 10 November 2026
+
+- Live URL: https://arowgo.vercel.app
+- Vercel project: `zarros-projects-e983b612/arowgo`.
+- Deployment: `dpl_EKyVHtLzVXvRWrP8RArMUtjyC8sd`, production READY.
+- Inspector: https://vercel.com/zarros-projects-e983b612/arowgo/EKyVHtLzVXvRWrP8RArMUtjyC8sd
+- Source build: local tested game at commit `2e0fb84`; packaging commit `1cd8c80`.
+- Anonymous browser verification: HTTP 200, game canvas ready, Satoshi loaded, blocked B costs one heart, A clears, reload retains nine arrows and two hearts, no page errors.
+- [Live screenshot](verification/vercel-live.png).
+
+Vercel linked `Z-A-R-R-O/Veyminore` automatically. Project build settings point to `products/interfrozt/games/arowgo`, `pnpm build`, output `dist`. This production release used the locally prepared static build; no Git push or Git-triggered build was performed or verified. Local account tokens and Vercel environment files remain ignored.

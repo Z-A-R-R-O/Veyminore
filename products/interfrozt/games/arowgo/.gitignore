@@ -12,3 +12,4 @@ android/app/src/main/assets/capacitor.plugins.json
 *.keystore
 
 .vercel/
+.env*
