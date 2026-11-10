@@ -2,6 +2,12 @@
 
 [Game overview](../README.md) · [Working masterplan](../MASTERPLAN.md) · [Reference images](../references/README.md)
 
+## Implemented prototype
+
+- [Rule proof](rule-proof.md): nine interactive examples and independent checker comparison.
+- [Verification report](verification/first-playable.md): tested behavior, native build blocker and known limits.
+- [Implementation ADR](decisions/0001-first-playable.md): provisional defaults realized in code.
+
 ## Working documents
 
 - [Build guide](build-guide.md): starting stack, small repository layout, first-slice contract, persistence and Git workflow.

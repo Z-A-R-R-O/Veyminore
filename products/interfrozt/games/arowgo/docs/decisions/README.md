@@ -26,6 +26,10 @@ Updated 10 November 2026. “Implemented” below means repository organization 
 | AW-012 | Proposed | First-clear campaign reward ledger plus per-attempt completion receipts; practice has no campaign rewards | A06 crash/replay/duplicate tests and product review |
 | IF-002 | Implemented | Use existing Veyminore Git repository; no nested repository for game docs | Local repository and scoped documentation commit |
 
+## Implemented prototype ADR
+
+[AW-013 — First playable](0001-first-playable.md) records the implemented defaults and evidence. Earlier provisional choices remain hypotheses for product/native validation; implemented behavior does not imply an external playtest has passed.
+
 ## Change procedure
 
 Assign a named owner before a task starts. Record rationale, evidence, affected specs, rules/content version impact and review date using the [decision template](../templates/decision.md). A rule change must update collision, renderer, solver, content and tests together. Preserve superseded rationale; do not rewrite the original 2.1 source.

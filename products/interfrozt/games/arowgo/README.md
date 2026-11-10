@@ -1,20 +1,55 @@
-# AROWGO
+# AROWGO — First Bloom
 
-**Think. Clear. Go.** A planned casual logic game about removing bent arrow paths in a valid order, set in a soft floating-island world.
+A playable bent-arrow puzzle under **Veyminore → InterFrozt**. One original level, a calm lavender interface, and a nine-example Rule lab.
 
-**Portfolio:** Veyminore → InterFrozt → AROWGO.\
-**Owner:** Veyminore; named implementation owners pending assignment.\
-**Status:** Pre-production documentation only. AROWGO remains a working name.
+**Status:** Browser prototype implemented. Android project generated and synced; native build and physical-device validation pending. AROWGO remains a working name.
 
-- [Masterplan 2.3 — working documentation edition](MASTERPLAN.md)
-- [Build guide and first-slice acceptance](docs/build-guide.md)
-- [Complete documentation index](docs/README.md)
-- [Review and recommended changes](docs/review-and-recommendations.md)
-- [Six visual references and screen review](references/README.md)
-- [Original supplied masterplan 2.1](references/AROWGO_Advanced_Masterplan_2.1.md)
+## Run locally
 
-The first implementation task is to prove the movement rule on tiny boards, then build one complete playable level. The intended first campaign contains 30–40 reviewed levels. Online services, purchases and live multiplayer are later work.
+From the Veyminore repository root, with a compatible Node runtime and pnpm 11.25.0:
 
-## Local setup
+```powershell
+pnpm install
+pnpm --filter @veyminore/arowgo dev --port 4173
+```
 
-No application, dependencies or build scripts are created in this documentation phase. Read the masterplan, resolve the P0 decisions, then create the smallest useful implementation. Do not treat example package trees in the source plan as existing directories.
+Open [AROWGO locally](http://127.0.0.1:4173). The tested host is Node 25.1.0; use a runtime that satisfies the pinned tooling's engine requirements. This game requires Node 22.12 or newer, which is stricter than the repository's historical Node 20 minimum.
+
+## Play
+
+Tap anywhere along an arrow to slide its entire shape in the direction it points. Another arrow anywhere in its swept path blocks it. Clear all ten paths. Story has three mistake hearts; Practice has unlimited mistakes. Hint reveals one legal arrow and marks the result assisted. Restart asks before resetting your current run.
+
+Keyboard: Tab to an arrow, then Enter. Open **Rule lab** to explore small clear/blocked examples, especially the bent-body obstruction. Settings includes reduced motion. Progress saves on this browser/device. The first Story clear grants 25 prototype coins; replay does not repeat that reward.
+
+## Checks
+
+```powershell
+pnpm --filter @veyminore/arowgo typecheck
+pnpm --filter @veyminore/arowgo test
+pnpm --filter @veyminore/arowgo lint
+pnpm --filter @veyminore/arowgo exec playwright install chromium
+pnpm --filter @veyminore/arowgo test:e2e
+pnpm --filter @veyminore/arowgo build
+```
+
+`lint` currently checks formatting with Prettier; strict TypeScript provides static checking. Browser tests exercise desktop and emulated phone contexts. They do not replace real-device tests. No root-workspace-wide pass is claimed.
+
+## Android preparation
+
+```powershell
+pnpm --filter @veyminore/arowgo android:sync
+pnpm --filter @veyminore/arowgo exec cap open android
+```
+
+The native project is in `android/`. Install the compatible JDK and Android SDK/Studio before compiling. The current environment's Gradle attempt stopped because Java and `JAVA_HOME` were absent. Do not mark Android tested from successful asset sync alone. Follow the [verification report](docs/verification/first-playable.md) for the remaining device checks.
+
+## Documentation
+
+- [Rule proof and examples](docs/rule-proof.md)
+- [First-playable evidence and limitations](docs/verification/first-playable.md)
+- [Implementation decision](docs/decisions/0001-first-playable.md)
+- [Masterplan](MASTERPLAN.md) and [documentation index](docs/README.md)
+- [Build guide](docs/build-guide.md) and [execution backlog](docs/execution-backlog.md)
+- [Original references](references/README.md)
+
+**Owner:** Veyminore; product acceptance and named release ownership remain to be assigned. No account, ads, purchases, analytics SDK, campaign expansion or server is implemented. The original reference images remain evidence; runtime scenery, paths and icons are drawn from code.

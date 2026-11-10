@@ -69,7 +69,7 @@ If the team chooses a Phaser-only app shell after the spike, replace the React b
 
 ## 9.4 Initial repository structure
 
-Begin with one game package and `src/domain`, `src/application`, `src/game`, `src/ui`, `src/storage`, `content/levels`, `public/assets` and `tests`. The [build guide](../build-guide.md) defines workspace integration and the planned Android directory. No runtime directories have been scaffolded yet. Extract packages only when a real consumer needs them; backend and monetization adapters remain deferred.
+Begin with one game package and `src/domain`, `src/application`, `src/game`, `src/ui`, `src/storage`, `content/levels`, `public/assets` and `tests`. The [build guide](../build-guide.md) defines workspace integration and the planned Android directory. The first playable now implements these directories; see the game README and build evidence. Extract packages only when a real consumer needs them; backend and monetization adapters remain deferred.
 
 ## 9.5 Core domain contracts
 

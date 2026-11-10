@@ -1,5 +1,14 @@
 # Documentation changelog
 
+## First playable 0.1.0 — 10 November 2026
+
+- Implemented a pure rigid-arrow domain, independent dependency solver and one original ten-arrow level.
+- Added React/Phaser gameplay, nine-example Rule lab, Story/Practice, Hint, restart, results and local save/reward recovery.
+- Added domain/state and desktop/mobile-emulation browser checks, exact dependency pins and generated Android project.
+- Recorded the missing-Java native compile blocker and kept physical-device/user acceptance gates open.
+- Updated documentation from planned-only status to the actual implemented browser scope.
+
+
 ## 2.3 — 10 November 2026
 
 - Added a practical build guide: one package, framework boundaries, early Android testing, state persistence, asset workflow and first-slice acceptance.

@@ -1,7 +1,7 @@
 {
   "name": "arowgo",
   "type": "product",
-  "status": "planned",
+  "status": "active",
   "owner": "veyminore",
-  "stack": []
+  "stack": ["typescript", "react", "phaser", "vite", "capacitor"]
 }

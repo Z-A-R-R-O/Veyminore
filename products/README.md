@@ -5,4 +5,4 @@ Products are maintained or planned offerings Veyminore owns. Each product has a 
 | Product | Scope | Status |
 | --- | --- | --- |
 | [ZETRO](zetro/README.md) | Controlled computer execution and agent-runtime infrastructure | In development |
-| [InterFrozt](interfrozt/README.md) | Games initiative; [AROWGO](interfrozt/games/arowgo/README.md) is the first planned game | Planning / documentation |
+| [InterFrozt](interfrozt/README.md) | Games initiative; [AROWGO](interfrozt/games/arowgo/README.md) has a first browser playable | In development |

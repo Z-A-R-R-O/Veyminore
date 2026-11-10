@@ -2,7 +2,7 @@
 
 **Edition:** Build-ready documentation and consistency corrections, 10 November 2026.\
 **Parent:** InterFrozt / Veyminore.\
-**Status:** Proposed implementation baseline, not a completed game or validated mechanic.\
+**Status:** First browser mechanic proof and one playable level implemented; campaign and native acceptance remain pending.\
 **Source:** [Original 2.1](references/AROWGO_Advanced_Masterplan_2.1.md), preserved unchanged.
 
 ## Direction
@@ -47,6 +47,10 @@ This reconciles the source's one-level, 10–15-level and 30–40-level targets 
 
 Follow the [build guide](docs/build-guide.md): one game package with TypeScript rules, a Phaser board, React screens and Vite tooling, packaged with Capacitor during the first Android slice. These are spike candidates, not validated dependencies. Keep state changes in an application controller and local persistence behind an adapter. Add backend services only when a validated feature requires them.
 
+## Current implementation
+
+The first playable implements rigid movement, a ten-arrow level, Story/Practice, Hint, restart/results, local progression and nine interactive rule examples. See the [rule proof](docs/rule-proof.md) and [build evidence](docs/verification/first-playable.md). Android asset sync succeeds; compilation and physical-device gates remain open.
+
 ## Start here
 
-Assign owners to the [execution backlog](docs/execution-backlog.md), review the [recommendations](docs/review-and-recommendations.md), and produce evidence for Gate A. Use the [templates and maintenance workflow](docs/maintenance.md) for future changes. No code, deployment, account setup or publishing is implied by this documentation delivery.
+Assign owners to the [execution backlog](docs/execution-backlog.md), review the [recommendations](docs/review-and-recommendations.md), and produce evidence for Gate A. Use the [templates and maintenance workflow](docs/maintenance.md) for future changes. The browser prototype is now implemented. Next validate the feel and actual Android behavior before expanding content.

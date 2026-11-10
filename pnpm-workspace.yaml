@@ -1,9 +1,11 @@
 packages:
   - "products/*"
+  - "products/interfrozt/games/*"
   - "products/*/apps/*"
   - "products/*/packages/*"
   - "labs/experiments/*"
   - "labs/prototypes/*"
   - "packages/*"
   - "templates/*"
-
+allowBuilds:
+  esbuild: true

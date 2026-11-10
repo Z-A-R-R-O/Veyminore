@@ -41,13 +41,13 @@ games/arowgo/
   references/           # Evidence only, excluded from runtime assets
 ```
 
-This is a planned layout. Only docs, references, README and metadata exist today. Start with one game package; extract reusable packages only when a concrete dependency needs them. Do not create the source plan's entire apps/packages/backend tree in advance.
+This layout is now implemented for the first playable, including the generated Android project. See the game README for actual commands and the verification report for remaining gates. Start with one game package; extract reusable packages only when a concrete dependency needs them. Do not create the source plan's entire apps/packages/backend tree in advance.
 
 ## Repository integration when implementation begins
 
-Use the existing Veyminore repository and root pnpm lockfile. Add `products/interfrozt/games/*` to `pnpm-workspace.yaml` when the first game package exists. Use a private package such as `@veyminore/arowgo`; retain the root package-manager convention. Check runtime versions against all selected build tools before installation rather than assuming the root minimum is sufficient.
+Use the existing Veyminore repository and root pnpm lockfile. The `products/interfrozt/games/*` glob is now present in `pnpm-workspace.yaml`. Use a private package such as `@veyminore/arowgo`; retain the root package-manager convention. Check runtime versions against all selected build tools before installation rather than assuming the root minimum is sufficient.
 
-Scaffold into the existing game directory carefully: preserve documentation and references, review generated files before replacing any file, and do not initialize a nested Git repository. Add game `dev`, `build`, `test`, `typecheck` and `lint` scripts when there is code to run. Document actual commands after scaffolding; they are not available yet. Keep the game build independent of unrelated product failures while reporting root-workspace failures accurately.
+Scaffold into the existing game directory carefully: preserve documentation and references, review generated files before replacing any file, and do not initialize a nested Git repository. Add game `dev`, `build`, `test`, `typecheck` and `lint` scripts when there is code to run. Actual commands are documented in the game README. Keep the game build independent of unrelated product failures while reporting root-workspace failures accurately.
 
 ## Build sequence and gates
 
