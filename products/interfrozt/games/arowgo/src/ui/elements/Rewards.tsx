@@ -16,7 +16,9 @@ export function CountUp({
   prefix?: string;
 }) {
   const previous = useRef(from ?? value);
-  const [display, setDisplay] = useState(value);
+  const [display, setDisplay] = useState(() =>
+    animate && from !== undefined ? from : value,
+  );
   useEffect(() => {
     const startValue = from ?? previous.current;
     previous.current = value;

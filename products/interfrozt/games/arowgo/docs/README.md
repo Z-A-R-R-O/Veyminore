@@ -56,3 +56,5 @@ Current visual implementation: [motion and art](motion-and-art.md), [verificatio
 - Release: roadmap → quality → risk/publishing → release evidence. Historical policy claims must be verified before use.
 
 [Generated island, game icons and reward art](assets/generated-art.md) — runtime asset inventory, exact built-in generation prompts and provenance.
+
+[Guest profile, cosmetic shop and completion fix](profile-shop-and-results.md): latest navigation, persistence, wallet and animation contract.

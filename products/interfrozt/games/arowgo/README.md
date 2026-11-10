@@ -1,6 +1,6 @@
 # AROWGO — First Bloom
 
-A playable bent-arrow puzzle under **Veyminore → InterFrozt**. Five playable levels, Home/Worlds/Modes/Progress/Settings pages, a focused puzzle view, and a nine-example Rule lab.
+A playable bent-arrow puzzle under **Veyminore → InterFrozt**. Five playable levels, Home/Worlds/Modes/Shop/Profile pages and top-icon Settings, a focused puzzle view, and a nine-example Rule lab.
 
 **Status:** Browser prototype implemented. Android project generated and synced; native build and physical-device validation pending. AROWGO remains a working name.
 
@@ -57,4 +57,6 @@ The native project is in `android/`. Install the compatible JDK and Android SDK/
 - [Build guide](docs/build-guide.md) and [execution backlog](docs/execution-backlog.md)
 - [Original references](references/README.md)
 
-**Owner:** Veyminore; product acceptance and named release ownership remain to be assigned. No account, ads, purchases, analytics SDK or server is implemented. The original reference images remain evidence; runtime scenery is original generated artwork; paths, icons and effects are drawn from code.
+**Owner:** Veyminore; product acceptance and named release ownership remain to be assigned. No network account, ads, real-money purchases, analytics SDK or server is implemented. The original reference images remain evidence; runtime scenery is original generated artwork; paths, icons and effects are drawn from code.
+
+[Guest profile, shop and stable completion screens](docs/profile-shop-and-results.md).

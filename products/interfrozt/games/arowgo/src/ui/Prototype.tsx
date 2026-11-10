@@ -7,6 +7,16 @@ import { Scenery } from "./Scenery";
 import { Icon, type IconName } from "./Icons";
 import { GameArt } from "./elements/GameArt";
 import { Coin } from "./elements/Rewards";
+import { ProfileEditor, Shop } from "./ProfileShop";
+import {
+  PROFILE_KEY,
+  readProfile,
+  guest,
+  spentCoins,
+  buySkin,
+  type Profile,
+  type SkinId,
+} from "../storage/profile";
 import { useMotion } from "./useMotion";
 const store = {
   getItem: (key: string) => localStorage.getItem(key),
@@ -27,13 +37,33 @@ const tabs: { id: string; name: string; icon: IconName }[] = [
   { id: "home", name: "Home", icon: "home" },
   { id: "worlds", name: "Worlds", icon: "leaf" },
   { id: "modes", name: "Modes", icon: "gamepad" },
-  { id: "progress", name: "Progress", icon: "arrow" },
-  { id: "settings", name: "Settings", icon: "settings" },
+  { id: "shop", name: "Shop", icon: "shop" },
+  { id: "profile", name: "Profile", icon: "profile" },
 ];
 export function Prototype() {
   const [route, setRoute] = useState(() => location.hash.slice(1) || "home");
   const [, refresh] = useState(0);
   const motion = useMotion();
+  const [profile, setProfile] = useState(() => {
+    try {
+      return readProfile(localStorage.getItem(PROFILE_KEY));
+    } catch {
+      return guest();
+    }
+  });
+  const [profileNotice, setProfileNotice] = useState("");
+  function saveProfile(next: Profile) {
+    try {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(next));
+      setProfile(next);
+      setProfileNotice("");
+      return true;
+    } catch {
+      setProfileNotice("Profile storage is unavailable. Purchases are paused.");
+      return false;
+    }
+  }
+
   useEffect(() => {
     const change = () => setRoute(location.hash.slice(1) || "home");
     window.addEventListener("hashchange", change);
@@ -49,7 +79,8 @@ export function Prototype() {
     location.hash = path;
     setRoute(path);
   };
-  const coins = controllers.reduce((v, c) => v + c.state.coins, 0);
+  const earnedCoins = controllers.reduce((v, c) => v + c.state.coins, 0);
+  const coins = Math.max(0, earnedCoins - spentCoins(profile));
   const stars = controllers.reduce((v, c) => v + c.state.bestStars, 0);
   const completed = controllers.filter((c) => c.state.claimed).length;
   const available = (i: number) => i === 0 || controllers[i - 1].state.claimed;
@@ -77,6 +108,7 @@ export function Prototype() {
         key={i}
         controller={controllers[i]}
         levelNumber={i + 1}
+        skin={profile.equipped}
         otherCoins={coins - controllers[i].state.coins}
         onHome={() => go("home")}
         onNext={
@@ -87,7 +119,12 @@ export function Prototype() {
       />
     );
   }
-  const page = tabs.some((t) => t.id === route) ? route : "home";
+  const page =
+    route === "progress"
+      ? "profile"
+      : route === "settings" || tabs.some((t) => t.id === route)
+        ? route
+        : "home";
   return (
     <div
       className="hub-shell"
@@ -106,8 +143,19 @@ export function Prototype() {
           <Coin />
           <strong>{coins}</strong>
         </div>
+        <a
+          href="#settings"
+          className="icon-button hub-settings"
+          aria-label="Settings"
+          aria-current={page === "settings" ? "page" : undefined}
+        >
+          <Icon name="settings" />
+        </a>
       </header>
-      <main className={`hub-content page-${page}`} key={page}>
+      <main
+        className={`hub-content page-${page} ${page === "profile" ? "page-progress" : ""}`}
+        key={page}
+      >
         {page === "home" && (
           <>
             <div className="home-intro home-hero">
@@ -147,7 +195,7 @@ export function Prototype() {
                 <GameArt kind="modes" />
                 <strong>Modes</strong>
               </button>
-              <button className="glass-panel" onClick={() => go("progress")}>
+              <button className="glass-panel" onClick={() => go("profile")}>
                 <GameArt kind="trophy" />
                 <strong>My journey</strong>
               </button>
@@ -259,13 +307,28 @@ export function Prototype() {
             <p className="hub-note">Take your time. There is no timer.</p>
           </>
         )}
-        {page === "progress" && (
+        {page === "shop" && (
+          <Shop
+            profile={profile}
+            coins={coins}
+            onBuy={(id: SkinId) => {
+              const nextProfile = buySkin(profile, id, earnedCoins);
+              return nextProfile !== profile && saveProfile(nextProfile);
+            }}
+            onEquip={(id) =>
+              profile.owned.includes(id) &&
+              saveProfile({ ...profile, equipped: id })
+            }
+          />
+        )}
+        {page === "profile" && (
           <>
             <div className="page-heading">
               <span className="eyebrow">YOUR JOURNEY</span>
-              <h1>Your little victories.</h1>
-              <p>Every clear path is progress.</p>
+              <h1>Your profile</h1>
             </div>
+            <ProfileEditor profile={profile} onSave={saveProfile} />
+            {profileNotice && <p role="status">{profileNotice}</p>}
             <div className="progress-orbit">
               <strong>
                 {completed}
@@ -282,7 +345,7 @@ export function Prototype() {
               <section className="glass-panel">
                 <Coin />
                 <strong>{coins}</strong>
-                <p>Coins earned</p>
+                <p>Coins available</p>
               </section>
             </div>
             <div className="milestone-row" aria-label="Earned collection">

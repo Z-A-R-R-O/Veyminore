@@ -106,3 +106,7 @@ Archived six renewed references with SHA-256 manifest and per-screen adaptation 
 ## Generated art finish — 10 November 2026
 
 User requested generated illustrations instead of hardcoded decorative artwork. Runtime now uses an original transparent floating island, six-item game atlas and three-item reward atlas. Hero/map art, Worlds/Modes/Story/trophy/Hint/Erase icons, coins and animated hearts use these assets. Live text, navigation and vector puzzle mechanics remain interactive. See [asset inventory and exact prompts](assets/generated-art.md).
+
+## Guest/shop and completion fix — 10 November 2026
+
+Added local Guest profile with name/avatar saving, four cosmetic arrow colours and confirmed earned-coin purchases. Bottom navigation now includes Shop/Profile; Settings moved to the top icon. Improved play-header/feedback contrast without changing Bloom Valley scenery or ambient animation. Result rendering waits for the last move and uses a stable viewport portal; removed delayed overlay flashing and counter initialization jump. Added unit and browser regression coverage.

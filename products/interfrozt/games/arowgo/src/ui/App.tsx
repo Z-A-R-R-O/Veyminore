@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
+import type { SkinId } from "../storage/profile";
 import type { Controller } from "../application/controller";
 import { stars, type Mode, type Outcome } from "../application/session";
 import { Board, type BoardHandle } from "../game/Board";
@@ -17,12 +19,14 @@ export function App({
   onNext,
   levelNumber = 1,
   otherCoins = 0,
+  skin = "classic",
 }: {
   controller: Controller;
   onHome?: () => void;
   onNext?: () => void;
   levelNumber?: number;
   otherCoins?: number;
+  skin?: SkinId;
 }) {
   const state = useSyncExternalStore(
     controller.subscribe,
@@ -60,10 +64,10 @@ export function App({
   const hintTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
   );
-  const previousStatus = useRef(state.status);
   const level = controller.level;
   const cleared = level.arrows.length - state.active.length;
   const modalOpen = settings || restart !== null || eraseTarget !== null;
+  const resultVisible = !lab && state.status !== "playing" && !busy;
 
   useEffect(
     () => () => {
@@ -73,14 +77,16 @@ export function App({
     [],
   );
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout> | undefined;
-    if (previousStatus.current !== "complete" && state.status === "complete") {
-      setCelebrating(true);
-      timeout = setTimeout(() => setCelebrating(false), 3600);
-    }
-    previousStatus.current = state.status;
+    if (!resultVisible || !celebrating) return;
+    const timeout = setTimeout(() => setCelebrating(false), 3600);
     return () => clearTimeout(timeout);
-  }, [state.status]);
+  }, [resultVisible, celebrating]);
+  useEffect(() => {
+    if (resultVisible)
+      document
+        .querySelector<HTMLButtonElement>(".result-layer button")
+        ?.focus({ preventScroll: true });
+  }, [resultVisible]);
   useEffect(() => {
     if (!modalOpen) return;
     const previous = document.activeElement as HTMLElement | null;
@@ -146,6 +152,7 @@ export function App({
     gate();
     clearHints();
     const result = controller.select(id);
+    if (result.state.status === "complete") setCelebrating(true);
     if (result.exit?.clear) {
       setFeedback("Nice move.");
       setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
@@ -181,6 +188,7 @@ export function App({
     if (!eraseTarget) return;
     gate();
     const result = controller.erase(eraseTarget);
+    if (result.state.status === "complete") setCelebrating(true);
     boardRef.current?.animate(result);
     setFeedback(
       `Arrow ${eraseTarget} gently erased. This run is now assisted.`,
@@ -222,6 +230,7 @@ export function App({
   return (
     <div
       className="app-shell"
+      data-skin={skin}
       data-view={lab ? "lab" : "play"}
       data-status={state.status}
       data-motion={motion.reduced ? "reduced" : "full"}
@@ -229,7 +238,7 @@ export function App({
       data-paused={motion.hidden ? "true" : "false"}
     >
       <Scenery rich={motion.rich} />
-      <header className="topbar" inert={modalOpen}>
+      <header className="topbar" inert={modalOpen || resultVisible}>
         <a
           className="wordmark"
           href="#"
@@ -259,7 +268,7 @@ export function App({
           <Icon name="settings" />
         </button>
       </header>
-      <main inert={modalOpen}>
+      <main inert={modalOpen || resultVisible}>
         {!lab && (
           <p className="game-motto">
             A little play. A little practice in thinking.
@@ -398,102 +407,134 @@ export function App({
                   aria-hidden="true"
                 />
               )}
-              {!lab && state.status !== "playing" && (
-                <div
-                  className={`result-overlay ${state.status === "complete" ? "win-result" : ""} ${celebrating && !motion.reduced ? "fresh-win" : ""}`}
-                  role="status"
-                >
-                  {celebrating && !motion.reduced && motion.rich && (
-                    <Celebration />
-                  )}
-                  {state.status === "complete" && (
-                    <div className="victory-halo" aria-hidden="true" />
-                  )}
-                  <div className="result-symbol">
-                    {state.status === "complete" ? "✦" : "♡"}
-                  </div>
-                  <h2>
-                    {state.status === "complete"
-                      ? "Beautifully cleared."
-                      : "Take a fresh look."}
-                  </h2>
-                  {state.status === "complete" && state.mode === "story" && (
-                    <div className="result-stars" aria-hidden="true">
-                      {[1, 2, 3].map((n) => (
-                        <span
-                          key={n}
-                          className={n <= stars(state) ? "earned" : ""}
-                          style={{ animationDelay: `${0.75 + n * 0.22}s` }}
+              {resultVisible &&
+                createPortal(
+                  <div
+                    className="result-layer"
+                    data-motion={motion.reduced ? "reduced" : "full"}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Level result"
+                    onKeyDown={(e) => {
+                      if (e.key !== "Tab") return;
+                      const buttons = Array.from(
+                        e.currentTarget.querySelectorAll<HTMLButtonElement>(
+                          "button",
+                        ),
+                      );
+                      if (e.shiftKey && document.activeElement === buttons[0]) {
+                        e.preventDefault();
+                        buttons.at(-1)?.focus();
+                      } else if (
+                        !e.shiftKey &&
+                        document.activeElement === buttons.at(-1)
+                      ) {
+                        e.preventDefault();
+                        buttons[0]?.focus();
+                      }
+                    }}
+                  >
+                    <div
+                      className={`result-overlay ${state.status === "complete" ? "win-result" : ""} ${celebrating && !motion.reduced ? "fresh-win" : ""}`}
+                      role="status"
+                    >
+                      {celebrating && !motion.reduced && motion.rich && (
+                        <Celebration />
+                      )}
+                      {state.status === "complete" && (
+                        <div className="victory-halo" aria-hidden="true" />
+                      )}
+                      <div className="result-symbol">
+                        {state.status === "complete" ? "✦" : "♡"}
+                      </div>
+                      <h2>
+                        {state.status === "complete"
+                          ? "Beautifully cleared."
+                          : "Take a fresh look."}
+                      </h2>
+                      {state.status === "complete" &&
+                        state.mode === "story" && (
+                          <div className="result-stars" aria-hidden="true">
+                            {[1, 2, 3].map((n) => (
+                              <span
+                                key={n}
+                                className={n <= stars(state) ? "earned" : ""}
+                                style={{
+                                  animationDelay: `${0.75 + n * 0.22}s`,
+                                }}
+                              >
+                                ★
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      <p
+                        className={
+                          state.status === "complete" && state.mode === "story"
+                            ? "sr-only"
+                            : "result-detail"
+                        }
+                      >
+                        {state.status === "complete"
+                          ? state.mode === "practice"
+                            ? "Practice complete. No stars or coins are awarded."
+                            : `${stars(state)} of 3 stars · ${state.mistakes} mistakes${state.assisted ? " · Assisted" : ""}`
+                          : "Your coins and best stars are safe."}
+                      </p>
+                      {state.status === "complete" &&
+                        state.mode === "story" && (
+                          <p className={state.reward ? "sr-only" : "reward"}>
+                            {state.reward
+                              ? "+25 coins · First clear reward"
+                              : "First-clear reward already collected"}
+                          </p>
+                        )}
+                      {state.status === "complete" && (
+                        <WinMoment
+                          state={state}
+                          animate={celebrating && !motion.reduced}
+                        />
+                      )}
+                      <Encouragement
+                        kind={state.status === "complete" ? "win" : "retry"}
+                      />
+                      <button
+                        className="primary-button"
+                        onClick={() =>
+                          state.status === "complete" && onNext
+                            ? onNext()
+                            : reset(state.mode)
+                        }
+                      >
+                        {state.status === "complete"
+                          ? onNext
+                            ? levelNumber < 5
+                              ? "Next level"
+                              : "Back to Worlds"
+                            : "Play again"
+                          : "Try again"}{" "}
+                        <span aria-hidden="true">↗</span>
+                      </button>
+                      {state.status === "complete" && onNext && (
+                        <button
+                          className="text-button"
+                          onClick={() => reset(state.mode)}
                         >
-                          ★
-                        </span>
-                      ))}
+                          Play again
+                        </button>
+                      )}
+                      {state.status === "failed" && (
+                        <button
+                          className="text-button"
+                          onClick={() => reset("practice")}
+                        >
+                          Try Practice
+                        </button>
+                      )}
                     </div>
-                  )}
-                  <p
-                    className={
-                      state.status === "complete" && state.mode === "story"
-                        ? "sr-only"
-                        : "result-detail"
-                    }
-                  >
-                    {state.status === "complete"
-                      ? state.mode === "practice"
-                        ? "Practice complete. No stars or coins are awarded."
-                        : `${stars(state)} of 3 stars · ${state.mistakes} mistakes${state.assisted ? " · Assisted" : ""}`
-                      : "Your coins and best stars are safe."}
-                  </p>
-                  {state.status === "complete" && state.mode === "story" && (
-                    <p className={state.reward ? "sr-only" : "reward"}>
-                      {state.reward
-                        ? "+25 coins · First clear reward"
-                        : "First-clear reward already collected"}
-                    </p>
-                  )}
-                  {state.status === "complete" && (
-                    <WinMoment
-                      state={state}
-                      animate={celebrating && !motion.reduced}
-                    />
-                  )}
-                  <Encouragement
-                    kind={state.status === "complete" ? "win" : "retry"}
-                  />
-                  <button
-                    className="primary-button"
-                    onClick={() =>
-                      state.status === "complete" && onNext
-                        ? onNext()
-                        : reset(state.mode)
-                    }
-                  >
-                    {state.status === "complete"
-                      ? onNext
-                        ? levelNumber < 5
-                          ? "Next level"
-                          : "Back to Worlds"
-                        : "Play again"
-                      : "Try again"}{" "}
-                    <span aria-hidden="true">↗</span>
-                  </button>
-                  {state.status === "complete" && onNext && (
-                    <button
-                      className="text-button"
-                      onClick={() => reset(state.mode)}
-                    >
-                      Play again
-                    </button>
-                  )}
-                  {state.status === "failed" && (
-                    <button
-                      className="text-button"
-                      onClick={() => reset("practice")}
-                    >
-                      Try Practice
-                    </button>
-                  )}
-                </div>
-              )}
+                  </div>,
+                  document.body,
+                )}
             </div>
             <div
               className={`feedback ${eraseMode ? "choosing" : ""}`}

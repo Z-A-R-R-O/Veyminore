@@ -9,9 +9,13 @@ export type IconName =
   | "close"
   | "settings"
   | "home"
-  | "gamepad";
+  | "gamepad"
+  | "profile"
+  | "shop";
 export function Icon({ name }: { name: IconName }) {
   const paths: Record<IconName, string> = {
+    profile: "M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM4 22v-3a8 8 0 0 1 16 0v3Z",
+    shop: "M4 3h16l2 7H2l2-7Zm0 7v11h16V10M9 21v-7h6v7",
     gamepad:
       "M8 7h8c3 0 4 2 5 8s-2 6-5 2H8c-3 4-6 4-5-2s2-8 5-8Zm-1 3v6m-3-3h6m5-2h.01m3 3h.01",
     arrow: "M5 17V7h14m-5-5 5 5-5 5",

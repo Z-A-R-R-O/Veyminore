@@ -47,7 +47,7 @@ test("v0.1 journey: pages, five levels, rewards and persistence", async ({
       })
       .click();
   }
-  await page.getByRole("link", { name: "Progress", exact: true }).click();
+  await page.getByRole("link", { name: "Profile", exact: true }).click();
   await expect(page.getByLabel("125 total coins")).toBeVisible();
   await expect(page.getByText("15 / 15", { exact: true })).toBeVisible();
   await page.reload();
@@ -65,7 +65,14 @@ test("all pages fit a small phone and the hint points at a safe arrow", async ({
   });
   const page = await context.newPage();
   await page.goto("/");
-  for (const name of ["Home", "Worlds", "Modes", "Progress", "Settings"]) {
+  for (const name of [
+    "Home",
+    "Worlds",
+    "Modes",
+    "Shop",
+    "Profile",
+    "Settings",
+  ]) {
     await page.getByRole("link", { name, exact: true }).click();
     const box = await page
       .getByRole("navigation", { name: "Main navigation" })
@@ -81,13 +88,13 @@ test("all pages fit a small phone and the hint points at a safe arrow", async ({
         );
       }
     }
-    if (name !== "Settings") {
+    if (!["Settings", "Profile", "Shop"].includes(name)) {
       const content = await page.locator(".hub-content").evaluate((el) => ({
         height: el.clientHeight,
         scroll: el.scrollHeight,
       }));
       expect(content.scroll).toBeLessThanOrEqual(content.height + 1);
-    } else {
+    } else if (name === "Settings") {
       await page
         .getByText("AROWGO v0.1", { exact: false })
         .scrollIntoViewIfNeeded();
