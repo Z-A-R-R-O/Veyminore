@@ -28,6 +28,20 @@ export function App({ controller }: { controller: Controller }) {
   const [pulse, setPulse] = useState({ id: 0, kind: "idle" });
   const [celebrating, setCelebrating] = useState(false);
   const boardRef = useRef<BoardHandle | null>(null);
+  const boardRegion = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const region = boardRegion.current;
+    if (!region) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      region.style.setProperty(
+        "--board-size",
+        `${Math.max(0, Math.min(width, height))}px`,
+      );
+    });
+    observer.observe(region);
+    return () => observer.disconnect();
+  }, []);
   const cooldown = useRef(0),
     timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const hintTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
@@ -193,6 +207,8 @@ export function App({ controller }: { controller: Controller }) {
   return (
     <div
       className="app-shell"
+      data-view={lab ? "lab" : "play"}
+      data-status={state.status}
       data-motion={motion.reduced ? "reduced" : "full"}
       data-effects={motion.rich ? "rich" : "subtle"}
       data-paused={motion.hidden ? "true" : "false"}
@@ -341,7 +357,10 @@ export function App({ controller }: { controller: Controller }) {
                 ))}
               </div>
             )}
-            <div className={`board-wrap ${eraseMode ? "erase-selection" : ""}`}>
+            <div
+              ref={boardRegion}
+              className={`board-wrap ${eraseMode ? "erase-selection" : ""}`}
+            >
               <div className="board-rim" />
               <Board
                 apiRef={boardRef}

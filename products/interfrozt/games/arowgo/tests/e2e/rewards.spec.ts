@@ -3,9 +3,9 @@ test("local Satoshi, heart break and reassuring retry", async ({
   page,
 }, info) => {
   await page.goto("/");
-  await expect(
-    page.getByText("A little play. A little practice in thinking."),
-  ).toBeVisible();
+  const motto = page.getByText("A little play. A little practice in thinking.");
+  if (info.project.name === "phone") await expect(motto).toBeHidden();
+  else await expect(motto).toBeVisible();
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.fonts.check("14px Satoshi"))).toBe(
     true,

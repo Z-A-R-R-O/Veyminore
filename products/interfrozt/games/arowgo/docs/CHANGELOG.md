@@ -1,5 +1,13 @@
 # Documentation changelog
 
+## Full-viewport mobile layout — 10 November 2026
+
+- Replaced mobile page scrolling with a safe-area-aware dynamic viewport shell.
+- Sized the square board to remaining space and kept HUD/tools in view.
+- Added landscape side controls, full-viewport results and internally scrolling Settings.
+- Added five phone size/orientation checks including 320×568 and 844×390.
+
+
 ## Curved recoil and tool animations — 10 November 2026
 
 - Changed blocked presentation to snake advance/reverse along curved paths.

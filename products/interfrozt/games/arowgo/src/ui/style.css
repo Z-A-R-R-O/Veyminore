@@ -2221,3 +2221,427 @@ main {
     transform: translateX(6px) rotate(-12deg);
   }
 }
+
+/* Mobile is a viewport-sized game surface, not a scrolling document. */
+@media (max-width: 900px) and (pointer: coarse), (max-width: 680px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+  .app-shell {
+    height: 100dvh;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: env(safe-area-inset-top) max(10px, env(safe-area-inset-right))
+      max(6px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  }
+  .topbar {
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .wordmark {
+    font-size: 19px;
+    gap: 5px;
+  }
+  .brand-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .topbar nav {
+    padding: 2px;
+  }
+  .topbar nav button {
+    font-size: 14px;
+    min-height: 40px;
+    padding: 6px 10px;
+  }
+  .topbar .settings-button {
+    width: 44px;
+    height: 44px;
+  }
+  .app-shell main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+  .game-motto {
+    display: none;
+  }
+  .level-heading {
+    margin: 4px 0 8px;
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 4px 10px;
+  }
+  .world-label {
+    font-size: 14px;
+    justify-content: flex-start;
+  }
+  .world-label > span {
+    display: none;
+  }
+  .level-heading h1 {
+    font-size: 27px;
+    margin: 0;
+    letter-spacing: -0.5px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .progress-dots {
+    height: 10px;
+    grid-column: 1/-1;
+    gap: 7px;
+  }
+  .progress-dots span {
+    width: 7px;
+    height: 7px;
+  }
+  .play-layout {
+    width: 100%;
+    max-width: 580px;
+    flex: 1;
+    min-height: 0;
+    margin: 0 auto;
+    display: flex;
+  }
+  .game-card {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .hud {
+    height: 54px;
+    min-height: 54px;
+    margin: 0;
+    padding: 4px 10px;
+    border-radius: 18px;
+    flex-shrink: 0;
+  }
+  .hud .icon-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+  }
+  .hud .coin {
+    width: 32px;
+    height: 32px;
+  }
+  .balance strong {
+    font-size: 24px;
+  }
+  .hearts {
+    gap: 4px;
+  }
+  .heart-token {
+    width: 27px;
+    height: 27px;
+  }
+  .hud-divider {
+    height: 28px;
+  }
+  .board-wrap {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+
+    display: grid;
+    place-items: center;
+    animation: none;
+  }
+  .board {
+    width: var(--board-size, 100%);
+    height: var(--board-size, 100%);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: 22px;
+    touch-action: none;
+  }
+  .board-rim,
+  .board-scan {
+    inset: auto;
+    width: var(--board-size, 100%);
+    height: var(--board-size, 100%);
+    border-radius: 22px;
+  }
+  .feedback {
+    flex-shrink: 0;
+    min-height: 34px;
+    max-height: 42px;
+    margin: 0;
+    padding: 2px 0;
+    line-height: 1.25;
+    font-size: 14px;
+  }
+  .tool-tray {
+    width: 100%;
+    max-width: 460px;
+    padding: 0 5px;
+    gap: 12px;
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+  .tool-card {
+    height: 54px;
+    min-height: 54px;
+    padding: 4px 12px;
+    flex-direction: row;
+    gap: 10px;
+    border-radius: 18px;
+  }
+  .tool-art {
+    height: 34px;
+    width: 34px;
+  }
+  .tool-art svg {
+    height: 32px;
+    width: 32px;
+  }
+  .tool-card strong {
+    font-size: 17px;
+  }
+  .tool-badge {
+    width: 22px;
+    height: 22px;
+    font-size: 17px;
+    right: -3px;
+    top: -6px;
+  }
+  .card-footer {
+    margin: 0;
+    min-height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-footer button {
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  .card-footer > span {
+    font-size: 12px;
+  }
+  .result-overlay {
+    position: fixed;
+    inset: max(8px, env(safe-area-inset-top))
+      max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom))
+      max(8px, env(safe-area-inset-left));
+    z-index: 30;
+    border-radius: 24px;
+    padding: 20px;
+  }
+  .result-overlay .primary-button,
+  .result-overlay .text-button {
+    min-height: 44px;
+  }
+  .modal-shade {
+    padding: max(8px, env(safe-area-inset-top)) 10px
+      max(8px, env(safe-area-inset-bottom));
+  }
+  .modal {
+    max-height: 100%;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  .lab-header {
+    flex-shrink: 0;
+    padding: 8px;
+  }
+  .lab-header h2 {
+    font-size: 18px;
+  }
+  .fixture-tabs {
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-height: 44px;
+  }
+  .fixture-tabs button {
+    flex-shrink: 0;
+    min-height: 40px;
+  }
+  .lab-explanation {
+    flex-shrink: 0;
+    padding: 8px;
+    max-height: 100px;
+    overflow: auto;
+  }
+  .lab-explanation small {
+    display: none;
+  }
+}
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .topbar {
+    height: 44px;
+    min-height: 44px;
+  }
+  .level-heading {
+    margin: 0 0 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .level-heading h1 {
+    font-size: 22px;
+  }
+  .progress-dots {
+    display: none;
+  }
+  .play-layout {
+    max-width: none;
+  }
+  [data-view="play"] .game-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px;
+    grid-template-rows: 50px minmax(32px, 1fr) 54px 38px;
+    gap: 6px 12px;
+  }
+  [data-view="play"] .board-wrap {
+    grid-column: 1;
+    grid-row: 1/5;
+    height: 100%;
+  }
+  [data-view="play"] .hud {
+    grid-column: 2;
+    grid-row: 1;
+    height: 50px;
+    min-height: 50px;
+    padding: 2px 5px;
+  }
+  [data-view="play"] .feedback {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 13px;
+    max-height: none;
+    align-self: center;
+  }
+  [data-view="play"] .tool-tray {
+    grid-column: 2;
+    grid-row: 3;
+    gap: 6px;
+    padding: 0;
+  }
+  [data-view="play"] .card-footer {
+    grid-column: 2;
+    grid-row: 4;
+  }
+  .hud .coin {
+    width: 24px;
+    height: 24px;
+  }
+  .balance strong {
+    font-size: 20px;
+  }
+  .heart-token {
+    width: 20px;
+    height: 22px;
+  }
+  .hud-divider {
+    display: none;
+  }
+  .tool-card {
+    padding: 4px;
+    gap: 2px;
+    flex-direction: column;
+  }
+  .tool-art,
+  .tool-art svg {
+    width: 24px;
+    height: 24px;
+  }
+  .tool-card strong {
+    font-size: 14px;
+  }
+  .result-overlay {
+    padding: 10px;
+  }
+  .result-overlay .result-symbol {
+    font-size: 24px;
+  }
+  .result-overlay h2,
+  .win-result h2 {
+    font-size: 26px;
+    margin: 2px 0;
+  }
+  .result-overlay .result-stars {
+    font-size: 28px;
+    margin: 2px 0;
+  }
+  .result-overlay .encouragement {
+    margin-bottom: 6px;
+  }
+  .win-moment {
+    gap: 3px;
+    margin: 4px 0;
+  }
+}
+
+@media (max-width: 900px) and (pointer: coarse), (max-width: 680px) {
+  .app-shell main {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .topbar {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  .topbar nav {
+    white-space: nowrap;
+  }
+  .topbar nav span {
+    display: none;
+  }
+  .topbar nav button {
+    padding: 6px 8px;
+  }
+  .wordmark {
+    font-size: 18px;
+  }
+  .balance,
+  .hearts {
+    min-width: 0;
+  }
+  .hud .balance {
+    gap: 5px;
+  }
+  .hud-divider {
+    margin: 0 5px;
+  }
+}
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .hud .coin {
+    font-size: 19px;
+    flex-shrink: 0;
+  }
+  .hud .hearts {
+    gap: 2px;
+  }
+}
+
+@media (max-width: 900px) and (pointer: coarse), (max-width: 680px) {
+  .board-wrap {
+    isolation: auto;
+  }
+  .app-shell[data-view="play"]:not([data-status="playing"]) main {
+    z-index: 10;
+  }
+}
