@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
-import type { SkinId } from "../storage/profile";
+import { skins, type SkinId } from "../storage/profile";
 import type { Controller } from "../application/controller";
 import { stars, type Mode, type Outcome } from "../application/session";
 import { Board, type BoardHandle } from "../game/Board";
@@ -231,6 +231,12 @@ export function App({
     <div
       className="app-shell"
       data-skin={skin}
+      data-arrow-effect={skins.find((s) => s.id === skin)!.effect}
+      style={
+        {
+          "--arrow-color": skins.find((s) => s.id === skin)!.color,
+        } as React.CSSProperties
+      }
       data-view={lab ? "lab" : "play"}
       data-status={state.status}
       data-motion={motion.reduced ? "reduced" : "full"}

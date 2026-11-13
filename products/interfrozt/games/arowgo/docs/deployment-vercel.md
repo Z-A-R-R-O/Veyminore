@@ -70,3 +70,26 @@ Production updated from commit `203f62c`; deployment `dpl_4d4G6hkHjyYG6SqU75YYKo
 - TypeScript build, formatting and Capacitor asset sync pass. Native compilation/physical-device verification remain separate.
 - Public-site verification checks fresh Guest, Settings only in the top header, four shop cosmetics and a completed level whose snake exit settles before results.
 - Contract: [guest profile, shop and result timing](profile-shop-and-results.md). Scenery component and image assets have no changes in this release.
+
+## Scenic Worlds — 13 November 2026
+
+- Production deployment: dpl_BaiE7W1QWbZM5eM45Qfm23K7cSuH, Ready.
+- Live: https://arowgo.vercel.app/#worlds
+- Immutable: https://arowgo-mgzte4viy-zarros-projects-e983b612.vercel.app
+- Live phone smoke: HTTP 200, Worlds rendered, Play 1 launched Level 01, no page errors. Capture: verification/worlds-live.png.
+- 51 unit tests, six campaign/page browser cases and two final responsive Worlds cases passed. Build, formatting and Android asset sync passed. See worlds-redesign.md.
+
+## Home and ambient motion — 13 November 2026
+
+- Production: dpl_7Gr9NE6VCuBwyiZ2trH2ifGTscmS, Ready at https://arowgo.vercel.app.
+- Immutable: https://arowgo-6d0y0k3bv-zarros-projects-e983b612.vercel.app.
+- Live phone smoke: HTTP 200, new Home and ambient layer present, Play launched Level 01, no page errors. Capture: verification/home-live.png.
+- 51 unit tests, six campaign/navigation cases and two final Home viewport/motion cases passed. Build, formatting and Android web assets synced. See home-and-ambient.md.
+
+## Crates and arrow effects — 13 November 2026
+
+- Production: dpl_Un8waCJypeaBCyvttazv8M33coXz, Ready at https://arowgo.vercel.app/#shop.
+- Immutable: https://arowgo-lg82nm072-zarros-projects-e983b612.vercel.app.
+- Live phone check: HTTP 200, free crate spun to Blossom, equip and reload preserved ownership, gameplay rendered the glow effect, no page errors. Captures: verification/crates-live-reward.png and crates-live-game.png.
+- 53 unit tests and 16 desktop/phone browser cases passed. Additional small portrait and landscape dialog checks passed. Build, formatting and Android web assets synced.
+- Contract: crates-and-effects.md.

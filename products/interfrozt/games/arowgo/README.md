@@ -60,3 +60,5 @@ The native project is in `android/`. Install the compatible JDK and Android SDK/
 **Owner:** Veyminore; product acceptance and named release ownership remain to be assigned. No network account, ads, real-money purchases, analytics SDK or server is implemented. The original reference images remain evidence; runtime scenery is original generated artwork; paths, icons and effects are drawn from code.
 
 [Guest profile, shop and stable completion screens](docs/profile-shop-and-results.md).
+
+[Crate shop and animated arrow collection](docs/crates-and-effects.md): current shop contract, 15 arrows, rarity odds and v2 profile migration.

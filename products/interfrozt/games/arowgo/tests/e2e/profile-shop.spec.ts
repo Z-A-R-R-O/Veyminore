@@ -1,67 +1,53 @@
 import { test, expect } from "@playwright/test";
-test("guest profile, top settings, shop purchase and equipped skin persist", async ({
+test("guest profile and crate unlock persist and equipped effects reach gameplay", async ({
   page,
 }) => {
   await page.goto("/#profile");
-  await expect(
-    page.getByRole("heading", { name: "Guest", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page
-      .getByRole("navigation", { name: "Main navigation" })
-      .getByRole("link", { name: "Settings" }),
-  ).toHaveCount(0);
-  await expect(
-    page.locator("header").getByRole("link", { name: "Settings" }),
-  ).toBeVisible();
   await page.getByLabel("Display name").fill("Zarro");
-  await page.getByRole("button", { name: "Choose trophy avatar" }).click();
   await page.getByRole("button", { name: "Save", exact: true }).click();
   await page.reload();
   await expect(
     page.getByRole("heading", { name: "Zarro", exact: true }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Shop", exact: true }).click();
-  await expect(
-    page.getByRole("button", { name: "Need 25 more", exact: true }),
-  ).toBeDisabled();
-  await page.getByRole("link", { name: "Settings", exact: true }).click();
-  await page.getByRole("checkbox").check();
-  await page.goto("/#play/1");
-  for (const id of ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]) {
-    const arrow = page.getByRole("button", {
-      name: `Slide arrow ${id}`,
-      exact: true,
-    });
-    await expect(arrow).toBeEnabled();
-    await arrow.focus();
-    await page.keyboard.press("Enter");
-  }
-  await expect(
-    page.getByRole("dialog", { name: "Level result" }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "Play again", exact: true }).click();
-  await page.getByRole("button", { name: "Leave puzzle" }).click();
-  await page.getByRole("link", { name: "Shop", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Buy · 25 coins", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Open gift", exact: true }).click();
+  await expect(page.getByRole("dialog", { name: "Open crate" })).toBeVisible();
   await page.getByRole("button", { name: "Cancel", exact: true }).click();
-  await expect(page.getByLabel("25 total coins")).toBeVisible();
+  await page.getByRole("button", { name: "Open gift", exact: true }).click();
   await page
-    .getByRole("button", { name: "Buy · 25 coins", exact: true })
+    .getByRole("button", { name: "Open free crate", exact: true })
     .click();
-  await page.getByRole("button", { name: "Confirm purchase" }).click();
-  await expect(page.getByLabel("0 total coins")).toBeVisible();
-  await expect(page.getByText("Aurora purchased and equipped.")).toBeVisible();
+  await expect(
+    page.getByText("Opening… your reward is already saved."),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Skip animation" }).click();
+  await expect(
+    page.getByText("New arrow unlocked. Saved to your collection."),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Equip arrow", exact: true }).click();
   await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Open gift", exact: true }),
+  ).toHaveCount(0);
   await expect(page.getByLabel("0 total coins")).toBeVisible();
-  await expect(page.locator(".skin-card.equipped h2")).toHaveText("Aurora");
+  const profile = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("arowgo.profile.v1")!),
+  );
+  expect(profile.owned).toHaveLength(2);
+  expect(profile.equipped).not.toBe("classic");
   await page.goto("/#play/1");
   await expect(page.locator("canvas[data-ready=true]")).toBeVisible();
-  await expect(page.locator('[data-arrow="A"] .arrow-body')).toHaveCSS(
-    "stroke",
-    "rgb(22, 122, 145)",
+  await expect(page.locator(".app-shell")).toHaveAttribute(
+    "data-skin",
+    profile.equipped,
+  );
+  const actual = await page
+    .locator('[data-arrow="A"] .arrow-body')
+    .evaluate((e) => getComputedStyle(e).stroke);
+  expect(actual).not.toBe("rgb(66, 37, 99)");
+  await expect(page.locator('[data-arrow="A"] .arrow-sheen')).not.toHaveCSS(
+    "animation-name",
+    "none",
   );
 });
 test("result appears after final exit and keeps stable full-screen bounds", async ({

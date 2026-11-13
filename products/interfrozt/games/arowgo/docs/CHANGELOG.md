@@ -110,3 +110,15 @@ User requested generated illustrations instead of hardcoded decorative artwork. 
 ## Guest/shop and completion fix — 10 November 2026
 
 Added local Guest profile with name/avatar saving, four cosmetic arrow colours and confirmed earned-coin purchases. Bottom navigation now includes Shop/Profile; Settings moved to the top icon. Improved play-header/feedback contrast without changing Bloom Valley scenery or ambient animation. Result rendering waits for the last move and uses a stable viewport portal; removed delayed overlay flashing and counter initialization jump. Added unit and browser regression coverage.
+
+## 2026-11-13 — Scenic Worlds map
+
+Replaced stacked level cards with a winding scenic map, raised level discs, saved-star progress and a selected-level Play/Replay panel. Reused generated artwork and preserved Bloom Valley scenery. See [worlds redesign](worlds-redesign.md).
+
+## 2026-11-13 — Home and ambient motion
+
+Added a focused Home component with a floating island, prominent Play action, shortcuts and real journey progress. Added gentle shared light blooms and fixed hub Reduce Motion/hidden-tab pause behavior. See [Home and ambient](home-and-ambient.md).
+
+## 2026-11-13 — Crates and arrow effects
+
+Replaced direct skin buying with three coin-funded crates, a one-time welcome gift and a decelerating reward reel. Added 15 total arrow designs across five rarities with in-game vector effects, collection filtering, explicit odds and duplicate refunds. Migrated legacy purchases to a v2 spent ledger. See [crate contract](crates-and-effects.md).

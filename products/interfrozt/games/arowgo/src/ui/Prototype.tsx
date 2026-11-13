@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { App } from "./App";
+import { Worlds } from "./Worlds";
+import { Home } from "./Home";
+import { Shop } from "./Shop";
 import { Controller } from "../application/controller";
 import { SaveStore, SAVE_KEY } from "../storage/save";
-import { levels, levelNames } from "../domain/campaign";
+import { levels } from "../domain/campaign";
 import { Scenery } from "./Scenery";
 import { Icon, type IconName } from "./Icons";
 import { GameArt } from "./elements/GameArt";
 import { Coin } from "./elements/Rewards";
-import { ProfileEditor, Shop } from "./ProfileShop";
+import { ProfileEditor } from "./ProfileShop";
 import {
   PROFILE_KEY,
   readProfile,
   guest,
   spentCoins,
-  buySkin,
+  openCrate,
+  randomUnit,
   type Profile,
-  type SkinId,
 } from "../storage/profile";
 import { useMotion } from "./useMotion";
 const store = {
@@ -128,6 +131,7 @@ export function Prototype() {
   return (
     <div
       className="hub-shell"
+      data-paused={motion.hidden}
       data-motion={motion.reduced ? "reduced" : "full"}
       data-effects={motion.rich ? "rich" : "subtle"}
     >
@@ -157,113 +161,26 @@ export function Prototype() {
         key={page}
       >
         {page === "home" && (
-          <>
-            <div className="home-intro home-hero">
-              <span className="hero-sigil" aria-hidden="true"></span>
-              <h1>AROWGO</h1>
-              <p>A little play. A clearer path.</p>
-              <img
-                className="hero-island"
-                src="/assets/generated/bloom-island-v1.png"
-                alt=""
-              />
-            </div>
-            <section className="continue-card glass-panel">
-              <div>
-                <span className="eyebrow">
-                  {completed === 5
-                    ? "VALLEY COMPLETE"
-                    : `LEVEL ${next + 1} · ${levelNames[next]}`}
-                </span>
-                <h2>
-                  {completed === 5
-                    ? "Beautifully done."
-                    : "Your next little win."}
-                </h2>
-              </div>
-              <button className="primary-button" onClick={() => play(next)}>
-                {completed === 5 ? "Play again" : "Play"}{" "}
-                <span aria-hidden="true">↗</span>
-              </button>
-            </section>
-            <div className="home-shortcuts">
-              <button className="glass-panel" onClick={() => go("worlds")}>
-                <GameArt kind="world" />
-                <strong>Worlds</strong>
-              </button>
-              <button className="glass-panel" onClick={() => go("modes")}>
-                <GameArt kind="modes" />
-                <strong>Modes</strong>
-              </button>
-              <button className="glass-panel" onClick={() => go("profile")}>
-                <GameArt kind="trophy" />
-                <strong>My journey</strong>
-              </button>
-            </div>
-            <button
-              className="world-banner glass-panel"
-              onClick={() => go("worlds")}
-            >
-              <span>
-                <strong>Bloom Valley</strong>
-                <small>{completed} of 5 levels cleared</small>
-              </span>
-              <span aria-hidden="true">↗</span>
-            </button>
-            <div className="home-summary">
-              <span>★ {stars} / 15 stars</span>
-              <span>Made for a quiet moment.</span>
-            </div>
-          </>
+          <Home
+            completed={completed}
+            stars={stars}
+            next={next}
+            name={profile.name}
+            onPlay={() => play(next)}
+            onNavigate={go}
+          />
         )}
         {page === "worlds" && (
-          <>
-            <div className="page-heading">
-              <span className="eyebrow">WORLD 01</span>
-              <h1>Bloom Valley</h1>
-              <p>Five moments of clarity.</p>
-            </div>
-            <div className="level-list world-map">
-              <img
-                className="map-island"
-                src="/assets/generated/bloom-island-v1.png"
-                alt=""
-              />
-              <svg
-                className="map-trail"
-                viewBox="0 0 400 500"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path d="M100 450 C100 390 300 400 300 350 S100 300 100 250 S300 200 300 150 S160 90 160 50" />
-              </svg>
-              {levels.map((l, i) => (
-                <button
-                  key={l.levelId}
-                  className={`level-tile glass-panel ${available(i) ? "" : "locked"} ${i === next ? "current-level" : ""}`}
-                  style={{ "--stop": i } as React.CSSProperties}
-                  disabled={!available(i)}
-                  onClick={() => play(i)}
-                  aria-label={`Play level ${i + 1}: ${levelNames[i]}`}
-                >
-                  <span className="level-number">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span>
-                    <strong>{levelNames[i]}</strong>
-                    <small>
-                      {controllers[i].state.claimed
-                        ? "★".repeat(controllers[i].state.bestStars)
-                        : available(i)
-                          ? `${l.arrows.length} paths`
-                          : "Locked"}
-                    </small>
-                  </span>
-                  <span aria-hidden="true">{available(i) ? "↗" : "·"}</span>
-                </button>
-              ))}
-            </div>
-          </>
+          <Worlds
+            next={next}
+            stars={stars}
+            progress={controllers.map((c, i) => ({
+              available: available(i),
+              cleared: c.state.claimed,
+              stars: c.state.bestStars,
+            }))}
+            onPlay={(i) => play(i)}
+          />
         )}
         {page === "modes" && (
           <>
@@ -311,9 +228,18 @@ export function Prototype() {
           <Shop
             profile={profile}
             coins={coins}
-            onBuy={(id: SkinId) => {
-              const nextProfile = buySkin(profile, id, earnedCoins);
-              return nextProfile !== profile && saveProfile(nextProfile);
+            onOpen={(id, welcome) => {
+              const updated = openCrate(
+                profile,
+                id,
+                earnedCoins,
+                randomUnit(),
+                randomUnit(),
+                welcome,
+              );
+              return updated !== profile && saveProfile(updated)
+                ? updated.lastReward
+                : null;
             }}
             onEquip={(id) =>
               profile.owned.includes(id) &&

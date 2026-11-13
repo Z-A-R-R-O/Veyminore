@@ -48,6 +48,13 @@ export function Scenery({ rich }: { rich: boolean }) {
         </div>
       )}
       <div className="valley-mist" />
+      {rich && (
+        <div className="ambient-bloom">
+          <i />
+          <i />
+          <i />
+        </div>
+      )}
     </div>
   );
 }

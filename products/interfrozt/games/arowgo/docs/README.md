@@ -58,3 +58,10 @@ Current visual implementation: [motion and art](motion-and-art.md), [verificatio
 [Generated island, game icons and reward art](assets/generated-art.md) — runtime asset inventory, exact built-in generation prompts and provenance.
 
 [Guest profile, cosmetic shop and completion fix](profile-shop-and-results.md): latest navigation, persistence, wallet and animation contract.
+
+[Scenic Worlds redesign](worlds-redesign.md): responsive level trail, selection and Play panel.
+
+
+[Home and shared ambient motion](home-and-ambient.md): refreshed Home, reusable scenery effects and motion preferences.
+
+[Crates and arrow effects](crates-and-effects.md): current shop economy, 15-arrow collection, reel opening and profile migration. Supersedes direct cosmetic purchases.
