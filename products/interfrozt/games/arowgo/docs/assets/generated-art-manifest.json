@@ -1,0 +1,26 @@
+[
+  {
+    "file": "bloom-island-v1.png",
+    "bytes": 2774266,
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format32bppArgb",
+    "sha256": "9F84180D5EB6BD15AED3E76C01671F8C50F3FA90782DFE22D32CC5084065FC90"
+  },
+  {
+    "file": "game-icons-v1.png",
+    "bytes": 2126160,
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format32bppArgb",
+    "sha256": "FD4B7E85926801D90116E1CA55F2B73207A842F82F78179F144BBEEADB239FFB"
+  },
+  {
+    "file": "rewards-v1.png",
+    "bytes": 1030000,
+    "width": 2172,
+    "height": 724,
+    "pixelFormat": "Format32bppArgb",
+    "sha256": "121B9A946377893A0EB213F5E122B9FB29212C6AA0ACF4CD0F73F96D5F483696"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "name": "interfrozt",
+  "type": "product",
+  "status": "active",
+  "owner": "veyminore",
+  "stack": [
+    "typescript",
+    "react",
+    "phaser",
+    "vite",
+    "capacitor"
+  ]
+}

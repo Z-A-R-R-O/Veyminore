@@ -31,9 +31,9 @@ ZETRO explores controlled computer execution and agent-runtime infrastructure. I
 
 [Public repository](https://github.com/Z-A-R-R-O/zetro)
 
-### InterFrozt
+### [InterFrozt](products/interfrozt/README.md)
 
-InterFrozt is an initiative under Veyminore focused on software products and startup-building. Its [public-facing site](https://interfrozt.vercel.app) is available; its source repository is private.
+InterFrozt is Veyminore’s games initiative. Its first game prototype is [AROWGO](products/interfrozt/games/arowgo/README.md), a bent-arrow logic puzzle with a structured design and development documentation system. A first playable browser level and mechanic-proof lab are implemented; native Android verification remains pending. The existing [public-facing site](https://interfrozt.vercel.app) and private site source are separate from this games documentation.
 
 **Veyminore is the umbrella. InterFrozt belongs within it.** It is not a separate company.
 

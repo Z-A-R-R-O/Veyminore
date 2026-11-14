@@ -1,0 +1,3 @@
+# Preserve the supplied source byte-for-byte, including Markdown hard breaks.
+games/arowgo/references/AROWGO_Advanced_Masterplan_2.1.md -text whitespace=-blank-at-eol
+games/arowgo/android/gradlew text eol=lf
