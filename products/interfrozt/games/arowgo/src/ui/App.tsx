@@ -542,87 +542,91 @@ export function App({
                   document.body,
                 )}
             </div>
-            <div
-              className={`feedback ${eraseMode ? "choosing" : ""}`}
-              aria-live="polite"
-            >
-              <span className="feedback-icon">
-                {eraseMode ? "◇" : pulse.kind === "blocked" ? "!" : "✧"}
-              </span>
-              {lab
-                ? labMessage
-                : eraseMode
-                  ? "Choose an arrow to erase."
-                  : feedback}
-              {eraseMode && (
-                <button onClick={() => setEraseMode(false)}>Cancel</button>
+            <div className={lab ? "play-support lab-support" : "play-support"}>
+              <div
+                className={`feedback ${eraseMode ? "choosing" : ""}`}
+                aria-live="polite"
+              >
+                <span className="feedback-icon">
+                  {eraseMode ? "◇" : pulse.kind === "blocked" ? "!" : "✧"}
+                </span>
+                {lab
+                  ? labMessage
+                  : eraseMode
+                    ? "Choose an arrow to erase."
+                    : feedback}
+                {eraseMode && (
+                  <button onClick={() => setEraseMode(false)}>Cancel</button>
+                )}
+              </div>
+              {lab ? (
+                <div className="lab-explanation glass-panel">
+                  <strong>
+                    Expected: {f.clear ? "clear exit" : "blocked exit"}
+                  </strong>
+                  <p>{f.description}</p>
+                  <small>
+                    Remove blockers and test again. The lab never changes
+                    campaign progress.
+                  </small>
+                </div>
+              ) : (
+                <>
+                  <div className="tool-tray" aria-label="Puzzle tools">
+                    <button
+                      key={`hint-${pulse.kind === "hint" ? pulse.id : 0}`}
+                      className={`tool-card hint-tool ${pulse.kind === "hint" ? "tool-used" : ""}`}
+                      aria-label="A little hint"
+                      disabled={busy || state.status !== "playing"}
+                      onClick={assist}
+                    >
+                      <span className="tool-badge" aria-hidden="true">
+                        ∞
+                      </span>
+                      <span className="tool-art bulb-art">
+                        <GameArt kind="hint" />
+                        <i />
+                      </span>
+                      <strong>Hint</strong>
+                    </button>
+                    <button
+                      className={`tool-card erase-tool ${eraseMode ? "selected" : ""}`}
+                      aria-label="Erase"
+                      aria-pressed={eraseMode}
+                      disabled={busy || state.status !== "playing"}
+                      onClick={() => {
+                        clearHints();
+                        setEraseMode(!eraseMode);
+                      }}
+                    >
+                      <span className="tool-badge" aria-hidden="true">
+                        ∞
+                      </span>
+                      <span className="tool-art erase-art">
+                        <GameArt kind="erase" />
+                      </span>
+                      <strong>Erase</strong>
+                    </button>
+                  </div>
+                  <div className="card-footer">
+                    {controller.notice && (
+                      <span role="status">{controller.notice}</span>
+                    )}
+                    <button
+                      onClick={() =>
+                        setRestart(
+                          state.mode === "story" ? "practice" : "story",
+                        )
+                      }
+                    >
+                      {state.mode === "story"
+                        ? "Switch to Practice"
+                        : "Switch to Story"}
+                    </button>
+                  </div>
+                </>
               )}
             </div>
-            {lab ? (
-              <div className="lab-explanation glass-panel">
-                <strong>
-                  Expected: {f.clear ? "clear exit" : "blocked exit"}
-                </strong>
-                <p>{f.description}</p>
-                <small>
-                  Remove blockers and test again. The lab never changes campaign
-                  progress.
-                </small>
-              </div>
-            ) : (
-              <>
-                <div className="tool-tray" aria-label="Puzzle tools">
-                  <button
-                    key={`hint-${pulse.kind === "hint" ? pulse.id : 0}`}
-                    className={`tool-card hint-tool ${pulse.kind === "hint" ? "tool-used" : ""}`}
-                    aria-label="A little hint"
-                    disabled={busy || state.status !== "playing"}
-                    onClick={assist}
-                  >
-                    <span className="tool-badge" aria-hidden="true">
-                      ∞
-                    </span>
-                    <span className="tool-art bulb-art">
-                      <GameArt kind="hint" />
-                      <i />
-                    </span>
-                    <strong>Hint</strong>
-                  </button>
-                  <button
-                    className={`tool-card erase-tool ${eraseMode ? "selected" : ""}`}
-                    aria-label="Erase"
-                    aria-pressed={eraseMode}
-                    disabled={busy || state.status !== "playing"}
-                    onClick={() => {
-                      clearHints();
-                      setEraseMode(!eraseMode);
-                    }}
-                  >
-                    <span className="tool-badge" aria-hidden="true">
-                      ∞
-                    </span>
-                    <span className="tool-art erase-art">
-                      <GameArt kind="erase" />
-                    </span>
-                    <strong>Erase</strong>
-                  </button>
-                </div>
-                <div className="card-footer">
-                  {controller.notice && (
-                    <span role="status">{controller.notice}</span>
-                  )}
-                  <button
-                    onClick={() =>
-                      setRestart(state.mode === "story" ? "practice" : "story")
-                    }
-                  >
-                    {state.mode === "story"
-                      ? "Switch to Practice"
-                      : "Switch to Story"}
-                  </button>
-                </div>
-              </>
-            )}
           </section>
         </div>
       </main>

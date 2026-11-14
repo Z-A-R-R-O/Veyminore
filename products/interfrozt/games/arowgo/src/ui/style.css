@@ -3064,6 +3064,118 @@ main {
     min-height: 32px;
   }
 }
+/* Browser chrome can leave a desktop-width game with a phone-like usable height.
+   Keep the complete play loop visible before taking space from the board. */
+@media (min-width: 901px) and (max-height: 820px) {
+  .app-shell {
+    padding-block: 8px;
+  }
+  .app-shell .topbar {
+    height: 44px;
+    min-height: 44px;
+  }
+  .app-shell .level-heading {
+    margin: 2px 0 6px;
+    padding: 5px 12px;
+  }
+  .app-shell .world-label {
+    font-size: 12px;
+  }
+  .app-shell .level-heading h1 {
+    font-size: 27px;
+    margin: 2px;
+  }
+  .app-shell .progress-dots {
+    height: 14px;
+    gap: 8px;
+  }
+  .app-shell .progress-dots span {
+    width: 10px;
+    height: 10px;
+  }
+  .app-shell .game-card {
+    gap: 4px;
+  }
+  .app-shell .hud {
+    height: 50px;
+    min-height: 50px;
+  }
+  .app-shell .feedback {
+    min-height: 26px;
+    padding-block: 3px;
+  }
+  .app-shell .tool-tray {
+    height: 50px;
+  }
+  .app-shell .tool-card {
+    min-height: 50px;
+  }
+  .app-shell .card-footer,
+  .app-shell .card-footer button {
+    min-height: 28px;
+  }
+}
+/* Desktop is a companion layout, not an enlarged phone screen. The board owns
+   the primary column while instructions and tools form a stable side rail. */
+@media (min-width: 901px) {
+  .app-shell[data-view="play"] .play-layout {
+    width: min(100%, 900px);
+    align-items: stretch;
+  }
+  .app-shell[data-view="play"] .game-card {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) 220px;
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "hud hud"
+      "board support";
+    gap: 10px 18px;
+  }
+  .app-shell[data-view="play"] .hud {
+    grid-area: hud;
+    margin: 0;
+  }
+  .app-shell[data-view="play"] .board-wrap {
+    grid-area: board;
+    width: min(100%, calc(100dvh - 190px));
+    aspect-ratio: 1;
+    height: auto;
+    justify-self: center;
+    align-self: center;
+  }
+  .app-shell[data-view="play"] .play-support {
+    grid-area: support;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+  .app-shell[data-view="play"] .play-support .feedback {
+    min-height: 0;
+  }
+  .app-shell[data-view="play"] .tool-tray {
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .app-shell[data-view="play"] .tool-card {
+    width: 100%;
+    min-height: 58px;
+  }
+  .app-shell[data-view="play"] .card-footer {
+    min-height: 0;
+    padding-top: 0;
+    justify-content: center;
+  }
+  .app-shell[data-view="play"] .card-footer button {
+    min-height: 42px;
+    padding-inline: 16px;
+  }
+}
 @media (max-height: 700px) {
   .hub-shell {
     gap: 7px;
