@@ -1,6 +1,6 @@
 # AROWGO — First Bloom
 
-A playable bent-arrow puzzle under **Veyminore → InterFrozt**. Five playable levels, Home/Worlds/Modes/Shop/Profile pages and top-icon Settings, a focused puzzle view, and a nine-example Rule lab.
+A playable bent-arrow puzzle under **Veyminore → InterFrozt**. Ten playable Bloom Valley levels, Home/Worlds/Modes/Shop/Profile pages and top-icon Settings, a focused puzzle view, and a nine-example Rule lab.
 
 **Status:** Browser prototype implemented. Android project generated and synced; native build and physical-device validation pending. AROWGO remains a working name.
 

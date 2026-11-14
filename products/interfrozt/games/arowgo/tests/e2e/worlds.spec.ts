@@ -17,7 +17,7 @@ test("world map fits the viewport and starts the selected level", async ({
     await page.waitForTimeout(450);
     const nav = await page.getByRole("navigation").boundingBox();
     const nodes = page.locator(".valley-stop");
-    await expect(nodes).toHaveCount(5);
+    await expect(nodes).toHaveCount(10);
     for (const node of await nodes.all()) {
       const box = (await node.boundingBox())!;
       expect(box.width).toBeGreaterThanOrEqual(44);

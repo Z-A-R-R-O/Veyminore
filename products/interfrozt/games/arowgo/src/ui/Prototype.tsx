@@ -89,9 +89,9 @@ export function Prototype() {
   const available = (i: number) => i === 0 || controllers[i - 1].state.claimed;
   const next = Math.min(
     controllers.findIndex((c) => !c.state.claimed) === -1
-      ? 4
+      ? controllers.length - 1
       : controllers.findIndex((c) => !c.state.claimed),
-    4,
+    controllers.length - 1,
   );
   function play(i: number, replay = false, mode?: "story" | "practice") {
     if (!available(i)) return;
@@ -103,9 +103,15 @@ export function Prototype() {
       controllers[i].restart(mode ?? "story");
     go(`play/${i + 1}`);
   }
-  const match = /^play\/([1-5])$/.exec(route);
-  if (match && available(Number(match[1]) - 1)) {
-    const i = Number(match[1]) - 1;
+  const match = /^play\/(\d+)$/.exec(route);
+  const requested = match ? Number(match[1]) - 1 : -1;
+  if (
+    match &&
+    requested >= 0 &&
+    requested < controllers.length &&
+    available(requested)
+  ) {
+    const i = requested;
     return (
       <App
         key={i}
@@ -196,7 +202,7 @@ export function Prototype() {
               <div>
                 <span className="eyebrow">YOUR VALLEY JOURNEY</span>
                 <h2>Story</h2>
-                <p>Five levels. Three hearts.</p>
+                <p>{levels.length} levels. Three hearts.</p>
                 <button
                   className="primary-button"
                   onClick={() => play(next, false, "story")}
@@ -258,14 +264,16 @@ export function Prototype() {
             <div className="progress-orbit">
               <strong>
                 {completed}
-                <small>/ 5</small>
+                <small>/ {levels.length}</small>
               </strong>
               <span>levels cleared</span>
             </div>
             <div className="stat-grid">
               <section className="glass-panel">
                 <span>★</span>
-                <strong>{stars} / 15</strong>
+                <strong>
+                  {stars} / {levels.length * 3}
+                </strong>
                 <p>Best stars</p>
               </section>
               <section className="glass-panel">
@@ -278,7 +286,11 @@ export function Prototype() {
               {[
                 { name: "First bloom", symbol: "✿", earned: completed > 0 },
                 { name: "Pathfinder", symbol: "➤", earned: completed >= 3 },
-                { name: "Valley keeper", symbol: "♛", earned: completed === 5 },
+                {
+                  name: "Valley keeper",
+                  symbol: "♛",
+                  earned: completed === levels.length,
+                },
               ].map((b) => (
                 <div
                   key={b.name}
@@ -293,7 +305,7 @@ export function Prototype() {
                         ? "Clear 1 level"
                         : b.name === "Pathfinder"
                           ? "Clear 3 levels"
-                          : "Clear 5 levels"}
+                          : `Clear ${levels.length} levels`}
                   </small>
                 </div>
               ))}

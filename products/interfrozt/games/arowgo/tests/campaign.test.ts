@@ -3,6 +3,21 @@ import { levels } from "../src/domain/campaign";
 import { checkExit, solve } from "../src/domain/rules";
 import { Controller } from "../src/application/controller";
 import { SaveStore } from "../src/storage/save";
+it("contains the ten-level Bloom Valley route", () => {
+  expect(levels).toHaveLength(10);
+  expect(levels.map((level) => level.levelId)).toEqual([
+    "bloom-01",
+    "bloom-02",
+    "bloom-03",
+    "bloom-04",
+    "bloom-05",
+    "bloom-06",
+    "bloom-07",
+    "bloom-08",
+    "bloom-09",
+    "bloom-10",
+  ]);
+});
 it.each(levels)("$levelId has a legal complete solution", (level) => {
   let active = level.arrows.map((a) => a.id);
   for (const id of level.solution) {
@@ -12,7 +27,7 @@ it.each(levels)("$levelId has a legal complete solution", (level) => {
   expect(active).toEqual([]);
   expect(solve(level)).toBeTruthy();
 });
-it("isolates five saves, restores attempts, and awards exactly 125 total coins", () => {
+it("isolates ten saves, restores attempts, and awards exactly 250 total coins", () => {
   const values = new Map<string, string>();
   const store = {
     getItem: (k: string) => values.get(k) ?? null,
@@ -35,5 +50,5 @@ it("isolates five saves, restores attempts, and awards exactly 125 total coins",
     expect(restored.state.bestStars).toBe(3);
     total += restored.state.coins;
   });
-  expect(total).toBe(125);
+  expect(total).toBe(250);
 });

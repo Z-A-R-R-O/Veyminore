@@ -5,6 +5,7 @@ import type { Controller } from "../application/controller";
 import { stars, type Mode, type Outcome } from "../application/session";
 import { Board, type BoardHandle } from "../game/Board";
 import { checkExit } from "../domain/rules";
+import { levels } from "../domain/campaign";
 import { fixtures } from "../domain/fixtures";
 import { WinMoment } from "./WinMoment";
 import { Coin, CountUp, HeartToken, Encouragement } from "./elements/Rewards";
@@ -514,7 +515,7 @@ export function App({
                       >
                         {state.status === "complete"
                           ? onNext
-                            ? levelNumber < 5
+                            ? levelNumber < levels.length
                               ? "Next level"
                               : "Back to Worlds"
                             : "Play again"

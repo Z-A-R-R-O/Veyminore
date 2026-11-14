@@ -4704,6 +4704,20 @@ main {
   flex: 1 1 0;
   min-height: 0;
   isolation: isolate;
+  background:
+    linear-gradient(180deg, #e8d8ff70, #ba9ee530 45%, #f8cdf06b),
+    url("/assets/bloom-valley-world-map-candy-landscape-v1.png") center / cover;
+  box-shadow:
+    inset 0 0 0 1px #ffffffa8,
+    0 10px 24px #73508c2b;
+}
+@media (max-width: 680px) {
+  .valley-map {
+    background-image:
+      linear-gradient(180deg, #e8d8ff58, #ba9ee51f 45%, #f8cdf058),
+      url("/assets/bloom-valley-world-map-candy-portrait-v1.png");
+    background-position: center;
+  }
 }
 .valley-island {
   position: absolute;

@@ -4,11 +4,16 @@ import { GameArt } from "./elements/GameArt";
 
 type Progress = { available: boolean; cleared: boolean; stars: number };
 const stops = [
-  { x: 25, y: 84 },
-  { x: 65, y: 67 },
-  { x: 35, y: 49 },
-  { x: 70, y: 31 },
-  { x: 49, y: 12 },
+  { x: 21, y: 88 },
+  { x: 53, y: 81 },
+  { x: 75, y: 72 },
+  { x: 47, y: 64 },
+  { x: 28, y: 56 },
+  { x: 55, y: 48 },
+  { x: 76, y: 40 },
+  { x: 51, y: 32 },
+  { x: 31, y: 23 },
+  { x: 58, y: 13 },
 ];
 
 export function Worlds({
@@ -31,20 +36,20 @@ export function Worlds({
         <h1>Bloom Valley</h1>
         <div className="valley-progress">
           <span>
-            {cleared === 5 ? "Valley complete" : `${cleared} / 5 cleared`}
+            {cleared === progress.length
+              ? "Valley complete"
+              : `${cleared} / ${progress.length} cleared`}
           </span>
-          <span className="valley-stars" aria-label={`${stars} of 15 stars`}>
+          <span
+            className="valley-stars"
+            aria-label={`${stars} of ${progress.length * 3} stars`}
+          >
             ★ {stars}
-            <span> / 15</span>
+            <span> / {progress.length * 3}</span>
           </span>
         </div>
       </header>
       <section className="valley-map" aria-label="Bloom Valley level map">
-        <img
-          className="valley-island"
-          src="/assets/generated/bloom-island-v1.png"
-          alt=""
-        />
         <svg
           className="valley-trail"
           viewBox="0 0 100 100"
@@ -53,11 +58,11 @@ export function Worlds({
         >
           <path
             className="trail-shadow"
-            d="M25 84 C25 75 65 78 65 67 S35 60 35 49 S70 43 70 31 S49 24 49 12"
+            d="M21 88 C33 86 42 84 53 81 S71 75 75 72 S58 67 47 64 S33 59 28 56 S46 51 55 48 S71 43 76 40 S61 35 51 32 S37 27 31 23 S48 17 58 13"
           />
           <path
             className="trail-light"
-            d="M25 84 C25 75 65 78 65 67 S35 60 35 49 S70 43 70 31 S49 24 49 12"
+            d="M21 88 C33 86 42 84 53 81 S71 75 75 72 S58 67 47 64 S33 59 28 56 S46 51 55 48 S71 43 76 40 S61 35 51 32 S37 27 31 23 S48 17 58 13"
           />
         </svg>
         {progress.map((p, i) => (
@@ -109,7 +114,11 @@ export function Worlds({
         ))}
         <div className="valley-discovery" aria-hidden="true">
           <GameArt kind="trophy" />
-          <span>{cleared === 5 ? "Beautifully done" : "A little further"}</span>
+          <span>
+            {cleared === progress.length
+              ? "Beautifully done"
+              : "A little further"}
+          </span>
         </div>
       </section>
       <section className="valley-launch" aria-label="Selected level">
