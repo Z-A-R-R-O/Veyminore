@@ -1269,3 +1269,63 @@
     font-size: 19px;
   }
 }
+/* Continuous collections; only the item area scrolls, controls stay reachable. */
+.portrait-choice-area,
+.badge-grid,
+.player-collection {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #b18acb #f1e5fc;
+}
+.portrait-studio .avatar-picker.adventure-picker {
+  height: auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: none;
+  grid-auto-rows: 104px;
+  padding: 3px;
+}
+.portrait-studio .avatar-controls {
+  justify-content: flex-end;
+}
+.badge-grid {
+  flex: 1;
+  grid-template-rows: none;
+  grid-auto-rows: 125px;
+  align-content: start;
+  padding: 3px;
+}
+.player-collection {
+  grid-auto-rows: 150px;
+  align-content: start;
+  padding: 3px;
+}
+@media (max-width: 380px) {
+  .portrait-studio .avatar-picker.adventure-picker {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 600px) {
+  .portrait-studio .avatar-picker.adventure-picker {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1000px) and (min-height: 650px) {
+  .portrait-studio .avatar-picker.adventure-picker {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .badge-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 90px;
+  }
+  .player-panel:has(.player-collection) {
+    display: flex;
+  }
+  .player-collection {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 105px;
+  }
+}

@@ -13,3 +13,7 @@ Six badges remain explicitly marked Coming soon: Quick Thinker, Chain Reaction, 
 Bloom Valley uses campaign slots 1–20 and Verdant Cove slots 21–40. Launch prestige targets remain fixed at 40 clears / 120 stars so adding future worlds does not move existing targets.
 
 Validation covers threshold boundaries, world isolation, pending events, all 30 loaded assets, pagination, and four viewport sizes. No existing player save is modified by viewing badges.
+
+## Navigation update
+
+All 30 badges now appear in one vertically scrollable grid; pagination has been removed. Selecting any badge keeps its requirement in the fixed detail panel below the grid.

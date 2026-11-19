@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { badges, badgeProgress, type BadgeStats } from "../storage/badges";
 export function BadgeCollection({ stats }: { stats: BadgeStats }) {
-  const [page, setPage] = useState(0);
   const [selected, setSelected] = useState(badges[0]);
   const state = badgeProgress(selected, stats);
   return (
@@ -14,7 +13,7 @@ export function BadgeCollection({ stats }: { stats: BadgeStats }) {
         </span>
       </div>
       <div className="badge-grid">
-        {badges.slice(page * 6, page * 6 + 6).map((b) => {
+        {badges.map((b) => {
           const p = badgeProgress(b, stats);
           return (
             <button
@@ -43,29 +42,6 @@ export function BadgeCollection({ stats }: { stats: BadgeStats }) {
               ? `${state.current} / ${selected.target}`
               : "Tracking coming soon — not awarded yet"}
         </small>
-      </div>
-      <div className="player-pagination">
-        <button
-          aria-label="Previous badges"
-          disabled={page === 0}
-          onClick={() => {
-            setPage(page - 1);
-            setSelected(badges[(page - 1) * 6]);
-          }}
-        >
-          ←
-        </button>
-        <span>{page + 1} / 5</span>
-        <button
-          aria-label="Next badges"
-          disabled={page === 4}
-          onClick={() => {
-            setPage(page + 1);
-            setSelected(badges[(page + 1) * 6]);
-          }}
-        >
-          →
-        </button>
       </div>
     </section>
   );

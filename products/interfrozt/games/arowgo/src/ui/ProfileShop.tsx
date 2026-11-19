@@ -8,7 +8,7 @@ const avatarChoices = [
   ...(["world", "modes", "trophy"] as const).map((id) => ({ id, name: id })),
 ];
 const frames = [...avatarFrames, { id: "none" as const, name: "No frame" }];
-const pageSize = 12;
+
 type Category = "avatar" | "frame";
 export function ProfileEditor({
   profile,
@@ -22,20 +22,8 @@ export function ProfileEditor({
   const [frame, setFrame] = useState<AvatarFrame>(profile.avatarFrame);
   const [tab, setTab] = useState<Category>("avatar");
   const [message, setMessage] = useState("");
-  const [pages, setPages] = useState({
-    avatar: Math.floor(
-      Math.max(
-        0,
-        adventureAvatars.findIndex((a) => a.id === profile.avatar),
-      ) / pageSize,
-    ),
-    frame: 0,
-  });
   const choices = tab === "avatar" ? avatarChoices : frames;
   const selected = tab === "avatar" ? avatar : frame;
-  const page = pages[tab];
-  const total = Math.ceil(choices.length / pageSize);
-  const label = tab === "avatar" ? "avatars" : "frames";
   const select = (id: string) => {
     if (tab === "avatar") setAvatar(id as Avatar);
     else setFrame(id as AvatarFrame);
@@ -97,51 +85,28 @@ export function ProfileEditor({
             aria-label={`Choose ${tab}`}
             key={tab}
           >
-            {choices
-              .slice(page * pageSize, (page + 1) * pageSize)
-              .map((item) => (
-                <button
-                  type="button"
-                  key={item.id}
-                  title={item.name}
-                  aria-label={`Choose ${item.name} ${tab}`}
-                  aria-pressed={selected === item.id}
-                  onClick={() => select(item.id)}
-                >
-                  <span className="portrait-tile-art">
-                    <AvatarArt
-                      avatar={tab === "avatar" ? (item.id as Avatar) : avatar}
-                      background="none"
-                      frame={tab === "frame" ? (item.id as AvatarFrame) : frame}
-                    />
-                  </span>
-                  <span className="portrait-tile-name">{item.name}</span>
-                </button>
-              ))}
+            {choices.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                title={item.name}
+                aria-label={`Choose ${item.name} ${tab}`}
+                aria-pressed={selected === item.id}
+                onClick={() => select(item.id)}
+              >
+                <span className="portrait-tile-art">
+                  <AvatarArt
+                    avatar={tab === "avatar" ? (item.id as Avatar) : avatar}
+                    background="none"
+                    frame={tab === "frame" ? (item.id as AvatarFrame) : frame}
+                  />
+                </span>
+                <span className="portrait-tile-name">{item.name}</span>
+              </button>
+            ))}
           </div>
         </div>
         <div className="avatar-controls">
-          <div className="portrait-pager">
-            <button
-              type="button"
-              aria-label={`Previous ${label}`}
-              disabled={page === 0}
-              onClick={() => setPages({ ...pages, [tab]: page - 1 })}
-            >
-              ‹
-            </button>
-            <span aria-live="polite">
-              {page + 1} / {total}
-            </span>
-            <button
-              type="button"
-              aria-label={`Next ${label}`}
-              disabled={page + 1 >= total}
-              onClick={() => setPages({ ...pages, [tab]: page + 1 })}
-            >
-              ›
-            </button>
-          </div>
           <button className="primary-button" type="submit">
             Save
           </button>

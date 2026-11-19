@@ -61,3 +61,7 @@ Replaced all 30 `public/assets/avatars/adventure-01.webp` through `adventure-30.
 Built-in imagegen background extraction produced `exec-c6eb7e6e-50ac-4f2d-8c53-9dc94a4f0add.png`, then the transparent sheet was split row-major into six columns and five rows and exported as WebP.
 
 Prompt: “Use case: background-extraction. Edit target: supplied 30 character sprite sheet. Remove ONLY the pastel background and its yellow corner glow, replacing it with true transparency. Preserve all 30 original characters, exact identities, glossy artwork, expressions, accessories, colors, position, small scale and generous spacing. Keep exactly six columns and five rows in original row-major order. Preserve full ears hats horns and busts, no added shadows or outlines. Do not enlarge or rearrange characters. Output full sheet at original 6:5 aspect ratio with transparent background suitable for cutting into individual game portraits.”
+
+## Continuous collections
+
+Profile collections now show all items in vertically scrollable grids, replacing pagination buttons. Avatar/frame scrolling is confined to the choice area, with Save fixed below it. Badge details remain below their scrolling grid. Arrow collection scrolling keeps the shop action reachable. Touch, wheel and keyboard focus can reach the final items without scrolling the game shell. Stable IDs and explicit saving are unchanged.

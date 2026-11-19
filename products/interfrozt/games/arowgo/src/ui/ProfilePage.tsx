@@ -37,7 +37,6 @@ export function ProfilePage({
         ? "account"
         : "journey",
   );
-  const [page, setPage] = useState(0);
   const [notice, setNotice] = useState("");
   const equipped = skins.find((s) => s.id === profile.equipped)!;
   const milestones = [
@@ -234,7 +233,7 @@ export function ProfilePage({
               </span>
             </div>
             <div className="player-collection">
-              {skins.slice(page * 4, page * 4 + 4).map((s) => {
+              {skins.map((s) => {
                 const owned = profile.owned.includes(s.id),
                   active = profile.equipped === s.id;
                 return (
@@ -265,25 +264,6 @@ export function ProfilePage({
                   </button>
                 );
               })}
-            </div>
-            <div className="player-pagination">
-              <button
-                disabled={page === 0}
-                onClick={() => setPage((p) => p - 1)}
-                aria-label="Previous arrows"
-              >
-                ←
-              </button>
-              <span>
-                {page + 1} / {Math.ceil(skins.length / 4)}
-              </span>
-              <button
-                disabled={(page + 1) * 4 >= skins.length}
-                onClick={() => setPage((p) => p + 1)}
-                aria-label="Next arrows"
-              >
-                →
-              </button>
             </div>
             <button
               className="primary-button player-action"
