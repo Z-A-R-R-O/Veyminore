@@ -53,3 +53,18 @@ A dedicated `equip` command requires an owned skin and the expected preference r
 Database upgrades are additive. Reviewed migration snapshots seed missing star and equipment records. Existing server clears without a reviewed star record receive the completion star; subsequent verified runs can improve it. Existing local best stars remain untouched. Reopening the database never replaces newer star records or equipped choices with the old backup.
 
 The completion queue now identifies acknowledgements per attempt, so replays of an already-cleared level still synchronize their score. Account > Retry account sync also retries pending equipment changes. Original legacy saves and balances are unchanged. This development preview continues to use local server SQLite, not a newly deployed PlayFab progress service.
+
+## Second-device account restore (2026-11-19)
+
+Implemented for the development account-wallet preview. Profile links to **Review or restore account**; a signed-in player can preview completed levels, total best stars, equipped skin and server balances, then explicitly confirm a new-device restore.
+
+- Reads the authenticated account overview; never imports the new device's local currency into the wallet.
+- Requires a reviewed account migration. Checks account identity and wallet revision again on confirmation; changed server state requires a fresh preview.
+- Preserves original legacy keys byte-for-byte. Creates a downloadable recovery backup before any account-save replacement, journals the previous namespace, verifies writes and binds the account last.
+- Uses the exclusive save lock; another game tab prevents restoration. Interrupted restoration rolls back before game startup. Storage failures retain the recovery journal for retry.
+- Restores all known level completion flags and best stars into fresh, valid boards, plus owned/equipped skin metadata. Partially played boards restart. Existing bound account saves are not overwritten by this initial-restore flow.
+- Currency remains server-authoritative. Restore issues no grant, purchase or completion operation. Name/avatar and partially played boards are not synchronized by this feature.
+
+Validation: 292 unit tests and production build pass. Focused browser coverage uses isolated browser contexts against a real in-memory wallet ledger, not player balances. This remains a single-host development ledger, not a production PlayFab Economy deployment.
+
+Browser verification: all four focused desktop/phone restore and wallet regression checks pass, including two isolated device contexts, stale preview rejection, lost purchase responses and reloads. Interrupted-write rollback and retry are covered by unit tests.

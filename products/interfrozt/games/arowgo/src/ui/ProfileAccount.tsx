@@ -98,8 +98,9 @@ export function ProfileAccount() {
           )}
           {economyOwner() && <p role="status">{walletMessage}</p>}
           <div className="account-actions">
+            {economyOwner() && <a href="/economy.html">Account recovery</a>}
             {state === "ready" && account && !economyOwner() && (
-              <a href="/economy.html">Review account wallet</a>
+              <a href="/economy.html">Review or restore account</a>
             )}
             {economyOwner() && (
               <button
