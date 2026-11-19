@@ -206,3 +206,62 @@ test("frames preview all thirty assets and save with avatar and background", asy
     page.locator(".player-avatar .avatar-frame-overlay"),
   ).toHaveCount(0);
 });
+
+test("appearance controls and portrait layers stay visible at all screen sizes", async ({
+  page,
+}) => {
+  for (const [width, height] of [
+    [320, 568],
+    [390, 844],
+    [844, 390],
+    [1280, 800],
+  ]) {
+    await page.setViewportSize({ width, height });
+    await page.goto("/#profile");
+    await page
+      .getByRole("button", { name: "Edit profile", exact: true })
+      .click();
+    await page.getByRole("button", { name: "Avatar", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Choose Fox Explorer avatar" })
+      .click();
+    for (const category of ["Avatar", "Background", "Frame"]) {
+      await page.getByRole("button", { name: category, exact: true }).click();
+      const boxes = await page
+        .locator(".adventure-picker button")
+        .evaluateAll((nodes) =>
+          nodes.map((n) => {
+            const r = n.getBoundingClientRect();
+            return { x: r.x, y: r.y, w: r.width, h: r.height };
+          }),
+        );
+      expect(boxes.length).toBe(12);
+      for (const b of boxes) {
+        expect(b.w).toBeGreaterThanOrEqual(30);
+        expect(b.h).toBeGreaterThanOrEqual(30);
+        expect(b.x + b.w).toBeLessThanOrEqual(width);
+        expect(b.y + b.h).toBeLessThan(height);
+      }
+      const save = await page
+        .getByRole("button", { name: "Save", exact: true })
+        .boundingBox();
+      expect(save!.y + save!.height).toBeLessThan(height);
+      const preview = await page
+        .locator(".portrait-live-preview")
+        .boundingBox();
+      expect(preview!.width).toBeGreaterThanOrEqual(48);
+      if (category === "Frame") {
+        await page
+          .getByRole("button", { name: "Choose Ruby Laurel frame" })
+          .click();
+        await expect(
+          page.locator(".portrait-live-preview .avatar-frame-overlay"),
+        ).toBeVisible();
+        await page.waitForTimeout(250);
+        await page.screenshot({
+          path: `tmp/portrait-audit-${width}-${height}.png`,
+        });
+      }
+    }
+  }
+});

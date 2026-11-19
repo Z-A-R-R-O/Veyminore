@@ -39,3 +39,9 @@ Cropped the transparent result into 6 x 5 equal cells and resized to 229px WebP,
 Replaced the thirty frame assets using the user's 30 Fantasy Frame Rings Collection.png. Source was RGB with white outside/inside the rings. Built-in image_gen background extraction prompt: "Background extraction only for this exact game asset sheet. Remove the white background outside every frame AND inside all thirty ring openings, replacing with genuine transparent alpha. Preserve all 30 frames, original artwork, colors, details, their exact order and 6-column x 5-row layout, scale and spacing. Preserve white feathers, fur, clouds, pearls and highlights belonging to the frames. No redrawing, rearranging, new objects, missing frames, shadows in openings or checkerboard. Output a transparent PNG with the same aspect ratio."
 
 Runtime files stay public/assets/avatars/frames/frame-01.webp through frame-30.webp. Each 229px crop is centered on its ring rather than on the sheet's nominal grid, preserving saved IDs and the existing overlay component. No inventory, balance or profile-schema changes.
+
+## Profile appearance layout audit
+
+Replaced the accumulated picker overrides with a single bounded editor layout and shared category renderer. A live preview sits beside the name input; category tabs, a 12-slot grid, paging/Save footer and status each have defined space. Empty slots on the final page retain the same sizing as full pages. Framed portraits compensate for the padded source once (1.38x within the clipped circular opening); tile portraits use a restrained 1.22x presentation scale. Source assets are unchanged.
+
+The same selection/save path serves all categories. Missing legacy avatar selections open the first character page. Added geometric browser checks for all categories at 320x568, 390x844, 844x390 and 1280x800, including visible preview, minimum tile size and footer bounds. Existing profile persistence, background and frame removal checks remain.

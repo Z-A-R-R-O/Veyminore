@@ -533,67 +533,10 @@
   }
 }
 
-/* Paginated portraits keep the game viewport fixed on small devices. */
-.avatar-picker.adventure-picker {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 6px;
-}
-.avatar-picker.adventure-picker button {
-  min-width: 0;
-  min-height: 44px;
-  padding: 2px;
-  overflow: hidden;
-  aspect-ratio: 1;
-  transition:
-    border-color 0.18s ease,
-    background 0.18s ease;
-}
-.avatar-picker.adventure-picker .game-art {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+/* Shared portrait layers. Artwork keeps its source padding; framed portraits compensate once. */
 .adventure-avatar {
   object-fit: contain;
   border-radius: 50%;
-}
-.avatar-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-}
-.avatar-controls button {
-  min-width: 44px;
-  min-height: 44px;
-  border-radius: 14px;
-}
-.avatar-controls .primary-button {
-  margin-left: auto;
-  padding: 8px 22px;
-  font-size: 16px;
-}
-.avatar-controls span {
-  font-size: 12px;
-  white-space: nowrap;
-}
-@media (max-height: 620px) {
-  .avatar-picker.adventure-picker {
-    max-width: 330px;
-  }
-}
-@media (max-height: 640px) {
-  .player-panel .profile-identity {
-    display: none;
-  }
-  .player-panel .profile-editor {
-    padding: 12px;
-  }
-  .player-panel .profile-message {
-    margin: 4px 0;
-    min-height: 16px;
-  }
 }
 .avatar-composite {
   display: inline-flex;
@@ -607,64 +550,6 @@
   height: 90% !important;
   object-fit: contain;
 }
-.avatar-category {
-  display: flex;
-  gap: 6px;
-  margin-top: 8px;
-}
-.avatar-category button {
-  min-height: 36px;
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-}
-.avatar-category button[aria-pressed="true"] {
-  background: #e5c9fa;
-  color: #542575;
-}
-@media (max-height: 740px) {
-  .player-panel .profile-identity {
-    display: none;
-  }
-}
-@media (max-height: 460px) and (min-width: 600px) {
-  .profile-editor form {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 4px 10px;
-  }
-  .profile-editor .name-field {
-    min-width: 0;
-    font-size: 11px;
-  }
-  .profile-editor .name-field input {
-    min-width: 0;
-    width: 100%;
-    padding: 6px;
-  }
-  .profile-editor .avatar-category {
-    margin: 0;
-    align-items: center;
-  }
-  .profile-editor .adventure-picker {
-    grid-column: 1;
-    margin-top: 0;
-  }
-  .profile-editor .avatar-controls {
-    grid-column: 2;
-    margin-top: 0;
-    gap: 3px;
-  }
-  .profile-editor .avatar-controls .primary-button {
-    padding: 6px 10px;
-  }
-  .profile-editor .profile-message {
-    grid-column: 1 / -1;
-  }
-  .profile-editor .profile-message:empty {
-    display: none;
-  }
-}
 .framed-avatar {
   position: relative;
   display: inline-block;
@@ -677,12 +562,17 @@
   border-radius: 50%;
   overflow: hidden;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .framed-avatar .framed-avatar-face > .game-art {
   width: 100% !important;
   height: 100% !important;
   max-width: none;
   object-fit: contain;
+}
+.framed-avatar-face > .adventure-avatar {
+  transform: scale(1.38);
 }
 .framed-avatar > .avatar-frame-overlay {
   position: absolute;
@@ -693,23 +583,65 @@
   pointer-events: none;
   z-index: 1;
 }
-@media (max-height: 460px) and (min-width: 600px) {
-  .profile-editor .avatar-category {
-    gap: 3px;
-  }
-  .profile-editor .avatar-category button {
-    padding: 4px 6px;
-    font-size: 11px;
-  }
-}
 
-/* Multi-row appearance studio: twelve choices per page. */
-.player-panel .portrait-studio {
-  padding: 14px;
+/* One bounded editor layout; the footer never competes with the grid. */
+.player-panel:has(.portrait-studio) {
+  display: flex;
   min-height: 0;
 }
-.portrait-studio .profile-identity {
-  display: none;
+.player-panel .portrait-studio {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 14px;
+  overflow: hidden;
+}
+.portrait-studio form {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr) auto 16px;
+  gap: 8px;
+}
+.player-panel .portrait-studio .portrait-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  min-width: 0;
+}
+.portrait-live-preview {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: #ffffff70;
+  border: 1px solid #fff;
+}
+.portrait-live-preview > .game-art {
+  width: 100%;
+  height: 100%;
+}
+.portrait-studio .name-field {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  font-size: 12px;
+}
+.portrait-studio .name-field input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 15px;
 }
 .portrait-studio .avatar-category {
   display: grid;
@@ -718,8 +650,8 @@
   padding: 4px;
   background: #e7d9f17a;
   border: 1px solid #ffffffb0;
-  border-radius: 18px;
-  margin-top: 10px;
+  border-radius: 16px;
+  margin: 0;
 }
 .portrait-studio .avatar-category button {
   display: flex;
@@ -728,116 +660,230 @@
   gap: 5px;
   min-width: 0;
   min-height: 40px;
-  padding: 6px 4px;
+  padding: 5px 3px;
   border: 0;
-  border-radius: 13px;
+  border-radius: 12px;
   background: transparent;
-  color: #806499;
+  color: #745887;
   font-weight: 700;
   font-size: 12px;
   transition:
     background 0.18s ease,
-    box-shadow 0.18s ease,
     color 0.18s ease;
 }
 .portrait-studio .avatar-category button[aria-pressed="true"] {
-  background: linear-gradient(145deg, #c790ef, #8b4ac4);
+  background: linear-gradient(145deg, #bf82e8, #8b4ac4);
   color: white;
   box-shadow:
-    0 3px 8px #8050a52b,
+    0 2px 6px #8050a52b,
     inset 0 1px 1px #fff8;
 }
 .portrait-tab-symbol {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1;
 }
+.portrait-choice-area {
+  min-height: 0;
+  overflow: hidden;
+}
 .portrait-studio .avatar-picker.adventure-picker {
+  height: 100%;
+  min-height: 0;
+  display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
   max-width: none;
-  margin-top: 10px;
+  align-items: stretch;
 }
 .portrait-studio .avatar-picker.adventure-picker button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: auto;
   position: relative;
-  aspect-ratio: 1;
-  min-height: 44px;
-  border-radius: 16px;
+  line-height: normal;
+  border-radius: 14px;
   padding: 4px;
-  background: linear-gradient(150deg, #fff9, #e9dcf75c);
-  border: 2px solid #ffffff9e;
+  background: linear-gradient(150deg, #fffb, #e9dcf75c);
+  border: 2px solid #ffffffb0;
+  overflow: hidden;
   transition:
     border-color 0.15s ease,
     background 0.15s ease;
 }
+.portrait-tile-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  flex: 1;
+  width: 100%;
+}
+.portrait-studio .portrait-tile-art > .game-art {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 110px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  flex-shrink: 1;
+}
+.portrait-tile-name {
+  font-size: 10px;
+  line-height: 14px;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #694781;
+  flex-shrink: 0;
+}
 .portrait-studio .avatar-picker button[aria-pressed="true"] {
   border-color: #9b53d4;
   background: #e9ccff;
-  box-shadow: 0 0 0 2px #b783dd26;
 }
 .portrait-studio .avatar-picker button[aria-pressed="true"]::after {
   content: "✓";
   position: absolute;
-  right: 1px;
-  bottom: 1px;
+  right: 2px;
+  top: 2px;
   display: grid;
   place-items: center;
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #8542bb;
   color: white;
-  font-size: 11px;
+  font-size: 10px;
 }
-.portrait-studio .profile-message {
-  margin: 4px 0 0;
+.portrait-studio .avatar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+}
+.portrait-pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.portrait-pager button {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-radius: 12px;
+  font-size: 23px;
+  line-height: 1;
+}
+.portrait-pager span {
+  min-width: 40px;
+  text-align: center;
+  font-size: 12px;
+}
+.portrait-studio .avatar-controls .primary-button {
+  min-width: 100px;
+  min-height: 42px;
+  padding: 8px 22px;
+  font-size: 16px;
+  margin: 0;
+}
+.player-panel .portrait-studio .profile-message {
   min-height: 16px;
+  height: 16px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
 }
-@media (min-width: 600px) {
+@media (min-width: 600px), (max-height: 700px) {
   .portrait-studio .avatar-picker.adventure-picker {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
 }
-@media (max-height: 740px) and (max-width: 599px) {
-  .portrait-studio .avatar-picker.adventure-picker {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
+@media (max-height: 700px) {
   .player-panel .portrait-studio {
-    padding: 10px;
+    padding: 8px;
+  }
+  .portrait-studio form {
+    gap: 5px;
+  }
+  .portrait-live-preview {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+  }
+  .portrait-studio .name-field {
+    font-size: 10px;
+    gap: 2px;
+  }
+  .portrait-studio .name-field input {
+    height: 32px;
+    font-size: 13px;
+  }
+  .portrait-studio .avatar-category {
+    padding: 3px;
+  }
+  .portrait-studio .avatar-category button {
+    min-height: 34px;
+  }
+  .portrait-studio .avatar-picker.adventure-picker {
+    gap: 4px;
+  }
+  .portrait-tile-name {
+    display: none;
   }
   .portrait-tab-symbol {
     display: none;
   }
+  .portrait-studio .avatar-controls .primary-button,
+  .portrait-pager button {
+    min-height: 36px;
+  }
 }
 @media (max-height: 460px) and (min-width: 600px) {
   .portrait-studio form {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 3px 8px;
+    grid-template-columns: minmax(0, 1fr) 150px;
+    grid-template-rows: auto minmax(0, 1fr) 16px;
+    gap: 4px 10px;
+  }
+  .portrait-studio .portrait-preview-row {
+    grid-column: 1;
+    grid-row: 1;
   }
   .portrait-studio .avatar-category {
-    margin: 0;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    gap: 1px;
     padding: 2px;
   }
   .portrait-studio .avatar-category button {
-    min-height: 34px;
-    padding: 4px;
-    font-size: 11px;
+    font-size: 9px;
+    padding: 3px 1px;
   }
-  .portrait-studio .portrait-tab-symbol {
-    display: none;
-  }
-  .portrait-studio .avatar-picker.adventure-picker {
+  .portrait-studio .portrait-choice-area {
     grid-column: 1;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 3px;
-    margin-top: 3px;
-  }
-  .portrait-studio .avatar-picker.adventure-picker button {
-    padding: 1px;
-    min-height: 34px;
-    border-radius: 10px;
+    grid-row: 2;
   }
   .portrait-studio .avatar-controls {
-    align-self: center;
+    grid-column: 2;
+    grid-row: 2;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+  .portrait-studio .profile-message {
+    grid-column: 1 / -1;
+    grid-row: 3;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -845,59 +891,53 @@
     transition: none !important;
   }
 }
-@media (max-height: 640px) and (max-width: 599px) {
-  .player-panel .portrait-studio {
-    padding: 8px;
-  }
-  .portrait-studio .avatar-category {
-    margin-top: 5px;
-    padding: 3px;
-  }
-  .portrait-studio .avatar-category button {
-    min-height: 36px;
-  }
-  .portrait-studio .avatar-picker.adventure-picker {
-    margin-top: 6px;
-    gap: 3px;
-  }
-  .portrait-studio .avatar-controls {
-    margin-top: 5px;
-  }
-  .portrait-studio .profile-message:empty {
-    display: none;
-  }
+/* Fill portrait areas consistently without altering the padded source assets. */
+.portrait-tile-art {
+  overflow: hidden;
+  border-radius: 10px;
 }
-
-/* Align portrait tiles and anchor paging/Save to the same footer baseline. */
-.portrait-studio .avatar-picker.adventure-picker button {
-  display: grid;
-  place-items: center;
-  line-height: 0;
+.portrait-tile-art > .adventure-avatar {
+  transform: scale(1.22);
 }
-.portrait-studio .avatar-controls {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  gap: 8px;
+.portrait-live-preview {
+  overflow: hidden;
 }
-.portrait-studio .avatar-controls > span {
-  min-width: 40px;
-  text-align: center;
+.portrait-live-preview > .adventure-avatar {
+  transform: scale(1.15);
 }
-.portrait-studio .avatar-controls .primary-button {
-  margin-left: auto;
-  flex-shrink: 0;
-}
-.portrait-studio .avatar-controls button:not(.primary-button) {
-  display: grid;
-  place-items: center;
-  font-size: 22px;
-  line-height: 1;
+.portrait-studio .name-field input {
+  max-width: none;
+  min-height: 0;
 }
 @media (max-height: 460px) and (min-width: 600px) {
+  .portrait-studio form {
+    grid-template-rows: 48px minmax(0, 1fr) 36px 12px;
+    gap: 4px 8px;
+  }
+  .portrait-studio .portrait-choice-area {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
   .portrait-studio .avatar-controls {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .portrait-studio .profile-message {
+    grid-row: 4;
+    height: 12px;
+    min-height: 12px;
+    line-height: 12px;
+    font-size: 10px;
+  }
+  .portrait-studio .avatar-category button {
+    font-size: 9px;
+    letter-spacing: -0.2px;
+  }
+  .portrait-studio .portrait-tile-art > .game-art {
+    height: 100%;
     width: auto;
-    gap: 3px;
+    max-width: 100%;
   }
 }
