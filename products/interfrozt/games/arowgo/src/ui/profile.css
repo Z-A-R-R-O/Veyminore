@@ -970,3 +970,40 @@
   margin-left: auto;
   flex-shrink: 0;
 }
+.player-avatar {
+  position: relative;
+}
+.profile-pencil {
+  position: absolute;
+  right: -13px;
+  bottom: -13px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: #7545a2;
+  z-index: 2;
+}
+.profile-pencil span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #d5b9ed;
+  box-shadow: 0 2px 5px #56347725;
+  transition: background 0.15s ease;
+}
+.profile-pencil:hover span {
+  background: #f0e1ff;
+}
+.profile-pencil:focus-visible {
+  outline: 2px solid #8d4dc4;
+  outline-offset: 1px;
+  border-radius: 50%;
+}

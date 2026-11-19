@@ -235,3 +235,16 @@ test("settings profile edit shortcut opens editor without backgrounds", async ({
     ),
   ).toBe("none");
 });
+
+test("profile portrait pencil opens editing", async ({ page }) => {
+  await page.goto("/#profile");
+  await page
+    .getByRole("button", { name: "Edit portrait", exact: true })
+    .click();
+  await expect(
+    page.getByRole("textbox", { name: "Display name" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Avatar", exact: true }),
+  ).toBeVisible();
+});

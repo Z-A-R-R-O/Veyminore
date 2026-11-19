@@ -48,6 +48,32 @@ export function ProfilePage({
             background={profile.avatarBackground}
             frame={profile.avatarFrame}
           />
+          <button
+            type="button"
+            className="profile-pencil"
+            aria-label="Edit portrait"
+            title="Edit profile"
+            onClick={() => {
+              setTab("edit");
+              setNotice("");
+            }}
+          >
+            <span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m15 5 4 4M4 20l4-1 12-12a2.8 2.8 0 0 0-4-4L4 15z" />
+              </svg>
+            </span>
+          </button>
         </div>
         <div className="player-name">
           <span className="eyebrow">YOUR PROFILE</span>
