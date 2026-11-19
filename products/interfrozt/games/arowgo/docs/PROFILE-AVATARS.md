@@ -25,3 +25,5 @@ Old saves and unknown frame IDs safely default avatarFrame to none without reset
 ## Multi-row picker update
 
 Appearance categories now show twelve options per page: four columns and three rows on taller phones, six columns and two rows on desktop and compact screens. Avatar/Background/Frame use equal-width segmented controls, a purple active state, and selection checkmarks on tiles. Paging and explicit Save remain; no save format or economy changes.
+
+Portrait positioning correction: recropped the source using artwork row boundaries 0/242/466/694/914/1145 instead of nominal 229px rows, inset horizontal edges by 8px, and centered each cutout on a 229px transparent canvas with padding. This removes neighboring-row fragments. Tiles use grid centering; paging and Save share a consistent footer baseline.

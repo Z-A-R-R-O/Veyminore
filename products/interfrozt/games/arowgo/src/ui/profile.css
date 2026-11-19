@@ -867,3 +867,37 @@
     display: none;
   }
 }
+
+/* Align portrait tiles and anchor paging/Save to the same footer baseline. */
+.portrait-studio .avatar-picker.adventure-picker button {
+  display: grid;
+  place-items: center;
+  line-height: 0;
+}
+.portrait-studio .avatar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 8px;
+}
+.portrait-studio .avatar-controls > span {
+  min-width: 40px;
+  text-align: center;
+}
+.portrait-studio .avatar-controls .primary-button {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.portrait-studio .avatar-controls button:not(.primary-button) {
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  line-height: 1;
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .portrait-studio .avatar-controls {
+    width: auto;
+    gap: 3px;
+  }
+}
