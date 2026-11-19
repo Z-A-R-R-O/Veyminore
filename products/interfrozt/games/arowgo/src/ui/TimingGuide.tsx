@@ -4,9 +4,11 @@ import type { Level } from "../domain/rules";
 export function TimingGuide({
   level,
   removed,
+  persist = true,
 }: {
   level: Level;
   removed: number;
+  persist?: boolean;
 }) {
   const gates = level.arrows.some((a) => a.phase !== undefined),
     key = gates ? "arowgo.lesson.aurora" : "arowgo.lesson.ice";
@@ -14,13 +16,13 @@ export function TimingGuide({
   const [demo, setDemo] = useState(0);
   useEffect(() => {
     try {
-      if (localStorage.getItem(key) === "seen") return;
+      if (persist && localStorage.getItem(key) === "seen") return;
     } catch {}
     dialog.current?.showModal();
-  }, [key]);
+  }, [key, persist]);
   function done() {
     try {
-      localStorage.setItem(key, "seen");
+      if (persist) localStorage.setItem(key, "seen");
     } catch {}
     dialog.current?.close();
   }

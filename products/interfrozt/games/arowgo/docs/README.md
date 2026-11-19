@@ -32,3 +32,5 @@ Account work has started: [B01 implementation and remaining integration gates](A
 - [Frostfall Peaks — implemented Levels 41–60](FROSTFALL-PEAKS.md) (19 November 2026).
 
 - [Frostfall timing mechanics and safe migration](FROSTFALL-TIMING.md).
+
+- [Development mode, draggable dock and local bug reports](DEVELOPMENT-MODE.md).

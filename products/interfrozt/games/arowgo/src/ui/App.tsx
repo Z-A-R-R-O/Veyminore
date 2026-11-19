@@ -32,6 +32,7 @@ export function App({
   gems = 0,
   onTimeBoost,
   economyNotice,
+  devSandbox = false,
 }: {
   controller: Controller;
   onHome?: () => void;
@@ -43,6 +44,7 @@ export function App({
   gems?: number;
   onTimeBoost?: () => boolean | Promise<boolean>;
   economyNotice?: string;
+  devSandbox?: boolean;
 }) {
   const state = useSyncExternalStore(
     controller.subscribe,
@@ -395,7 +397,12 @@ export function App({
           {level.arrows.some(
             (a) => a.thawAfter !== undefined || a.phase !== undefined,
           ) ? (
-            <TimingGuide key={level.levelId} level={level} removed={cleared} />
+            <TimingGuide
+              key={level.levelId}
+              level={level}
+              removed={cleared}
+              persist={!devSandbox}
+            />
           ) : lab ? (
             <p className="level-subtitle">A little room for proof.</p>
           ) : (

@@ -1,0 +1,174 @@
+.dev-dock {
+  position: fixed;
+  z-index: 10000;
+  width: 56px;
+  height: 56px;
+  border-radius: 19px;
+  border: 2px solid #fff9;
+  background: linear-gradient(145deg, #c5a2f1, #6c3dab);
+  color: white;
+  box-shadow:
+    0 5px 0 #43256a,
+    0 9px 24px #281b5144;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  padding: 4px;
+  font: 800 9px system-ui;
+  letter-spacing: 1px;
+}
+.dev-dock:active {
+  cursor: grabbing;
+}
+.dev-dock:focus-visible {
+  outline: 3px solid #12bfd2;
+  outline-offset: 4px;
+}
+.dev-dock[data-enabled="false"] {
+  background: #726780;
+}
+.dev-dock svg {
+  width: 27px;
+  height: 27px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dev-panel {
+  width: min(520px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 22px;
+  border: 1px solid #d8c6ed;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #fcfaff, #eee7fa);
+  color: #35234f;
+  box-shadow: 0 18px 80px #21123766;
+  font:
+    14px/1.5 system-ui,
+    sans-serif;
+  overflow: auto;
+  box-sizing: border-box;
+}
+.dev-panel::backdrop {
+  background: #1e123b88;
+  backdrop-filter: blur(5px);
+}
+.dev-panel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dev-panel h2 {
+  font: 700 24px/1.2 system-ui;
+  margin: 4px 0 14px;
+}
+.dev-panel small {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #785a98;
+}
+.dev-panel nav {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #d6c9e4;
+  padding-bottom: 12px;
+}
+.dev-panel button {
+  font: 600 14px system-ui;
+  border: 1px solid #c6addf;
+  border-radius: 12px;
+  background: #fff9;
+  color: #57337e;
+  min-height: 42px;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+.dev-panel button[aria-pressed="true"],
+.dev-actions button:first-child {
+  background: #7950ad;
+  color: white;
+  border-color: #7950ad;
+}
+.dev-panel button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.dev-panel label {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  font-weight: 600;
+}
+.dev-panel input:not([type="checkbox"]),
+.dev-panel select,
+.dev-panel textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 42px;
+  border: 1px solid #bea9d5;
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+  color: #35234f;
+  font: 14px system-ui;
+}
+.dev-panel textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+.dev-panel .dev-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.dev-panel input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #7950ad;
+}
+.dev-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dev-muted {
+  font-size: 12px;
+  color: #766284;
+}
+.dev-sandbox-label {
+  position: fixed;
+  left: 50%;
+  bottom: 3px;
+  transform: translateX(-50%);
+  z-index: 9000;
+  border: 1px solid #d5bafa;
+  border-radius: 15px;
+  background: #302043ed;
+  color: #fff;
+  font: 600 11px system-ui;
+  padding: 5px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.dev-layout-outlines #root :is(main, section, header, nav, button) {
+  outline: 1px dashed #e03c9566;
+  outline-offset: -1px;
+}
+@media (max-width: 400px) {
+  .dev-panel {
+    padding: 16px;
+  }
+  .dev-panel h2 {
+    font-size: 21px;
+  }
+}

@@ -16,6 +16,7 @@ export class Controller {
     readonly level: Level,
     private saves: SaveStore,
     private id: () => string = () => crypto.randomUUID(),
+    private publishEvents = true,
   ) {
     const loaded = saves.load();
     this.state = loaded.state ?? newSession(level, id());
@@ -47,12 +48,18 @@ export class Controller {
     if (!persisted)
       this.notice =
         "Progress is in memory only. Keep this page open; local saving is unavailable.";
-    else if (this.notice.startsWith("Progress is in memory only.")) this.notice = "";
+    else if (this.notice.startsWith("Progress is in memory only."))
+      this.notice = "";
     this.state = next;
     this.listeners.forEach((fn) => fn());
-    if (persisted && typeof window !== "undefined")
+    if (this.publishEvents && persisted && typeof window !== "undefined")
       window.dispatchEvent(new Event("arowgo-local-saved"));
-    if (persisted && completed && typeof window !== "undefined")
+    if (
+      this.publishEvents &&
+      persisted &&
+      completed &&
+      typeof window !== "undefined"
+    )
       window.dispatchEvent(new Event("arowgo-level-saved"));
   }
   select(arrowId: string): Outcome {

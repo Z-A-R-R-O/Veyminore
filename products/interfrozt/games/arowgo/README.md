@@ -23,6 +23,10 @@ Story has three mistake hearts. Practice has unlimited mistakes but still follow
 
 First Story clear grants 25 coins once per level: 1,500 total coins and 180 possible stars. Progress is browser/device-local. Profiles have 15 cosmetic arrow skins and three prototype crates, with coin/gem spending and a Time Boost. These balances are client-controlled prototypes, not verified paid entitlements.
 
+## Development tools
+
+In `pnpm dev`, use the draggable purple **DEV** bug button for an isolated level sandbox, layout outlines and local bug-report downloads. These controls are excluded from production builds. See [Development mode](docs/DEVELOPMENT-MODE.md).
+
 ## Checks
 
 ```powershell

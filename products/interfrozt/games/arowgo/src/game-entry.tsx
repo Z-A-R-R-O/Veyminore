@@ -14,10 +14,17 @@ async function launch() {
     const mount = async () => {
       const { Prototype } = await import("./ui/Prototype");
       if (!economyOwner()) startCompletionSync();
+      const game = import.meta.env.DEV ? (
+        React.createElement(
+          (await import("./dev/DevelopmentShell")).DevelopmentShell,
+          null,
+          <Prototype />,
+        )
+      ) : (
+        <Prototype />
+      );
       createRoot(document.getElementById("root")!).render(
-        <React.StrictMode>
-          <Prototype />
-        </React.StrictMode>,
+        <React.StrictMode>{game}</React.StrictMode>,
       );
     };
     if (economyOwner()) {
