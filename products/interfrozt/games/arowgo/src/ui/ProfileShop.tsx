@@ -1,3 +1,4 @@
+import { ProfileIcon } from "./elements/ProfileIcon";
 import { useState } from "react";
 import { avatarFrames, type AvatarFrame } from "../storage/avatar-frames";
 import { adventureAvatars } from "../storage/avatars";
@@ -73,7 +74,7 @@ export function ProfileEditor({
               onClick={() => setTab(category)}
             >
               <span aria-hidden="true" className="portrait-tab-symbol">
-                {["◉", "◇"][i]}
+                <ProfileIcon kind={category} />
               </span>
               {["Avatar", "Frame"][i]}
             </button>

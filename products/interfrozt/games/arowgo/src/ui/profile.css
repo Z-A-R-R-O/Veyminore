@@ -1329,3 +1329,64 @@
     grid-auto-rows: 105px;
   }
 }
+/* Shared profile icons: consistent strokes, optical sizing and soft inset color. */
+.profile-icon {
+  display: block;
+  flex-shrink: 0;
+}
+.player-local .profile-icon {
+  width: 22px;
+  height: 22px;
+}
+.profile-pencil span {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(145deg, #fff, #eedfff);
+  border-color: #fff;
+  box-shadow:
+    0 2px 7px #643c9630,
+    inset 0 0 0 1px #cfb0e9;
+}
+.profile-pencil .profile-icon {
+  width: 18px;
+  height: 18px;
+}
+.portrait-tab-symbol .profile-icon {
+  width: 21px;
+  height: 21px;
+}
+.player-stats .stat-symbol {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 11px;
+  background: #eaddf780;
+  color: #9260bf;
+}
+.player-stats .stat-symbol .profile-icon {
+  width: 24px;
+  height: 24px;
+}
+.player-stats > div:nth-child(2) .stat-symbol {
+  background: #ffe5a780;
+  color: #c28a21;
+}
+.player-stats > div:nth-child(3) .stat-symbol {
+  background: #d5eee880;
+  color: #538d80;
+}
+@media (max-width: 599px) {
+  .player-local {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+@media (max-height: 740px) {
+  .player-stats .stat-symbol {
+    display: none;
+  }
+}

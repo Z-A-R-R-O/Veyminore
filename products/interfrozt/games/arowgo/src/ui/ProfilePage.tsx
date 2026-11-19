@@ -1,3 +1,4 @@
+import { ProfileIcon } from "./elements/ProfileIcon";
 import { BadgeCollection } from "./BadgeCollection";
 import { AvatarArt } from "./elements/AvatarArt";
 import { useState } from "react";
@@ -69,19 +70,7 @@ export function ProfilePage({
             }}
           >
             <span>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m15 5 4 4M4 20l4-1 12-12a2.8 2.8 0 0 0-4-4L4 15z" />
-              </svg>
+              <ProfileIcon kind="pencil" />
             </span>
           </button>
         </div>
@@ -98,8 +87,13 @@ export function ProfilePage({
                   : "A new adventure"}
           </p>
         </div>
-        <button className="player-local" onClick={() => setTab("account")}>
-          <span aria-hidden="true">◎</span> Account & saves{" "}
+        <button
+          className="player-local"
+          title="Account & saves"
+          aria-label="Account & saves"
+          onClick={() => setTab("account")}
+        >
+          <ProfileIcon kind="account" /> Account & saves{" "}
           <span aria-hidden="true">↗</span>
         </button>
       </header>
@@ -142,7 +136,7 @@ export function ProfilePage({
             <div className="player-stats">
               <div>
                 <span className="stat-symbol" aria-hidden="true">
-                  ⚑
+                  <ProfileIcon kind="levels" />
                 </span>
                 <strong>
                   {completed}
@@ -152,7 +146,7 @@ export function ProfilePage({
               </div>
               <div>
                 <span className="stat-symbol" aria-hidden="true">
-                  ★
+                  <ProfileIcon kind="star" />
                 </span>
                 <strong>
                   {stars}
@@ -162,7 +156,7 @@ export function ProfilePage({
               </div>
               <div>
                 <span className="stat-symbol" aria-hidden="true">
-                  ✦
+                  <ProfileIcon kind="perfect" />
                 </span>
                 <strong>{perfect}</strong>
                 <span>3-star levels</span>
