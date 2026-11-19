@@ -40,7 +40,11 @@ export function ProfilePage({
   ];
   const next = milestones.find((m) => completed < m.target);
   return (
-    <section className="player-profile" aria-label="Player profile">
+    <section
+      className="player-profile"
+      data-section={tab}
+      aria-label="Player profile"
+    >
       <header className="player-card">
         <div className="player-avatar">
           <AvatarArt
@@ -80,7 +84,7 @@ export function ProfilePage({
           <h1>{profile.name}</h1>
           <p>
             {completed === total
-              ? "Valley keeper"
+              ? "World explorer"
               : completed >= 3
                 ? "Pathfinder"
                 : completed
@@ -88,7 +92,10 @@ export function ProfilePage({
                   : "A new adventure"}
           </p>
         </div>
-        <span className="player-local">Saved on this device</span>
+        <button className="player-local" onClick={() => setTab("account")}>
+          <span aria-hidden="true">◎</span> Account & saves{" "}
+          <span aria-hidden="true">↗</span>
+        </button>
       </header>
       <nav className="player-tabs" aria-label="Profile sections">
         {(["journey", "collection", "edit", "account"] as const).map((t) => (
@@ -110,11 +117,23 @@ export function ProfilePage({
           </button>
         ))}
       </nav>
-      <div className="player-panel">
+      <div className="player-panel" key={tab}>
         {tab === "journey" && (
           <>
+            <div className="player-section-title journey-heading">
+              <div>
+                <span className="eyebrow">MAKE YOUR MARK</span>
+                <h2>Your adventure</h2>
+              </div>
+              <span>
+                {completed === total ? "Journey complete" : "Every move counts"}
+              </span>
+            </div>
             <div className="player-stats">
               <div>
+                <span className="stat-symbol" aria-hidden="true">
+                  ⚑
+                </span>
                 <strong>
                   {completed}
                   <small>/{total}</small>
@@ -122,6 +141,9 @@ export function ProfilePage({
                 <span>Levels cleared</span>
               </div>
               <div>
+                <span className="stat-symbol" aria-hidden="true">
+                  ★
+                </span>
                 <strong>
                   {stars}
                   <small>/{total * 3}</small>
@@ -129,6 +151,9 @@ export function ProfilePage({
                 <span>Stars earned</span>
               </div>
               <div>
+                <span className="stat-symbol" aria-hidden="true">
+                  ✦
+                </span>
                 <strong>{perfect}</strong>
                 <span>3-star levels</span>
               </div>
@@ -136,10 +161,12 @@ export function ProfilePage({
             <section className="player-progress">
               <div>
                 <h2>Adventure progress</h2>
-                <span>{Math.round((completed / total) * 100)}%</span>
+                <span>
+                  {Math.round((completed / Math.max(1, total)) * 100)}%
+                </span>
               </div>
               <progress
-                aria-label="Bloom Valley completion"
+                aria-label="Campaign completion"
                 value={completed}
                 max={total}
               />

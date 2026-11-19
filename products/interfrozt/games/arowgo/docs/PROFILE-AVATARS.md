@@ -49,3 +49,7 @@ The same selection/save path serves all categories. Missing legacy avatar select
 ## Background removal and Settings shortcut
 
 Removed Background from the editor, including all background previews. Saving appearance now sets avatarBackground to none; existing stored profile data is not silently rewritten on page load. Added a profile summary and accessible pencil button in Settings, linking to #profile/edit. The direct route opens the editor and survives reload. Old background assets/parsing remain for backward compatibility with existing saves.
+
+## Profile redesign — November 2026
+
+Profile now uses a portrait-led identity card and desktop navigation rail, with compact horizontal sections on phones. Journey groups campaign totals, milestones and the equipped arrow; account/save controls are available from the identity card. Portrait editing retains explicit Save, avatar/frame pagination, and the existing persistence contract. Campaign progress accessibility labels cover all worlds. Layout checks cover 320x568, 390x844, 844x390 and 1280x800; existing profile persistence and locked-arrow checks remain in place.
