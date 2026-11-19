@@ -170,6 +170,14 @@ export function createAccountService({
             body.operationId,
             body.attemptId,
             body.moves,
+            body.elapsedMs,
+          );
+        if (body?.action === "equip")
+          return economy.equip(
+            s.account.id,
+            body.operationId,
+            body.skin,
+            body.expectedRevision,
           );
         if (body?.action === "gift")
           return economy.gift(s.account.id, body.operationId);
@@ -193,6 +201,7 @@ export function createAccountService({
             "too-many-attempts",
             "already-claimed",
             "insufficient-funds",
+            "preference-conflict",
           ].includes(error.message)
         )
           throw new AuthError(409, error.message);
@@ -204,6 +213,8 @@ export function createAccountService({
             "invalid-completion",
             "incomplete-level",
             "invalid-purchase",
+            "skin-not-owned",
+            "invalid-preference",
           ].includes(error.message)
         )
           throw new AuthError(400, error.message);

@@ -107,7 +107,7 @@ export function ProfileAccount() {
                   window.dispatchEvent(new Event("arowgo-level-saved"))
                 }
               >
-                Retry pending reward
+                Retry account sync
               </button>
             )}
             {state === "ready" && account && syncEnabled && (

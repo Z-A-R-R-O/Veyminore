@@ -4,7 +4,7 @@ import {
   economyRequest,
   type EconomyState,
 } from "./economy-api";
-import type { Profile } from "../storage/profile";
+import type { Profile, SkinId } from "../storage/profile";
 import type { Session } from "../application/session";
 export const ECONOMY_BINDING = "arowgo.economy.binding.v1";
 let owner: string | null = null;
@@ -60,6 +60,7 @@ export async function initializeEconomy() {
   );
   await refreshEconomy();
   message = "Account wallet connected";
+  await retryEquip();
 }
 export function accountProfile(profile: Profile): Profile {
   if (!current?.wallet) return profile;
@@ -68,8 +69,10 @@ export function accountProfile(profile: Profile): Profile {
     gems: current.wallet.gems,
     lastReward: current.lastReward ?? profile.lastReward,
     owned: current.inventory,
-    equipped: current.inventory.includes(profile.equipped)
-      ? profile.equipped
+    equipped: current.inventory.includes(
+      current.preference?.equipped ?? profile.equipped,
+    )
+      ? (current.preference?.equipped ?? profile.equipped)
       : "classic",
     gemGiftClaimed: current.claims.includes("gem-gift"),
     welcomeClaimed: current.claims.includes("welcome-chest"),
@@ -111,29 +114,35 @@ export async function timeBoost(state: Session) {
 async function submitCompletion(state: Session) {
   if (!owner || state.mode !== "story" || state.status !== "complete") return;
   const queueKey = `arowgo.economy.${owner}.completion.${state.attemptId}`;
-  if (current?.cleared.includes(state.levelId)) {
+  if (hasCompletionReceipt(state)) {
+    await refreshEconomy();
     localStorage.removeItem(queueKey);
     return;
   }
   if (!state.moveLog?.length) return;
   localStorage.setItem(queueKey, JSON.stringify(state));
-  message = "Verifying completion reward…";
+  message = "Saving level and stars to your account…";
   emit();
   try {
     const a = await attempt(state);
     const r = await client.run(
-      `complete-${state.attemptId}`,
-      { action: "complete", attemptId: a.attemptId, moves: state.moveLog },
+      `complete-v2-${state.attemptId}`,
+      {
+        action: "complete",
+        attemptId: a.attemptId,
+        moves: state.moveLog,
+        ...(state.scoringVersion === 2 ? { elapsedMs: state.elapsedMs } : {}),
+      },
       true,
     );
     await refreshEconomy();
     localStorage.removeItem(queueKey);
     message = r.awarded
       ? `+${r.awarded} coins saved to your account`
-      : "Level verified; first-clear reward already collected";
+      : `Level and ${r.bestStars} stars saved; first-clear reward already collected`;
     emit();
   } catch {
-    message = "Reward pending. Keep this save and reconnect to retry safely.";
+    message = "Progress pending. Keep this save and reconnect to retry safely.";
     emit();
   }
 }
@@ -153,16 +162,29 @@ export function hasBoostReceipt(state: Session) {
 }
 
 let flushing = false;
+function hasCompletionReceipt(state: Session) {
+  if (!owner) return false;
+  try {
+    return !!JSON.parse(
+      localStorage.getItem(
+        `arowgo.economy.${owner}.operation.complete-v2-${state.attemptId}`,
+      ) ?? "null",
+    )?.result;
+  } catch {
+    return false;
+  }
+}
 export async function flushCompletions(states: Session[]) {
   if (!owner || flushing) return;
   flushing = true;
   try {
+    await retryEquip();
     for (const state of states)
       if (
         state.status === "complete" &&
         state.mode === "story" &&
         state.moveLog?.length &&
-        !current?.cleared.includes(state.levelId)
+        !hasCompletionReceipt(state)
       )
         localStorage.setItem(
           `arowgo.economy.${owner}.completion.${state.attemptId}`,
@@ -178,5 +200,57 @@ export async function flushCompletions(states: Session[]) {
     emit();
   } finally {
     flushing = false;
+  }
+}
+
+/** Resume an uncertain equip with its original revision/operation before accepting another choice. */
+export async function retryEquip() {
+  if (!owner) return true;
+  const pending = client.pending("equip");
+  if (!pending) return true;
+  try {
+    await client.run("equip", pending, true);
+    await refreshEconomy();
+    client.acknowledge("equip");
+    message = "Equipped skin saved to your account";
+    emit();
+    return true;
+  } catch (error) {
+    if (error instanceof Error && error.message === "preference-conflict") {
+      await refreshEconomy().catch(() => {});
+      message =
+        "Your equipped skin changed on the account. Choose again to replace it.";
+    } else message = "Skin selection pending. Reconnect to retry safely.";
+    emit();
+    return false;
+  }
+}
+export async function equipSkin(skin: SkinId): Promise<boolean> {
+  if (!owner) return false;
+  try {
+    if (!(await retryEquip())) return false;
+    if (client.pending("equip")) return false;
+    await client.run(
+      "equip",
+      {
+        action: "equip",
+        skin,
+        expectedRevision: current?.preference?.revision ?? 0,
+      },
+      true,
+    );
+    await refreshEconomy();
+    client.acknowledge("equip");
+    message = "Equipped skin saved to your account";
+    emit();
+    return true;
+  } catch (error) {
+    if (error instanceof Error && error.message === "preference-conflict") {
+      await refreshEconomy().catch(() => {});
+      message =
+        "Your equipped skin changed on the account. Choose again to replace it.";
+    } else message = "Skin selection pending. Retry to confirm your selection.";
+    emit();
+    return false;
   }
 }

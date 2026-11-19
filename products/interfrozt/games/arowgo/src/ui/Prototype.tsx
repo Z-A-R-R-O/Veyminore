@@ -9,6 +9,7 @@ import {
   walletAction,
   timeBoost,
   flushCompletions,
+  equipSkin,
 } from "../account/economy-runtime";
 import { beforePlanningLevels } from "../domain/campaignBeforePlanning";
 import { beforeChallengeLevels } from "../domain/campaignBeforeChallenge";
@@ -522,10 +523,13 @@ export function Prototype() {
                 ? updated.lastReward
                 : null;
             }}
-            onEquip={(id) =>
-              profile.owned.includes(id) &&
-              saveProfile({ ...profile, equipped: id })
-            }
+            onEquip={async (id) => {
+              if (economyOwner()) return equipSkin(id);
+              return (
+                profile.owned.includes(id) &&
+                saveProfile({ ...profile, equipped: id })
+              );
+            }}
           />
         )}
         {page === "profile" && (

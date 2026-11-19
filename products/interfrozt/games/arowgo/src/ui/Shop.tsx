@@ -71,7 +71,7 @@ export function Shop({
     welcome: boolean,
     currency: "coins" | "gems",
   ) => Reward | null | Promise<Reward | null>;
-  onEquip: (id: SkinId) => boolean;
+  onEquip: (id: SkinId) => boolean | Promise<boolean>;
 }) {
   const [tab, setTab] = useState<"crates" | "collection">("crates");
   const [selection, setSelection] = useState<{
@@ -307,9 +307,9 @@ export function Shop({
                     disabled={
                       !profile.owned.includes(s.id) || profile.equipped === s.id
                     }
-                    onClick={() =>
+                    onClick={async () =>
                       setMessage(
-                        onEquip(s.id)
+                        (await onEquip(s.id))
                           ? `${s.name} equipped.`
                           : "Could not save selection.",
                       )
@@ -435,8 +435,8 @@ export function Shop({
                     <div className="crate-actions">
                       <button
                         className="primary-button"
-                        onClick={() => {
-                          if (onEquip(reward!.skin)) {
+                        onClick={async () => {
+                          if (await onEquip(reward!.skin)) {
                             setMessage(`${won!.name} equipped.`);
                             close();
                           } else

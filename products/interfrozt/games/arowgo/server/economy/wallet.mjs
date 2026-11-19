@@ -31,10 +31,81 @@ export function openWalletLedger(
  CREATE TABLE IF NOT EXISTS claims(account TEXT NOT NULL,kind TEXT NOT NULL,PRIMARY KEY(account,kind));
  CREATE TABLE IF NOT EXISTS finished(attempt TEXT PRIMARY KEY);
  CREATE TABLE IF NOT EXISTS boosts(account TEXT NOT NULL,attempt TEXT NOT NULL,PRIMARY KEY(account,attempt));
+ CREATE TABLE IF NOT EXISTS progress(account TEXT NOT NULL,level TEXT NOT NULL,stars INTEGER NOT NULL CHECK(stars BETWEEN 1 AND 3),PRIMARY KEY(account,level));
+ CREATE TABLE IF NOT EXISTS attempt_scores(attempt TEXT PRIMARY KEY,stars INTEGER NOT NULL CHECK(stars BETWEEN 1 AND 3));
+ CREATE TABLE IF NOT EXISTS preferences(account TEXT PRIMARY KEY,equipped TEXT NOT NULL,revision INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS imports(account TEXT PRIMARY KEY,approval TEXT NOT NULL,manifest TEXT NOT NULL,backup TEXT NOT NULL,created INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS ledger(sequence INTEGER PRIMARY KEY AUTOINCREMENT,account TEXT NOT NULL,operation TEXT NOT NULL,reason TEXT NOT NULL,coins INTEGER NOT NULL,gems INTEGER NOT NULL,created INTEGER NOT NULL,UNIQUE(account,operation));`);
   const query = (sql, ...args) => db.prepare(sql).get(...args);
   const run = (sql, ...args) => db.prepare(sql).run(...args);
+  function seedReviewed(account, backup, replacing = false) {
+    const entries = backup.entries ?? [];
+    for (const { level } of db
+      .prepare("SELECT level FROM clears WHERE account=?")
+      .all(account)) {
+      const index = rewardLevels.findIndex((l) => l.levelId === level);
+      const key = index === 0 ? "arowgo.slice.v1" : `arowgo.level.${level}.v1`;
+      let stars = 1;
+      try {
+        const saved = JSON.parse(
+          entries.find((e) => e.key === key)?.raw ?? "null",
+        );
+        if (
+          saved?.levelId === level &&
+          saved.claimed &&
+          Number.isInteger(saved.bestStars) &&
+          saved.bestStars >= 1 &&
+          saved.bestStars <= 3
+        )
+          stars = saved.bestStars;
+      } catch {
+        /* Keep the reviewed clear even without a usable star record. */
+      }
+      run(
+        "INSERT OR IGNORE INTO progress VALUES(?,?,?)",
+        account,
+        level,
+        stars,
+      );
+    }
+    let equipped = "classic";
+    try {
+      const profile = JSON.parse(
+        entries.find((e) => e.key === "arowgo.profile.v1")?.raw ?? "null",
+      );
+      if (
+        typeof profile?.equipped === "string" &&
+        query(
+          "SELECT 1 FROM inventory WHERE account=? AND skin=?",
+          account,
+          profile.equipped,
+        )
+      )
+        equipped = profile.equipped;
+    } catch {
+      /* Preserve inventory; use the default if no preference was recorded. */
+    }
+    run(
+      replacing
+        ? "INSERT INTO preferences VALUES(?,?,0) ON CONFLICT(account) DO UPDATE SET equipped=excluded.equipped WHERE preferences.revision=0"
+        : "INSERT OR IGNORE INTO preferences VALUES(?,?,0)",
+      account,
+      equipped,
+    );
+  }
+  // Additive upgrade: previously reviewed data seeds only missing rows.
+  db.exec("BEGIN IMMEDIATE");
+  try {
+    for (const row of db.prepare("SELECT account,backup FROM imports").all())
+      seedReviewed(row.account, JSON.parse(row.backup));
+    db.exec(
+      "INSERT OR IGNORE INTO progress SELECT account,level,1 FROM clears; INSERT OR IGNORE INTO preferences SELECT account,'classic',0 FROM wallets; COMMIT;",
+    );
+  } catch (error) {
+    db.exec("ROLLBACK");
+    db.close();
+    throw error;
+  }
   function identity(account) {
     if (typeof account !== "string" || !/^[A-F0-9]{1,64}$/i.test(account))
       throw Error("invalid-account");
@@ -132,11 +203,11 @@ export function openWalletLedger(
         };
       });
     },
-    complete(account, operation, attemptId, moves) {
+    complete(account, operation, attemptId, moves, elapsedMs) {
       return transact(
         account,
         operation,
-        { type: "complete", attemptId, moves },
+        { type: "complete", attemptId, moves, elapsedMs },
         () => {
           const attempt = query(
             "SELECT * FROM attempts WHERE id=? AND account=?",
@@ -145,7 +216,54 @@ export function openWalletLedger(
           );
           if (!attempt || attempt.expires <= now())
             throw Error("invalid-attempt");
-          verifyClear(attempt.level, attempt.content, moves);
+          const { mistakes } = verifyClear(
+            attempt.level,
+            attempt.content,
+            moves,
+            true,
+          );
+          if (
+            elapsedMs !== undefined &&
+            (!Number.isSafeInteger(elapsedMs) || elapsedMs < 0)
+          )
+            throw Error("invalid-completion");
+          const priorScore = query(
+            "SELECT stars FROM attempt_scores WHERE attempt=?",
+            attemptId,
+          );
+          const level = rewardLevels.find((l) => l.levelId === attempt.level);
+          const target =
+            Math.max(60000, level.arrows.length * 8000) +
+            (query(
+              "SELECT 1 FROM boosts WHERE account=? AND attempt=?",
+              account,
+              attemptId,
+            )
+              ? 30000
+              : 0);
+          // Elapsed time is client-reported. It affects stars only, never wallet awards.
+          const stars =
+            priorScore?.stars ??
+            1 +
+              Number(mistakes === 0) +
+              Number(elapsedMs !== undefined && elapsedMs <= target);
+          run(
+            "INSERT OR IGNORE INTO attempt_scores VALUES(?,?)",
+            attemptId,
+            stars,
+          );
+          const previousStars =
+            query(
+              "SELECT stars FROM progress WHERE account=? AND level=?",
+              account,
+              attempt.level,
+            )?.stars ?? 0;
+          run(
+            "INSERT INTO progress VALUES(?,?,?) ON CONFLICT(account,level) DO UPDATE SET stars=MAX(progress.stars,excluded.stars)",
+            account,
+            attempt.level,
+            stars,
+          );
           run("INSERT OR IGNORE INTO finished VALUES(?)", attemptId);
           const existing = query(
             "SELECT 1 FROM clears WHERE account=? AND level=?",
@@ -170,8 +288,17 @@ export function openWalletLedger(
               `first-clear:${attempt.level}`,
               now(),
             );
-          }
-          return { awarded: existing ? 0 : 25, wallet: wallet(account) };
+          } else if (stars > previousStars)
+            run(
+              "UPDATE wallets SET revision=revision+1 WHERE account=?",
+              account,
+            );
+          return {
+            awarded: existing ? 0 : 25,
+            stars,
+            bestStars: Math.max(previousStars, stars),
+            wallet: wallet(account),
+          };
         },
       );
     },
@@ -181,6 +308,44 @@ export function openWalletLedger(
         .prepare("SELECT skin FROM inventory WHERE account=? ORDER BY skin")
         .all(account)
         .map((row) => row.skin);
+    },
+    equip(account, operation, skin, expectedRevision) {
+      return transact(
+        account,
+        operation,
+        { type: "equip", skin, expectedRevision },
+        () => {
+          if (
+            typeof skin !== "string" ||
+            !query(
+              "SELECT 1 FROM inventory WHERE account=? AND skin=?",
+              account,
+              skin,
+            )
+          )
+            throw Error("skin-not-owned");
+          const preference = query(
+            "SELECT equipped,revision FROM preferences WHERE account=?",
+            account,
+          ) ?? { equipped: "classic", revision: 0 };
+          if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0)
+            throw Error("invalid-preference");
+          if (preference.equipped === skin) return preference;
+          if (preference.revision !== expectedRevision)
+            throw Error("preference-conflict");
+          run(
+            "INSERT INTO preferences VALUES(?,?,?) ON CONFLICT(account) DO UPDATE SET equipped=excluded.equipped,revision=excluded.revision",
+            account,
+            skin,
+            preference.revision + 1,
+          );
+          run(
+            "UPDATE wallets SET revision=revision+1 WHERE account=?",
+            account,
+          );
+          return { equipped: skin, revision: preference.revision + 1 };
+        },
+      );
     },
     gift(account, operation) {
       return transact(account, operation, { type: "gift" }, () => {
@@ -385,6 +550,7 @@ export function openWalletLedger(
             );
           for (const skin of new Set(manifest.owned))
             run("INSERT OR IGNORE INTO inventory VALUES(?,?)", account, skin);
+          seedReviewed(account, clean, true);
           for (const [kind, claimed] of [
             ["gem-gift", manifest.gemGiftClaimed],
             ["welcome-chest", manifest.welcomeClaimed],
@@ -420,6 +586,15 @@ export function openWalletLedger(
       );
       return {
         accountId: account,
+        progress: db
+          .prepare(
+            "SELECT level AS levelId,stars AS bestStars FROM progress WHERE account=? ORDER BY level",
+          )
+          .all(account),
+        preference: query(
+          "SELECT equipped,revision FROM preferences WHERE account=?",
+          account,
+        ) ?? { equipped: "classic", revision: 0 },
         lastReward: (() => {
           const row = query(
             "SELECT result FROM operations WHERE account=? AND json_extract(result, '$.reward.skin') IS NOT NULL ORDER BY rowid DESC LIMIT 1",

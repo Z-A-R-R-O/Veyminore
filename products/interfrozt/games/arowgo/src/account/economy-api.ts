@@ -10,6 +10,8 @@ export type EconomyState = {
   migration: null | { backupHash: string };
   transactions: unknown[];
   lastReward?: Reward | null;
+  progress?: Array<{ levelId: string; bestStars: number }>;
+  preference?: { equipped: Profile["equipped"]; revision: number };
 };
 export async function economyRequest(
   accountId: string,
@@ -42,6 +44,12 @@ export class EconomyClient {
     private id = () => crypto.randomUUID(),
   ) {}
   private busy = false;
+  pending(key: string): Record<string, unknown> | undefined {
+    const raw = this.storage.getItem(
+      `arowgo.economy.${this.accountId}.operation.${key}`,
+    );
+    return raw ? JSON.parse(raw).input : undefined;
+  }
   acknowledge(key: string) {
     this.storage.removeItem(
       `arowgo.economy.${this.accountId}.operation.${key}`,
@@ -79,6 +87,9 @@ export class EconomyClient {
           "already-claimed",
           "invalid-attempt",
           "level-locked",
+          "preference-conflict",
+          "skin-not-owned",
+          "invalid-preference",
         ].includes(error.message)
       )
         this.storage.removeItem(path);

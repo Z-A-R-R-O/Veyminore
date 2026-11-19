@@ -23,7 +23,7 @@ export const rewardLevels = paths.map((path) =>
   ),
 );
 /** Server-owned content; neither balances nor a client's completion flag are accepted. */
-export function verifyClear(levelId, contentVersion, moves) {
+export function verifyClear(levelId, contentVersion, moves, details = false) {
   const level = rewardLevels.find((l) => l.levelId === levelId);
   if (
     !level ||
@@ -56,5 +56,5 @@ export function verifyClear(levelId, contentVersion, moves) {
       throw Error("invalid-completion");
   }
   if (active.length) throw Error("incomplete-level");
-  return true;
+  return details ? { mistakes } : true;
 }

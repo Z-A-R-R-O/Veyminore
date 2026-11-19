@@ -124,3 +124,9 @@ Wallet, idempotent first-clear rewards, atomic chest/boost purchases and operato
 ## 19 November 2026 — account economy integration
 
 Added migration review/export and reviewed import CLI, account-specific save activation, game wallet/shop/boost integration, durable completion retries and purchase receipt recovery. The development ledger stays opt-in; original local saves are preserved. Account-wallet mode pauses legacy cloud snapshot uploads; account-scoped cross-device progress is still a production rollout requirement. Current workflow and limitations: [Server economy](SERVER-ECONOMY.md).
+
+## 19 November 2026 — progress sync step 1
+
+Migrated account wallets now save best stars and equipped skin alongside server clear receipts. Better replays update stars without repeat coin awards. Equipment changes validate ownership and use revision checks with retryable receipts. Reviewed legacy snapshots seed additive database upgrades without resetting balances or newer choices. Desktop and phone integration tests cover two-to-three-star replay upgrades and recovery of a dropped equipment response. Second-device restore/activation is still the next phase; see SERVER-ECONOMY.md.
+
+Verification for progression sync step 1: all 286 unit tests across 37 files passed; desktop and phone account-economy browser tests passed; formatting, TypeScript and production build passed. Tests used synthetic accounts and isolated ledgers. Existing Phaser bundle-size warning remains.

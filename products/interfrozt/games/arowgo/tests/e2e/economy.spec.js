@@ -4,7 +4,7 @@ import { openWalletLedger } from "../../server/economy/wallet.mjs";
 import { rewardLevels } from "../../server/economy/rewards.mjs";
 import { validateSnapshot } from "../../server/account/cloud.mjs";
 import { guest } from "../../src/storage/profile";
-const expect=baseExpect.configure({timeout:15000});
+const expect = baseExpect.configure({ timeout: 15000 });
 const origin = "http://localhost:4173";
 const connected = {
   schemaVersion: 1,
@@ -15,6 +15,7 @@ const connected = {
 test("reviewed migration, real ledger completion, lost chest response and reload preserve balances", async ({
   page,
 }) => {
+  test.setTimeout(120000);
   const w = openWalletLedger(":memory:", { random: () => 0 });
   const profile = JSON.stringify({
     ...guest(),
@@ -47,6 +48,7 @@ test("reviewed migration, real ledger completion, lost chest response and reload
   };
   w.importReviewedLegacy("ABC", manifest.approvalId, manifest, backup);
   let loseChest = true;
+  let loseEquip = true;
   await page.route("**/api/arowgo/v1/account/**", async (route) => {
     if (route.request().url().endsWith("/session"))
       return route.fulfill({ json: connected });
@@ -62,7 +64,20 @@ test("reviewed migration, real ledger completion, lost chest response and reload
           result = w.begin("ABC", b.operationId, b.levelId);
           break;
         case "complete":
-          result = w.complete("ABC", b.operationId, b.attemptId, b.moves);
+          result = w.complete(
+            "ABC",
+            b.operationId,
+            b.attemptId,
+            b.moves,
+            b.elapsedMs,
+          );
+          break;
+        case "equip":
+          result = w.equip("ABC", b.operationId, b.skin, b.expectedRevision);
+          if (loseEquip) {
+            loseEquip = false;
+            return route.abort();
+          }
           break;
         case "chest":
           result = w.chest(
@@ -98,15 +113,25 @@ test("reviewed migration, real ledger completion, lost chest response and reload
     await expect(
       page.getByText("0 coins · 20 gems", { exact: false }),
     ).toBeVisible();
-    await page.screenshot({path:`tmp/economy-review-${test.info().project.name}.png`,fullPage:true});
-    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    await page.screenshot({
+      path: `tmp/economy-review-${test.info().project.name}.png`,
+      fullPage: true,
+    });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
     await page
       .getByRole("button", { name: "Use reviewed account wallet" })
       .click();
     await expect(page.locator(".player-name h1")).toHaveText("Keeper");
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(origin + "/#play/1");
-    await expect(page.getByRole("heading", {name:"Level 01", exact:true})).toBeVisible({timeout:15000});
+    await expect(
+      page.getByRole("heading", { name: "Level 01", exact: true }),
+    ).toBeVisible({ timeout: 15000 });
+    let slowClock = false;
     for (const id of rewardLevels[0].solution) {
       const b = page.getByRole("button", {
         name: `Slide arrow ${id}`,
@@ -115,11 +140,35 @@ test("reviewed migration, real ledger completion, lost chest response and reload
       await expect(b).toBeEnabled();
       await b.focus();
       await page.keyboard.press("Enter");
+      if (!slowClock) {
+        slowClock = true;
+        await page.evaluate(() => {
+          const original = Date.now;
+          Date.now = () => original() + 120000;
+        });
+      }
     }
     await expect(
       page.getByText("+25 coins saved to your account", { exact: true }),
     ).toBeVisible();
     expect(w.get("ABC").coins).toBe(25);
+    expect(w.overview("ABC").progress).toEqual([
+      { levelId: rewardLevels[0].levelId, bestStars: 2 },
+    ]);
+    await page.reload();
+    await page.getByRole("button", { name: "Play again", exact: true }).click();
+    for (const id of rewardLevels[0].solution) {
+      const arrow = page.getByRole("button", {
+        name: `Slide arrow ${id}`,
+        exact: true,
+      });
+      await expect(arrow).toBeEnabled();
+      await arrow.focus();
+      await page.keyboard.press("Enter");
+    }
+    await expect.poll(() => w.overview("ABC").progress[0].bestStars).toBe(3);
+    expect(w.get("ABC").coins).toBe(25);
+
     await page.goto(origin + "/#shop");
     await page
       .getByRole("button", { name: "Open · 10 coins", exact: true })
@@ -136,6 +185,16 @@ test("reviewed migration, real ledger completion, lost chest response and reload
       page.getByRole("button", { name: "Equip arrow", exact: true }),
     ).toBeVisible();
     expect(w.get("ABC").coins).toBe(15);
+    const selectedSkin = w.overview("ABC").lastReward.skin;
+    await page
+      .getByRole("button", { name: "Equip arrow", exact: true })
+      .click();
+    await expect(
+      page
+        .getByRole("dialog")
+        .getByText("Could not save selection.", { exact: false }),
+    ).toBeVisible();
+    expect(w.overview("ABC").preference.equipped).toBe(selectedSkin);
     await page.reload();
     await expect(page.getByLabel("15 total coins")).toBeVisible();
     await expect(page.locator(".last-discovery")).toBeVisible();
@@ -143,6 +202,11 @@ test("reviewed migration, real ledger completion, lost chest response and reload
       await page.evaluate(() => localStorage.getItem("arowgo.profile.v1")),
     ).toBe(profile);
     await page.goto(origin + "/#play/2");
+    await expect(page.locator(".app-shell")).toHaveAttribute(
+      "data-skin",
+      selectedSkin,
+    );
+    expect(w.overview("ABC").preference.revision).toBe(1);
     await page.getByRole("button", { name: "Settings", exact: true }).click();
     await page.getByRole("button", { name: /Use Time Boost/ }).click();
     await expect.poll(() => w.get("ABC").gems).toBe(17);

@@ -41,3 +41,15 @@ This is a single-host development ledger, not PlayFab Economy V2 or a deployed p
 ## Verification
 
 Synthetic unit tests cover all 40 canonical solutions, idempotence, ownership, conflicting operation IDs, expiry, progression, durable reopen, duplicate refunds, insufficient funds, boosts, migration hash/account mismatch, exact balances, recovery preservation, storage failures and transaction rollback at the balance cap. Browser tests exercise reviewed activation, a real isolated SQLite ledger, completing a puzzle, losing a paid-chest response, retrying without double charge, reload persistence and a paid boost on desktop and phone. No real PlayFab player wallet or user save is used in these tests.
+
+## Account progression sync — step 1, 19 November 2026
+
+Migrated account wallets now persist completed level IDs, best stars and equipped skin in the same development account database. The `wallet` response includes `progress` (`levelId`, `bestStars`) and `preference` (`equipped`, `revision`). This step saves account data; second-device activation and puzzle-save restoration remain the next step.
+
+Completion records now include elapsed time. The server replays the transcript to verify the clear and accuracy star. Speed uses the reported device elapsed time and the level target (including a server-granted boost); this is not trusted wall-clock anti-cheat. An attempt's first recorded score is immutable. A new replay may raise best stars but cannot reduce them or grant the first-clear coins again. A star-only upgrade advances the account revision without changing balances. Older commands with no timing still work and cannot claim a speed star.
+
+A dedicated `equip` command requires an owned skin and the expected preference revision. Stale choices are rejected and refreshed for the player to choose again. An uncertain response keeps the original operation ID/revision and is recovered on reconnect or reload. No currency is spent when changing equipped skin.
+
+Database upgrades are additive. Reviewed migration snapshots seed missing star and equipment records. Existing server clears without a reviewed star record receive the completion star; subsequent verified runs can improve it. Existing local best stars remain untouched. Reopening the database never replaces newer star records or equipped choices with the old backup.
+
+The completion queue now identifies acknowledgements per attempt, so replays of an already-cleared level still synchronize their score. Account > Retry account sync also retries pending equipment changes. Original legacy saves and balances are unchanged. This development preview continues to use local server SQLite, not a newly deployed PlayFab progress service.
