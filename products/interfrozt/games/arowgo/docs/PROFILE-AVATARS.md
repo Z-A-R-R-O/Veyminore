@@ -27,3 +27,9 @@ Old saves and unknown frame IDs safely default avatarFrame to none without reset
 Appearance categories now show twelve options per page: four columns and three rows on taller phones, six columns and two rows on desktop and compact screens. Avatar/Background/Frame use equal-width segmented controls, a purple active state, and selection checkmarks on tiles. Paging and explicit Save remain; no save format or economy changes.
 
 Portrait positioning correction: recropped the source using artwork row boundaries 0/242/466/694/914/1145 instead of nominal 229px rows, inset horizontal edges by 8px, and centered each cutout on a 229px transparent canvas with padding. This removes neighboring-row fragments. Tiles use grid centering; paging and Save share a consistent footer baseline.
+
+## Spaced source replacement
+
+Replaced all 30 portraits from the user's Spaced Fantasy Avatar Grid.png. The supplied RGB image had an opaque pastel backdrop. Used the built-in image_gen tool for background extraction with this prompt: "Background extraction only. Remove the pastel backdrop and top-left yellow light from this exact sprite sheet, replace all background with actual transparent alpha. Preserve exactly all 30 character portraits, appearance, order, scale, spacing, and the 6 columns by 5 rows layout. Do not add, redraw, rearrange, enlarge, merge or omit characters. Keep clean soft cutout edges and all ears/hats/accessories intact. Output single transparent PNG sprite sheet, same aspect ratio."
+
+Cropped the transparent result into 6 x 5 equal cells and resized to 229px WebP, preserving the source padding instead of trimming or enlarging characters. Runtime files remain public/assets/avatars/adventure-01.webp through adventure-30.webp, preserving saved IDs. Removed the extra UI-gap override introduced by the earlier misunderstanding. Backgrounds, frames, currency and progress are unchanged.
