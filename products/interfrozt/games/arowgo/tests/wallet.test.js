@@ -91,8 +91,8 @@ describe("server wallet and reward ledger", () => {
       w.close();
     }
   });
-  it("uses current canonical rules for all 80 levels", () => {
-    expect(rewardLevels).toHaveLength(80);
+  it("uses current canonical rules for all 100 levels", () => {
+    expect(rewardLevels).toHaveLength(100);
     for (const l of rewardLevels) {
       expect(verifyClear(l.levelId, l.contentVersion, l.solution)).toBe(true);
       expect(() =>

@@ -401,7 +401,7 @@ export function Prototype() {
               ? controllers.slice(0, 20)
               : controllers
             ).map((c) => c.state.bestStars)}
-            world={route === "finale/bloom" ? "bloom" : "amber"}
+            world={route === "finale/bloom" ? "bloom" : "sanctum"}
             onContinue={route === "finale/bloom" ? () => play(20) : undefined}
             onReplay={(i) => play(i, true, "story")}
             onWorlds={() => go("worlds")}

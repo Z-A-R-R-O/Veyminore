@@ -4,7 +4,7 @@ Original expansion implemented 19 November 2026. **Current difficulty revision:*
 
 ## Player experience
 
-Amber Dunes unlocks when Level 60 is cleared. The world picker lists it by name and explains the Frostfall unlock requirement. Its two map sections show 61–70 and 71–80, with direct level launching. Golden sandstone terraces, oasis water and a sun temple replace the winter setting. Portrait and landscape map artwork have separate marker positions; the home screen has a dedicated floating-island illustration. Level 80 leads to the full-campaign finale. Developer mode automatically includes all 80 levels in its isolated sandbox selector.
+Amber Dunes unlocks when Level 60 is cleared. The world picker lists it by name and explains the Frostfall unlock requirement. Its two map sections show 61–70 and 71–80, with direct level launching. Golden sandstone terraces, oasis water and a sun temple replace the winter setting. Portrait and landscape map artwork have separate marker positions; the home screen has a dedicated floating-island illustration. Level 80 now leads to [Amber Sanctum, Levels 81–100](AMBER-SANCTUM.md); the earlier 80-level finale has moved to Level 100. Developer mode automatically includes all 80 levels in its isolated sandbox selector.
 
 ## Puzzle design
 

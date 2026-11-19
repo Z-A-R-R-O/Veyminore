@@ -10,7 +10,7 @@ it("Amber Dunes adds unique planning puzzles with a gradual measured curve", () 
       .map((l) => JSON.stringify(l.arrows.map((a) => a.points))),
   );
   let previous = evaluatePlanning(levels[59]).randomLegalWinRate;
-  for (const l of levels.slice(60)) {
+  for (const l of levels.slice(60, 80)) {
     const signature = JSON.stringify(l.arrows.map((a) => a.points));
     expect(signatures.has(signature)).toBe(false);
     signatures.add(signature);

@@ -1,3 +1,5 @@
+> 20 November campaign update: [Amber Sanctum, Levels 81–100](AMBER-SANCTUM.md). Five playable chapters, 100 levels, 300 possible stars and 2,500 first-clear coins. Levels 1–80 are unchanged. The inventory below remains historical.
+
 > Campaign update: [Amber Dunes, Levels 61–80](AMBER-DUNES.md) adds a fourth playable world. Current totals: 80 levels, 240 stars, 2,000 first-clear coins. Earlier counts below are historical.
 
 > Latest difficulty update: [Levels 40–60, content 11](LEVELS-40-60-HARDENING.md) increase move-order planning while preserving earned rewards and prior saves.

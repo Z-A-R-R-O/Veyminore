@@ -1,3 +1,23 @@
+import sanctum0 from "../../content/levels/sanctum/level-81.json";
+import sanctum1 from "../../content/levels/sanctum/level-82.json";
+import sanctum2 from "../../content/levels/sanctum/level-83.json";
+import sanctum3 from "../../content/levels/sanctum/level-84.json";
+import sanctum4 from "../../content/levels/sanctum/level-85.json";
+import sanctum5 from "../../content/levels/sanctum/level-86.json";
+import sanctum6 from "../../content/levels/sanctum/level-87.json";
+import sanctum7 from "../../content/levels/sanctum/level-88.json";
+import sanctum8 from "../../content/levels/sanctum/level-89.json";
+import sanctum9 from "../../content/levels/sanctum/level-90.json";
+import sanctum10 from "../../content/levels/sanctum/level-91.json";
+import sanctum11 from "../../content/levels/sanctum/level-92.json";
+import sanctum12 from "../../content/levels/sanctum/level-93.json";
+import sanctum13 from "../../content/levels/sanctum/level-94.json";
+import sanctum14 from "../../content/levels/sanctum/level-95.json";
+import sanctum15 from "../../content/levels/sanctum/level-96.json";
+import sanctum16 from "../../content/levels/sanctum/level-97.json";
+import sanctum17 from "../../content/levels/sanctum/level-98.json";
+import sanctum18 from "../../content/levels/sanctum/level-99.json";
+import sanctum19 from "../../content/levels/sanctum/level-100.json";
 import amber0 from "../../content/levels/amber/level-61.json";
 import amber1 from "../../content/levels/amber/level-62.json";
 import amber2 from "../../content/levels/amber/level-63.json";
@@ -162,6 +182,28 @@ export const levels = [
     amber18,
     amber19,
   ].map(validateLevel),
+  ...[
+    sanctum0,
+    sanctum1,
+    sanctum2,
+    sanctum3,
+    sanctum4,
+    sanctum5,
+    sanctum6,
+    sanctum7,
+    sanctum8,
+    sanctum9,
+    sanctum10,
+    sanctum11,
+    sanctum12,
+    sanctum13,
+    sanctum14,
+    sanctum15,
+    sanctum16,
+    sanctum17,
+    sanctum18,
+    sanctum19,
+  ].map(validateLevel),
 ];
 export const levelNames = [
   ...originalNames,
@@ -235,4 +277,24 @@ export const levelNames = [
   "Last caravan",
   "Temple strategy",
   "Crown of the dunes",
+  "Sanctum gate",
+  "Sealed approach",
+  "Twin hourglasses",
+  "Amber lattice",
+  "Hidden vault",
+  "Echoing halls",
+  "Gilded switchback",
+  "Silent sentinels",
+  "Solar crossroads",
+  "Inner chamber",
+  "Triple reckoning",
+  "Shifting seals",
+  "Sunstone labyrinth",
+  "Clockwork passage",
+  "Golden puzzlebox",
+  "Threefold trial",
+  "Eclipse corridor",
+  "Last alignment",
+  "Master of the sands",
+  "Heart of the sanctum",
 ];

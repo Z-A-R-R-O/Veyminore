@@ -73,15 +73,16 @@ test("dense Levels 30–80 complete and reload with safe rewards", async ({
     ).toBeVisible();
     await page
       .getByRole("button", {
-        name: i === 50 ? "Adventure complete" : "Next level",
+        name: "Next level",
         exact: true,
       })
       .click();
   }
   await expect(
-    page.getByRole("heading", { name: "Amber Dunes cleared!" }),
+    page.getByRole("heading", { name: "Level 81", exact: true }),
   ).toBeVisible();
+  await page.goto("/#home");
   await page.reload();
   await expect(page.getByLabel("2000 total coins")).toBeVisible();
-  await expect(page.getByLabel("240 of 240 stars")).toBeVisible();
+  await expect(page.locator(".bloom-next")).toContainText("LEVEL 81");
 });

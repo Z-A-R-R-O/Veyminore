@@ -1,3 +1,5 @@
+> 20 November update: campaign content now reaches [100 levels](AMBER-SANCTUM.md). The inventory below is the historical 16 November audit. **New verified gap: full-history cloud capacity.** Realistic UUID-rich move histories already exceed the current compressed payload cap at 80 completed levels; compact synthetic fixtures underestimate size. Prioritize bounded larger-save storage with atomic current/previous versions, stale-writer rejection, exact recovery copies and real PlayFab verification. Do not trim currency/progress or history to make uploads fit. Local saves remain intact when an upload is rejected.
+
 # AROWGO experience and release gaps
 
 Updated 16 November 2026. Implementation review, not an external player study. [Current state](CURRENT-GAME-STATE.md) and the [audit](AUDIT-2026-11-16.md) supersede earlier five/twenty-level and pre-bomb backlog statements.

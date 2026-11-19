@@ -21,14 +21,21 @@ test("world name list locks future destinations and compact arrows page the map"
         name: "Verdant Cove — complete Bloom Valley to unlock",
       }),
     ).toBeDisabled();
-    await expect(dialog.locator(".world-name-row")).toHaveCount(4);
+    await expect(dialog.locator(".world-name-row")).toHaveCount(5);
     await expect(
       dialog.getByRole("button", {
         name: "Frostfall Peaks — complete Verdant Cove to unlock",
       }),
     ).toBeDisabled();
     await expect(
-      dialog.getByRole("button", { name: "Amber Dunes — complete Frostfall Peaks to unlock" }),
+      dialog.getByRole("button", {
+        name: "Amber Dunes — complete Frostfall Peaks to unlock",
+      }),
+    ).toBeDisabled();
+    await expect(
+      dialog.getByRole("button", {
+        name: "Amber Sanctum — complete Amber Dunes to unlock",
+      }),
     ).toBeDisabled();
     await expect(dialog.locator("img")).toHaveCount(0);
     expect(

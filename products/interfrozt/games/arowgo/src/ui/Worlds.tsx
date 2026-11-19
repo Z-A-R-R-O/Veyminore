@@ -9,6 +9,7 @@ const worldNames = [
   "Verdant Cove",
   "Frostfall Peaks",
   "Amber Dunes",
+  "Amber Sanctum",
 ];
 const amberStops = [
   [68, 79],
@@ -139,8 +140,8 @@ export function Worlds({
                   className={`valley-stop ${p.cleared ? "is-cleared" : ""} ${selected === i ? "is-selected" : ""}`}
                   style={
                     {
-                      "--x": `${(world === 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
-                      "--y": `${(world === 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
+                      "--x": `${(world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
+                      "--y": `${(world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
                       "--wide-x": `${coveWideStops[localIndex].x}%`,
                       "--wide-y": `${coveWideStops[localIndex].y}%`,
                     } as CSSProperties
@@ -269,12 +270,7 @@ export function Worlds({
           </button>
         </div>
         <div className="world-name-list">
-          {[
-            "Bloom Valley",
-            "Verdant Cove",
-            "Frostfall Peaks",
-            "Amber Dunes",
-          ].map((name, w) => {
+          {worldNames.map((name, w) => {
             const placeholder = w >= worldNames.length;
             const locked = placeholder || !progress[w * 20]?.available;
             return (

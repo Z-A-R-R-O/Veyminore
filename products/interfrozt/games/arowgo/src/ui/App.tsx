@@ -378,7 +378,9 @@ export function App({
               : levelNumber > 20
                 ? levelNumber > 40
                   ? levelNumber > 60
-                    ? "World 4 · Amber Dunes"
+                    ? levelNumber > 80
+                      ? "World 5 · Amber Sanctum"
+                      : "World 4 · Amber Dunes"
                     : "World 3 · Frostfall Peaks"
                   : "World 2 · Verdant Cove"
                 : "World 1 · Bloom Valley"}{" "}
