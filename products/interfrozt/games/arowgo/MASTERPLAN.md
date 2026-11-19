@@ -1,58 +1,27 @@
-# AROWGO — Masterplan 2.3
+# AROWGO — Current delivery plan
 
-> Current implemented release: [v0.1 prototype](docs/v0.1-prototype.md). Five levels and hub navigation supersede the original one-level slice; remaining masterplan features remain future scope.
+Updated 16 November 2026. Parent: InterFrozt / Veyminore. Implementation truth is [Current game state](docs/CURRENT-GAME-STATE.md); verification truth is the [dated audit](docs/AUDIT-2026-11-16.md). Earlier 2.x reference plans and prototype reports are historical/design context.
 
-**Edition:** Build-ready documentation and consistency corrections, 10 November 2026.\
-**Parent:** InterFrozt / Veyminore.\
-**Status:** First browser mechanic proof and one playable level implemented; campaign and native acceptance remain pending.\
-**Source:** [Original 2.1](references/AROWGO_Advanced_Masterplan_2.1.md), preserved unchanged.
+## Current product
 
-## Direction
+Forty local campaign levels: Bloom Valley 1–20 and Verdant Cove 21–40. Snake head-ray movement, keys, anchors, move-count deadlines, tutorials, safe hints, results, local profiles, three crates and fifteen skins are implemented. Levels 10–40 use content 9 planning constraints. Accounts, cloud sync, backend economy, billing, rankings and multiplayer are not implemented. Android debug assembly is verified with Java 21; physical-device/release and human difficulty acceptance remain open.
 
-Build a calm, readable bent-arrow logic puzzle. Preserve the blossom landscapes, floating islands, lavender panels and confident purple actions from the references, while keeping dark puzzle paths crisp. Android portrait is the source plan's primary target; a web prototype is the first validation surface.
+## Delivery priority
 
-## First release boundary
+1. **Account and cloud foundation:** implement the [backend plan](docs/BACKEND-ACCOUNT-PLAN.md), including guest-to-account linking, safe legacy migration, conflict handling and server-owned valuable rewards.
+2. **Verification and release readiness:** resolve the audit's failed checks and native setup gaps; validate on physical devices; review asset rights, economy and player comprehension.
+3. **World 3:** resume the [Frostfall Peaks proposal](docs/FROSTFALL-PEAKS-PLAN.md) after the account foundation. Prototype rules and a small reviewed puzzle set before all twenty levels.
+4. **Collection expansion:** five chest tiers, Ethereal and 100 skins remain [planned](docs/CHEST-AND-SKIN-LAUNCH-PLAN.md). Current odds must not silently change to a planning table.
+5. **Later services:** additional login providers, rankings, PGS, daily/endless, social and multiplayer need their own acceptance gates.
 
-The working MVP is an offline Story campaign with 30–40 reviewed levels, tutorial, practice replay, local save/resume, results, basic profile and settings. Hint, Analyze and Erase need explicit charge and assisted-result semantics. Start with Home, World and Profile navigation; Modes can be a functional Story/practice entry. A small earned cosmetic collection is optional after the campaign is stable.
+## Architectural boundaries
 
-Online ranking, accounts, cloud saves, procedural endless content, real-money purchases, ads, events and live multiplayer remain deferred. No empty shop or ranking tab is required merely because it appears in the concept art.
+Keep the TypeScript domain separate from React/Phaser rendering. Preserve versioned saves and stable level IDs. Generation and planning are offline authoring steps; ship reviewed JSON. Use Capacitor adapters for native integration. The proposed trusted backend reuses canonical rule validation and owns account/economic commands. No Kotlin rewrite is required.
 
-## Rule proof before production
+## Definition of done
 
-Prototype whole-path rigid translation using integer cells and an independent swept-footprint checker. A still screenshot cannot establish how arrows move. Validate that hypothesis before making a large campaign. Rendering must demonstrate the same movement model as collision; retraction is a different mechanic until proven otherwise.
+Each milestone needs implementation evidence, relevant tests, explicit migration/rollback behavior and current documentation. A passing solver is not human difficulty validation. A build is not native certification. Local prototype balances are not verified purchases. No planned feature is advertised as live until it exists.
 
-Blocked taps preserve board occupancy but may change the mistake counter. Successful removals, tool spending and rewards need atomic, replay-safe state transitions. All shipped levels must have a verified no-assist solution.
+See the [backlog](docs/execution-backlog.md) and [decision register](docs/decisions/README.md). Source references in references/ remain unchanged. No delivery dates, staffing, production budget or external provisioning are implied by this plan.
 
-## Documents and precedence
-
-1. The user's games-only InterFrozt organization is implemented.
-2. This masterplan and the [working amendments](docs/decisions/README.md) define the proposed 2.3 baseline. They distinguish implemented organization from provisional design choices.
-3. [Focused specifications](docs/README.md) cover every numbered section from 2.1; revised pages are marked with their working revision. The original remains available for historical wording. Working amendments take precedence over unrevised imported detail.
-4. The original source and screenshots are immutable reference evidence. UI prices, player data, locked labels and source “Locked” statuses do not establish actual production state.
-
-When a conflict remains unresolved, record it in the decision register; do not infer approval. Technical choices and external policy claims from 2.1 still need dated verification at implementation/release.
-
-## Delivery sequence
-
-| Milestone | Output | Exit evidence |
-| --- | --- | --- |
-| Rule proof | 5–10 tiny boards and movement demonstration | Four directions, body-only blockers, geometry rejection and explicit rule selection |
-| Vertical slice | One level from entry through results and resume | No duplicate actions/rewards; touch-device observation |
-| Tutorial alpha | About 10 reviewed levels | New players can explain the rule without coaching |
-| Campaign MVP | 30–40 reviewed levels and functional navigation | Automated validation, device matrix, no blocking defects, save migration tested |
-| Retention learning | External cohort feedback | Cohort size, return-play signal and reasons for stopping documented |
-| Expansion | Generator, daily and then asynchronous competition | Relevant content/server/operations gates passed before each feature |
-
-This reconciles the source's one-level, 10–15-level and 30–40-level targets into distinct milestones. No delivery date or team capacity is assumed.
-
-## Build approach
-
-Follow the [build guide](docs/build-guide.md): one game package with TypeScript rules, a Phaser board, React screens and Vite tooling, packaged with Capacitor during the first Android slice. These are spike candidates, not validated dependencies. Keep state changes in an application controller and local persistence behind an adapter. Add backend services only when a validated feature requires them.
-
-## Current implementation
-
-The first playable implements rigid movement, a ten-arrow level, Story/Practice, Hint, restart/results, local progression and nine interactive rule examples. See the [rule proof](docs/rule-proof.md) and [build evidence](docs/verification/first-playable.md). Android asset sync succeeds; compilation and physical-device gates remain open.
-
-## Start here
-
-Assign owners to the [execution backlog](docs/execution-backlog.md), review the [recommendations](docs/review-and-recommendations.md), and produce evidence for Gate A. Use the [templates and maintenance workflow](docs/maintenance.md) for future changes. The browser prototype is now implemented. Next validate the feel and actual Android behavior before expanding content.
+B01 is now in progress: isolated contracts, disabled web transport and raw legacy capture are implemented. Live credential/linking proof remains open. See [account implementation](docs/ACCOUNT-FOUNDATION.md).

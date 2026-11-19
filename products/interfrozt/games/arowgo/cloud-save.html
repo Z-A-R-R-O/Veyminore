@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AROWGO · Cloud saves</title>
+    <link rel="stylesheet" href="/src/account/test-page.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="brand" href="/?account=1#profile"
+          ><img src="/assets/brand/arowgo-icon-64.png" alt="" />AROWGO</a
+        ><span class="badge">Cloud save preview</span>
+      </header>
+      <div class="layout cloud-layout">
+        <section class="intro">
+          <img
+            class="account-hero-art"
+            src="/assets/account/cloud-vault-v1.png"
+            alt=""
+            width="1280"
+            height="1280"
+          />
+          <span class="eyebrow">YOUR ADVENTURE, KEPT SAFE</span>
+          <h1>Pick up<br />where you left off.</h1>
+          <p>Compare your device and cloud checkpoints before choosing.</p>
+          <a class="back" href="/?account=1#profile">← Back to Profile</a>
+        </section>
+        <section class="card cloud-card">
+          <span class="eyebrow">SAVE MANAGER</span>
+          <h2>Your cloud save</h2>
+          <p id="status" role="status">Checking access…</p>
+          <p>
+            Choose one complete save. Coins, gems and rewards are never added
+            together.
+          </p>
+          <div id="comparison"></div>
+          <div class="actions">
+            <button id="upload" hidden>Save this device to cloud</button
+            ><button id="restore" hidden>Use cloud save on this device</button
+            ><button id="confirm" hidden>Confirm</button
+            ><button id="cancel" hidden>Cancel</button
+            ><button id="download" hidden>Download recovery copy</button
+            ><button id="refresh" hidden>Check again</button>
+          </div>
+          <p class="help">
+            Before a restore, your current save is kept as a recovery copy.
+            Close other game tabs first.
+          </p>
+          <a href="/?account=1#profile">Return to Profile</a>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="/src/account/cloud-page.ts"></script>
+  </body>
+</html>

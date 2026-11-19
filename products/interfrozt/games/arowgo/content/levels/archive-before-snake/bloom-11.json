@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 1,
+  "contentVersion": 4,
+  "levelId": "bloom-11",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          8,
+          8
+        ],
+        [
+          6,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "requires": "H"
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          3,
+          9
+        ],
+        [
+          4,
+          9
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "E",
+    "F",
+    "I",
+    "B",
+    "J",
+    "H",
+    "G",
+    "C",
+    "D",
+    "A"
+  ],
+  "generation": {
+    "version": 2,
+    "seed": 33123,
+    "count": 10,
+    "targetScore": 80,
+    "difficulty": {
+      "depth": 5,
+      "edges": 8,
+      "bends": 4,
+      "initialChoices": 4,
+      "forcedSteps": 5,
+      "score": 75
+    },
+    "quality": {
+      "isolated": 1,
+      "emptyQuadrants": 0,
+      "imbalance": 3,
+      "occupiedCells": 29
+    },
+    "mechanicsVersion": 1,
+    "keyLockPairs": 1
+  }
+}

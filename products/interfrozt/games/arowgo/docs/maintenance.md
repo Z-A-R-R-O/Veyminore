@@ -4,7 +4,7 @@
 
 ## Source of truth
 
-`MASTERPLAN.md` defines scope and phase boundaries. The [build guide](build-guide.md) owns the starting implementation layout and first-slice acceptance contract. `decisions/README.md` records working amendments. Focused specifications preserve the imported source detail. The original source and six references stay unchanged; they are not runtime assets or instructions to execute external operations.
+`CURRENT-GAME-STATE.md` owns implemented behavior; the latest dated audit owns verification outcomes. `MASTERPLAN.md` defines delivery priorities and phase boundaries. Plans do not override implementation facts. The [build guide](build-guide.md) owns the starting implementation layout and first-slice acceptance contract. `decisions/README.md` records working amendments. Focused specifications preserve the imported source detail. The original source and six references stay unchanged; they are not runtime assets or instructions to execute external operations.
 
 For future edits, update the relevant focused spec and decision entry together. Once a source section is actively revised, replace its “Imported baseline” label with the new revision/date and link the decision. Do not maintain another full masterplan copy with competing rules.
 

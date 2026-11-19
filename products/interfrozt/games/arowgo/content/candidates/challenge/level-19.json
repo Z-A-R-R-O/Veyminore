@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 8,
+  "levelId": "bloom-19",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          5,
+          9
+        ],
+        [
+          3,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          8,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          9,
+          2
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          1,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          1,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          5,
+          1
+        ],
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          8,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          9,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          9,
+          8
+        ],
+        [
+          9,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          1,
+          9
+        ],
+        [
+          0,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          1,
+          8
+        ],
+        [
+          0,
+          8
+        ]
+      ],
+      "requires": "B"
+    },
+    {
+      "id": "S",
+      "points": [
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "N",
+    "O",
+    "M",
+    "P",
+    "I",
+    "J",
+    "B",
+    "F",
+    "G",
+    "Q",
+    "R",
+    "L",
+    "H",
+    "D",
+    "S",
+    "K",
+    "E",
+    "C",
+    "A"
+  ],
+  "generation": {
+    "version": 3,
+    "seed": 170200,
+    "count": 19,
+    "targetScore": 132,
+    "difficulty": {
+      "depth": 8,
+      "edges": 24,
+      "bends": 7,
+      "initialChoices": 5,
+      "forcedSteps": 5,
+      "score": 134
+    },
+    "quality": {
+      "isolated": 0,
+      "emptyQuadrants": 0,
+      "imbalance": 2,
+      "occupiedCells": 61
+    },
+    "connectedPlacement": true,
+    "difficultyControlsVersion": 1,
+    "openingMoves": [
+      1,
+      5
+    ],
+    "depthRange": [
+      5,
+      16
+    ],
+    "scoreRange": [
+      124,
+      232
+    ],
+    "mechanicsVersion": 1,
+    "keyLockPairs": 1,
+    "challengeVersion": 1
+  }
+}

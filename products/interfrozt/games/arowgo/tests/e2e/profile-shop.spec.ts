@@ -1,8 +1,14 @@
 import { test, expect } from "@playwright/test";
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() =>
+    localStorage.setItem("arowgo.tutorial.snake.v2", "seen"),
+  );
+});
 test("guest profile and crate unlock persist and equipped effects reach gameplay", async ({
   page,
 }) => {
   await page.goto("/#profile");
+  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
   await page.getByLabel("Display name").fill("Zarro");
   await page.getByRole("button", { name: "Save", exact: true }).click();
   await page.reload();
@@ -18,7 +24,7 @@ test("guest profile and crate unlock persist and equipped effects reach gameplay
     .getByRole("button", { name: "Open free crate", exact: true })
     .click();
   await expect(
-    page.getByText("Opening… your reward is already saved."),
+    page.getByRole("button", { name: "Skip animation" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Skip animation" }).click();
   await expect(
@@ -74,6 +80,7 @@ test("result appears after final exit and keeps stable full-screen bounds", asyn
   await expect(page.locator(".result-layer")).toHaveCount(0);
   await expect(page.locator(".result-layer")).toBeVisible();
   await expect(page.locator('[data-arrow="J"]')).toHaveCount(0);
+  await expect(page.locator(".result-layer")).toHaveCSS("opacity", "1");
   const frames = await page.evaluate(async () => {
     const out: {
       x: number;

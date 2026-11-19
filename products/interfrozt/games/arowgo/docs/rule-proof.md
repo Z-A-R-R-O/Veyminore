@@ -1,5 +1,7 @@
 # Rigid-arrow rule proof
 
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
+
 [Build evidence](verification/first-playable.md) · [Working decision](decisions/0001-first-playable.md)
 
 The prototype uses integer cells. Waypoints run from tail to head. The final segment determines direction. Every occupied cell translates together; any overlap with another active arrow at any step blocks the entire action. A successful arrow is removed; it is never partially advanced. Removing arrows can only preserve or increase legal exits.

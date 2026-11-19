@@ -1,0 +1,534 @@
+.hub-content.page-profile {
+  overflow: hidden;
+  min-height: 0;
+}
+.player-profile {
+  width: min(100%, 760px);
+  height: 100%;
+  min-height: 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #43266a;
+}
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  padding: 20px;
+  border: 1px solid #fff;
+  border-radius: 26px;
+  background: linear-gradient(120deg, #fffc, #e9dcffed);
+  box-shadow: 0 10px 25px #53308716;
+}
+.player-avatar {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  background: #fff9;
+  border: 2px solid white;
+  border-radius: 24px;
+}
+.player-avatar .game-art {
+  width: 60px;
+  height: 60px;
+}
+.player-name {
+  min-width: 0;
+}
+.player-name h1 {
+  font-size: clamp(24px, 4vw, 36px);
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+.player-name p {
+  margin: 0;
+  font-size: 13px;
+}
+.player-local {
+  margin-left: auto;
+  max-width: 95px;
+  font-size: 11px;
+  color: #79618d;
+}
+.player-tabs {
+  display: flex;
+  padding: 4px;
+  gap: 4px;
+  border: 1px solid #fff;
+  border-radius: 18px;
+  background: #ffffff9c;
+}
+.player-tabs button {
+  flex: 1;
+  border: 0;
+  min-height: 42px;
+  border-radius: 13px;
+  color: #684783;
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.player-tabs button[aria-current] {
+  background: #7945bd;
+  color: white;
+  box-shadow: 0 3px 8px #62328c33;
+}
+.player-panel {
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.player-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 16px 4px;
+  border-radius: 22px;
+  background: #ffffffbd;
+  border: 1px solid white;
+}
+.player-stats > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.player-stats > div + div {
+  border-left: 1px solid #9976b329;
+}
+.player-stats strong {
+  font-size: 29px;
+  font-family: "Matcha Style", sans-serif;
+}
+.player-stats small {
+  font:
+    12px Satoshi,
+    sans-serif;
+  color: #856c9a;
+}
+.player-stats span {
+  font-size: 11px;
+}
+.player-progress {
+  padding: 16px 20px;
+  background: #ffffffb0;
+  border-radius: 20px;
+}
+.player-progress > div,
+.player-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.player-progress h2,
+.player-section-title h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.player-progress progress {
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 12px;
+  background: #dfcfed;
+}
+.player-progress progress::-webkit-progress-bar {
+  background: #dfcfed;
+}
+.player-progress progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #bd83ee, #7544bc);
+  border-radius: 20px;
+}
+.player-progress progress::-moz-progress-bar {
+  background: #8952ca;
+}
+.player-progress p {
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+.player-badges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.player-badges > div {
+  padding: 10px 4px;
+  border-radius: 18px;
+  border: 1px solid #fff9;
+  background: #efe7f5c7;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #867294;
+}
+.player-badges > div[data-earned="true"] {
+  background: #fff2cfe8;
+  color: #875c1b;
+  border-color: #edcf80;
+}
+.player-badges span {
+  font-size: 26px;
+  line-height: 1;
+}
+.player-badges strong {
+  font-size: 12px;
+}
+.player-badges small {
+  font-size: 10px;
+}
+.player-equipped {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid white;
+  background: #ffffffba;
+  border-radius: 18px;
+  padding: 8px 16px;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.player-equipped .collection-arrow {
+  width: 62px;
+  height: 45px;
+}
+.player-equipped > span:nth-child(2) {
+  flex: 1;
+  display: grid;
+  gap: 4px;
+}
+.player-equipped small {
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.player-action {
+  margin-top: auto;
+  width: 100%;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+.player-collection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+.player-skin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 0;
+  border: 1px solid white;
+  border-radius: 20px;
+  background: #fffc;
+  color: #563378;
+  cursor: pointer;
+}
+.player-skin .collection-arrow {
+  width: 85px;
+  height: 65px;
+  max-height: 50%;
+}
+.player-skin[aria-pressed="true"] {
+  border: 2px solid #9855db;
+  background: #eee0ff;
+}
+.player-skin:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.player-skin small {
+  font-size: 10px;
+  text-transform: capitalize;
+}
+.player-section-title span {
+  font-size: 12px;
+}
+.player-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.player-pagination button {
+  width: 44px;
+  height: 36px;
+  border: 1px solid white;
+  border-radius: 12px;
+  background: #fff9;
+  color: #633b8a;
+  cursor: pointer;
+}
+.player-pagination button:disabled {
+  opacity: 0.4;
+}
+.player-notice {
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
+}
+.player-panel .profile-editor {
+  margin: 0;
+}
+@media (max-height: 740px) {
+  .player-profile,
+  .player-panel {
+    gap: 7px;
+  }
+  .player-card {
+    padding: 10px 14px;
+    border-radius: 20px;
+    gap: 10px;
+  }
+  .player-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+  .player-avatar .game-art {
+    width: 42px;
+    height: 42px;
+  }
+  .player-name h1 {
+    font-size: 23px;
+  }
+  .player-name .eyebrow {
+    font-size: 9px;
+  }
+  .player-name p {
+    font-size: 11px;
+  }
+  .player-stats {
+    padding: 8px 2px;
+  }
+  .player-stats strong {
+    font-size: 23px;
+  }
+  .player-progress {
+    padding: 10px 14px;
+  }
+  .player-progress h2 {
+    font-size: 17px;
+  }
+  .player-progress progress {
+    margin-top: 6px;
+  }
+  .player-progress p {
+    margin-top: 4px;
+    font-size: 11px;
+  }
+  .player-badges > div {
+    padding: 7px 2px;
+  }
+  .player-badges span {
+    font-size: 18px;
+  }
+  .player-badges strong {
+    font-size: 10px;
+  }
+  .player-equipped {
+    padding: 4px 12px;
+  }
+  .player-equipped .collection-arrow {
+    height: 32px;
+  }
+}
+@media (max-width: 360px) {
+  .player-local {
+    display: none;
+  }
+  .player-tabs button {
+    font-size: 12px;
+    min-height: 38px;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .player-profile {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 8px 16px;
+  }
+  .player-card {
+    grid-column: 1;
+    flex-wrap: wrap;
+  }
+  .player-local {
+    max-width: none;
+    margin: 0;
+  }
+  .player-tabs {
+    grid-column: 1;
+    flex-direction: column;
+    align-self: start;
+  }
+  .player-panel {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: start;
+  }
+  .player-badges,
+  .player-action,
+  .player-collection,
+  .player-section-title,
+  .player-pagination,
+  .player-panel .profile-editor {
+    grid-column: 1 / -1;
+  }
+  .player-equipped {
+    display: none;
+  }
+  .player-collection {
+    grid-template-columns: repeat(4, 1fr);
+    min-height: 100px;
+  }
+}
+/* Override shared page typography without changing other screens. */
+.hub-content .player-name h1 {
+  margin: 3px 0;
+  font-size: 28px;
+  line-height: 1.05;
+}
+.hub-content .player-name p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.hub-content .player-progress h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.hub-content .player-progress p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.3;
+}
+@media (max-height: 740px) {
+  .hub-content .player-name h1 {
+    font-size: 23px;
+  }
+  .hub-content .player-progress h2 {
+    font-size: 17px;
+  }
+  .hub-content .player-progress p {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .player-equipped {
+    display: none;
+  }
+  .player-card,
+  .player-tabs {
+    flex-shrink: 0;
+  }
+}
+@media (max-height: 620px) and (max-width: 599px) {
+  .player-profile,
+  .player-panel {
+    gap: 5px;
+  }
+  .player-card {
+    padding: 7px 12px;
+  }
+  .player-stats {
+    padding: 5px 2px;
+  }
+  .player-progress {
+    padding: 7px 12px;
+  }
+  .player-badges > div {
+    padding: 5px 2px;
+    gap: 2px;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .player-tabs {
+    flex-direction: row;
+  }
+  .player-tabs button {
+    min-width: 0;
+    min-height: 36px;
+    font-size: 11px;
+    padding: 4px;
+  }
+  .player-panel .profile-editor {
+    padding: 10px;
+  }
+  .player-panel .profile-identity {
+    display: none;
+  }
+  .player-panel .profile-message {
+    min-height: 16px;
+    margin: 2px 0;
+  }
+  .player-panel .avatar-picker {
+    margin-top: 8px;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .player-collection {
+    min-height: 94px;
+  }
+}
+.profile-account {
+  min-height: 0;
+  overflow: auto;
+  padding: clamp(12px, 3vw, 24px);
+  border: 1px solid white;
+  border-radius: 22px;
+  background: #ffffffc9;
+}
+.profile-account h2 {
+  margin: 0 0 12px;
+}
+.profile-account p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.profile-account small {
+  display: block;
+  line-height: 1.5;
+  color: #776386;
+}
+.profile-account .account-id {
+  overflow-wrap: anywhere;
+}
+.account-actions {
+  display: flex;
+  gap: 12px;
+  margin: 18px 0;
+}
+.account-actions a,
+.account-actions button {
+  padding: 12px 18px;
+  border: 1px solid #c8a6e5;
+  border-radius: 16px;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+@media (max-width: 380px) {
+  .player-tabs button {
+    font-size: 11px;
+    padding: 4px;
+  }
+}

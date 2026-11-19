@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 9,
+  "levelId": "cove-40",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "deadline": 9
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          8,
+          7
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          7,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "deadline": 17
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          9,
+          3
+        ],
+        [
+          9,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          1,
+          5
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          1,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          9,
+          8
+        ],
+        [
+          9,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "anchorRequires": "J"
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "anchorRequires": "J"
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          6,
+          7
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          7,
+          9
+        ],
+        [
+          5,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          1,
+          9
+        ],
+        [
+          0,
+          9
+        ]
+      ],
+      "requires": "G"
+    },
+    {
+      "id": "S",
+      "points": [
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "J",
+    "E",
+    "K",
+    "M",
+    "O",
+    "S",
+    "F",
+    "A",
+    "L",
+    "C",
+    "I",
+    "H",
+    "G",
+    "R",
+    "Q",
+    "N",
+    "D",
+    "B",
+    "P"
+  ],
+  "generation": {
+    "planningVersion": 1,
+    "analysis": {
+      "randomLegalWinRate": 0.056120847114995355,
+      "decisionStates": 33,
+      "blockedTargetDecisions": 29,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K",
+          "N",
+          "P",
+          "Q",
+          "R"
+        ],
+        "safeMove": "K",
+        "unsafeMove": "C"
+      },
+      "earliestDecisionMove": 7,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 4,
+          "deadline": 9,
+          "spareMoves": 4
+        },
+        {
+          "id": "D",
+          "prerequisiteCount": 10,
+          "deadline": 17,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.06
+  }
+}

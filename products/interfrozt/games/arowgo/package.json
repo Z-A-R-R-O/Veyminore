@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
@@ -15,11 +15,16 @@
     "test:e2e": "playwright test",
     "android:sync": "pnpm build && cap sync android",
     "lint": "prettier --check src tests content *.ts *.json index.html",
-    "format": "prettier --write src tests content *.ts *.json index.html"
+    "format": "prettier --write src tests content *.ts *.json index.html",
+    "account:server": "node --env-file-if-exists=.env.development.local server/account/start.mjs",
+    "account:web": "vite --host localhost --port 4173 --strictPort",
+    "economy:review": "node server/economy/migrate.mjs review",
+    "economy:import": "node server/economy/migrate.mjs import"
   },
   "dependencies": {
     "@capacitor/android": "8.6.0",
     "@capacitor/core": "8.6.0",
+    "google-auth-library": "^11.3.4",
     "phaser": "4.2.1",
     "react": "19.3.1",
     "react-dom": "19.3.1"

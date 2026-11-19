@@ -1,5 +1,7 @@
 # Guest profile, cosmetic shop and stable results
 
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
+
 Implemented 10 November 2026. This amendment supersedes earlier v0.1 notes that excluded a shop or placed Settings in bottom navigation.
 
 ## Navigation and presentation

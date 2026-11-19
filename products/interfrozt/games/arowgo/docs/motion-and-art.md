@@ -1,5 +1,7 @@
 # Bloom Valley motion and art
 
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
+
 Implemented 10 November 2026. Scope: one playable level, existing Rule lab and local progress. The supplied image is visual direction, not an executable specification or a new level definition.
 
 ## Layered approach

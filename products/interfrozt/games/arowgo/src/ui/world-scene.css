@@ -1,0 +1,321 @@
+/* The artwork and nodes share the same viewport coordinate system. */
+.hub-shell.worlds-screen {
+  background-size: 100% 100%;
+  background-image: url("/assets/bloom-valley-world-map-candy-portrait-v1.png");
+  gap: 8px;
+}
+.worlds-screen .hub-header,
+.worlds-screen .bottom-nav {
+  position: relative;
+  z-index: 5;
+}
+.worlds-screen .hub-content.page-worlds {
+  pointer-events: none;
+  position: static;
+  display: flex;
+  width: 100%;
+  max-width: none;
+  overflow: visible;
+  animation: none;
+}
+.worlds-screen .valley-map-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+/* Reserve the measured UI space on short phones. The scene scales with it. */
+@media (max-aspect-ratio: 4/3) {
+  .worlds-screen .valley-map-scroll {
+    bottom: 160px;
+  }
+  .hub-shell.worlds-screen {
+    background-size: 100% calc(100% - 160px);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #c7b3ec;
+  }
+  .worlds-screen .valley-heading {
+    align-self: flex-start;
+    max-width: 55%;
+    text-align: left;
+  }
+  .worlds-screen .valley-heading h1 {
+    font-size: 23px;
+  }
+  .worlds-screen .valley-progress {
+    gap: 5px;
+    font-size: 11px;
+  }
+}
+.worlds-screen .valley-map-scroll .valley-map {
+  height: 100%;
+  width: 100%;
+  background: none;
+}
+.worlds-screen .valley-map-scroll .valley-stop {
+  pointer-events: auto;
+  width: clamp(44px, 6vw, 64px);
+  height: clamp(44px, 5vw, 54px);
+}
+.worlds-screen .valley-heading {
+  position: relative;
+  z-index: 3;
+  align-self: center;
+  padding: 0 12px;
+  margin: 0;
+  background: none;
+  text-shadow:
+    0 2px 8px white,
+    0 0 16px white;
+}
+.worlds-screen .valley-heading h1 {
+  font-size: clamp(26px, 4vh, 40px);
+  margin: 2px 0;
+}
+.worlds-screen .valley-launch {
+  pointer-events: auto;
+  z-index: 4;
+  margin: auto auto 0;
+  position: relative;
+  width: min(100%, 440px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 1fr);
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f8eaffd9;
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+}
+.worlds-screen .valley-launch .valley-play {
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  font-size: 20px;
+}
+@media (max-aspect-ratio: 4/3) {
+  .worlds-screen .valley-heading {
+    align-self: center;
+    max-width: 100%;
+    text-align: center;
+  }
+  .worlds-screen .valley-heading h1 {
+    font-size: 22px;
+    white-space: nowrap;
+  }
+  .worlds-screen .valley-kicker {
+    display: none;
+  }
+  .worlds-screen .valley-progress {
+    font-size: 11px;
+    gap: 12px;
+  }
+}
+@media (min-aspect-ratio: 4/3) {
+  .worlds-screen .valley-map-scroll {
+    bottom: 160px;
+  }
+  .hub-shell.worlds-screen {
+    background-size: 100% calc(100% - 160px);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #c7b3ec;
+    background-image: url("/assets/bloom-valley-world-map-candy-landscape-v1.png");
+  }
+  .worlds-screen .valley-stop:nth-of-type(1) {
+    left: 10%;
+    top: 73%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(2) {
+    left: 21%;
+    top: 71%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(3) {
+    left: 30%;
+    top: 64%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(4) {
+    left: 40%;
+    top: 62%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(5) {
+    left: 49%;
+    top: 56%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(6) {
+    left: 59%;
+    top: 54%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(7) {
+    left: 70%;
+    top: 48%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(8) {
+    left: 80%;
+    top: 46%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(9) {
+    left: 84%;
+    top: 34%;
+  }
+  .worlds-screen .valley-stop:nth-of-type(10) {
+    left: 94%;
+    top: 32%;
+  }
+  .worlds-screen .valley-heading {
+    align-self: flex-start;
+  }
+}
+
+.world-sections {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+}
+.world-sections button {
+  flex: 1;
+  min-height: 36px;
+  border: 1px solid #d9bdec;
+  border-radius: 12px;
+  background: #fff9;
+  color: #694187;
+  font:
+    700 12px Satoshi,
+    sans-serif;
+}
+.world-sections button[aria-pressed="true"] {
+  background: #9153cb;
+  color: white;
+}
+
+@media (max-height:650px) and (max-aspect-ratio:4/3) {
+ .worlds-screen .valley-stop:nth-of-type(9) { top:36%; }
+ .worlds-screen .valley-stop:nth-of-type(10) { top:35%; }
+ .worlds-screen .valley-stop:nth-of-type(8) { top:47%; }
+ .worlds-screen .valley-stop:nth-of-type(7) { top:48%; }
+ .worlds-screen .valley-stop:nth-of-type(5) { top:58%; }
+ .worlds-screen .valley-stop:nth-of-type(6) { top:57%; }
+ .worlds-screen .valley-stop:nth-of-type(4) { top:68%; }
+ .worlds-screen .valley-stop:nth-of-type(3) { top:69%; }
+}
+.hub-shell.worlds-screen:has(.valley-heading[data-world="2"]) { background-image: url('/assets/verdant-cove.png'); background-color: #6cbb9a; }
+.world-picker { display: flex; gap: 4px; margin-bottom: 5px; pointer-events: auto; }
+.world-picker button { border: 1px solid #fff9; border-radius: 10px; padding: 5px 7px; font: 11px var(--font-reading); color: #49356b; background: #ffffffe0; min-height: 32px; cursor: pointer; }
+.world-picker button[aria-pressed="true"] { background: #316e60; color: white; }
+.cove-scenery { background: #b8e3ce; }
+.cove-scenery > img { width: 100%; height: 100%; object-fit: cover; opacity: .75; }
+.cove-wash { position: absolute; inset: 0; background: #e3f6ea35; }
+.cove-tutorial { background: linear-gradient(140deg,#c3edda,#7dbda7); }
+.hub-shell:has(.cove-scenery) .bloom-home-island { object-fit: contain; border-radius: 0; }
+@media(max-width:360px){.world-picker { gap: 2px; }.world-picker button { font-size: 9px; padding: 4px; }.worlds-screen .valley-heading h1 { font-size: 20px; }}
+
+.cove-scenery picture, .cove-scenery picture img { width:100%; height:100%; object-fit:cover; }
+@media(min-aspect-ratio:4/3){.hub-shell.worlds-screen:has(.valley-heading[data-world="2"]) { background-image:url("/assets/verdant-cove-landscape.png"); }}
+@media (max-height:650px) and (max-aspect-ratio:4/3) {
+ .worlds-screen .valley-progress { position:absolute; top:100%; left:12px; flex-direction:column; align-items:flex-start; gap:2px; font-size:10px; line-height:1.2; }
+}
+/* Compact map controls and a dedicated world library. */
+.worlds-chooser-button { pointer-events:auto; display:inline-flex; align-items:center; gap:7px; min-height:36px; padding:6px 14px; border:1px solid #ffffffdb; border-radius:30px; background:#fffdf4e8; color:#594177; box-shadow:0 3px 12px #46316416; font:700 12px var(--font-reading); cursor:pointer; margin-bottom:5px; }
+.worlds-chooser-button svg { width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round; }
+.map-pager { grid-column:1/-1; display:flex; align-items:center; justify-content:center; gap:18px; padding-bottom:0; }
+.map-pager span { min-width:105px; text-align:center; font:700 12px var(--font-reading); color:#70548a; }
+.map-pager button { display:grid;place-items:center;width:44px;height:36px;border:1px solid #fff;border-radius:14px;background:#fff9;color:#7944ac;cursor:pointer; }
+.map-pager button:disabled { opacity:.28;cursor:default; }
+.map-pager svg { width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round; }
+.worlds-dialog { pointer-events:auto; box-sizing:border-box; width:min(560px,calc(100vw - 28px)); max-height:calc(100dvh - 32px); padding:24px; border:1px solid #ffffffde; border-radius:28px; color:#493269; background:linear-gradient(145deg,#fffcff,#eee5f8); box-shadow:0 22px 80px #20152b66; }
+.worlds-dialog::backdrop { background:#201b3c80;backdrop-filter:blur(9px); }
+.worlds-dialog[open] { animation:world-library-in .25s ease-out; }
+.worlds-dialog-heading { display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px; }
+.worlds-dialog-heading span { font:700 10px var(--font-reading);letter-spacing:1.5px;color:#9477ac; }
+.worlds-dialog-heading h2 { margin:5px 0 0;font-size:26px; }
+.worlds-dialog-heading button { flex-shrink:0;width:44px;height:44px;border:1px solid #ddcce9;border-radius:50%;background:#fff9;color:#765691;font:26px var(--font-reading);cursor:pointer; }
+.world-cards { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+.world-card { position:relative;isolation:isolate;overflow:hidden;min-width:0;height:290px;text-align:left;padding:0;border:1px solid #fff;border-radius:20px;box-shadow:0 5px 15px #48316216;cursor:pointer;color:white;background:#d9e4ed; }
+.world-card>img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s ease; }
+.world-card:not(:disabled):hover>img { transform:scale(1.04); }
+.world-card.is-clouded { cursor:default;opacity:1; }
+.world-card.is-clouded>img { filter:blur(5px) saturate(.35);opacity:.25; }
+.world-card-caption { position:absolute;z-index:2;inset:auto 0 0;padding:45px 16px 18px;background:linear-gradient(transparent,#322845ee);display:flex;flex-direction:column;gap:7px; }
+.world-card-caption>span { font:700 9px var(--font-reading);letter-spacing:1.5px;opacity:.8; }
+.world-card-caption strong { font-size:21px;line-height:1.15; }
+.world-card-caption small { font:500 11px/1.4 var(--font-reading); }
+.world-card-caption b { position:absolute;right:14px;top:25px;font:22px var(--font-reading); }
+.is-clouded .world-card-caption { color:#617088;background:linear-gradient(transparent,#e9eef6 35%);padding-top:35px; }
+.world-clouds { position:absolute;inset:0;background:radial-gradient(ellipse at 25% 35%,#fff 0%,#f2f5fabf 35%,transparent 70%); }
+.world-clouds i { position:absolute;width:115%;height:65%;left:-35%;top:0;border-radius:50%;background:#f8fbffcf;filter:blur(12px); }
+.world-clouds i:nth-child(2) { left:25%;top:12%;background:#e5ecf5ee; }
+.world-clouds i:nth-child(3) { left:-5%;top:35%;background:#fff9; }
+.world-clouds svg { position:absolute;left:calc(50% - 20px);top:26%;width:40px;height:40px;fill:none;stroke:#8b9bb0;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round; }
+@keyframes world-library-in { from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none} }
+@media(max-width:380px){.worlds-dialog{padding:16px}.world-cards{gap:8px}.world-card{height:250px}.world-card-caption{padding-left:12px;padding-right:12px}.world-card-caption strong{font-size:18px}.worlds-dialog-heading h2{font-size:22px}}
+@media(max-height:500px){.worlds-dialog{padding:16px}.worlds-dialog-heading{margin-bottom:10px}.world-card{height:190px}.world-card-caption{padding-top:25px}.world-clouds svg{top:17%}}
+@media(prefers-reduced-motion:reduce){.worlds-dialog[open]{animation:none}.world-card>img{transition:none}}
+/* Name-only world list; future destinations remain presentation placeholders. */
+.worlds-dialog { width:min(390px,calc(100vw - 28px)); }
+.world-name-list { display:flex;flex-direction:column;gap:10px; }
+.world-name-row { display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:12px 18px;border:1px solid #ffffffed;border-radius:18px;background:linear-gradient(160deg,#fffdfd,#eee0fb);box-shadow:inset 0 2px 3px #fff,0 3px 0 #d5b7ea,0 5px 12px #6b3d8e0a;color:#674184;font:700 15px var(--font-reading);text-align:left;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,background .18s ease; }
+.world-name-row[aria-current="true"] { background:linear-gradient(155deg,#cba1ef,#a46cda);color:white;box-shadow:inset 0 2px 3px #ffffff91,0 3px 0 #8650b8,0 6px 16px #9b6ac62b; }
+.world-name-row svg { flex-shrink:0;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
+.world-name-row.is-locked { color:#9b8cae;background:linear-gradient(150deg,#f8f5fc,#eee9f4);box-shadow:inset 0 1px 3px white,0 2px 0 #e1d8eb;cursor:default;opacity:1; }
+.worlds-chooser-button,.map-pager button,.worlds-dialog-heading button { background:linear-gradient(160deg,#fffdfd,#ecddfb);border:1px solid #fff;border-radius:18px;box-shadow:inset 0 2px 3px white,0 3px 0 #c9a9e1,0 5px 12px #6b3d8e15;transition:transform .18s ease,box-shadow .18s ease; }
+.worlds-chooser-button { border-radius:22px; }
+.map-pager button:disabled { box-shadow:none;opacity:.36; }
+@media(hover:hover){.world-name-row:not(:disabled):hover,.worlds-chooser-button:hover,.map-pager button:not(:disabled):hover,.worlds-dialog-heading button:hover { transform:translateY(-1px);filter:brightness(1.025); }}
+.world-name-row:not(:disabled):active,.worlds-chooser-button:active,.map-pager button:not(:disabled):active,.worlds-dialog-heading button:active { transform:translateY(2px);box-shadow:inset 0 1px 3px #fff8; }
+.world-name-row:focus-visible,.worlds-chooser-button:focus-visible,.map-pager button:focus-visible { outline:3px solid #8854c6;outline-offset:4px; }
+@media(max-height:500px){.world-name-list{gap:8px}.world-name-row{min-height:44px;padding:8px 16px}}
+@media(prefers-reduced-motion:reduce){.world-name-row,.worlds-chooser-button,.map-pager button,.worlds-dialog-heading button{transition:none}}
+/* Keep destination switching alongside map paging, away from the title. */
+.world-map-toolbar { grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0; }
+.world-map-toolbar .worlds-chooser-button { flex-shrink:0;margin:0;min-height:36px;padding:6px 12px;font-size:11px;border-radius:14px; }
+.world-map-toolbar .map-pager { flex:1;gap:4px;justify-content:flex-end;min-width:0; }
+.world-map-toolbar .map-pager span { min-width:0;flex:1;text-align:center;font-size:11px; }
+.world-map-toolbar .map-pager button { width:36px;flex-shrink:0;border-radius:12px; }
+@media(max-width:360px){.world-map-toolbar{gap:6px}.world-map-toolbar .worlds-chooser-button{padding:6px 9px;gap:5px}.world-map-toolbar .map-pager span{font-size:10px}}
+
+.hub-shell:has(.page-home) .cove-scenery { background:radial-gradient(ellipse at 50% 42%,#f5fff7 0%,#d5f2e9 38%,transparent 68%),linear-gradient(165deg,#b6e8ef,#e4e3fa 70%,#c6e7df); }
+.hub-shell:has(.page-home) .cove-scenery picture { display:none; }
+.hub-shell:has(.page-home) .cove-wash { background:radial-gradient(ellipse at 50% 90%,#e9ddfa88,transparent 60%); }
+/* Cove markers follow its own shore/path artwork. */
+.worlds-screen .valley-map[data-world="2"] .valley-stop { left:var(--x);top:var(--y); }
+@media(min-aspect-ratio:4/3){
+ .worlds-screen .valley-map[data-world="2"] .valley-stop { left:var(--wide-x);top:var(--wide-y); }
+}
+@media(max-height:650px) and (max-aspect-ratio:4/3){
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(1){left:40%;top:81%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(2){left:65%;top:75%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(3){left:41%;top:69%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(4){left:65%;top:63%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(5){left:42%;top:57%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(6){left:67%;top:51%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(7){left:43%;top:45%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(8){left:69%;top:39%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(9){left:47%;top:33%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(10){left:82%;top:27%}
+}
+@media(max-height:500px) and (min-aspect-ratio:4/3){
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(9){left:80%;top:40%}
+ .worlds-screen .valley-map[data-world="2"] .valley-stop:nth-of-type(10){left:93%;top:40%}
+}
+.hub-shell:has(.page-home) .cove-scenery { background:#c6eef0 url('/assets/generated/cove-home-background-v1.png') center / cover no-repeat; }
+.hub-shell:has(.page-home) .cove-wash { background:linear-gradient(#ffffff10,#f3edff16); }
+@media(max-height:620px) and (max-width:599px){
+ .bloom-home{gap:6px}
+ .bloom-home .welcome-pill{display:none}
+ .bloom-home .bloom-destinations button{min-height:52px}
+ .bloom-home .bloom-destinations .game-art{width:28px;height:28px}
+ .bloom-home .bloom-journey{padding:7px 10px}
+ .bloom-home .journey-text>strong{font-size:15px}
+}
+.storage-toast{position:fixed;z-index:100;bottom:90px;left:50%;transform:translateX(-50%);width:min(420px,calc(100% - 32px));box-sizing:border-box;display:flex;align-items:center;gap:12px;background:#fff5e4;color:#68432a;border:1px solid #eac995;border-radius:16px;padding:12px 16px;box-shadow:0 6px 30px #38234033;font:13px/1.4 var(--font-reading)}
+.storage-toast button{margin-left:auto;min-width:36px;min-height:36px;border:0;background:transparent;color:inherit;font-size:22px}
+@media(max-width:380px){
+ .hub-shell .hub-header{gap:4px}
+ .hub-shell .hub-header .wordmark{font-size:14px;gap:3px;padding:5px 7px;min-width:0}
+ .hub-shell .hub-header .brand-icon{width:24px;height:24px;flex-shrink:0}
+ .hub-shell .hub-header .hub-coins,.hub-shell .hub-header .hub-gems{font-size:16px;gap:2px;padding:6px 5px;min-width:0}
+ .hub-shell .hub-header .hub-coins .coin,.hub-shell .hub-header .hub-gems .gem-icon{width:20px;height:20px;flex-shrink:0}
+ .hub-shell .hub-header .hub-coins strong,.hub-shell .hub-header .hub-gems strong{font-size:16px;min-width:0}
+}

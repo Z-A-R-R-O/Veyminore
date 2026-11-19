@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 1,
+  "contentVersion": 4,
+  "levelId": "bloom-17",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          4,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          8,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          6,
+          8
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          8,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "requires": "D"
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          7,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          7,
+          2
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          1,
+          9
+        ],
+        [
+          1,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          4,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          2,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "F",
+    "L",
+    "M",
+    "J",
+    "H",
+    "G",
+    "D",
+    "E",
+    "B",
+    "A",
+    "N",
+    "I",
+    "K",
+    "C"
+  ],
+  "generation": {
+    "version": 2,
+    "seed": 34281,
+    "count": 14,
+    "targetScore": 115,
+    "difficulty": {
+      "depth": 8,
+      "edges": 21,
+      "bends": 5,
+      "initialChoices": 4,
+      "forcedSteps": 3,
+      "score": 120
+    },
+    "quality": {
+      "isolated": 0,
+      "emptyQuadrants": 0,
+      "imbalance": 6,
+      "occupiedCells": 45
+    },
+    "mechanicsVersion": 1,
+    "keyLockPairs": 1
+  }
+}

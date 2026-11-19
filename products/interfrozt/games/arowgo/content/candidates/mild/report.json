@@ -1,0 +1,67 @@
+{
+  "baselineLevel5": {
+    "depth": 5,
+    "edges": 13,
+    "bends": 11,
+    "initialChoices": 8,
+    "forcedSteps": 2,
+    "score": 83
+  },
+  "candidates": [
+    {
+      "proposedLevel": 6,
+      "depth": 5,
+      "edges": 15,
+      "bends": 7,
+      "initialChoices": 3,
+      "forcedSteps": 4,
+      "score": 89,
+      "arrows": 14,
+      "seed": 81097
+    },
+    {
+      "proposedLevel": 7,
+      "depth": 5,
+      "edges": 16,
+      "bends": 10,
+      "initialChoices": 4,
+      "forcedSteps": 4,
+      "score": 94,
+      "arrows": 14,
+      "seed": 82191
+    },
+    {
+      "proposedLevel": 8,
+      "depth": 5,
+      "edges": 19,
+      "bends": 6,
+      "initialChoices": 4,
+      "forcedSteps": 4,
+      "score": 96,
+      "arrows": 15,
+      "seed": 82994
+    },
+    {
+      "proposedLevel": 9,
+      "depth": 6,
+      "edges": 15,
+      "bends": 6,
+      "initialChoices": 4,
+      "forcedSteps": 6,
+      "score": 102,
+      "arrows": 15,
+      "seed": 84282
+    },
+    {
+      "proposedLevel": 10,
+      "depth": 7,
+      "edges": 15,
+      "bends": 7,
+      "initialChoices": 4,
+      "forcedSteps": 4,
+      "score": 105,
+      "arrows": 16,
+      "seed": 84988
+    }
+  ]
+}

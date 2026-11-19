@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Current-state reconciliation — 16 November 2026
+
+Audited the forty-level content-9 game, current local economy, authentication absence and native environment. Rewrote README, masterplan, current state, build guide, backlog and decision register; added the AROWGO-specific backend/account plan, deferred Frostfall Peaks plan, documentation status index and dated audit. Corrected stale rigid-movement/five-level/ten-level/unimplemented-bomb claims. Preserved historical reports and source references. Accounts/cloud now take priority; no backend was provisioned. Actual fresh check outcomes, including failures, are in AUDIT-2026-11-16.md.
+
 ## Full-viewport mobile layout — 10 November 2026
 
 - Replaced mobile page scrolling with a safe-area-aware dynamic viewport shell.
@@ -7,13 +11,11 @@
 - Added landscape side controls, full-viewport results and internally scrolling Settings.
 - Added five phone size/orientation checks including 320×568 and 844×390.
 
-
 ## Curved recoil and tool animations — 10 November 2026
 
 - Changed blocked presentation to snake advance/reverse along curved paths.
 - Added a travelling hint spark, bulb response and confirmed erase wipe.
 - Removed Analyze from the playable tool tray and updated guidance to two tools.
-
 
 ## Blocked-arrow contact — 10 November 2026
 
@@ -21,13 +23,11 @@
 - Kept both participating arrows stable during render updates; reduced motion skips travel.
 - Added desktop/phone regression coverage for exact return, one-heart deduction and persistence.
 
-
 ## Essential typography — 10 November 2026
 
 - Centered the board and removed decorative side essays, micro-captions and repeated victory text.
 - Increased essential Satoshi labels and actions; kept accessible reward summaries and save errors.
 - Added a thinking-practice motto and a sourced psychology/design rationale without unproven cognitive-benefit claims.
-
 
 ## Reusable rewards and Satoshi — 10 November 2026
 
@@ -36,7 +36,6 @@
 - Added heart-splitting feedback, reassuring retry copy, a welcome and a win good-wish.
 - Kept balance/save semantics intact and documented reuse plus font provenance.
 
-
 ## Victory recognition — 10 November 2026
 
 - Added a staged golden emblem, earned-star reveal and actual first-clear coin count-up after the last arrow exits.
@@ -44,20 +43,17 @@
 - Kept reward logic unchanged, reduced-motion support and immediate settled results on reload.
 - Added desktop/phone victory layout and reload checks.
 
-
 ## Arrow rendering repair — 10 November 2026
 
 - Reproduced two vector layers in the user's live tab, with removed C/H arrows still visible and straight shafts missing due to an old object-bounding-box gradient.
 - Renderer startup now removes stale vector layers owned by its host. Arrow bodies use a solid stroke without shared gradient IDs.
 - Reloaded the user tab and verified one layer with exactly saved active arrows E/F/G/I/J, intact shafts, 25 coins and three hearts.
 
-
 ## Vector arrows and snake exits — 10 November 2026
 
 - Replaced fixed-resolution arrow drawing with SVG, rounded bends and rounded arrowheads.
 - Added constant-length snake exit presentation with 620 ms easing; kept swept collision rules unchanged.
 - Added geometry and browser lifecycle/motion tests; documented the user-requested animation amendment.
-
 
 ## Bloom motion enhancement — 10 November 2026
 
@@ -76,7 +72,6 @@
 - Recorded the missing-Java native compile blocker and kept physical-device/user acceptance gates open.
 - Updated documentation from planned-only status to the actual implemented browser scope.
 
-
 ## 2.3 — 10 November 2026
 
 - Added a practical build guide: one package, framework boundaries, early Android testing, state persistence, asset workflow and first-slice acceptance.
@@ -84,7 +79,6 @@
 - Removed unverified exact framework version claims and the premature multi-package tree from the working architecture; original 2.1 remains unchanged.
 - Clarified first-clear rewards, per-attempt receipts, practice behavior and crash-recovery evidence as proposed defaults.
 - Reused the existing Veyminore Git repository and created a documentation branch. No runtime scaffolding or game implementation is included.
-
 
 ## 2.2 — 10 November 2026
 
@@ -122,3 +116,7 @@ Added a focused Home component with a floating island, prominent Play action, sh
 ## 2026-11-13 — Crates and arrow effects
 
 Replaced direct skin buying with three coin-funded crates, a one-time welcome gift and a decelerating reward reel. Added 15 total arrow designs across five rarities with in-game vector effects, collection filtering, explicit odds and duplicate refunds. Migrated legacy purchases to a v2 spent ledger. See [crate contract](crates-and-effects.md).
+
+## 2026-11-16 — Account foundation started
+
+Added isolated, disabled-by-default account transport, validated session contracts and read-only legacy snapshot capture, with error/race/save-protection tests. No live provider integration, UI activation or local-save migration. B01 remains in progress pending the web/native credential spike.

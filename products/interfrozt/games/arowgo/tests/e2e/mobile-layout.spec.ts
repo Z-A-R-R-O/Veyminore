@@ -43,6 +43,9 @@ for (const [width, height] of [
       .focus();
     await page.keyboard.press("Enter");
     await expect(page.getByLabel("2 hearts remaining")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "A little hint" }),
+    ).toBeEnabled();
     await page.screenshot({
       path: `docs/verification/mobile-fit-${width}x${height}.png`,
     });
@@ -67,7 +70,7 @@ test("game fits a desktop-width browser with reduced viewport height", async ({
     ".level-heading",
     ".hud",
     ".board",
-    ".feedback",
+
     ".tool-tray",
     ".card-footer button",
   ]) {

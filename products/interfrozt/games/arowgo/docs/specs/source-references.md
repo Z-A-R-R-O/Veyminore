@@ -1,5 +1,7 @@
 # Imported external references
 
+> Design/reference baseline — not a live-status checklist. Reconciled 16 November 2026: use [Current game state](../CURRENT-GAME-STATE.md), [current decisions](../decisions/README.md) and [backend plan](../BACKEND-ACCOUNT-PLAN.md) for implementation status and priority. Original imported requirements below are retained as design context.
+
 [Index](../README.md)
 
 These links and historical verification statements are preserved from the supplied masterplan. They were not independently checked in this documentation pass. Do not infer current SDK versions, store requirements, pricing, legal advice or publishing eligibility from them. Record dated verification against the actual implementation and publisher before relying on these claims.

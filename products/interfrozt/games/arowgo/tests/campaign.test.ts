@@ -3,8 +3,8 @@ import { levels } from "../src/domain/campaign";
 import { checkExit, solve } from "../src/domain/rules";
 import { Controller } from "../src/application/controller";
 import { SaveStore } from "../src/storage/save";
-it("contains the ten-level Bloom Valley route", () => {
-  expect(levels).toHaveLength(10);
+it("contains two twenty-level worlds", () => {
+  expect(levels).toHaveLength(40);
   expect(levels.map((level) => level.levelId)).toEqual([
     "bloom-01",
     "bloom-02",
@@ -16,6 +16,8 @@ it("contains the ten-level Bloom Valley route", () => {
     "bloom-08",
     "bloom-09",
     "bloom-10",
+    ...Array.from({ length: 10 }, (_, i) => `bloom-${i + 11}`),
+    ...Array.from({length:20},(_,i)=>`cove-${i+21}`),
   ]);
 });
 it.each(levels)("$levelId has a legal complete solution", (level) => {
@@ -27,7 +29,7 @@ it.each(levels)("$levelId has a legal complete solution", (level) => {
   expect(active).toEqual([]);
   expect(solve(level)).toBeTruthy();
 });
-it("isolates ten saves, restores attempts, and awards exactly 250 total coins", () => {
+it("isolates forty saves, restores attempts, and awards exactly 1000 total coins", () => {
   const values = new Map<string, string>();
   const store = {
     getItem: (k: string) => values.get(k) ?? null,
@@ -50,5 +52,5 @@ it("isolates ten saves, restores attempts, and awards exactly 250 total coins", 
     expect(restored.state.bestStars).toBe(3);
     total += restored.state.coins;
   });
-  expect(total).toBe(250);
-});
+  expect(total).toBe(1000);
+}, 15000);

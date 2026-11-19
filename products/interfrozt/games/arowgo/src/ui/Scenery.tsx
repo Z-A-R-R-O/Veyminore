@@ -1,6 +1,25 @@
 import type { CSSProperties } from "react";
 
-export function Scenery({ rich }: { rich: boolean }) {
+export function Scenery({
+  rich,
+  cove = false,
+}: {
+  rich: boolean;
+  cove?: boolean;
+}) {
+  if (cove)
+    return (
+      <div className="scenery cove-scenery" aria-hidden="true">
+        <picture>
+          <source
+            media="(min-aspect-ratio: 4/3)"
+            srcSet="/assets/verdant-cove-landscape.png"
+          />
+          <img src="/assets/verdant-cove.png" alt="" />
+        </picture>
+        <div className="cove-wash" />
+      </div>
+    );
   return (
     <div className="scenery" aria-hidden="true">
       <picture>

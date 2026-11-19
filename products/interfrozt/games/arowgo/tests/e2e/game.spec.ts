@@ -17,7 +17,10 @@ test("blocked feedback, saved progress, full clear and no duplicate replay rewar
   await expect(page.locator('canvas[data-ready="true"]')).toBeVisible();
   await arrow(page, "B");
   await expect(
-    page.getByText("A little blocked. Try another path.", { exact: false }),
+    page.getByText(
+      "The highlighted arrow blocks the path ahead of this head. Clear it first.",
+      { exact: false },
+    ),
   ).toBeVisible();
   await expect(page.getByLabel("2 hearts remaining")).toBeVisible();
   await arrow(page, "A");
@@ -65,12 +68,9 @@ test("real pointer input, restart cancellation, practice and rule lab isolation"
   await page.getByRole("button", { name: "Settings", exact: true }).click();
   await page.getByRole("button", { name: "Rule lab" }).click();
   await arrow(page, "A");
-  await expect(
-    page.getByText("A: blocked by B at (3, 1), step 3."),
-  ).toBeVisible();
-  await arrow(page, "B");
-  await arrow(page, "A");
   await expect(page.getByText("A: clear.", { exact: false })).toBeVisible();
+  await arrow(page, "B");
+  await expect(page.getByText("B: clear.", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Play", exact: true }).click();
   await expect(
     page.getByRole("button", { name: "Slide arrow A", exact: true }),

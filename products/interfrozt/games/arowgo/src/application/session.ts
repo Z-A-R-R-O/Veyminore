@@ -1,9 +1,21 @@
-import { checkExit, legalArrows, type Exit, type Level } from "../domain/rules";
+import type { MovePraise } from "../domain/movePraise";
+import {
+  checkExit,
+  safeArrows,
+  expiredKeg,
+  solve,
+  type Exit,
+  type Level,
+} from "../domain/rules";
 export type Mode = "story" | "practice";
 export interface Session {
+  moveLog?: Array<{ type: "select" | "erase"; arrowId: string }>;
+  failureReason?: "keg" | "stranded";
+  feedbackCounts?: Partial<Record<MovePraise, number>>;
+  timeBoost?: boolean;
   schemaVersion: 1;
-  rulesVersion: 1;
-  contentVersion: 1;
+  rulesVersion: 1 | 2;
+  contentVersion: number;
   levelId: string;
   attemptId: string;
   mode: Mode;
@@ -17,12 +29,17 @@ export interface Session {
   claimed: boolean;
   bestStars: number;
   reward: number;
+  scoringVersion?: 2;
+  startedAt?: number;
+  elapsedMs?: number;
+  targetMs?: number;
 }
 export interface Command {
   id: string;
   attemptId: string;
   type: "select" | "hint" | "analyze" | "erase";
   arrowId?: string;
+  now?: number;
 }
 export interface Outcome {
   state: Session;
@@ -39,14 +56,16 @@ export function newSession(
 ): Session {
   return {
     schemaVersion: 1,
-    rulesVersion: 1,
-    contentVersion: 1,
+    moveLog: [],
+    rulesVersion: level.rulesVersion,
+    contentVersion: level.contentVersion,
     levelId: level.levelId,
     attemptId,
     mode,
     active: level.arrows.map((a) => a.id),
     mistakes: 0,
     assisted: false,
+    feedbackCounts: {},
     erased: [],
     status: "playing",
     processed: [],
@@ -54,10 +73,19 @@ export function newSession(
     claimed: previous?.claimed ?? false,
     bestStars: previous?.bestStars ?? 0,
     reward: 0,
+    scoringVersion: 2,
+    elapsedMs: 0,
+    targetMs: Math.max(60000, level.arrows.length * 8000),
   };
 }
 export function stars(state: Session): number {
   if (state.status !== "complete" || state.mode === "practice") return 0;
+  if (state.scoringVersion === 2)
+    return (
+      1 +
+      Number(state.mistakes === 0) +
+      Number((state.elapsedMs ?? Infinity) <= (state.targetMs ?? 0))
+    );
   return state.assisted
     ? 1
     : state.mistakes === 0
@@ -77,13 +105,19 @@ export function resolve(
     state.processed.includes(command.id)
   )
     return { state };
+  const now = command.now ?? state.startedAt ?? 0;
+  const timed = {
+    ...state,
+    startedAt: state.startedAt ?? now,
+    elapsedMs: Math.max(state.elapsedMs ?? 0, now - (state.startedAt ?? now)),
+  };
   if (command.type === "hint" || command.type === "analyze") {
-    const legal = legalArrows(level, state.active);
+    const legal = safeArrows(level, state.active);
     const hints = command.type === "hint" ? legal.slice(0, 1) : legal;
     if (!hints.length) return { state };
     return {
       state: {
-        ...state,
+        ...timed,
         assisted: true,
         processed: [...state.processed, command.id],
       },
@@ -93,7 +127,12 @@ export function resolve(
   if (!command.arrowId || !state.active.includes(command.arrowId))
     return { state };
   const exit = checkExit(level, state.active, command.arrowId);
-  const next = { ...state, processed: [...state.processed, command.id] };
+  const next = { ...timed, processed: [...state.processed, command.id] };
+  if (state.moveLog)
+    next.moveLog = [
+      ...state.moveLog,
+      { type: command.type, arrowId: command.arrowId },
+    ];
   if (command.type === "erase") {
     next.assisted = true;
     next.erased = [...state.erased, command.arrowId];
@@ -103,6 +142,18 @@ export function resolve(
     if (next.mode === "story" && next.mistakes >= 3) next.status = "failed";
   } else {
     next.active = state.active.filter((id) => id !== command.arrowId);
+    if (
+      next.active.length &&
+      level.arrows.some((a) => a.deadline !== undefined)
+    ) {
+      if (expiredKeg(level, next.active)) {
+        next.status = "failed";
+        next.failureReason = "keg";
+      } else if (!solve(level, next.active)) {
+        next.status = "failed";
+        next.failureReason = "stranded";
+      }
+    }
     if (!next.active.length) {
       next.status = "complete";
       if (next.mode === "story") {
@@ -125,6 +176,31 @@ export function resolve(
 
 export function parseSession(raw: string, level: Level): Session {
   const s: Session = JSON.parse(raw);
+  if (
+    s?.scoringVersion !== undefined &&
+    (s.scoringVersion !== 2 ||
+      !Number.isSafeInteger(s.elapsedMs) ||
+      s.elapsedMs! < 0 ||
+      (s.timeBoost !== undefined && typeof s.timeBoost !== "boolean") ||
+      s.targetMs !==
+        Math.max(60000, level.arrows.length * 8000) +
+          (s.timeBoost ? 30000 : 0) ||
+      (s.startedAt !== undefined &&
+        (!Number.isSafeInteger(s.startedAt) || s.startedAt < 0)))
+  )
+    throw new Error("Invalid scoring data");
+  if (
+    s?.moveLog !== undefined &&
+    (!Array.isArray(s.moveLog) ||
+      s.moveLog.length > s.processed?.length ||
+      s.moveLog.some(
+        (m) =>
+          !m ||
+          !["select", "erase"].includes(m.type) ||
+          !level.arrows.some((a) => a.id === m.arrowId),
+      ))
+  )
+    throw Error("Invalid move record");
   // Additive migration of first-playable v1 saves, which had no Erase tool.
   if (
     s &&
@@ -135,8 +211,8 @@ export function parseSession(raw: string, level: Level): Session {
   if (
     !s ||
     s.schemaVersion !== 1 ||
-    s.rulesVersion !== 1 ||
-    s.contentVersion !== 1 ||
+    s.rulesVersion !== level.rulesVersion ||
+    s.contentVersion !== level.contentVersion ||
     s.levelId !== level.levelId ||
     typeof s.attemptId !== "string" ||
     !s.attemptId ||
@@ -167,7 +243,9 @@ export function parseSession(raw: string, level: Level): Session {
     throw new Error("Invalid or incompatible save");
   if (
     (s.status === "complete") !== (s.active.length === 0) ||
-    (s.status === "failed") !== (s.mode === "story" && s.mistakes >= 3) ||
+    (s.status === "failed") !==
+      ((s.mode === "story" && s.mistakes >= 3) ||
+        s.failureReason !== undefined) ||
     (s.mode === "story" && s.mistakes > 3) ||
     s.claimed !== s.bestStars > 0 ||
     (s.reward > 0 &&
@@ -177,6 +255,22 @@ export function parseSession(raw: string, level: Level): Session {
       (!s.claimed || s.bestStars < stars(s)))
   )
     throw new Error("Inconsistent save");
+  if (
+    s.failureReason !== undefined &&
+    (s.status !== "failed" ||
+      !["keg", "stranded"].includes(s.failureReason) ||
+      !level.arrows.some((a) => a.deadline !== undefined) ||
+      (s.failureReason === "keg"
+        ? !expiredKeg(level, s.active)
+        : expiredKeg(level, s.active) || solve(level, s.active) !== null))
+  )
+    throw new Error("Invalid keg failure");
+  if (
+    level.arrows.some((a) => a.deadline !== undefined) &&
+    s.status === "playing" &&
+    (expiredKeg(level, s.active) || !solve(level, s.active))
+  )
+    throw new Error("Impossible keg state");
   // A legal removal can never leave one of its prerequisites active.
   const removed = level.arrows
     .map((a) => a.id)
@@ -187,5 +281,28 @@ export function parseSession(raw: string, level: Level): Session {
       !checkExit(level, [...s.active, id], id).clear
     )
       throw new Error("Impossible saved board");
+  if (
+    s.feedbackCounts !== undefined &&
+    (!s.feedbackCounts ||
+      typeof s.feedbackCounts !== "object" ||
+      Array.isArray(s.feedbackCounts) ||
+      Object.entries(s.feedbackCounts).some(
+        ([key, value]) =>
+          ![
+            "good",
+            "great",
+            "brilliant",
+            "perfect",
+            "book",
+            "mistake",
+            "blunder",
+          ].includes(key) ||
+          !Number.isSafeInteger(value) ||
+          value! < 0,
+      ) ||
+      Object.values(s.feedbackCounts).reduce((a, b) => a + (b ?? 0), 0) >
+        s.processed.length)
+  )
+    throw new Error("Invalid feedback counts");
   return s;
 }

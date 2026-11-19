@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 9,
+  "levelId": "bloom-14",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          1,
+          9
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          3,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "deadline": 14
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          8,
+          5
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          6,
+          9
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          9,
+          3
+        ],
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          7,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          8
+        ]
+      ],
+      "requires": "I"
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          4,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          5,
+          0
+        ],
+        [
+          7,
+          0
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "I",
+    "L",
+    "O",
+    "P",
+    "Q",
+    "H",
+    "N",
+    "K",
+    "R",
+    "J",
+    "E",
+    "C",
+    "M",
+    "D",
+    "B",
+    "G",
+    "F",
+    "A"
+  ],
+  "generation": {
+    "planningVersion": 1,
+    "analysis": {
+      "randomLegalWinRate": 0.44445913780604174,
+      "decisionStates": 53,
+      "blockedTargetDecisions": 33,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "D",
+          "F",
+          "H",
+          "K",
+          "N",
+          "Q"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "F"
+      },
+      "earliestDecisionMove": 11,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 7,
+          "deadline": 14,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.4413853526757848
+  }
+}

@@ -13,3 +13,10 @@ android/app/src/main/assets/capacitor.plugins.json
 
 .vercel/
 .env*
+.local/
+
+tmp/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+arowgo-migration-review*.json

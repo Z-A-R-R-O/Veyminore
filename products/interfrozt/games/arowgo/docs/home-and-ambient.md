@@ -1,5 +1,7 @@
 # Home and shared ambient motion — 13 November 2026
 
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
+
 ## Home
 
 `src/ui/Home.tsx` separates the Home presentation from campaign routing. A welcome label (Guest by default), title, floating generated island, next-level title and prominent Play button establish the visual hierarchy. Three shortcuts open Worlds, Modes and Profile. The Bloom Valley card reports real cleared levels and stars and opens Worlds. Completing the campaign changes the message and Play again label without adding rewards.

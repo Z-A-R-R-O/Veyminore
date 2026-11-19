@@ -1,0 +1,91 @@
+.gem-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex: none;
+  vertical-align: middle;
+}
+.hub-gems {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  background: #e5faffdd;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  color: #165d74;
+  font-size: 20px;
+  font-weight: 800;
+}
+.gem-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #68c8dc;
+  border-radius: 14px;
+  color: #124f66;
+  background: linear-gradient(#edffff, #a9e7f4);
+  font-weight: 750;
+  margin-top: 6px;
+}
+.gem-button:disabled {
+  opacity: 0.5;
+}
+.gem-wallet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  margin: 12px 0;
+  background: #ecfcffeb;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  color: #155a70;
+  flex-wrap: wrap;
+}
+.gem-wallet > .gem-icon {
+  width: 48px;
+  height: 48px;
+}
+.gem-wallet p {
+  font-size: 12px;
+  margin: 4px 0;
+}
+.gem-wallet > div {
+  flex: 1;
+  min-width: 150px;
+}
+.gem-booster {
+  padding: 10px;
+  border-radius: 16px;
+  background: #e6f9ff;
+  margin: 8px 0;
+}
+.gem-booster p {
+  font-size: 12px;
+}
+@media (max-width: 380px) {
+  .hub-header {
+    gap: 5px;
+  }
+  .hub-header .wordmark {
+    font-size: 17px;
+    gap: 4px;
+  }
+  .hub-header .brand-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .hub-header .hub-coins,
+  .hub-header .hub-gems {
+    padding: 6px;
+    gap: 2px;
+  }
+  .hub-gems .gem-icon {
+    width: 23px;
+    height: 23px;
+  }
+}

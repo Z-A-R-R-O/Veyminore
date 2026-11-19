@@ -1,67 +1,30 @@
-# AROWGO documentation index
+# AROWGO documentation
 
-> Current implemented release: [v0.1 prototype](v0.1-prototype.md). Five levels and hub navigation supersede the original one-level slice; remaining masterplan features remain future scope.
+Updated 16 November 2026. Start here rather than treating an old prototype report as the current product contract.
 
-[Game psychology and essential typography](game-psychology-and-typography.md).
+## Current truth
 
-[Reusable reward elements and Satoshi](reusable-elements.md).
+- [Current game state](CURRENT-GAME-STATE.md): implemented features, versions, rewards, stack and limitations.
+- [Current audit](AUDIT-2026-11-16.md): fresh checks, known failures, historical evidence and release gaps.
+- [Masterplan](../MASTERPLAN.md), [execution backlog](execution-backlog.md) and [decision register](decisions/README.md): delivery order and implementation/proposal status.
+- [Build guide](build-guide.md): correct checkout, commands, boundaries and native gate.
+- [Documentation status index](DOC-STATUS-INDEX.md): classification of every Markdown document under docs/.
 
-Current visual implementation: [motion and art](motion-and-art.md), [verification](verification/bloom-motion.md), [asset prompts](assets/bloom-valley.md).
+## Next development priority
 
-[Game overview](../README.md) · [Working masterplan](../MASTERPLAN.md) · [Reference images](../references/README.md)
+[Backend/account plan](BACKEND-ACCOUNT-PLAN.md): keep the existing client, add guest/Google linking, safe local import, cloud conflicts, protected rewards and recovery. Documented only; no backend is configured. [Frostfall Peaks](FROSTFALL-PEAKS-PLAN.md) is a deferred 41–60 proposal with gates/thawing, not a playable third world.
 
-## Implemented prototype
+## Implemented systems
 
-- [v0.1 current contract](v0.1-prototype.md): pages, five levels, local progression and animation.
-- [v0.1 verification](verification/v0.1.md): campaign and layout acceptance evidence.
+- [Snake movement](SNAKE-MOVEMENT.md), [planning difficulty](PLANNING-DIFFICULTY.md), [generator history and current pointers](PUZZLE-GENERATOR.md)
+- [Keys and locks](KEYS-AND-LOCKS.md), [Verdant Cove](VERDANT-COVE.md)
+- [Gems and Time Boost](GEMS-AND-BOOSTERS.md)
+- [Move feedback](MOVE-FEEDBACK.md), [unlock bubbles](UNLOCK-BUBBLE.md), [applied monogram](APP-ICON-MONOGRAM.md)
 
-- [Rule proof](rule-proof.md): nine interactive examples and independent checker comparison.
-- [Verification report](verification/first-playable.md): tested behavior, native build blocker and known limits.
-- [Implementation ADR](decisions/0001-first-playable.md): provisional defaults realized in code.
+## Planned systems and historical material
 
-## Working documents
+[Five chest tiers, Ethereal and 100 skins](CHEST-AND-SKIN-LAUNCH-PLAN.md) remain planned; the live game has three crates and fifteen skins. Focused specs in specs/ preserve imported design requirements and are labelled accordingly. Older prototype, visual refresh, deployment and audit reports retain their original evidence, not current certification. [Original references](../references/README.md) remain unchanged.
 
-- [Build guide](build-guide.md): starting stack, small repository layout, first-slice contract, persistence and Git workflow.
+[Maintenance](maintenance.md) · [Changelog](CHANGELOG.md) · [Feature template](templates/feature.md) · [Decision template](templates/decision.md) · [Playtest template](templates/playtest.md) · [Release template](templates/release.md)
 
-- [Review and recommendations](review-and-recommendations.md): contradictions, missing contracts and suggested improvements.
-- [Decision register](decisions/README.md): implemented structure, proposed defaults and validation blockers.
-- [Execution backlog](execution-backlog.md): dependencies, owners to assign and acceptance evidence.
-- [Maintenance and templates](maintenance.md): how this system stays consistent.
-- [Changelog](CHANGELOG.md): document revisions only.
-
-## Focused source specifications
-
-| Document | Source sections | Use |
-| --- | --- | --- |
-| [Product direction and scope](specs/product-direction.md) | 1, 4, 25, 28 | Source-derived detail; apply 2.3 amendments |
-| [Visual design, navigation and screen contracts](specs/design-and-screens.md) | 2, 6, 16 | Source-derived detail; apply 2.3 amendments |
-| [Gameplay and rule contract](specs/gameplay-rules.md) | 3 | Source-derived detail; apply 2.3 amendments |
-| [Content authoring and procedural generation](specs/content-and-generation.md) | 5 | Source-derived detail; apply 2.3 amendments |
-| [Economy, cosmetics and monetization](specs/economy-and-collection.md) | 7, 11 | Source-derived detail; apply 2.3 amendments |
-| [Architecture and data boundaries](specs/architecture-and-data.md) | 9, 10 | Source-derived detail; apply 2.3 amendments |
-| [Online competition and social systems](specs/online-and-social.md) | 8 | Source-derived detail; apply 2.3 amendments |
-| [Measurement and distribution](specs/analytics-and-growth.md) | 12, 17 | Source-derived detail; apply 2.3 amendments |
-| [Quality, acceptance and release operations](specs/quality-and-release.md) | 13, 23, 26 | Source-derived detail; apply 2.3 amendments |
-| [Delivery phases, team and backlog](specs/roadmap-and-delivery.md) | 14, 15, 22, 24, 27 | Source-derived detail; apply 2.3 amendments |
-| [Risks, budget and publishing review](specs/risk-and-publishing.md) | 18, 19, 20 | Source-derived detail; apply 2.3 amendments |
-| [Imported 2.1 decisions](specs/source-decisions.md) | 21 | Source-derived detail; apply 2.3 amendments |
-
-[External reference appendix](specs/source-references.md) preserves source links without claiming new verification. All 28 source sections are accounted for above. The source preamble is retained in the original file.
-
-## Reading paths
-
-- Product/design: masterplan → review → reference gallery → design/screens → decisions.
-- Engineering: decisions → gameplay → architecture → quality → execution backlog.
-- Content: gameplay → content/generation → quality → level-review template.
-- Release: roadmap → quality → risk/publishing → release evidence. Historical policy claims must be verified before use.
-
-[Generated island, game icons and reward art](assets/generated-art.md) — runtime asset inventory, exact built-in generation prompts and provenance.
-
-[Guest profile, cosmetic shop and completion fix](profile-shop-and-results.md): latest navigation, persistence, wallet and animation contract.
-
-[Scenic Worlds redesign](worlds-redesign.md): responsive level trail, selection and Play panel.
-
-
-[Home and shared ambient motion](home-and-ambient.md): refreshed Home, reusable scenery effects and motion preferences.
-
-[Crates and arrow effects](crates-and-effects.md): current shop economy, 15-arrow collection, reel opening and profile migration. Supersedes direct cosmetic purchases.
+Account work has started: [B01 implementation and remaining integration gates](ACCOUNT-FOUNDATION.md).

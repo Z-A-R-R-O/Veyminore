@@ -1,25 +1,27 @@
-# AROWGO — First Bloom
+# AROWGO
 
-A playable bent-arrow puzzle under **Veyminore → InterFrozt**. Ten playable Bloom Valley levels, Home/Worlds/Modes/Shop/Profile pages and top-icon Settings, a focused puzzle view, and a nine-example Rule lab.
+A playable snake-arrow puzzle under **Veyminore → InterFrozt**, with 40 campaign levels across Bloom Valley and Verdant Cove. React/TypeScript menus, a Phaser/SVG board, Vite tooling and a Capacitor Android wrapper.
 
-**Status:** Browser prototype implemented. Android project generated and synced; native build and physical-device validation pending. AROWGO remains a working name.
+**Status — 16 November 2026:** local browser prototype. Accounts, cloud saves, trusted economy, billing and public-release acceptance are not implemented. The next priority is the [account/backend foundation](docs/BACKEND-ACCOUNT-PLAN.md); [Frostfall Peaks](docs/FROSTFALL-PEAKS-PLAN.md) remains a proposal.
 
 ## Run locally
 
-From the Veyminore repository root, with a compatible Node runtime and pnpm 11.25.0:
+From the repository root, install the pinned workspace dependencies and run:
 
 ```powershell
 pnpm install
 pnpm --filter @veyminore/arowgo dev --port 4173
 ```
 
-Open [AROWGO locally](http://127.0.0.1:4173). The tested host is Node 25.1.0; use a runtime that satisfies the pinned tooling's engine requirements. This game requires Node 22.12 or newer, which is stricter than the repository's historical Node 20 minimum.
+Open [AROWGO](http://127.0.0.1:4173). The package requires Node >=22.12; use the package-manager version pinned in the repository root.
 
 ## Play
 
-Tap anywhere along an arrow to send it out with a flowing snake animation. Legality still checks the entire rigid swept path; another arrow anywhere in that path blocks the move. Clear every path. Story has three mistake hearts; Practice has unlimited mistakes. Hint reveals one legal arrow with a gentle breathing ring. Erase wipes a chosen arrow after confirmation. Both tools are free in this prototype and mark the result assisted. Restart asks before resetting your current run.
+Tap an arrow whose head has a clear forward path; its body follows like a snake. Keys and anchors add prerequisites. From Level 10, marked barrels introduce move allowances; from Level 25, two deadlines require coordinating routes. The allowance counts successful removals, including its own removal, not seconds. Hold an arrow to preview; keyboard users can focus an arrow and press Enter, or hold P to inspect.
 
-Keyboard: Tab to an arrow, then Enter. Open **Settings → Rule lab** to explore small clear/blocked examples, especially the bent-body obstruction. Settings includes persistent Rich/Subtle effects and reduced motion, respecting the system preference. Progress saves on this browser/device. The first Story clear of each level grants 25 prototype coins and unlocks the next level; replay does not repeat that reward.
+Story has three mistake hearts. Practice has unlimited mistakes but still follows puzzle deadline rules and grants no campaign rewards. Hint selects a safe continuation; confirmed Erase consumes a removal and marks the attempt assisted. Both are currently free. Stars reward completion, zero mistakes and speed separately; assistance does not cap stars. The base speed target is eight seconds per arrow, minimum 60 seconds.
+
+First Story clear grants 25 coins once per level: 1,000 total coins and 120 possible stars. Progress is browser/device-local. Profiles have 15 cosmetic arrow skins and three prototype crates, with coin/gem spending and a Time Boost. These balances are client-controlled prototypes, not verified paid entitlements.
 
 ## Checks
 
@@ -32,33 +34,18 @@ pnpm --filter @veyminore/arowgo test:e2e
 pnpm --filter @veyminore/arowgo build
 ```
 
-`lint` currently checks formatting with Prettier; strict TypeScript provides static checking. Browser tests exercise desktop and emulated phone contexts. They do not replace real-device tests. No root-workspace-wide pass is claimed.
+Lint is a Prettier formatting check. See the [current audit](docs/AUDIT-2026-11-16.md) for actual outcomes; listing commands does not mean all checks pass. Browser emulation does not certify native devices. No root-workspace-wide validation is claimed.
 
-## Android preparation
+## Android
 
-```powershell
-pnpm --filter @veyminore/arowgo android:sync
-pnpm --filter @veyminore/arowgo exec cap open android
-```
+The native project is in android/; app ID is com.veyminore.arowgo. Run android:sync after building and open it with Capacitor/Android Studio. As of this audit, Java is installed and JAVA_HOME is set. ANDROID_HOME and android/local.properties are absent in this checkout; the standard SDK directory is present. Current native sync and assembleDebug passed using Android Studio’s bundled Java 21; the default Java 17 failed with invalid source release: 21. Historical reports of missing Java no longer describe the current host. Launcher assets exist, but neither asset sync nor generated project files prove a device release is ready.
 
-The native project is in `android/`. Install the compatible JDK and Android SDK/Studio before compiling. The current environment's Gradle attempt stopped because Java and `JAVA_HOME` were absent. Do not mark Android tested from successful asset sync alone. Follow the [verification report](docs/verification/first-playable.md) for the remaining device checks.
+## Start with these documents
 
-## Documentation
+- [Current implementation](docs/CURRENT-GAME-STATE.md)
+- [Audit and verification limits](docs/AUDIT-2026-11-16.md)
+- [Backend/account plan](docs/BACKEND-ACCOUNT-PLAN.md)
+- [Planning difficulty](docs/PLANNING-DIFFICULTY.md) and [snake rules](docs/SNAKE-MOVEMENT.md)
+- [Masterplan](MASTERPLAN.md), [execution backlog](docs/execution-backlog.md), [documentation index](docs/README.md)
 
-- [Current v0.1 prototype contract](docs/v0.1-prototype.md) — pages, all five levels, saves, animation and acceptance scope.
-
-- [Motion and art approach](docs/motion-and-art.md)
-- [Bloom motion verification](docs/verification/bloom-motion.md)
-
-- [Rule proof and examples](docs/rule-proof.md)
-- [First-playable evidence and limitations](docs/verification/first-playable.md)
-- [Implementation decision](docs/decisions/0001-first-playable.md)
-- [Masterplan](MASTERPLAN.md) and [documentation index](docs/README.md)
-- [Build guide](docs/build-guide.md) and [execution backlog](docs/execution-backlog.md)
-- [Original references](references/README.md)
-
-**Owner:** Veyminore; product acceptance and named release ownership remain to be assigned. No network account, ads, real-money purchases, analytics SDK or server is implemented. The original reference images remain evidence; runtime scenery is original generated artwork; paths, icons and effects are drawn from code.
-
-[Guest profile, shop and stable completion screens](docs/profile-shop-and-results.md).
-
-[Crate shop and animated arrow collection](docs/crates-and-effects.md): current shop contract, 15 arrows, rarity odds and v2 profile migration.
+Original references remain historical evidence. AROWGO is a working name; release ownership, asset licensing review, native acceptance and production operating gates remain open.

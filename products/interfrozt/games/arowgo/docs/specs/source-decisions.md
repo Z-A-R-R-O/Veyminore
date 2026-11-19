@@ -1,5 +1,7 @@
 # Imported 2.1 decisions
 
+> Design/reference baseline — not a live-status checklist. Reconciled 16 November 2026: use [Current game state](../CURRENT-GAME-STATE.md), [current decisions](../decisions/README.md) and [backend plan](../BACKEND-ACCOUNT-PLAN.md) for implementation status and priority. Original imported requirements below are retained as design context.
+
 Imported baseline · Source masterplan 2.1 · Organized 10 November 2026.
 
 [Index](../README.md) · [Working masterplan](../../MASTERPLAN.md) · [Current amendments](../decisions/README.md)

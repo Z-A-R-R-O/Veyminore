@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 7,
+  "levelId": "cove-26",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          6,
+          8
+        ],
+        [
+          4,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          3,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "requires": "D"
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          7,
+          7
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          9,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          4,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ]
+      ],
+      "anchorRequires": "C"
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "anchorRequires": "C"
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          9,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          5,
+          9
+        ],
+        [
+          7,
+          9
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "C",
+    "K",
+    "L",
+    "I",
+    "H",
+    "J",
+    "N",
+    "M",
+    "G",
+    "D",
+    "F",
+    "E",
+    "B",
+    "O",
+    "A"
+  ],
+  "generation": {
+    "version": 3,
+    "seed": 266000,
+    "count": 15,
+    "targetScore": 114,
+    "difficulty": {
+      "depth": 8,
+      "edges": 20,
+      "bends": 8,
+      "initialChoices": 3,
+      "forcedSteps": 2,
+      "score": 118
+    },
+    "quality": {
+      "isolated": 0,
+      "emptyQuadrants": 0,
+      "imbalance": 3,
+      "occupiedCells": 50
+    },
+    "connectedPlacement": true,
+    "difficultyControlsVersion": 1,
+    "openingMoves": [
+      2,
+      5
+    ],
+    "scoreRange": [
+      107,
+      121
+    ],
+    "mechanicsVersion": 1,
+    "keyLockPairs": 1,
+    "coveAuthorVersion": 1,
+    "teaching": false
+  }
+}

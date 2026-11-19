@@ -1,0 +1,9 @@
+# Premium icon concept
+
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
+
+Generated using built-in image_gen. Saved as `public/assets/brand/arowgo-app-icon-premium-v2.png`. Concept asset; not yet applied to the app.
+
+## Prompt
+
+Use case: logo-brand. Create one finished premium square app icon for AROWGO, a thoughtful snake-arrow puzzle game. Completely new elegant art direction. Full-bleed opaque midnight aubergine background, almost black at edges, extremely subtle violet illumination behind the symbol. A single distinctive continuous bent arrow as the central emblem, two beautifully rounded right-angle turns forming a rising stair-step silhouette: tail at lower left rises, travels right, then rises to one crisp upward arrowhead at upper right. Broad smooth ivory pearl ceramic face, fine champagne-gold bevel visible around its edges, modest dimensional extrusion with deep soft shadows. Precise luxurious industrial craftsmanship, restrained satin highlights, tactile sculpted object, sophisticated premium game identity. Front-facing orthographic view, balanced centrally within the inner 65 percent of the canvas, generous negative space, unmistakable silhouette readable at tiny sizes. A subtle violet light reflects along the lower bevel. Square background extends to all edges; no enclosing rounded-square rim, no loud neon, no candy gloss, no glitter, no sparkles, no lettering, no flowers, no gems, no crown, no characters, no extra arrows or disconnected pieces, no mockup or surrounding environment. A beautifully simple iconic mark with visual weight and exquisite finish.

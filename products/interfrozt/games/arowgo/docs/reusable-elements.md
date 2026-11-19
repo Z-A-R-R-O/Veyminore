@@ -1,5 +1,7 @@
 # Reusable reward elements and Satoshi
 
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
+
 ## Components
 
 `src/ui/elements/Rewards.tsx` exports:

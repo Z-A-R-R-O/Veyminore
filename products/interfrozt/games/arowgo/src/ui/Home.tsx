@@ -1,4 +1,5 @@
 import { GameArt } from "./elements/GameArt";
+import { Star } from "./elements/Star";
 import { levelNames, levels } from "../domain/campaign";
 
 export function Home({
@@ -28,7 +29,11 @@ export function Home({
       <div className="bloom-stage" aria-hidden="true">
         <div className="island-halo" />
         <img
-          src="/assets/generated/bloom-island-v1.png"
+          src={
+            next >= 20
+              ? "/assets/generated/verdant-cove-home-v1.png"
+              : "/assets/generated/bloom-island-v1.png"
+          }
           alt=""
           className="bloom-home-island"
         />
@@ -39,7 +44,7 @@ export function Home({
         <div className="bloom-next">
           <span>
             {completed === levels.length
-              ? "VALLEY COMPLETE"
+              ? "ADVENTURE COMPLETE"
               : `LEVEL ${String(next + 1).padStart(2, "0")}`}
           </span>
           <strong>
@@ -50,7 +55,7 @@ export function Home({
         </div>
         <button className="primary-button bloom-play" onClick={onPlay}>
           <span aria-hidden="true">▶</span>
-          {completed === levels.length ? "Play again" : "Play"}
+          {completed === levels.length ? "View your stars" : "Play"}
           <span className="play-glint" aria-hidden="true" />
         </button>
       </section>
@@ -70,7 +75,7 @@ export function Home({
       </div>
       <button className="bloom-journey" onClick={() => onNavigate("worlds")}>
         <span className="journey-text">
-          <strong>Bloom Valley</strong>
+          <strong>Adventure · Journey</strong>
           <span>
             {completed === levels.length
               ? "Every path discovered"
@@ -81,7 +86,7 @@ export function Home({
           </span>
         </span>
         <span className="journey-stars">
-          <span aria-hidden="true">★</span> {stars}
+          <Star /> {stars}
           <small>/{levels.length * 3}</small>
         </span>
         <span className="journey-arrow" aria-hidden="true">

@@ -1,55 +1,114 @@
+import cove0 from "../../content/levels/cove/level-21.json";
+import cove1 from "../../content/levels/cove/level-22.json";
+import cove2 from "../../content/levels/cove/level-23.json";
+import cove3 from "../../content/levels/cove/level-24.json";
+import cove4 from "../../content/levels/cove/level-25.json";
+import cove5 from "../../content/levels/cove/level-26.json";
+import cove6 from "../../content/levels/cove/level-27.json";
+import cove7 from "../../content/levels/cove/level-28.json";
+import cove8 from "../../content/levels/cove/level-29.json";
+import cove9 from "../../content/levels/cove/level-30.json";
+import cove10 from "../../content/levels/cove/level-31.json";
+import cove11 from "../../content/levels/cove/level-32.json";
+import cove12 from "../../content/levels/cove/level-33.json";
+import cove13 from "../../content/levels/cove/level-34.json";
+import cove14 from "../../content/levels/cove/level-35.json";
+import cove15 from "../../content/levels/cove/level-36.json";
+import cove16 from "../../content/levels/cove/level-37.json";
+import cove17 from "../../content/levels/cove/level-38.json";
+import cove18 from "../../content/levels/cove/level-39.json";
+import cove19 from "../../content/levels/cove/level-40.json";
 import one from "../../content/levels/bloom-01.json";
 import two from "../../content/levels/bloom-02.json";
 import three from "../../content/levels/bloom-03.json";
 import four from "../../content/levels/bloom-04.json";
 import five from "../../content/levels/bloom-05.json";
+import six from "../../content/levels/bloom-06.json";
+import seven from "../../content/levels/bloom-07.json";
+import eight from "../../content/levels/bloom-08.json";
+import nine from "../../content/levels/bloom-09.json";
+import ten from "../../content/levels/bloom-10.json";
+import eleven from "../../content/levels/bloom-11.json";
+import twelve from "../../content/levels/bloom-12.json";
+import thirteen from "../../content/levels/bloom-13.json";
+import fourteen from "../../content/levels/bloom-14.json";
+import fifteen from "../../content/levels/bloom-15.json";
+import sixteen from "../../content/levels/bloom-16.json";
+import seventeen from "../../content/levels/bloom-17.json";
+import eighteen from "../../content/levels/bloom-18.json";
+import nineteen from "../../content/levels/bloom-19.json";
+import twenty from "../../content/levels/bloom-20.json";
+import { levelNames as originalNames } from "./legacyCampaign";
+export const LEVELS_PER_WORLD = 20;
 import { validateLevel } from "./rules";
-type SourceLevel =
-  | typeof one
-  | typeof two
-  | typeof three
-  | typeof four
-  | typeof five;
-
-const mirrorHorizontally = (level: SourceLevel, levelId: string) => ({
-  ...level,
-  levelId,
-  arrows: level.arrows.map((arrow) => ({
-    ...arrow,
-    points: arrow.points.map(([x, y]) => [level.board.columns - 1 - x, y]),
-  })),
-});
-
-const mirrorVertically = (level: SourceLevel, levelId: string) => ({
-  ...level,
-  levelId,
-  arrows: level.arrows.map((arrow) => ({
-    ...arrow,
-    points: arrow.points.map(([x, y]) => [x, level.board.rows - 1 - y]),
-  })),
-});
-
 export const levels = [
-  one,
-  two,
-  three,
-  four,
-  five,
-  mirrorHorizontally(one, "bloom-06"),
-  mirrorVertically(two, "bloom-07"),
-  mirrorHorizontally(three, "bloom-08"),
-  mirrorVertically(four, "bloom-09"),
-  mirrorHorizontally(five, "bloom-10"),
-].map(validateLevel);
+  ...[one, two, three, four, five].map(validateLevel),
+  ...[six, seven, eight, nine, ten].map(validateLevel),
+  ...[
+    eleven,
+    twelve,
+    thirteen,
+    fourteen,
+    fifteen,
+    sixteen,
+    seventeen,
+    eighteen,
+    nineteen,
+    twenty,
+  ].map(validateLevel),
+  ...[
+    cove0,
+    cove1,
+    cove2,
+    cove3,
+    cove4,
+    cove5,
+    cove6,
+    cove7,
+    cove8,
+    cove9,
+    cove10,
+    cove11,
+    cove12,
+    cove13,
+    cove14,
+    cove15,
+    cove16,
+    cove17,
+    cove18,
+    cove19,
+  ].map(validateLevel),
+];
 export const levelNames = [
-  "First bloom",
-  "Gentle turns",
-  "Crossing paths",
-  "Hidden rhythm",
-  "Valley in harmony",
-  "Petal passage",
-  "Lantern crossing",
-  "Cloudstep turns",
-  "Sunlit cascade",
-  "Bloom crown",
+  ...originalNames,
+  "Morning mist",
+  "Winding grove",
+  "Petal weave",
+  "Quiet bridges",
+  "Golden canopy",
+  "Twilight turns",
+  "Hidden terraces",
+  "Starlit branches",
+  "Valley summit",
+  "Full bloom",
+  "Land ahoy",
+  "Emerald shore",
+  "Hidden inlet",
+  "Weigh anchor",
+  "Twin moorings",
+  "Jungle passage",
+  "Smuggler trail",
+  "Rope bridges",
+  "Captain’s course",
+  "Green lagoon",
+  "Powder crossing",
+  "Careful cargo",
+  "Reef runners",
+  "Timber turns",
+  "Tidewatch",
+  "Treasure route",
+  "Double cargo",
+  "Storm passage",
+  "Captain’s riddle",
+  "Verdant treasure",
 ];

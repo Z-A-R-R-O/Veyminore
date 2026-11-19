@@ -13,6 +13,9 @@ import {
   type Reward,
 } from "../storage/profile";
 import { useMotion } from "./useMotion";
+import "./chests.css";
+import { Gem } from "./elements/Gem";
+import { gemPrices } from "../storage/profile";
 
 export function ArrowPreview({ skin }: { skin: Skin }) {
   return (
@@ -31,39 +34,12 @@ export function ArrowPreview({ skin }: { skin: Skin }) {
 }
 function CrateArt({ kind }: { kind: CrateId }) {
   return (
-    <svg
+    <img
       className={`crate-art crate-${kind}`}
-      viewBox="0 0 200 150"
-      aria-hidden="true"
-    >
-      <ellipse cx="100" cy="134" rx="71" ry="9" fill="#49316b" opacity=".15" />
-      <path
-        d="M30 69Q30 24 68 24h64q38 0 38 45v52q0 10-12 10H42q-12 0-12-10Z"
-        fill="currentColor"
-        stroke="#fce8a8"
-        strokeWidth="5"
-      />
-      <path
-        d="M31 72h138M61 28v100M139 28v100"
-        fill="none"
-        stroke="#f7ce73"
-        strokeWidth="10"
-      />
-      <path
-        d="M34 64Q34 31 68 31h63q31 0 33 30"
-        fill="none"
-        stroke="#ffffff70"
-        strokeWidth="5"
-      />
-      <path
-        d="m100 56 20 21-20 24-20-24Z"
-        fill="#ffedac"
-        stroke="#ffeac8"
-        strokeWidth="3"
-      />
-      <path d="m100 65 11 12-11 14-11-14Z" fill="currentColor" />
-      <path d="m41 91 8 4m102-2 8-4" stroke="#ffffff80" strokeWidth="3" />
-    </svg>
+      src="/assets/chests/treasure-chest.png"
+      alt=""
+      draggable={false}
+    />
   );
 }
 function Odds({ id }: { id: CrateId }) {
@@ -85,21 +61,28 @@ export function Shop({
   coins,
   onOpen,
   onEquip,
+  onClaimGems,
 }: {
   profile: Profile;
   coins: number;
-  onOpen: (id: CrateId, welcome: boolean) => Reward | null;
+  onClaimGems: () => boolean | Promise<boolean>;
+  onOpen: (
+    id: CrateId,
+    welcome: boolean,
+    currency: "coins" | "gems",
+  ) => Reward | null | Promise<Reward | null>;
   onEquip: (id: SkinId) => boolean;
 }) {
   const [tab, setTab] = useState<"crates" | "collection">("crates");
   const [selection, setSelection] = useState<{
     id: CrateId;
     welcome: boolean;
+    currency: "coins" | "gems";
   } | null>(null);
   const [reward, setReward] = useState<Reward | null>(null);
-  const [phase, setPhase] = useState<"confirm" | "spinning" | "reveal">(
-    "confirm",
-  );
+  const [phase, setPhase] = useState<
+    "confirm" | "opening" | "spinning" | "reveal"
+  >("confirm");
   const [items, setItems] = useState<SkinId[]>([]);
   const [message, setMessage] = useState("");
   const [filter, setFilter] = useState("all");
@@ -110,10 +93,13 @@ export function Shop({
     if (selection) dialog.current?.showModal();
   }, [selection]);
   useEffect(() => {
-    if (phase !== "spinning") return;
+    if (phase !== "spinning" && phase !== "opening") return;
     const timer = setTimeout(
-      () => setPhase("reveal"),
-      motion.reduced ? 0 : 5350,
+      () =>
+        setPhase(
+          motion.reduced || phase === "spinning" ? "reveal" : "spinning",
+        ),
+      motion.reduced ? 0 : phase === "opening" ? 1200 : 5350,
     );
     return () => clearTimeout(timer);
   }, [phase, motion.reduced]);
@@ -122,19 +108,27 @@ export function Shop({
     setReward(null);
     busy.current = false;
   }
-  function choose(id: CrateId, welcome = false) {
+  function choose(
+    id: CrateId,
+    welcome = false,
+    currency: "coins" | "gems" = "coins",
+  ) {
     setMessage("");
     setPhase("confirm");
-    setSelection({ id, welcome });
+    setSelection({ id, welcome, currency });
   }
-  function open() {
+  async function open() {
     if (!selection || busy.current) return;
     busy.current = true;
-    const result = onOpen(selection.id, selection.welcome);
+    const result = await onOpen(
+      selection.id,
+      selection.welcome,
+      selection.currency,
+    );
     if (!result) {
       busy.current = false;
       setMessage(
-        "Could not save this opening. No coins spent. Please try again.",
+        "Could not save this opening. Retry this same chest to recover any saved reward.",
       );
       return;
     }
@@ -144,10 +138,15 @@ export function Shop({
     strip[28] = result.skin;
     setItems(strip);
     setReward(result);
-    setPhase("spinning");
+    setPhase("opening");
   }
   const won = skins.find((s) => s.id === reward?.skin);
   const crate = crates.find((c) => c.id === selection?.id);
+  const price = crate
+    ? selection?.currency === "gems"
+      ? gemPrices[crate.id]
+      : crate.price
+    : 0;
   return (
     <>
       <div className="page-heading">
@@ -169,6 +168,27 @@ export function Shop({
           Collection · {profile.owned.length}/15
         </button>
       </div>
+      <section className="gem-wallet">
+        <Gem />
+        <div>
+          <strong>{profile.gems} gems</strong>
+          <p>Open chests or use Time Boost in puzzle Settings.</p>
+        </div>
+        {!profile.gemGiftClaimed && (
+          <button
+            className="gem-button"
+            onClick={async () =>
+              setMessage(
+                (await onClaimGems())
+                  ? "20 starter gems added."
+                  : "Could not save your gift. Please try again.",
+              )
+            }
+          >
+            Claim 20 gems
+          </button>
+        )}
+      </section>
       {tab === "crates" ? (
         <>
           {!profile.welcomeClaimed && (
@@ -203,6 +223,15 @@ export function Shop({
                         ? `Need ${c.price - coins} more`
                         : `Open · ${c.price} coins`}
                     </button>
+                    <button
+                      className="gem-button"
+                      disabled={profile.gems < gemPrices[c.id]}
+                      onClick={() => choose(c.id, false, "gems")}
+                    >
+                      <Gem />
+                      Open · {gemPrices[c.id]}{" "}
+                      {gemPrices[c.id] === 1 ? "gem" : "gems"}
+                    </button>
                   </div>
                 </div>
                 <details>
@@ -223,7 +252,7 @@ export function Shop({
             ))}
           </div>
           <p className="crate-note">
-            Earn 25 coins on each first Story clear. Coins only — no cash
+            Earn 25 coins on each first Story clear. Coins or gems — no cash
             purchases. Effects never change puzzle rules.
           </p>
           {profile.lastReward && (
@@ -233,7 +262,7 @@ export function Shop({
                 {skins.find((s) => s.id === profile.lastReward!.skin)!.name}
               </strong>
               {profile.lastReward.duplicate
-                ? ` · duplicate, ${profile.lastReward.refund} coins returned`
+                ? ` · duplicate, ${profile.lastReward.refund} ${profile.lastReward.currency ?? "coins"} returned`
                 : " · saved to Collection"}
             </p>
           )}
@@ -307,10 +336,12 @@ export function Shop({
             className="crate-dialog"
             data-motion={motion.reduced ? "reduced" : "full"}
             data-effects={motion.rich ? "rich" : "subtle"}
+            data-phase={phase}
             aria-label={phase === "confirm" ? "Open crate" : "Crate reward"}
             onCancel={(e) => {
               e.preventDefault();
-              if (phase === "spinning") setPhase("reveal");
+              if (phase === "spinning" || phase === "opening")
+                setPhase("reveal");
               else close();
             }}
           >
@@ -321,13 +352,13 @@ export function Shop({
                 <p>
                   {selection.welcome
                     ? "One free opening. Yours to keep."
-                    : `Spend ${crate!.price} coins to discover one arrow?`}
+                    : `Spend ${price} ${selection!.currency} to discover one arrow?`}
                 </p>
                 <Odds id={selection.id} />
                 <p className="crate-note">
                   {selection.welcome
                     ? "Free gift duplicates return no coins."
-                    : `Duplicates return ${Math.floor(crate!.price / 2)} coins.`}{" "}
+                    : `Duplicates return ${Math.floor(price / 2)} ${selection!.currency}.`}{" "}
                   All rewards are cosmetic.
                 </p>
                 <p role="status">{message}</p>
@@ -343,11 +374,21 @@ export function Shop({
             ) : (
               <>
                 <span className="eyebrow">
-                  {phase === "spinning"
+                  {phase !== "reveal"
                     ? "A LITTLE MAGIC INSIDE"
                     : "YOUR DISCOVERY"}
                 </span>
-                <h2>{phase === "spinning" ? crate!.name : won!.name}</h2>
+                <h2>{phase !== "reveal" ? crate!.name : won!.name}</h2>
+                <div className="chest-stage" aria-hidden="true">
+                  <span className="chest-aura" />
+                  <CrateArt kind={selection.id} />
+                  <span className="chest-flare" />
+                  <img
+                    className={`chest-open crate-${selection.id}`}
+                    src="/assets/chests/treasure-chest-open.png"
+                    alt=""
+                  />
+                </div>
                 <div className="crate-reel" aria-hidden="true">
                   <span className="reel-pointer" />
                   <div
@@ -357,7 +398,7 @@ export function Shop({
                       const s = skins.find((s) => s.id === id)!;
                       return (
                         <div
-                          className="reel-item"
+                          className={`reel-item ${i === 28 && phase === "reveal" ? "winning-item" : ""}`}
                           data-rarity={s.rarity}
                           key={i}
                         >
@@ -369,9 +410,9 @@ export function Shop({
                     })}
                   </div>
                 </div>
-                {phase === "spinning" ? (
+                {phase !== "reveal" ? (
                   <>
-                    <p role="status">Opening… your reward is already saved.</p>
+                    <p role="status">Opening your discovery…</p>
                     <button
                       className="text-button"
                       onClick={() => setPhase("reveal")}
@@ -381,11 +422,14 @@ export function Shop({
                   </>
                 ) : (
                   <div className="reward-reveal" data-rarity={won!.rarity}>
+                    <div className="reward-hero">
+                      <ArrowPreview skin={won!} />
+                    </div>
                     <span className="rarity-label">{won!.rarity}</span>
                     <p>{won!.description}</p>
                     <p role="status">
                       {reward!.duplicate
-                        ? `Already in your collection. ${reward!.refund} coins returned.`
+                        ? `Already in your collection. ${reward!.refund} ${reward!.currency ?? "coins"} returned.`
                         : "New arrow unlocked. Saved to your collection."}
                     </p>
                     <div className="crate-actions">

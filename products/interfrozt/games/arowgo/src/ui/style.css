@@ -4719,6 +4719,112 @@ main {
     background-position: center;
   }
 }
+.valley-map-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  overscroll-behavior: contain;
+}
+.page-worlds .valley-heading {
+  padding: 5px 12px;
+}
+.page-worlds .valley-heading h1 {
+  font-size: 28px;
+  margin: 2px 0;
+}
+.page-worlds .valley-launch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+}
+.page-worlds .valley-selection {
+  flex: 1;
+}
+.page-worlds .valley-selection h2 {
+  font-size: 16px;
+  margin: 2px 0;
+}
+.page-worlds .valley-play {
+  width: auto;
+  flex: 0 0 auto;
+  min-height: 44px;
+  font-size: 20px;
+  padding: 6px 18px;
+}
+.valley-map-scroll .valley-map {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  min-height: 0;
+  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png") center / cover;
+}
+.valley-map-scroll .valley-stop {
+  width: clamp(44px, 7vh, 64px);
+  height: clamp(44px, 6vh, 56px);
+}
+.valley-map-scroll .stop-disc {
+  font-size: 23px;
+}
+.valley-map-scroll .valley-trail,
+.valley-map-scroll .valley-discovery {
+  display: none;
+}
+@media (max-height: 480px) and (min-width: 600px) {
+  .valley-map-scroll {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+}
+/* One continuous world scene; controls remain in viewport-sized layout tracks. */
+.worlds-screen {
+  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png") center / 100% 100%;
+}
+.worlds-screen > .scenery {
+  display: none;
+}
+.worlds-screen .page-worlds {
+  width: 100%;
+  max-width: 900px;
+}
+.worlds-screen .valley-map-scroll,
+.worlds-screen .valley-map-scroll .valley-map {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+.worlds-screen .valley-heading {
+  background: #fff5;
+  border: 0;
+  box-shadow: none;
+}
+.worlds-screen .valley-launch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 1.2fr);
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  background: #f7eaffb8;
+}
+.worlds-screen .valley-selection {
+  min-width: 0;
+}
+.worlds-screen .valley-play.primary-button {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 8px;
+  font-size: clamp(18px, 4vw, 24px);
+  gap: 8px;
+  flex-basis: auto;
+}
+@media (min-aspect-ratio: 4/3) {
+  .worlds-screen {
+    background-image: url("/assets/bloom-valley-world-map-candy-landscape-v1.png");
+  }
+}
 .valley-island {
   position: absolute;
   z-index: -1;
@@ -5969,3 +6075,10 @@ main {
     padding: 9px;
   }
 }
+
+/* Shared AROWGO monogram, preserving responsive header dimensions. */
+.brand-icon { overflow: hidden; flex-shrink: 0; background: #3d43ff; }
+.brand-icon img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.board { touch-action: none; user-select: none; -webkit-user-select: none; }
+.path-preview { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.path-preview-label { position: absolute; bottom: 3%; left: 5%; right: 5%; z-index: 6; text-align: center; border-radius: 12px; background: #fffefaed; color: #523269; border: 1px solid #d4b9e4; padding: 6px; font: 12px var(--font-reading); pointer-events: none; }

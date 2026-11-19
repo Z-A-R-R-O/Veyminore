@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 7,
+  "levelId": "cove-34",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          6,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          0,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "deadline": 6
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          5,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          7,
+          6
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          9,
+          8
+        ]
+      ],
+      "requires": "C"
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          4,
+          9
+        ]
+      ],
+      "anchorRequires": "K"
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          6,
+          9
+        ],
+        [
+          7,
+          9
+        ]
+      ],
+      "anchorRequires": "K"
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          2,
+          6
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          8,
+          4
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          8,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "K",
+    "B",
+    "F",
+    "D",
+    "L",
+    "I",
+    "J",
+    "N",
+    "C",
+    "H",
+    "G",
+    "E",
+    "P",
+    "O",
+    "M",
+    "A"
+  ],
+  "generation": {
+    "version": 3,
+    "seed": 273232,
+    "count": 16,
+    "targetScore": 128,
+    "difficulty": {
+      "depth": 8,
+      "edges": 23,
+      "bends": 9,
+      "initialChoices": 3,
+      "forcedSteps": 4,
+      "score": 131
+    },
+    "quality": {
+      "isolated": 0,
+      "emptyQuadrants": 0,
+      "imbalance": 6,
+      "occupiedCells": 57
+    },
+    "connectedPlacement": true,
+    "difficultyControlsVersion": 1,
+    "openingMoves": [
+      2,
+      5
+    ],
+    "scoreRange": [
+      121,
+      135
+    ],
+    "mechanicsVersion": 1,
+    "keyLockPairs": 1,
+    "coveAuthorVersion": 1,
+    "teaching": false
+  }
+}

@@ -1,5 +1,7 @@
 # Vercel static deployment
 
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
+
 AROWGO is a client-only Vite build. Deploy the compiled site using Vercel Build Output API version 3; source documents, Android files, tests and local settings are not uploaded with this package.
 
 From this game directory:

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AROWGO · Live cloud test</title>
+    <link rel="stylesheet" href="/src/account/test-page.css" />
+  </head>
+  <body>
+    <main>
+      <section class="card" style="max-width: 620px; margin: 40px auto">
+        <h1 style="font-size: 30px">PlayFab save safety test</h1>
+        <p>
+          This writes synthetic balances to separate test objects in PlayFab.
+          Your normal cloud save is only read. Restore runs in isolated memory,
+          not your device’s save storage.
+        </p>
+        <p id="status" role="status">Checking sign-in…</p>
+        <div class="actions">
+          <a id="signin" href="/account-test.html" hidden
+            >Sign in with Google first</a
+          ><button id="run" disabled>Run real PlayFab test</button>
+        </div>
+        <p>Normal sync stays disabled until every check passes.</p>
+        <a href="/?account=1#profile">Return to Profile</a>
+      </section>
+    </main>
+    <script type="module" src="/src/account/cloud-probe-page.ts"></script>
+  </body>
+</html>
