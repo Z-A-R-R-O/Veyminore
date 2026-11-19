@@ -1,6 +1,7 @@
 import type { MovePraise } from "../domain/movePraise";
 import {
   checkExit,
+  hasTiming,
   safeArrows,
   expiredKeg,
   solve,
@@ -142,10 +143,7 @@ export function resolve(
     if (next.mode === "story" && next.mistakes >= 3) next.status = "failed";
   } else {
     next.active = state.active.filter((id) => id !== command.arrowId);
-    if (
-      next.active.length &&
-      level.arrows.some((a) => a.deadline !== undefined)
-    ) {
+    if (next.active.length && hasTiming(level)) {
       if (expiredKeg(level, next.active)) {
         next.status = "failed";
         next.failureReason = "keg";
@@ -259,24 +257,51 @@ export function parseSession(raw: string, level: Level): Session {
     s.failureReason !== undefined &&
     (s.status !== "failed" ||
       !["keg", "stranded"].includes(s.failureReason) ||
-      !level.arrows.some((a) => a.deadline !== undefined) ||
+      !hasTiming(level) ||
       (s.failureReason === "keg"
         ? !expiredKeg(level, s.active)
         : expiredKeg(level, s.active) || solve(level, s.active) !== null))
   )
     throw new Error("Invalid keg failure");
   if (
-    level.arrows.some((a) => a.deadline !== undefined) &&
+    hasTiming(level) &&
     s.status === "playing" &&
     (expiredKeg(level, s.active) || !solve(level, s.active))
   )
     throw new Error("Impossible keg state");
-  // A legal removal can never leave one of its prerequisites active.
+  // Alternating gates are non-monotone: validate the actual move history,
+  // not a hypothetical reinsertion at the final phase.
+  const dynamic = level.arrows.some(
+    (a) => a.phase !== undefined || a.thawAfter !== undefined,
+  );
+  if (dynamic) {
+    if (!s.moveLog) throw Error("Timing saves require a move record");
+    let replay = newSession(level, "validate", s.mode);
+    for (const [index, move] of s.moveLog.entries()) {
+      if (replay.status !== "playing") throw Error("Moves after timing result");
+      replay = resolve(level, replay, {
+        id: String(index),
+        attemptId: "validate",
+        type: move.type,
+        arrowId: move.arrowId,
+      }).state;
+    }
+    if (
+      JSON.stringify(replay.active) !== JSON.stringify(s.active) ||
+      replay.mistakes !== s.mistakes ||
+      replay.status !== s.status ||
+      JSON.stringify(replay.erased) !== JSON.stringify(s.erased)
+    )
+      throw Error("Invalid timing move history");
+  }
+  // Static prerequisites stay cleared; phase restrictions are checked above.
+
   const removed = level.arrows
     .map((a) => a.id)
     .filter((id) => !s.active.includes(id));
   for (const id of removed)
     if (
+      !dynamic &&
       !s.erased.includes(id) &&
       !checkExit(level, [...s.active, id], id).clear
     )

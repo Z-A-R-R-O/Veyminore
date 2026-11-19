@@ -4,6 +4,7 @@ import {
   checkExit,
   expiredKeg,
   solve,
+  hasTiming,
 } from "../../src/domain/rules.ts";
 const paths = [
   ...Array.from(
@@ -23,9 +24,17 @@ export const rewardLevels = paths.map((path) =>
     ),
   ),
 );
+const archivedFrost = JSON.parse(
+  readFileSync(
+    new URL("../../content/levels/frost-before-timing.json", import.meta.url),
+    "utf8",
+  ),
+).map(validateLevel);
 /** Server-owned content; neither balances nor a client's completion flag are accepted. */
 export function verifyClear(levelId, contentVersion, moves, details = false) {
-  const level = rewardLevels.find((l) => l.levelId === levelId);
+  const level = [...rewardLevels, ...archivedFrost].find(
+    (l) => l.levelId === levelId && l.contentVersion === contentVersion,
+  );
   if (
     !level ||
     level.contentVersion !== contentVersion ||
@@ -50,9 +59,7 @@ export function verifyClear(levelId, contentVersion, moves, details = false) {
     active = active.filter((a) => a !== id);
     if (
       active.length &&
-      (expiredKeg(level, active) ||
-        (level.arrows.some((a) => a.deadline !== undefined) &&
-          !solve(level, active)))
+      (expiredKeg(level, active) || (hasTiming(level) && !solve(level, active)))
     )
       throw Error("invalid-completion");
   }

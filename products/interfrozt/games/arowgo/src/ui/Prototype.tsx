@@ -12,6 +12,7 @@ import {
   flushCompletions,
   equipSkin,
 } from "../account/economy-runtime";
+import { beforeTimingLevels } from "../domain/campaignBeforeTiming";
 import { beforePlanningLevels } from "../domain/campaignBeforePlanning";
 import { beforeChallengeLevels } from "../domain/campaignBeforeChallenge";
 import { CoveLesson } from "./CoveLesson";
@@ -63,8 +64,9 @@ const controllers = levels.map(
         level,
         i === 0 ? SAVE_KEY : `arowgo.level.${level.levelId}.v1`,
         [
-          beforePlanningLevels[i],
-          beforeChallengeLevels[i],
+          ...beforeTimingLevels.filter((p) => p.levelId === level.levelId),
+          ...(beforePlanningLevels[i] ? [beforePlanningLevels[i]] : []),
+          ...(beforeChallengeLevels[i] ? [beforeChallengeLevels[i]] : []),
           ...(beforeSnakeLevels[i] ? [beforeSnakeLevels[i]] : []),
           ...previousMildLevels.filter(
             (previous) => previous.levelId === level.levelId,

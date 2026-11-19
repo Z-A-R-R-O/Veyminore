@@ -89,6 +89,7 @@ test("old Bloom progress unlocks Cove; all 20 new levels, lessons and rewards wo
       })
       .click();
   }
+  await page.getByRole("button",{name:"Start puzzle",exact:true}).click();
   await expect(page.getByRole("heading", { name: "Level 41" })).toBeVisible();
   await page.goto("/#worlds");
   await page.reload();

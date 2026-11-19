@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 9,
+  "contentVersion": 10,
   "levelId": "frost-54",
   "board": {
     "columns": 10,
@@ -50,7 +50,8 @@
           8,
           1
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "D",
@@ -189,7 +190,8 @@
           4,
           8
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "M",
@@ -219,7 +221,8 @@
           4,
           9
         ]
-      ]
+      ],
+      "thawAfter": 6
     },
     {
       "id": "O",
@@ -260,7 +263,8 @@
           2,
           9
         ]
-      ]
+      ],
+      "thawAfter": 4
     }
   ],
   "solution": [
@@ -283,28 +287,27 @@
     "A"
   ],
   "generation": {
-    "frostAuthorVersion": 1,
+    "timingAuthorVersion": 1,
     "planning": {
-      "randomLegalWinRate": 0.03701615267444728,
-      "decisionStates": 68,
-      "blockedTargetDecisions": 66,
+      "randomLegalWinRate": 0.010850694444444444,
+      "decisionStates": 9,
+      "blockedTargetDecisions": 8,
       "exampleDecision": {
         "active": [
           "A",
           "B",
           "C",
-          "D",
           "E",
           "F",
+          "I",
           "J",
-          "K",
-          "M",
-          "P"
+          "L",
+          "M"
         ],
-        "safeMove": "D",
-        "unsafeMove": "F"
+        "safeMove": "L",
+        "unsafeMove": "M"
       },
-      "earliestDecisionMove": 8,
+      "earliestDecisionMove": 9,
       "deadlines": [
         {
           "id": "B",
@@ -320,14 +323,6 @@
         }
       ]
     },
-    "targetWinRate": 0.03609616427458754,
-    "difficulty": {
-      "depth": 7,
-      "edges": 25,
-      "bends": 7,
-      "initialChoices": 3,
-      "forcedSteps": 4,
-      "score": 125
-    }
+    "targetWinRate": 0.00793480427432362
   }
 }

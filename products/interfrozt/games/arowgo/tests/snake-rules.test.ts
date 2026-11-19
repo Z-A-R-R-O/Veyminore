@@ -91,7 +91,14 @@ it("dependency solver agrees with an independent cell-by-cell snake simulation",
             .flatMap(expand)
             .map((c) => c.join(",")),
         );
-        let clear = !(arrow.requires && active.includes(arrow.requires)) && !(arrow.anchorRequires && active.includes(arrow.anchorRequires));
+        const removed = l.arrows.length - active.length;
+        const open =
+          removed >= (arrow.thawAfter ?? 0) &&
+          (arrow.phase === undefined || removed % 2 === arrow.phase);
+        let clear =
+          open &&
+          !(arrow.requires && active.includes(arrow.requires)) &&
+          !(arrow.anchorRequires && active.includes(arrow.anchorRequires));
         for (
           let tick = 0;
           clear &&
@@ -107,9 +114,9 @@ it("dependency solver agrees with an independent cell-by-cell snake simulation",
           body = [...body.slice(1), next];
         }
         expect(checkExit(l, active, id).clear).toBe(clear);
-        expect(![...graph.get(id)!].some((b) => active.includes(b))).toBe(
-          clear,
-        );
+        expect(
+          open && ![...graph.get(id)!].some((b) => active.includes(b)),
+        ).toBe(clear);
       }
     }
   }

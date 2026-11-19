@@ -65,6 +65,14 @@ test("existing 40 saves unlock Frostfall; all 20 levels complete and reload safe
     await page.keyboard.press("Enter");
   };
   for (let i = 0; i < 20; i++) {
+    if (i === 0 || i === 5) {
+      const guide = page.getByRole("dialog", {
+        name: i === 0 ? "Break the ice" : "Follow the aurora",
+      });
+      await expect(guide).toBeVisible();
+      await guide.getByRole("button", { name: "Try a move" }).click();
+      await guide.getByRole("button", { name: "Start puzzle" }).click();
+    }
     await expect(
       page.getByRole("heading", { name: `Level ${i + 41}`, exact: true }),
     ).toBeVisible();

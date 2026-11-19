@@ -6276,3 +6276,10 @@ main {
     width: 100px;
   }
 }
+.timing-help{grid-column:1/-1;justify-self:center;border:0;background:#e8e5fa;color:#493176;border-radius:20px;padding:3px 12px;font:600 12px Satoshi,sans-serif;cursor:pointer;min-height:24px}
+.timing-guide{border:2px solid #fff;border-radius:26px;max-width:440px;width:calc(100% - 32px);max-height:calc(100dvh - 32px);overflow:auto;padding:24px;background:linear-gradient(145deg,#f9fcff,#e9e0fa);color:#35245d;box-shadow:0 20px 60px #24164066}
+.timing-guide::backdrop{background:#21103d99;backdrop-filter:blur(6px)}
+.timing-guide h2{margin-top:0}.timing-guide p{font-size:15px;line-height:1.5}.timing-guide button{min-height:44px;padding:10px 20px;border:1px solid #b8a0df;border-radius:16px;background:#fff;color:#50357c;cursor:pointer}.timing-guide .primary{display:block;width:100%;background:#8550c5;color:white}
+.timing-demo{display:flex;justify-content:center;gap:16px;padding:20px}.timing-demo span{background:#ceefe9;border-radius:18px;padding:12px;color:#135e56}
+.timing-badge{transition:opacity .2s ease}.timing-badge[data-open="false"]{opacity:.94}
+@media(prefers-reduced-motion:reduce){.timing-badge{transition:none}}

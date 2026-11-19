@@ -73,7 +73,8 @@ export class SaveStore {
         ? [this.previousLevel]
         : [];
     const previousLevel = candidates.find((level) => {
-      if (level.contentVersion === this.level.contentVersion) return false;
+      if (!level || level.contentVersion === this.level.contentVersion)
+        return false;
       try {
         parseSession(raw, level);
         return true;
@@ -122,8 +123,7 @@ export class SaveStore {
         previous.mode,
         previous,
       ),
-      notice:
-        "New puzzle. Coins and best stars kept.",
+      notice: "New puzzle. Coins and best stars kept.",
     };
   }
 }

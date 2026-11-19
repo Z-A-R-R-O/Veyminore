@@ -1,4 +1,4 @@
-import { dependencies, type Level } from "./rules";
+import { timingOpen, dependencies, type Level } from "./rules";
 
 export interface PlanningDecision {
   active: string[];
@@ -37,7 +37,12 @@ export function evaluatePlanning(level: Level) {
       return 0;
     const legal = ids
       .map((_, i) => i)
-      .filter((i) => mask & (1 << i) && !(blockers[i] & mask));
+      .filter(
+        (i) =>
+          mask & (1 << i) &&
+          !(blockers[i] & mask) &&
+          timingOpen(level.arrows[i], removed),
+      );
     const outcomes = legal.map((i) =>
       probability(mask & ~(1 << i), removed + 1),
     );

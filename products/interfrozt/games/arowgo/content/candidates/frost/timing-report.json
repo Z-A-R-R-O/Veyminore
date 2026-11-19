@@ -1,0 +1,879 @@
+[
+  {
+    "level": 41,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.03604822930598422,
+      "decisionStates": 71,
+      "blockedTargetDecisions": 56,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "I",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P"
+        ],
+        "safeMove": "O",
+        "unsafeMove": "E"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 5,
+          "deadline": 10,
+          "spareMoves": 4
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 2,
+          "deadline": 9,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.035
+  },
+  {
+    "level": 42,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.052980233450681584,
+      "decisionStates": 53,
+      "blockedTargetDecisions": 41,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "K",
+          "L",
+          "N",
+          "O"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "E"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 3,
+          "deadline": 9,
+          "spareMoves": 5
+        },
+        {
+          "id": "H",
+          "prerequisiteCount": 3,
+          "deadline": 11,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.03122400969627186
+  },
+  {
+    "level": 43,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.027252730621661933,
+      "decisionStates": 40,
+      "blockedTargetDecisions": 27,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "M",
+          "P"
+        ],
+        "safeMove": "I",
+        "unsafeMove": "D"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 5,
+          "deadline": 11,
+          "spareMoves": 5
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 2,
+          "deadline": 10,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.027855393757510827
+  },
+  {
+    "level": 44,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.023282117289308984,
+      "decisionStates": 41,
+      "blockedTargetDecisions": 27,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "G",
+          "J",
+          "K",
+          "M",
+          "O",
+          "P"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "C"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 7,
+          "deadline": 12,
+          "spareMoves": 4
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 4,
+          "deadline": 11,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.024850202422228247
+  },
+  {
+    "level": 45,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.021813914609053495,
+      "decisionStates": 19,
+      "blockedTargetDecisions": 14,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "P"
+        ],
+        "safeMove": "F",
+        "unsafeMove": "H"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 6,
+          "deadline": 9,
+          "spareMoves": 2
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 2,
+          "deadline": 8,
+          "spareMoves": 5
+        }
+      ]
+    },
+    "targetWinRate": 0.022169227468170658
+  },
+  {
+    "level": 46,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.020833333333333332,
+      "decisionStates": 8,
+      "blockedTargetDecisions": 7,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "G",
+          "J",
+          "L",
+          "M",
+          "N"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 7,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 9,
+          "deadline": 13,
+          "spareMoves": 3
+        },
+        {
+          "id": "M",
+          "prerequisiteCount": 2,
+          "deadline": 8,
+          "spareMoves": 5
+        }
+      ]
+    },
+    "targetWinRate": 0.0197774906692862
+  },
+  {
+    "level": 47,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.01737533020940501,
+      "decisionStates": 76,
+      "blockedTargetDecisions": 75,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K",
+          "L",
+          "M",
+          "O",
+          "P"
+        ],
+        "safeMove": "G",
+        "unsafeMove": "A"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 11,
+          "deadline": 13,
+          "spareMoves": 1
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 5,
+          "deadline": 9,
+          "spareMoves": 3
+        }
+      ]
+    },
+    "targetWinRate": 0.017643787440734814
+  },
+  {
+    "level": 48,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.03984919907021605,
+      "decisionStates": 93,
+      "blockedTargetDecisions": 72,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "O"
+        ],
+        "safeMove": "G",
+        "unsafeMove": "A"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 2,
+          "deadline": 7,
+          "spareMoves": 4
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 3,
+          "deadline": 11,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.0157402797179561
+  },
+  {
+    "level": 49,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.014388916195855927,
+      "decisionStates": 153,
+      "blockedTargetDecisions": 112,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "L",
+          "N",
+          "O"
+        ],
+        "safeMove": "G",
+        "unsafeMove": "F"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 6,
+          "deadline": 12,
+          "spareMoves": 5
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 2,
+          "deadline": 10,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.014042132758156927
+  },
+  {
+    "level": 50,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.01257091888622161,
+      "decisionStates": 52,
+      "blockedTargetDecisions": 45,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "N",
+          "O",
+          "P",
+          "Q"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "E"
+      },
+      "earliestDecisionMove": 3,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 5,
+          "deadline": 10,
+          "spareMoves": 4
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 2,
+          "deadline": 9,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.012527191125629387
+  },
+  {
+    "level": 51,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.01072208659267621,
+      "decisionStates": 35,
+      "blockedTargetDecisions": 28,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "H",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 2,
+          "deadline": 6,
+          "spareMoves": 3
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 3,
+          "deadline": 9,
+          "spareMoves": 5
+        }
+      ]
+    },
+    "targetWinRate": 0.011175689633534363
+  },
+  {
+    "level": 52,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.00934282300240055,
+      "decisionStates": 30,
+      "blockedTargetDecisions": 22,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "M",
+          "N",
+          "O",
+          "Q"
+        ],
+        "safeMove": "O",
+        "unsafeMove": "M"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 5,
+          "deadline": 10,
+          "spareMoves": 4
+        },
+        {
+          "id": "D",
+          "prerequisiteCount": 8,
+          "deadline": 15,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.009969995470857196
+  },
+  {
+    "level": 53,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.011989068483510515,
+      "decisionStates": 24,
+      "blockedTargetDecisions": 14,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "G",
+          "J",
+          "K",
+          "N",
+          "O",
+          "P",
+          "Q"
+        ],
+        "safeMove": "O",
+        "unsafeMove": "P"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "I",
+          "prerequisiteCount": 3,
+          "deadline": 7,
+          "spareMoves": 3
+        },
+        {
+          "id": "N",
+          "prerequisiteCount": 5,
+          "deadline": 12,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.008894378150109473
+  },
+  {
+    "level": 54,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.010850694444444444,
+      "decisionStates": 9,
+      "blockedTargetDecisions": 8,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "I",
+          "J",
+          "L",
+          "M"
+        ],
+        "safeMove": "L",
+        "unsafeMove": "M"
+      },
+      "earliestDecisionMove": 9,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 10,
+          "deadline": 15,
+          "spareMoves": 4
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 3,
+          "deadline": 10,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.00793480427432362
+  },
+  {
+    "level": 55,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.006605253434030072,
+      "decisionStates": 46,
+      "blockedTargetDecisions": 40,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "H",
+          "I",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "P"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 2,
+          "deadline": 6,
+          "spareMoves": 3
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 6,
+          "deadline": 13,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.007078754445700003
+  },
+  {
+    "level": 56,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.006736537030533281,
+      "decisionStates": 80,
+      "blockedTargetDecisions": 77,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "I",
+          "J",
+          "K",
+          "O",
+          "Q",
+          "R"
+        ],
+        "safeMove": "K",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 12,
+          "deadline": 15,
+          "spareMoves": 2
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 4,
+          "deadline": 9,
+          "spareMoves": 4
+        }
+      ]
+    },
+    "targetWinRate": 0.0063150599271446966
+  },
+  {
+    "level": 57,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.005874358583549256,
+      "decisionStates": 12,
+      "blockedTargetDecisions": 10,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "M"
+      },
+      "earliestDecisionMove": 2,
+      "deadlines": [
+        {
+          "id": "H",
+          "prerequisiteCount": 4,
+          "deadline": 6,
+          "spareMoves": 1
+        },
+        {
+          "id": "O",
+          "prerequisiteCount": 8,
+          "deadline": 12,
+          "spareMoves": 3
+        }
+      ]
+    },
+    "targetWinRate": 0.005633756925648682
+  },
+  {
+    "level": 58,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.005298653854015838,
+      "decisionStates": 50,
+      "blockedTargetDecisions": 41,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "Q",
+          "R"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "N"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 2,
+          "deadline": 7,
+          "spareMoves": 4
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 4,
+          "deadline": 11,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.0050259565963683755
+  },
+  {
+    "level": 59,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.004329630369537981,
+      "decisionStates": 101,
+      "blockedTargetDecisions": 87,
+      "exampleDecision": {
+        "active": [
+          "B",
+          "C",
+          "E",
+          "F",
+          "G",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "R"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 7,
+          "deadline": 13,
+          "spareMoves": 5
+        },
+        {
+          "id": "O",
+          "prerequisiteCount": 3,
+          "deadline": 11,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.004483729071372791
+  },
+  {
+    "level": 60,
+    "timingAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.003819483653695973,
+      "decisionStates": 294,
+      "blockedTargetDecisions": 221,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "C",
+          "D",
+          "E",
+          "F",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "P",
+          "Q"
+        ],
+        "safeMove": "J",
+        "unsafeMove": "F"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 4,
+          "deadline": 12,
+          "spareMoves": 7
+        },
+        {
+          "id": "H",
+          "prerequisiteCount": 4,
+          "deadline": 14,
+          "spareMoves": 9
+        }
+      ]
+    },
+    "targetWinRate": 0.004
+  }
+]

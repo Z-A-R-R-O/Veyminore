@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 9,
+  "contentVersion": 10,
   "levelId": "frost-58",
   "board": {
     "columns": 10,
@@ -36,7 +36,8 @@
           7,
           5
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "C",
@@ -53,7 +54,8 @@
           5,
           7
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "D",
@@ -114,7 +116,8 @@
           3,
           1
         ]
-      ]
+      ],
+      "thawAfter": 5
     },
     {
       "id": "H",
@@ -166,7 +169,8 @@
           0,
           8
         ]
-      ]
+      ],
+      "thawAfter": 5
     },
     {
       "id": "L",
@@ -248,7 +252,8 @@
           0,
           2
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "R",
@@ -285,33 +290,32 @@
     "B"
   ],
   "generation": {
-    "frostAuthorVersion": 1,
+    "timingAuthorVersion": 1,
     "planning": {
-      "randomLegalWinRate": 0.02785008806849303,
-      "decisionStates": 75,
-      "blockedTargetDecisions": 68,
+      "randomLegalWinRate": 0.005298653854015838,
+      "decisionStates": 50,
+      "blockedTargetDecisions": 41,
       "exampleDecision": {
         "active": [
           "A",
           "B",
+          "C",
           "D",
           "E",
           "F",
-          "H",
-          "I",
+          "G",
           "J",
           "K",
           "L",
           "M",
           "N",
-          "O",
-          "P",
-          "Q"
+          "Q",
+          "R"
         ],
-        "safeMove": "I",
-        "unsafeMove": "M"
+        "safeMove": "Q",
+        "unsafeMove": "N"
       },
-      "earliestDecisionMove": 4,
+      "earliestDecisionMove": 5,
       "deadlines": [
         {
           "id": "E",
@@ -327,14 +331,6 @@
         }
       ]
     },
-    "targetWinRate": 0.028256195752442783,
-    "difficulty": {
-      "depth": 8,
-      "edges": 22,
-      "bends": 4,
-      "initialChoices": 3,
-      "forcedSteps": 4,
-      "score": 124
-    }
+    "targetWinRate": 0.0050259565963683755
   }
 }

@@ -7,7 +7,14 @@ import {
 } from "react";
 import Phaser from "phaser";
 import { roundedPath, snake, length, type Point } from "./arrowGeometry";
-import { checkExit, direction, solve, type Level } from "../domain/rules";
+import {
+  timingOpen,
+  hasTiming,
+  checkExit,
+  direction,
+  solve,
+  type Level,
+} from "../domain/rules";
 import type { Outcome } from "../application/session";
 export interface BoardHandle {
   animate: (outcome: Outcome) => void;
@@ -245,15 +252,21 @@ export function Board({
                 className="arrow-control"
                 aria-label={`Slide arrow ${a.id}`}
                 aria-description={
-                  a.deadline !== undefined
-                    ? `Powder keg. ${Math.max(0, a.deadline - (level.arrows.length - active.length))} successful moves remaining. Hold P to inspect.`
-                    : a.anchorRequires && active.includes(a.anchorRequires)
-                      ? "Anchored. Clear the matching anchor arrow first."
-                      : a.requires && active.includes(a.requires)
-                        ? "Locked. Clear its key arrow first."
-                        : level.arrows.some((other) => other.requires === a.id)
-                          ? "Key arrow. Clear it to open the matching lock."
-                          : undefined
+                  a.thawAfter !== undefined
+                    ? `Ice seal. ${Math.max(0, a.thawAfter - (level.arrows.length - active.length))} successful moves until thawed.`
+                    : a.phase !== undefined
+                      ? `Aurora gate. ${timingOpen(a, level.arrows.length - active.length) ? "Open" : "Closed"}. Toggles after each successful removal.`
+                      : a.deadline !== undefined
+                        ? `Powder keg. ${Math.max(0, a.deadline - (level.arrows.length - active.length))} successful moves remaining. Hold P to inspect.`
+                        : a.anchorRequires && active.includes(a.anchorRequires)
+                          ? "Anchored. Clear the matching anchor arrow first."
+                          : a.requires && active.includes(a.requires)
+                            ? "Locked. Clear its key arrow first."
+                            : level.arrows.some(
+                                  (other) => other.requires === a.id,
+                                )
+                              ? "Key arrow. Clear it to open the matching lock."
+                              : undefined
                 }
                 disabled={disabled}
                 style={{
@@ -590,6 +603,31 @@ class PuzzleScene extends Phaser.Scene {
       );
       const anchored =
         arrow.anchorRequires && active.includes(arrow.anchorRequires);
+      if (arrow.thawAfter !== undefined || arrow.phase !== undefined) {
+        const badge = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "g",
+        );
+        const removed = this.level.arrows.length - active.length,
+          open = timingOpen(arrow, removed);
+        badge.classList.add("timing-badge");
+        badge.dataset.kind = arrow.phase !== undefined ? "aurora" : "ice";
+        badge.dataset.open = String(open);
+        badge.setAttribute(
+          "transform",
+          `translate(${points[0][0]} ${points[0][1]})`,
+        );
+        const symbol =
+          arrow.phase !== undefined
+            ? arrow.phase === 0
+              ? "☀"
+              : "☾"
+            : open
+              ? "❄"
+              : String(arrow.thawAfter! - removed);
+        badge.innerHTML = `<circle r="21" fill="${open ? "#c9ffe8" : "#d8eaff"}" stroke="${open ? "#168060" : "#6562bb"}" stroke-width="3"/><circle r="17" fill="none" stroke="#fff" opacity=".7"/><text text-anchor="middle" y="8" font-family="Arial" font-weight="bold" font-size="25" fill="${open ? "#086148" : "#42417f"}">${symbol}</text>`;
+        element.append(badge);
+      }
       if (isAnchor || anchored || arrow.deadline !== undefined) {
         const badge = document.createElementNS(
           "http://www.w3.org/2000/svg",
@@ -705,7 +743,7 @@ class PuzzleScene extends Phaser.Scene {
     this.animating.add(id);
     if (result.exit.clear || result.erased)
       (shape.getData("vector") as SVGGElement)
-        .querySelectorAll(".mechanic-badge, .cove-mechanic")
+        .querySelectorAll(".mechanic-badge, .cove-mechanic, .timing-badge")
         .forEach((badge) => badge.remove());
     const arrow = this.level.arrows.find((a) => a.id === id)!;
     const [hx, hy] = arrow.points.at(-1)!;
@@ -914,18 +952,22 @@ function PathPreview({
     ? level.arrows.find((a) => a.id === exit.blocker)
     : undefined;
   const message = exit.clear
-    ? level.arrows.some((a) => a.deadline !== undefined) &&
+    ? hasTiming(level) &&
       !solve(
         level,
         active.filter((a) => a !== id),
       )
-      ? "Clear path, but no safe keg route remains after this move."
+      ? "Clear path, but no winning route remains after this move."
       : "Clear path. Release, then tap to move."
-    : exit.reason === "anchored"
-      ? "Clear the highlighted anchor first."
-      : exit.reason === "locked"
-        ? "Clear the highlighted key first."
-        : "This arrow blocks the path.";
+    : exit.reason === "frozen"
+      ? "Clear other arrows to thaw this ice seal."
+      : exit.reason === "phase"
+        ? "Gate closed. Clear one other arrow to switch the aurora."
+        : exit.reason === "anchored"
+          ? "Clear the highlighted anchor first."
+          : exit.reason === "locked"
+            ? "Clear the highlighted key first."
+            : "This arrow blocks the path.";
   return (
     <>
       <svg className="path-preview" viewBox="0 0 600 600" aria-hidden="true">

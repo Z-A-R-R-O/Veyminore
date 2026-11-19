@@ -1,3 +1,5 @@
+> Latest update: [Ice Seals and Aurora Gates, content 10](FROSTFALL-TIMING.md) replace the original Frostfall puzzles with harder timing challenges. Earlier content-9 details below are historical.
+
 # Frostfall Peaks — Levels 41–60
 
 Implemented 19 November 2026. Third campaign world, unlocked by completing Level 40. Twenty new puzzles; the original forty level files and IDs remain unchanged. Amber Dunes remains a locked coming-soon destination.

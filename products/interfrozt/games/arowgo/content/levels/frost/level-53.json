@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 9,
+  "contentVersion": 10,
   "levelId": "frost-53",
   "board": {
     "columns": 10,
@@ -53,7 +53,8 @@
           3,
           5
         ]
-      ]
+      ],
+      "thawAfter": 5
     },
     {
       "id": "D",
@@ -70,7 +71,8 @@
           6,
           6
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "E",
@@ -148,7 +150,7 @@
           2
         ]
       ],
-      "deadline": 8
+      "deadline": 7
     },
     {
       "id": "J",
@@ -165,7 +167,8 @@
           1,
           5
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "K",
@@ -178,7 +181,8 @@
           0,
           5
         ]
-      ]
+      ],
+      "thawAfter": 6
     },
     {
       "id": "L",
@@ -295,37 +299,36 @@
     "B"
   ],
   "generation": {
-    "frostAuthorVersion": 1,
+    "timingAuthorVersion": 1,
     "planning": {
-      "randomLegalWinRate": 0.03982600346984072,
-      "decisionStates": 32,
-      "blockedTargetDecisions": 25,
+      "randomLegalWinRate": 0.011989068483510515,
+      "decisionStates": 24,
+      "blockedTargetDecisions": 14,
       "exampleDecision": {
         "active": [
           "A",
           "B",
+          "C",
           "D",
           "E",
-          "F",
           "G",
-          "H",
-          "I",
-          "L",
-          "M",
+          "J",
+          "K",
           "N",
+          "O",
           "P",
           "Q"
         ],
-        "safeMove": "F",
-        "unsafeMove": "G"
+        "safeMove": "O",
+        "unsafeMove": "P"
       },
-      "earliestDecisionMove": 5,
+      "earliestDecisionMove": 6,
       "deadlines": [
         {
           "id": "I",
           "prerequisiteCount": 3,
-          "deadline": 8,
-          "spareMoves": 4
+          "deadline": 7,
+          "spareMoves": 3
         },
         {
           "id": "N",
@@ -335,14 +338,6 @@
         }
       ]
     },
-    "targetWinRate": 0.038374956432070687,
-    "difficulty": {
-      "depth": 8,
-      "edges": 26,
-      "bends": 10,
-      "initialChoices": 3,
-      "forcedSteps": 2,
-      "score": 132
-    }
+    "targetWinRate": 0.008894378150109473
   }
 }

@@ -1,4 +1,5 @@
 import { it, expect } from "vitest";
+import { beforeTimingLevels } from "../src/domain/campaignBeforeTiming";
 import { levels } from "../src/domain/campaign";
 import { evaluatePlanning } from "../src/domain/planning";
 import { newSession, resolve } from "../src/application/session";
@@ -9,8 +10,13 @@ it("Frostfall puzzles have distinct geometry and consequential planning choices"
   for (const level of frost) {
     signatures.add(JSON.stringify(level.arrows.map((a) => a.points)));
     const p = evaluatePlanning(level);
-    expect(p.randomLegalWinRate).toBeGreaterThan(0.012);
-    expect(p.randomLegalWinRate).toBeLessThan(0.14);
+    expect(p.randomLegalWinRate).toBeGreaterThan(0);
+    expect(p.randomLegalWinRate).toBeLessThan(0.06);
+    expect(p.randomLegalWinRate).toBeLessThan(
+      evaluatePlanning(
+        beforeTimingLevels.find((l) => l.levelId === level.levelId),
+      ).randomLegalWinRate * 0.8,
+    );
     expect(p.blockedTargetDecisions).toBeGreaterThan(0);
     expect(level.arrows.some((a) => a.requires)).toBe(true);
     expect(level.arrows.some((a) => a.anchorRequires)).toBe(true);

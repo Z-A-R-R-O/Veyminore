@@ -1,3 +1,5 @@
+> Latest update: [Ice Seals and Aurora Gates, content 10](FROSTFALL-TIMING.md) replace the original Frostfall puzzles with harder timing challenges. Earlier content-9 details below are historical.
+
 > Campaign update — 19 November 2026: 60 levels across three worlds. [Frostfall Peaks, Levels 41–60](FROSTFALL-PEAKS.md) is implemented with existing mechanics; older 40-level counts below describe the earlier audit.
 
 # Current game state

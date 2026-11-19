@@ -30,3 +30,5 @@ Updated 16 November 2026. Start here rather than treating an old prototype repor
 Account work has started: [B01 implementation and remaining integration gates](ACCOUNT-FOUNDATION.md).
 
 - [Frostfall Peaks — implemented Levels 41–60](FROSTFALL-PEAKS.md) (19 November 2026).
+
+- [Frostfall timing mechanics and safe migration](FROSTFALL-TIMING.md).

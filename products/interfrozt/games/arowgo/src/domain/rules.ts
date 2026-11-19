@@ -5,6 +5,8 @@ export interface Arrow {
   requires?: string;
   anchorRequires?: string;
   deadline?: number;
+  thawAfter?: number;
+  phase?: 0 | 1;
 }
 export interface Level {
   schemaVersion: 1;
@@ -22,7 +24,7 @@ export type Exit =
       blocker: string;
       cell: Cell;
       step: number;
-      reason?: "locked" | "anchored";
+      reason?: "locked" | "anchored" | "frozen" | "phase";
     };
 const key = ([x, y]: Cell) => `${x},${y}`;
 
@@ -62,7 +64,7 @@ export function validateLevel(value: unknown): Level {
   if (
     level.schemaVersion !== 1 ||
     ![1, 2].includes(level.rulesVersion) ||
-    ![1, 2, 3, 4, 5, 6, 7, 8, 9].includes(level.contentVersion) ||
+    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(level.contentVersion) ||
     typeof level.levelId !== "string" ||
     !level.levelId ||
     !level.board ||
@@ -160,6 +162,24 @@ export function validateLevel(value: unknown): Level {
     )
       throw new Error("Mechanics require content 7");
   }
+  for (const a of level.arrows) {
+    if (a.phase !== undefined && a.phase !== 0 && a.phase !== 1)
+      throw Error("Invalid phase");
+    if (
+      a.thawAfter !== undefined &&
+      (!Number.isInteger(a.thawAfter) ||
+        a.thawAfter < 1 ||
+        a.thawAfter >= level.arrows.length)
+    )
+      throw Error("Invalid thaw count");
+    if (
+      (a.phase !== undefined || a.thawAfter !== undefined) &&
+      (level.contentVersion < 10 ||
+        level.rulesVersion !== 2 ||
+        level.arrows.length > 20)
+    )
+      throw Error("Timing mechanics require content 10 and at most 20 arrows");
+  }
   let active = [...ids];
   for (const id of level.solution) {
     if (!checkExit(level, active, id).clear)
@@ -179,6 +199,15 @@ export function checkExit(
 ): Exit {
   const arrow = level.arrows.find((a) => a.id === id);
   if (!arrow || !active.includes(id)) throw new Error("Arrow is not active");
+  const removed = level.arrows.length - active.length;
+  if (!timingOpen(arrow, removed))
+    return {
+      clear: false,
+      blocker: id,
+      cell: arrow.points[0],
+      step: 0,
+      reason: removed < (arrow.thawAfter ?? 0) ? "frozen" : "phase",
+    };
   if (arrow.anchorRequires && active.includes(arrow.anchorRequires))
     return {
       clear: false,
@@ -264,12 +293,26 @@ export function dependencies(level: Level): Map<string, Set<string>> {
   );
 }
 
+export function timingOpen(a: Arrow, removed: number) {
+  return (
+    removed >= (a.thawAfter ?? 0) &&
+    (a.phase === undefined || removed % 2 === a.phase)
+  );
+}
+export function hasTiming(level: Level) {
+  return level.arrows.some(
+    (a) =>
+      a.deadline !== undefined ||
+      a.phase !== undefined ||
+      a.thawAfter !== undefined,
+  );
+}
+
 export function solve(
   level: Level,
   initial = level.arrows.map((a) => a.id),
 ): string[] | null {
-  if (level.arrows.some((a) => a.deadline !== undefined))
-    return solveDeadlines(level, initial);
+  if (hasTiming(level)) return solveDeadlines(level, initial);
   const graph = dependencies(level),
     active = new Set(initial),
     result: string[] = [];
@@ -321,7 +364,12 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
       return null;
     const candidates = ids
       .map((_, i) => i)
-      .filter((i) => mask & (1 << i) && !(blockers[i] & mask))
+      .filter(
+        (i) =>
+          mask & (1 << i) &&
+          !(blockers[i] & mask) &&
+          timingOpen(level.arrows[i], removed),
+      )
       .sort(
         (a, b) =>
           (level.arrows[a].deadline ?? 999) - (level.arrows[b].deadline ?? 999),
@@ -337,7 +385,7 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
 }
 export function safeArrows(level: Level, active: readonly string[]): string[] {
   const legal = legalArrows(level, active);
-  if (!level.arrows.some((a) => a.deadline !== undefined)) return legal;
+  if (!hasTiming(level)) return legal;
   return legal.filter(
     (id) =>
       solve(

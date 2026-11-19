@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 9,
+  "contentVersion": 10,
   "levelId": "frost-44",
   "board": {
     "columns": 10,
@@ -132,7 +132,8 @@
           9,
           7
         ]
-      ]
+      ],
+      "thawAfter": 3
     },
     {
       "id": "I",
@@ -258,7 +259,8 @@
           0,
           0
         ]
-      ]
+      ],
+      "thawAfter": 3
     }
   ],
   "solution": [
@@ -280,11 +282,11 @@
     "A"
   ],
   "generation": {
-    "frostAuthorVersion": 1,
+    "timingAuthorVersion": 1,
     "planning": {
-      "randomLegalWinRate": 0.06448865960506846,
-      "decisionStates": 42,
-      "blockedTargetDecisions": 28,
+      "randomLegalWinRate": 0.023282117289308984,
+      "decisionStates": 41,
+      "blockedTargetDecisions": 27,
       "exampleDecision": {
         "active": [
           "A",
@@ -318,14 +320,6 @@
         }
       ]
     },
-    "targetWinRate": 0.06657780366223358,
-    "difficulty": {
-      "depth": 7,
-      "edges": 21,
-      "bends": 10,
-      "initialChoices": 3,
-      "forcedSteps": 3,
-      "score": 117
-    }
+    "targetWinRate": 0.024850202422228247
   }
 }

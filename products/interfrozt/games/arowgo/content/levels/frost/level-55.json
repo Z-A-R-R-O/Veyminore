@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 9,
+  "contentVersion": 10,
   "levelId": "frost-55",
   "board": {
     "columns": 10,
@@ -37,7 +37,7 @@
           1
         ]
       ],
-      "deadline": 7
+      "deadline": 6
     },
     {
       "id": "C",
@@ -105,7 +105,8 @@
           9,
           2
         ]
-      ]
+      ],
+      "thawAfter": 2
     },
     {
       "id": "G",
@@ -136,7 +137,8 @@
           8,
           9
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "I",
@@ -224,7 +226,8 @@
           9,
           0
         ]
-      ]
+      ],
+      "thawAfter": 3
     },
     {
       "id": "O",
@@ -237,7 +240,8 @@
           5,
           9
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "P",
@@ -309,11 +313,11 @@
     "F"
   ],
   "generation": {
-    "frostAuthorVersion": 1,
+    "timingAuthorVersion": 1,
     "planning": {
-      "randomLegalWinRate": 0.03314941283576389,
-      "decisionStates": 67,
-      "blockedTargetDecisions": 60,
+      "randomLegalWinRate": 0.006605253434030072,
+      "decisionStates": 46,
+      "blockedTargetDecisions": 40,
       "exampleDecision": {
         "active": [
           "A",
@@ -328,19 +332,20 @@
           "M",
           "N",
           "O",
+          "P",
           "Q",
           "R"
         ],
         "safeMove": "N",
-        "unsafeMove": "Q"
+        "unsafeMove": "P"
       },
-      "earliestDecisionMove": 5,
+      "earliestDecisionMove": 4,
       "deadlines": [
         {
           "id": "B",
           "prerequisiteCount": 2,
-          "deadline": 7,
-          "spareMoves": 4
+          "deadline": 6,
+          "spareMoves": 3
         },
         {
           "id": "I",
@@ -350,14 +355,6 @@
         }
       ]
     },
-    "targetWinRate": 0.033952691976195284,
-    "difficulty": {
-      "depth": 9,
-      "edges": 21,
-      "bends": 10,
-      "initialChoices": 4,
-      "forcedSteps": 3,
-      "score": 133
-    }
+    "targetWinRate": 0.007078754445700003
   }
 }

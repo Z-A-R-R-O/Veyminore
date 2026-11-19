@@ -1,3 +1,4 @@
+import { TimingGuide } from "./TimingGuide";
 import { rateMove, type MovePraise } from "../domain/movePraise";
 import { MovePraiseBubble, FeedbackSymbol } from "./MovePraise";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
@@ -217,11 +218,15 @@ export function App({
       setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
     } else if (result.exit) {
       setFeedback(
-        result.exit.reason === "anchored"
-          ? "Clear the highlighted anchor arrow to release this arrow."
-          : result.exit.reason === "locked"
-            ? "Clear the gold key arrow to open this lock."
-            : "The highlighted arrow blocks the path ahead of this head. Clear it first.",
+        result.exit.reason === "frozen"
+          ? "Clear other arrows to thaw this ice seal."
+          : result.exit.reason === "phase"
+            ? "Gate closed. Clear another arrow to switch the aurora."
+            : result.exit.reason === "anchored"
+              ? "Clear the highlighted anchor arrow to release this arrow."
+              : result.exit.reason === "locked"
+                ? "Clear the gold key arrow to open this lock."
+                : "The highlighted arrow blocks the path ahead of this head. Clear it first.",
       );
       setPulse((p) => ({ id: p.id + 1, kind: "blocked" }));
     }
@@ -387,7 +392,11 @@ export function App({
               s
             </small>
           )}
-          {lab ? (
+          {level.arrows.some(
+            (a) => a.thawAfter !== undefined || a.phase !== undefined,
+          ) ? (
+            <TimingGuide key={level.levelId} level={level} removed={cleared} />
+          ) : lab ? (
             <p className="level-subtitle">A little room for proof.</p>
           ) : (
             <div
@@ -588,7 +597,7 @@ export function App({
                             {state.failureReason === "keg"
                               ? "A powder keg ran out of moves. Clear its arrow before the counter reaches zero."
                               : state.failureReason === "stranded"
-                                ? "No route can clear the remaining keg in time. Try a different order."
+                                ? "No winning route remains. Plan the timing and try a different order."
                                 : "Look for an open path, then try again."}
                           </span>
                         </div>

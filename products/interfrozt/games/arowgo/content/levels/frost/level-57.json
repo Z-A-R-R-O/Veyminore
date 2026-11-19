@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 9,
+  "contentVersion": 10,
   "levelId": "frost-57",
   "board": {
     "columns": 10,
@@ -66,7 +66,8 @@
           4,
           6
         ]
-      ]
+      ],
+      "thawAfter": 6
     },
     {
       "id": "E",
@@ -144,7 +145,8 @@
           2,
           1
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "J",
@@ -157,7 +159,8 @@
           8,
           4
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "K",
@@ -187,7 +190,8 @@
           2,
           0
         ]
-      ]
+      ],
+      "thawAfter": 3
     },
     {
       "id": "M",
@@ -263,7 +267,8 @@
           0,
           0
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "R",
@@ -301,11 +306,11 @@
     "A"
   ],
   "generation": {
-    "frostAuthorVersion": 1,
+    "timingAuthorVersion": 1,
     "planning": {
-      "randomLegalWinRate": 0.028103162558808084,
-      "decisionStates": 18,
-      "blockedTargetDecisions": 16,
+      "randomLegalWinRate": 0.005874358583549256,
+      "decisionStates": 12,
+      "blockedTargetDecisions": 10,
       "exampleDecision": {
         "active": [
           "A",
@@ -345,14 +350,6 @@
         }
       ]
     },
-    "targetWinRate": 0.030040041725415238,
-    "difficulty": {
-      "depth": 7,
-      "edges": 24,
-      "bends": 8,
-      "initialChoices": 3,
-      "forcedSteps": 5,
-      "score": 127
-    }
+    "targetWinRate": 0.005633756925648682
   }
 }

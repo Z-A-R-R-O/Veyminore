@@ -1,8 +1,19 @@
+import { beforeTimingLevels } from "../domain/campaignBeforeTiming";
+import type { Level } from "../domain/rules";
 import { levels } from "../domain/campaign";
 import { parseSession } from "../application/session";
 import { readProfile } from "../storage/profile";
 import { validateBackup } from "./cloud-local";
 import type { LegacyBackup } from "./legacy-backup";
+function compatibleSession(raw: string, level: Level) {
+  try {
+    return parseSession(raw, level);
+  } catch (error) {
+    const old = beforeTimingLevels.find((l) => l.levelId === level.levelId);
+    if (!old) throw error;
+    return parseSession(raw, old);
+  }
+}
 /** Never let a corrupt or incompatible primary save silently fall back to a new game. */
 export function validatePlayableRestore(snapshot: LegacyBackup) {
   const clean = validateBackup(snapshot);
@@ -28,7 +39,7 @@ export function validatePlayableRestore(snapshot: LegacyBackup) {
           ? levels[0]
           : levels.find((l) => key === `arowgo.level.${l.levelId}.v1`);
       if (!level) throw Error("incompatible-level-save");
-      parseSession(raw, level);
+      compatibleSession(raw, level);
     }
   }
   return clean;
@@ -50,7 +61,7 @@ export function describeSave(snapshot: LegacyBackup): string {
           ? levels[0]
           : levels.find((l) => key === `arowgo.level.${l.levelId}.v1`);
       if (level) {
-        const state = parseSession(raw, level);
+        const state = compatibleSession(raw, level);
         coins += state.coins;
         stars += state.bestStars;
         if (state.bestStars > 0) cleared++;
