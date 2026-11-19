@@ -172,3 +172,5 @@
     font-size: 21px;
   }
 }
+.dev-screenshot { display: grid; gap: 8px; }
+.dev-screenshot img { width: 100%; max-height: 180px; object-fit: contain; border-radius: 12px; background: #eee7f5; }

@@ -5,6 +5,7 @@ import { SaveStore } from "../storage/save";
 import { levels, levelNames } from "../domain/campaign";
 import { App } from "../ui/App";
 import { clampDock, reportText, type Point } from "./report";
+import { emailDraft, reportRecipient, screenshotError } from "./email";
 import "./development.css";
 const positionKey = "arowgo.dev.dock.v1";
 function readPosition() {
@@ -74,6 +75,24 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
     [details, setDetails] = useState(""),
     [severity, setSeverity] = useState("minor"),
     [notice, setNotice] = useState("");
+  const [screenshot, setScreenshot] = useState<File | null>(null);
+  const [preview, setPreview] = useState("");
+  useEffect(() => {
+    if (!screenshot) { setPreview(""); return; }
+    const url = URL.createObjectURL(screenshot);
+    setPreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [screenshot]);
+  async function draft() {
+    try {
+      const content = await emailDraft(summary, buildReport(), screenshot);
+      const url = URL.createObjectURL(new Blob([content], { type: "message/rfc822" }));
+      const a = document.createElement("a");
+      a.href = url; a.download = "arowgo-bug-report.eml"; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setNotice("Email draft downloaded. Open it in your mail app, review and send. If your app opens it read-only, use Forward to the address above.");
+    } catch { setNotice("Could not create the draft. Try again or use Copy report."); }
+  }
   const [sandboxKey, setSandboxKey] = useState(0);
   const errorCount = useRef(0);
   function move(point: Point, save = false) {
@@ -365,8 +384,7 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
         ) : (
           <section>
             <p>
-              Describe the issue, then copy or download the report. Nothing is
-              uploaded automatically.
+              Send your report to {reportRecipient}. Nothing is sent until you review and send it in your mail app.
             </p>
             <label>
               Summary
@@ -398,6 +416,29 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
                 placeholder="1. Open… 2. Tap… Expected… Actual…"
               />
             </label>
+            <label>
+              Add screenshot (PNG, JPEG or WebP · up to 5 MB)
+              <input type="file" accept="image/png,image/jpeg,image/webp" onChange={(e) => {
+                const file = e.target.files?.[0];
+                e.target.value = "";
+                if (!file) return;
+                const error = screenshotError(file);
+                if (error) { setNotice(error); return; }
+                setScreenshot(file); setNotice("");
+              }} />
+            </label>
+            {screenshot && <div className="dev-screenshot">
+              <img src={preview} alt="Bug report screenshot preview" />
+              <button onClick={() => setScreenshot(null)}>Remove screenshot</button>
+            </div>}
+            <p className="dev-muted">Review your screenshot for private information. It stays in memory until you download the email draft.</p>
+            <div className="dev-actions">
+              <button disabled={!summary.trim()} onClick={draft}>Download email with attachments</button>
+              <button disabled={!summary.trim()} onClick={() => {
+                location.href = `mailto:${reportRecipient}?subject=${encodeURIComponent("AROWGO bug: " + summary)}&body=${encodeURIComponent(buildReport())}`;
+                setNotice("Email composer requested. Browser email links cannot attach screenshots; attach your image manually or use the downloaded email draft.");
+              }}>Open email app</button>
+            </div>
             <p className="dev-muted">
               Includes screen size, route, level version and error count. No
               account data, balances, tokens, save files or console messages are

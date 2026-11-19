@@ -40,6 +40,21 @@ test("movable developer dock persists, exports safe reports and isolates sandbox
   expect(report.summary).toBe("Arrow did not move");
   expect(report.context.route).toBe("home");
   expect(raw).not.toContain("accountId");
+  await panel.getByLabel("Add screenshot", { exact: false }).setInputFiles({
+    name: "screen.png", mimeType: "image/png",
+    buffer: Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a9u0AAAAASUVORK5CYII=", "base64"),
+  });
+  await expect(panel.getByAltText("Bug report screenshot preview")).toBeVisible();
+  const emailDownload = page.waitForEvent("download");
+  await panel.getByRole("button", { name: "Download email with attachments" }).click();
+  const email = await emailDownload;
+  expect(email.suggestedFilename()).toBe("arowgo-bug-report.eml");
+  let mime = "";
+  for await (const chunk of (await email.createReadStream())!) mime += chunk.toString();
+  expect(mime).toContain("To: interfrozt.vym@gmail.com");
+  expect(mime).toContain('filename="screenshot.png"');
+  await panel.getByRole("button", { name: "Remove screenshot" }).click();
+  await expect(panel.getByAltText("Bug report screenshot preview")).toHaveCount(0);
   await panel.getByRole("button", { name: "Tools", exact: true }).click();
   const before = await page.evaluate(() =>
     Object.fromEntries(

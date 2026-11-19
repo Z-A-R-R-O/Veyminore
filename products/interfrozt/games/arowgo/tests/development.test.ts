@@ -52,3 +52,17 @@ it("sandbox practice never awards currency or writes campaign storage", () => {
   expect(c.state.bestStars).toBe(0);
   expect([...data.keys()].every((k) => k.startsWith("sandbox"))).toBe(true);
 });
+import { emailDraft, screenshotError } from "../src/dev/email";
+it("creates an addressed draft with UTF-8 report and exact screenshot bytes", async () => {
+  const bytes = new Uint8Array([137,80,78,71]);
+  const file = {type:"image/png",size:4,arrayBuffer:async()=>bytes.buffer} as File;
+  const draft = await emailDraft("Broken → arrow\r\nBcc: evil", "Details →", file);
+  expect(draft).toContain("To: interfrozt.vym@gmail.com\r\n");
+  expect(draft).toContain("X-Unsent: 1");
+  expect(draft).toContain('filename="screenshot.png"');
+  expect(draft).toContain("iVBORw==");
+  expect(draft).not.toContain("\r\nBcc:");
+  expect(screenshotError({type:"image/svg+xml",size:4})).toBeTruthy();
+  expect(screenshotError({type:"image/png",size:6*1024*1024})).toBeTruthy();
+  expect(await emailDraft("Bug", "Report", null)).not.toContain("screenshot.");
+});
