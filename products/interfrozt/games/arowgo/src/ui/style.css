@@ -6297,3 +6297,25 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .countdown-badge[data-urgent="true"] .countdown-aura { animation: none; opacity: .24; }
 }
+/* Hold inspection is neutral: route visibility is not a move recommendation. */
+.hold-preview { position:absolute; inset:0; z-index:5; pointer-events:none; animation:hold-preview-in 180ms ease-out both; }
+.hold-preview[data-closing="true"] { animation:hold-preview-out 150ms ease-in both; }
+.preview-selected,.preview-linked,.preview-blocker {fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.preview-selected {stroke:#9277e8;stroke-width:29;opacity:.38;}
+.preview-linked {stroke:#9573c8;stroke-width:26;stroke-dasharray:3 10;opacity:.65;}
+.preview-blocker {stroke:#e7a444;stroke-width:28;opacity:.6;}
+.preview-route {fill:none;stroke:#7953b1;stroke-width:5;stroke-dasharray:7 9;stroke-linecap:round;animation:preview-route-flow 1.6s linear infinite;}
+.preview-stop circle {fill:#fff5df;stroke:#b77922;stroke-width:3;}
+.preview-stop path {stroke:#b77922;stroke-width:3;stroke-linecap:round;}
+.preview-change {fill:none;stroke:#9277ce;stroke-width:3;stroke-dasharray:3 5;}
+.preview-change-keg {stroke:#c68a2e;}
+.preview-change-ice {stroke:#628ab9;}
+.hold-preview .path-preview-label {bottom:1.5%;left:3%;right:3%;padding:4px 5px;border-radius:10px;box-shadow:0 3px 12px #59358016;font-size:clamp(10px,2.5cqw,12px);line-height:1.2;}
+.path-preview-label strong,.path-preview-label span {display:block;}
+.path-preview-label strong {font-weight:700;}
+.path-preview-label span {margin-top:2px;font-size:.92em;}
+@keyframes hold-preview-in {from {opacity:0;}to {opacity:1;}}
+@keyframes hold-preview-out {from {opacity:1;}to {opacity:0;}}
+@keyframes preview-route-flow {to {stroke-dashoffset:-32;}}
+.hold-preview[data-reduced="true"],.hold-preview[data-reduced="true"] * {animation:none!important;}
+@media(prefers-reduced-motion:reduce){.hold-preview,.hold-preview * {animation:none!important;}}

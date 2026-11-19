@@ -7,14 +7,8 @@ import {
 } from "react";
 import Phaser from "phaser";
 import { roundedPath, snake, length, type Point } from "./arrowGeometry";
-import {
-  timingOpen,
-  hasTiming,
-  checkExit,
-  direction,
-  solve,
-  type Level,
-} from "../domain/rules";
+import { timingOpen, direction, type Level } from "../domain/rules";
+import { inspectArrow } from "../domain/preview";
 import type { Outcome } from "../application/session";
 export interface BoardHandle {
   animate: (outcome: Outcome) => void;
@@ -144,7 +138,7 @@ export function Board({
       if (!document.hidden) timer = setTimeout(nudge, 20000);
     };
     const nudge = () => {
-      if (document.querySelector('[role="dialog"]')) {
+      if (press.current?.held || document.querySelector('[role="dialog"]')) {
         reset();
         return;
       }
@@ -234,9 +228,12 @@ export function Board({
       }}
     >
       <div ref={host} className="canvas-host" />
-      {preview && !disabled && (
-        <PathPreview level={level} active={active} id={preview} />
-      )}
+      <PathPreview
+        level={level}
+        active={active}
+        id={disabled ? null : preview}
+        reduced={reduced}
+      />
       <div
         className="accessible-arrows"
         role="group"
@@ -652,13 +649,13 @@ class PuzzleScene extends Phaser.Scene {
         badge.innerHTML =
           arrow.deadline !== undefined
             ? `<g class="countdown-badge" data-urgent="${remaining <= 3}">
-                <circle class="countdown-aura" r="25" fill="${remaining <= 3 ? '#ff647c' : '#ffc35c'}" opacity=".16"/>
-                <circle cy="2" r="22" fill="${remaining <= 3 ? '#802341' : '#925020'}"/>
-                <circle r="21" fill="${remaining <= 3 ? '#f0617e' : '#ffcc76'}" stroke="#fff7df" stroke-width="1.5"/>
-                <circle r="17.5" fill="${remaining <= 3 ? '#c12d53' : '#b96320'}"/>
+                <circle class="countdown-aura" r="25" fill="${remaining <= 3 ? "#ff647c" : "#ffc35c"}" opacity=".16"/>
+                <circle cy="2" r="22" fill="${remaining <= 3 ? "#802341" : "#925020"}"/>
+                <circle r="21" fill="${remaining <= 3 ? "#f0617e" : "#ffcc76"}" stroke="#fff7df" stroke-width="1.5"/>
+                <circle r="17.5" fill="${remaining <= 3 ? "#c12d53" : "#b96320"}"/>
                 <path d="M-14-7Q0-20 14-7Q8-15 0-15Q-8-15-14-7" fill="#fff" opacity=".45"/>
-                <circle r="19" fill="none" stroke="${remaining <= 3 ? '#ffb2c0' : '#ffe8ad'}" stroke-width="2.5" stroke-dasharray="${Math.max(0, Math.min(1, remaining / arrow.deadline!)) * 119.4} 119.4" transform="rotate(-90)" stroke-linecap="round"/>
-                <text text-anchor="middle" dominant-baseline="central" y="1" font-family="Arial, sans-serif" font-size="${remaining >= 10 ? 23 : 28}" font-weight="900" fill="#fffdf5" stroke="${remaining <= 3 ? '#8b173a' : '#844217'}" stroke-width="1" paint-order="stroke">${Math.max(0, remaining)}</text>
+                <circle r="19" fill="none" stroke="${remaining <= 3 ? "#ffb2c0" : "#ffe8ad"}" stroke-width="2.5" stroke-dasharray="${Math.max(0, Math.min(1, remaining / arrow.deadline!)) * 119.4} 119.4" transform="rotate(-90)" stroke-linecap="round"/>
+                <text text-anchor="middle" dominant-baseline="central" y="1" font-family="Arial, sans-serif" font-size="${remaining >= 10 ? 23 : 28}" font-weight="900" fill="#fffdf5" stroke="${remaining <= 3 ? "#8b173a" : "#844217"}" stroke-width="1" paint-order="stroke">${Math.max(0, remaining)}</text>
               </g>`
             : `<circle r="17" fill="${anchored ? "#e3e9e7" : "#fff0ae"}" stroke="${anchored ? "#708780" : "#bd821f"}" stroke-width="2.5"/><g class="anchor-symbol" transform="rotate(${anchored ? 0 : 180})" stroke="${anchored ? "#526c64" : "#875215"}"><circle cy="-8" r="3" fill="none" stroke-width="2.5"/><path d="M0-5V11M-6-1H6M-10 4Q-10 12 0 12Q10 12 10 4M-10 4l-2 5M10 4l2 5" fill="none" stroke-width="3" stroke-linecap="round"/></g>`;
         element.append(badge);
@@ -938,83 +935,126 @@ function PathPreview({
   level,
   active,
   id,
+  reduced,
 }: {
   level: Level;
   active: string[];
-  id: string;
+  id: string | null;
+  reduced: boolean;
 }) {
-  const arrow = level.arrows.find((a) => a.id === id)!;
-  const exit = checkExit(level, active, id),
-    [dx, dy] = direction(arrow);
-  const cell = 480 / level.board.columns,
-    coord = (n: number) => 60 + (n + 0.5) * cell;
+  const [last, setLast] = useState<string | null>(null);
+  useEffect(() => {
+    if (id) {
+      setLast(id);
+      return;
+    }
+    const timer = setTimeout(() => setLast(null), reduced ? 0 : 150);
+    return () => clearTimeout(timer);
+  }, [id, reduced, level]);
+  const shown = id ?? last;
+  if (!shown || !active.includes(shown)) return null;
+  const arrow = level.arrows.find((a) => a.id === shown)!;
+  const { exit, route, sources, linked, changes, title, effects } =
+    inspectArrow(level, active, shown);
+  const [dx, dy] = direction(arrow),
+    cell = 480 / level.board.columns;
+  const coord = (n: number) => 60 + (n + 0.5) * cell;
+  const path = (arrowId: string) =>
+    roundedPath(
+      level.arrows
+        .find((a) => a.id === arrowId)!
+        .points.map(([a, b]) => [coord(a), coord(b)] as Point),
+    );
   const head = arrow.points.at(-1)!,
     x = coord(head[0]),
     y = coord(head[1]);
-  const target = exit.clear
+  const target = route.clear
     ? [dx > 0 ? 590 : dx < 0 ? 10 : x, dy > 0 ? 590 : dy < 0 ? 10 : y]
-    : exit.reason
-      ? null
-      : [coord(exit.cell[0]), coord(exit.cell[1])];
-  const blocker = !exit.clear
-    ? level.arrows.find((a) => a.id === exit.blocker)
-    : undefined;
-  const message = exit.clear
-    ? hasTiming(level) &&
-      !solve(
-        level,
-        active.filter((a) => a !== id),
-      )
-      ? "Clear path, but no winning route remains after this move."
-      : "Clear path. Release, then tap to move."
-    : exit.reason === "frozen"
-      ? "Clear other arrows to thaw this ice seal."
-      : exit.reason === "phase"
-        ? "Gate closed. Clear one other arrow to switch the aurora."
-        : exit.reason === "anchored"
-          ? "Clear the highlighted anchor first."
-          : exit.reason === "locked"
-            ? "Clear the highlighted key first."
-            : "This arrow blocks the path.";
+    : !route.reason
+      ? [coord(route.cell[0]), coord(route.cell[1])]
+      : null;
+  const detail = changes
+    .map((c) =>
+      c.kind === "phase"
+        ? `Phase ${c.before ? "open" : "closed"} to ${c.after ? "open" : "closed"}`
+        : `${c.kind === "keg" ? "Countdown" : "Ice"} ${c.before} to ${c.after}`,
+    )
+    .join(". ");
   return (
-    <>
+    <div
+      className="hold-preview"
+      data-closing={!id}
+      data-reduced={reduced}
+      aria-hidden={!id}
+    >
       <svg className="path-preview" viewBox="0 0 600 600" aria-hidden="true">
-        <path
-          d={roundedPath(
-            arrow.points.map(([a, b]) => [coord(a), coord(b)] as Point),
-          )}
-          fill="none"
-          stroke="#439dca"
-          strokeWidth="25"
-          opacity=".35"
-          strokeLinecap="round"
-        />
+        <path d={path(shown)} className="preview-selected" />
+        {[...new Set([...sources, ...linked])].map((link) => (
+          <path
+            key={link}
+            data-preview-link={link}
+            d={path(link)}
+            className="preview-linked"
+          />
+        ))}
+        {!exit.clear && exit.blocker !== shown && (
+          <path
+            d={path(exit.blocker)}
+            className="preview-blocker"
+            data-preview-blocker={exit.blocker}
+          />
+        )}
         {target && (
           <path
+            className="preview-route"
             d={`M ${x} ${y} L ${target[0]} ${target[1]}`}
-            fill="none"
-            stroke={exit.clear ? "#25896b" : "#ca6a31"}
-            strokeWidth="5"
-            strokeDasharray="7 7"
-            strokeLinecap="round"
           />
         )}
-        {blocker && (
+        {target && !route.clear && (
+          <g
+            className="preview-stop"
+            transform={`translate(${target[0]},${target[1]})`}
+          >
+            <circle r="14" />
+            <path d="M-5-5L5 5M5-5L-5 5" />
+          </g>
+        )}
+        {!route.clear && (exit.clear || exit.blocker !== route.blocker) && (
           <path
-            d={roundedPath(
-              blocker.points.map(([a, b]) => [coord(a), coord(b)] as Point),
-            )}
-            fill="none"
-            stroke="#e1a630"
-            strokeWidth="27"
-            opacity=".65"
-            strokeLinecap="round"
+            d={path(route.blocker)}
+            className="preview-blocker"
+            data-preview-blocker={route.blocker}
           />
         )}
+        {changes.map((c) => {
+          const a = level.arrows.find((a) => a.id === c.id)!,
+            p = a.points[0];
+          return (
+            <circle
+              key={c.id + c.kind}
+              className={`preview-change preview-change-${c.kind}`}
+              data-preview-change={c.kind}
+              data-before={c.before}
+              data-after={c.after}
+              cx={coord(p[0])}
+              cy={coord(p[1])}
+              r="24"
+            >
+              <title>
+                {c.kind}: {c.before} → {c.after}
+              </title>
+            </circle>
+          );
+        })}
       </svg>
-      <div className="path-preview-label" role="status">
-        {message}
+      <div
+        className="path-preview-label"
+        role={id ? "status" : undefined}
+        aria-label={`${title}. ${effects ? "After this removal: " + effects + ". " + detail : "Release to dismiss. Tap separately to move."}`}
+      >
+        <strong>{title}</strong>
+        <span>{effects || "Release to dismiss · Tap separately to move"}</span>
       </div>
-    </>
+    </div>
   );
 }

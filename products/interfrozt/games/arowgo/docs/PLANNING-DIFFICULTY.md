@@ -12,7 +12,7 @@ A dependency chain makes an arrow harder to locate but does not make any legal c
 - Levels 15–24: one barrel with progressively more selective move ordering, combined with existing keys and the anchor introduction at 24.
 - Levels 25–40: two meaningful deadlines. Players must coordinate their prerequisite routes. Removing either deadline measurably makes each puzzle easier.
 
-The barrel number includes its own removal. Every successful removal, including Erase, consumes one move. Blocked taps and hints do not. There is no countdown while thinking. A clear path can still be the wrong choice; the existing hold preview warns of a stranded route, hints choose a safe continuation, and failure explains an expired or unreachable barrel. Existing hearts, snake movement and star timing are unchanged.
+The barrel number includes its own removal. Every successful removal, including Erase, consumes one move. Blocked taps and hints do not. There is no countdown while thinking. A clear path can still be the wrong choice; the hold preview shows only observable routes and immediate mechanic changes, hints choose a safe continuation, and failure explains an expired or unreachable barrel. Existing hearts, snake movement and star timing are unchanged.
 
 ## Generator and acceptance criteria
 

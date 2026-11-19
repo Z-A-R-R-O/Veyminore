@@ -17,7 +17,7 @@ test("holding previews without moving or saving; tapping still moves", async ({
   await page.mouse.move(x, y);
   await page.mouse.down();
   await expect(page.locator(".path-preview")).toBeVisible();
-  await page.screenshot({ path: "docs/verification/hold-preview.png" });
+  await page.screenshot({ path: "tmp/hold-preview.png" });
   await page.mouse.up();
   await expect(page.locator(".path-preview")).toHaveCount(0);
   await expect(a).toHaveCount(1);
@@ -46,7 +46,9 @@ test("blocked preview names obstacle without costing a heart", async ({
   await e.focus();
   await page.keyboard.down("p");
   await expect(
-    page.getByRole("status").filter({ hasText: "This arrow blocks the path." }),
+    page
+      .getByRole("status")
+      .filter({ hasText: "Path blocked · obstacle highlighted" }),
   ).toBeVisible();
   await page.keyboard.up("p");
   await expect(e).toHaveCount(1);
@@ -73,7 +75,7 @@ test("touch hold previews a required key and release does not move", async ({
   await expect(
     page
       .getByRole("status")
-      .filter({ hasText: "Clear the highlighted key first." }),
+      .filter({ hasText: "Locked · matching key highlighted" }),
   ).toBeVisible();
   await client.send("Input.dispatchTouchEvent", {
     type: "touchEnd",
