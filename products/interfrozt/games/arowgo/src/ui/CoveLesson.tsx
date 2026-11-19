@@ -89,7 +89,7 @@ export function CoveLesson({
         <h1>{kind === "anchors" ? "Weigh anchor" : "Mind the powder"}</h1>
         <p>
           {kind === "anchors"
-            ? "Clear the gold anchor on the left to release both silver anchors. Hold an arrow to see its connection."
+            ? "Clear the upside-down gold anchor on the left to release both upright silver anchors. Hold an arrow to see its connection."
             : "The barrel has two moves to leave. Clear the horizontal arrow above it, then the barrel. Every successful removal uses one move; blocked taps do not. Think as long as you like."}
         </p>
         <div className="snake-lesson-board">

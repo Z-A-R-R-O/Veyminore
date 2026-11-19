@@ -614,7 +614,7 @@ class PuzzleScene extends Phaser.Scene {
         badge.innerHTML =
           arrow.deadline !== undefined
             ? `<circle r="23" fill="#fff3ca" stroke="#a55725" stroke-width="2"/><rect x="-20" y="-20" width="40" height="40" rx="10" fill="${remaining <= 3 ? "#a73535" : "#8c481b"}"/><path d="M-13-16h26M-13 16h26" stroke="#f5cb80" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Arial" font-size="30" font-weight="bold" fill="#fffdf5">${remaining}</text>`
-            : `<circle r="17" fill="${anchored ? "#d4e5db" : "#fff5cf"}" stroke="#376b60" stroke-width="2"/><circle cy="-8" r="3" fill="none" stroke="#286858" stroke-width="2.5"/><path d="M0-5V11M-6-1H6M-10 4Q-10 12 0 12Q10 12 10 4M-10 4l-2 5M10 4l2 5" fill="none" stroke="#286858" stroke-width="3" stroke-linecap="round"/>`;
+            : `<circle r="17" fill="${anchored ? "#e3e9e7" : "#fff0ae"}" stroke="${anchored ? "#708780" : "#bd821f"}" stroke-width="2.5"/><g class="anchor-symbol" transform="rotate(${anchored ? 0 : 180})" stroke="${anchored ? "#526c64" : "#875215"}"><circle cy="-8" r="3" fill="none" stroke-width="2.5"/><path d="M0-5V11M-6-1H6M-10 4Q-10 12 0 12Q10 12 10 4M-10 4l-2 5M10 4l2 5" fill="none" stroke-width="3" stroke-linecap="round"/></g>`;
         element.append(badge);
       }
       if (highlighted && !this.reduced) {
