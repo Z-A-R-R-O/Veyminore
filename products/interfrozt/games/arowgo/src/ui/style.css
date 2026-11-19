@@ -4758,7 +4758,8 @@ main {
   height: 100%;
   aspect-ratio: auto;
   min-height: 0;
-  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png") center / cover;
+  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png")
+    center / cover;
 }
 .valley-map-scroll .valley-stop {
   width: clamp(44px, 7vh, 64px);
@@ -4779,7 +4780,8 @@ main {
 }
 /* One continuous world scene; controls remain in viewport-sized layout tracks. */
 .worlds-screen {
-  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png") center / 100% 100%;
+  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png")
+    center / 100% 100%;
 }
 .worlds-screen > .scenery {
   display: none;
@@ -6077,8 +6079,200 @@ main {
 }
 
 /* Shared AROWGO monogram, preserving responsive header dimensions. */
-.brand-icon { overflow: hidden; flex-shrink: 0; background: #3d43ff; }
-.brand-icon img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.board { touch-action: none; user-select: none; -webkit-user-select: none; }
-.path-preview { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
-.path-preview-label { position: absolute; bottom: 3%; left: 5%; right: 5%; z-index: 6; text-align: center; border-radius: 12px; background: #fffefaed; color: #523269; border: 1px solid #d4b9e4; padding: 6px; font: 12px var(--font-reading); pointer-events: none; }
+.brand-icon {
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #3d43ff;
+}
+.brand-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.board {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.path-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+.path-preview-label {
+  position: absolute;
+  bottom: 3%;
+  left: 5%;
+  right: 5%;
+  z-index: 6;
+  text-align: center;
+  border-radius: 12px;
+  background: #fffefaed;
+  color: #523269;
+  border: 1px solid #d4b9e4;
+  padding: 6px;
+  font: 12px var(--font-reading);
+  pointer-events: none;
+}
+/* Mode-specific accents and an honest non-interactive multiplayer preview. */
+.page-modes .story-card {
+  background: linear-gradient(115deg, #fff4dcf5, #f8e0b4dc);
+  color: #6b431d;
+}
+.page-modes .story-card p,
+.page-modes .story-card .eyebrow {
+  color: #8b6339;
+}
+.page-modes .story-card .primary-button {
+  background: linear-gradient(145deg, #dbab52, #aa712c);
+  border-color: #ffe9be;
+}
+.page-modes .practice-card {
+  background: linear-gradient(115deg, #e4fff1f5, #bce9d9e8);
+  color: #245f53;
+}
+.page-modes .practice-card p,
+.page-modes .practice-card .eyebrow {
+  color: #437e6c;
+}
+.page-modes .practice-card .primary-button {
+  background: linear-gradient(145deg, #62bba1, #328571);
+  border-color: #d8ffee;
+}
+.page-modes .multiplayer-card {
+  background: linear-gradient(115deg, #e4f4fff5, #cad8f8ed);
+  color: #3d5688;
+}
+.page-modes .multiplayer-card p,
+.page-modes .multiplayer-card .eyebrow {
+  color: #586f9a;
+}
+.mode-coming-soon {
+  display: inline-flex;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border: 1px solid #b3c9e9;
+  border-radius: 20px;
+  background: #ffffffa8;
+  font-size: 12px;
+  font-weight: 700;
+  color: #536f9d;
+}
+.page-modes .mode-card {
+  padding: 16px 20px;
+}
+.page-modes .mode-card h2 {
+  margin: 3px 0;
+  font-size: 27px;
+}
+.page-modes .mode-card p {
+  font-size: 13px;
+  margin: 5px 0;
+}
+.page-modes .mode-card .primary-button {
+  margin-top: 9px;
+  min-height: 38px;
+  padding: 7px 15px;
+  font-size: 15px;
+}
+.page-modes .multiplayer-card .mode-art {
+  opacity: 1;
+  transform: none;
+  top: 50%;
+  right: 4px;
+  width: 130px;
+  height: 100px;
+  margin-top: -50px;
+}
+.multiplayer-card .mode-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (max-height: 700px) {
+  .page-modes .page-heading {
+    padding: 10px 15px;
+  }
+  .page-modes .page-heading h1 {
+    font-size: 25px;
+  }
+  .page-modes .page-heading p {
+    display: none;
+  }
+  .page-modes .mode-card {
+    padding: 9px 14px;
+  }
+  .page-modes .mode-card h2 {
+    font-size: 22px;
+  }
+  .page-modes .mode-card .eyebrow {
+    display: none;
+  }
+  .mode-coming-soon {
+    margin-top: 5px;
+    padding: 4px 12px;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .hub-content.page-modes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    width: min(100%, 1000px);
+    max-width: 1000px;
+  }
+  .page-modes .page-heading,
+  .page-modes .mechanic-lessons {
+    grid-column: 1 / -1;
+  }
+  .page-modes .mode-card p {
+    max-width: 100%;
+    font-size: 11px;
+  }
+  .page-modes .mode-art {
+    display: none;
+  }
+  .page-modes .mode-card .primary-button {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+@media (max-height: 700px) and (max-width: 599px) {
+  .hub-content.page-modes {
+    gap: 6px;
+  }
+  .page-modes .page-heading {
+    padding: 7px 12px;
+  }
+  .page-modes .page-heading .eyebrow {
+    display: none;
+  }
+  .page-modes .page-heading h1 {
+    margin: 0;
+    font-size: 23px;
+  }
+  .page-modes .mode-card p {
+    font-size: 11px;
+    line-height: 1.2;
+    margin: 3px 0;
+    max-width: 70%;
+  }
+  .page-modes .mode-card .primary-button {
+    min-height: 32px;
+    margin-top: 5px;
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .page-modes .mechanic-lessons button {
+    font-size: 10px;
+    padding: 4px;
+  }
+  .page-modes .multiplayer-card .mode-art {
+    width: 100px;
+  }
+}

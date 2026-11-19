@@ -462,6 +462,20 @@ export function Prototype() {
                 </button>
               </div>
             </section>
+            <section
+              className="mode-card multiplayer-card glass-panel"
+              aria-label="Multiplayer coming soon"
+            >
+              <span className="mode-art">
+                <img src="/assets/multiplayer-mode.webp" alt="" />
+              </span>
+              <div>
+                <span className="eyebrow">A NEW WAY TO PLAY</span>
+                <h2>Multiplayer</h2>
+                <p>A shared puzzle adventure is on the horizon.</p>
+                <span className="mode-coming-soon">Coming soon</span>
+              </div>
+            </section>
             <div className="mechanic-lessons">
               <button
                 className="text-button key-lesson-link"
