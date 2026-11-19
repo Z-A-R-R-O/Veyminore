@@ -13,6 +13,7 @@ const paths = [
   ),
   ...Array.from({ length: 20 }, (_, i) => `cove/level-${i + 21}.json`),
   ...Array.from({ length: 20 }, (_, i) => `frost/level-${i + 41}.json`),
+  ...Array.from({ length: 20 }, (_, i) => `amber/level-${i + 61}.json`),
 ];
 export const rewardLevels = paths.map((path) =>
   validateLevel(

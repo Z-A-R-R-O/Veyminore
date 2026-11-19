@@ -34,3 +34,5 @@ Account work has started: [B01 implementation and remaining integration gates](A
 - [Frostfall timing mechanics and safe migration](FROSTFALL-TIMING.md).
 
 - [Development mode, draggable dock and local bug reports](DEVELOPMENT-MODE.md).
+
+- [Amber Dunes — Levels 61–80](AMBER-DUNES.md): content, assets, difficulty measurements, cloud compatibility and validation.

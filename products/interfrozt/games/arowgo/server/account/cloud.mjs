@@ -1,4 +1,10 @@
-import { gzipSync, gunzipSync } from "node:zlib";
+import {
+  gzipSync,
+  gunzipSync,
+  brotliCompressSync,
+  brotliDecompressSync,
+  constants,
+} from "node:zlib";
 import { createHash } from "node:crypto";
 import { AuthError } from "./service.mjs";
 const allowed =
@@ -42,9 +48,15 @@ export function packSnapshot(value) {
   const json = JSON.stringify(snapshot);
   const packed = {
     encoding: "gzip-base64",
-    data: gzipSync(json).toString("base64"),
+    data: gzipSync(json, { level: 9 }).toString("base64"),
     hash: createHash("sha256").update(json).digest("hex"),
   };
+  if (Buffer.byteLength(JSON.stringify(packed)) > 8000) {
+    packed.encoding = "brotli-base64";
+    packed.data = brotliCompressSync(json, {
+      params: { [constants.BROTLI_PARAM_QUALITY]: 6 },
+    }).toString("base64");
+  }
   if (Buffer.byteLength(JSON.stringify(packed)) > 8000)
     throw new AuthError(413, "save-too-large");
   return packed;
@@ -52,12 +64,14 @@ export function packSnapshot(value) {
 export function unpackSnapshot(packed) {
   try {
     if (
-      packed?.encoding !== "gzip-base64" ||
+      !["gzip-base64", "brotli-base64"].includes(packed?.encoding) ||
       typeof packed.data !== "string" ||
       packed.data.length > 11000
     )
       throw Error();
-    const json = gunzipSync(Buffer.from(packed.data, "base64"), {
+    const decode =
+      packed.encoding === "brotli-base64" ? brotliDecompressSync : gunzipSync;
+    const json = decode(Buffer.from(packed.data, "base64"), {
       maxOutputLength: 512 * 1024,
     }).toString();
     if (createHash("sha256").update(json).digest("hex") !== packed.hash)

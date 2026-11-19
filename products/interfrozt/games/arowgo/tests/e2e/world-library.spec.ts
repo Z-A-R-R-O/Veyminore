@@ -28,7 +28,7 @@ test("world name list locks future destinations and compact arrows page the map"
       }),
     ).toBeDisabled();
     await expect(
-      dialog.getByRole("button", { name: "Amber Dunes — coming soon, locked" }),
+      dialog.getByRole("button", { name: "Amber Dunes — complete Frostfall Peaks to unlock" }),
     ).toBeDisabled();
     await expect(dialog.locator("img")).toHaveCount(0);
     expect(
@@ -38,7 +38,7 @@ test("world name list locks future destinations and compact arrows page the map"
     expect(box.y).toBeGreaterThanOrEqual(0);
     expect(box.y + box.height).toBeLessThanOrEqual(height);
     await page.screenshot({
-      path: `docs/verification/world-library-${width}.png`,
+      path: `tmp/world-library-${width}.png`,
       scale: "css",
     });
     await page.keyboard.press("Escape");
@@ -57,7 +57,7 @@ test("world name list locks future destinations and compact arrows page the map"
     await page.getByRole("button", { name: "Previous levels" }).click();
     await expect(page.locator(".map-pager")).toContainText("Levels 1–10");
     await page.screenshot({
-      path: `docs/verification/world-clean-${width}.png`,
+      path: `tmp/world-clean-${width}.png`,
       scale: "css",
     });
   }

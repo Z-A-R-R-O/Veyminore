@@ -321,6 +321,7 @@ export function App({
         rich={motion.rich}
         cove={levelNumber > 20}
         frost={levelNumber > 40}
+        amber={levelNumber > 60}
       />
       <header className="topbar" inert={modalOpen || resultVisible}>
         <a
@@ -376,7 +377,9 @@ export function App({
               ? "Discover the mechanic"
               : levelNumber > 20
                 ? levelNumber > 40
-                  ? "World 3 · Frostfall Peaks"
+                  ? levelNumber > 60
+                    ? "World 4 · Amber Dunes"
+                    : "World 3 · Frostfall Peaks"
                   : "World 2 · Verdant Cove"
                 : "World 1 · Bloom Valley"}{" "}
             <span />

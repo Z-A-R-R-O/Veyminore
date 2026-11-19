@@ -1,3 +1,23 @@
+import amber0 from "../../content/levels/amber/level-61.json";
+import amber1 from "../../content/levels/amber/level-62.json";
+import amber2 from "../../content/levels/amber/level-63.json";
+import amber3 from "../../content/levels/amber/level-64.json";
+import amber4 from "../../content/levels/amber/level-65.json";
+import amber5 from "../../content/levels/amber/level-66.json";
+import amber6 from "../../content/levels/amber/level-67.json";
+import amber7 from "../../content/levels/amber/level-68.json";
+import amber8 from "../../content/levels/amber/level-69.json";
+import amber9 from "../../content/levels/amber/level-70.json";
+import amber10 from "../../content/levels/amber/level-71.json";
+import amber11 from "../../content/levels/amber/level-72.json";
+import amber12 from "../../content/levels/amber/level-73.json";
+import amber13 from "../../content/levels/amber/level-74.json";
+import amber14 from "../../content/levels/amber/level-75.json";
+import amber15 from "../../content/levels/amber/level-76.json";
+import amber16 from "../../content/levels/amber/level-77.json";
+import amber17 from "../../content/levels/amber/level-78.json";
+import amber18 from "../../content/levels/amber/level-79.json";
+import amber19 from "../../content/levels/amber/level-80.json";
 import frost0 from "../../content/levels/frost/level-41.json";
 import frost1 from "../../content/levels/frost/level-42.json";
 import frost2 from "../../content/levels/frost/level-43.json";
@@ -120,6 +140,28 @@ export const levels = [
     frost18,
     frost19,
   ].map(validateLevel),
+  ...[
+    amber0,
+    amber1,
+    amber2,
+    amber3,
+    amber4,
+    amber5,
+    amber6,
+    amber7,
+    amber8,
+    amber9,
+    amber10,
+    amber11,
+    amber12,
+    amber13,
+    amber14,
+    amber15,
+    amber16,
+    amber17,
+    amber18,
+    amber19,
+  ].map(validateLevel),
 ];
 export const levelNames = [
   ...originalNames,
@@ -173,4 +215,24 @@ export const levelNames = [
   "Summit strategy",
   "Last light",
   "Crown of winter",
+  "Golden arrival",
+  "Oasis crossing",
+  "Sunlit locks",
+  "Dune currents",
+  "Saffron steps",
+  "Mirage passage",
+  "Sandstone rhythm",
+  "Caravan crossing",
+  "Amber hour",
+  "Oasis sentinel",
+  "Temple approach",
+  "Shifting shadows",
+  "Sun and moon",
+  "Hidden aqueduct",
+  "Gilded maze",
+  "Sands of time",
+  "Solar ascent",
+  "Last caravan",
+  "Temple strategy",
+  "Crown of the dunes",
 ];

@@ -5,7 +5,7 @@ import { evaluatePlanning } from "../src/domain/planning";
 import { newSession, resolve } from "../src/application/session";
 import { packSnapshot, unpackSnapshot } from "../server/account/cloud.mjs";
 it("Frostfall puzzles have distinct geometry and consequential planning choices", () => {
-  const frost = levels.slice(40);
+  const frost = levels.slice(40,60);
   const signatures = new Set();
   for (const level of frost) {
     signatures.add(JSON.stringify(level.arrows.map((a) => a.points)));
@@ -23,7 +23,7 @@ it("Frostfall puzzles have distinct geometry and consequential planning choices"
   }
   expect(signatures.size).toBe(20);
 }, 30000);
-it("all sixty completed saves with recovery copies fit cloud storage and round-trip unchanged", () => {
+it("all eighty completed saves with recovery copies fit cloud storage and round-trip unchanged", () => {
   const entries = levels.flatMap((level, i) => {
     let state = newSession(level, `restore-${i}`);
     for (const id of level.solution)
@@ -47,6 +47,8 @@ it("all sixty completed saves with recovery copies fit cloud storage and round-t
     entries,
   };
   const packed = packSnapshot(snapshot);
+  expect(packed.encoding).toBe("brotli-base64");
+  expect(() => unpackSnapshot({...packed, hash:"corrupt"})).toThrow("invalid-cloud-save");
   expect(Buffer.byteLength(JSON.stringify(packed))).toBeLessThanOrEqual(8000);
   expect(unpackSnapshot(packed).entries).toEqual(
     [...entries].sort((a, b) => a.key.localeCompare(b.key)),

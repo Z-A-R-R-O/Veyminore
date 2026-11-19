@@ -86,17 +86,20 @@ test("existing 40 saves unlock Frostfall; all 20 levels complete and reload safe
     ).toBeVisible();
     await page
       .getByRole("button", {
-        name: i === 19 ? "Adventure complete" : "Next level",
+        name: "Next level",
         exact: true,
       })
       .click();
   }
   await expect(
-    page.getByRole("heading", { name: "Frostfall Peaks cleared!" }),
+    page.getByRole("heading", { name: "Level 61", exact: true }),
   ).toBeVisible();
   await page.reload();
   await expect(page.getByLabel("1500 total coins")).toBeVisible();
-  await expect(page.getByLabel("180 of 180 stars")).toBeVisible();
+  await page.goto("/#worlds");
+  await expect(
+    page.getByRole("heading", { name: "Amber Dunes", exact: true }),
+  ).toBeVisible();
 });
 test("Frostfall map fits small phones and wide screens without hiding level controls", async ({
   page,

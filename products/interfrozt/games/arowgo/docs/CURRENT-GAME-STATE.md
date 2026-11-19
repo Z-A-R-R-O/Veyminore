@@ -1,3 +1,5 @@
+> Campaign update: [Amber Dunes, Levels 61–80](AMBER-DUNES.md) adds a fourth playable world. Current totals: 80 levels, 240 stars, 2,000 first-clear coins. Earlier counts below are historical.
+
 > Latest difficulty update: [Levels 40–60, content 11](LEVELS-40-60-HARDENING.md) increase move-order planning while preserving earned rewards and prior saves.
 
 > Latest update: [Ice Seals and Aurora Gates, content 10](FROSTFALL-TIMING.md) replace the original Frostfall puzzles with harder timing challenges. Earlier content-9 details below are historical.

@@ -4,11 +4,26 @@ export function Scenery({
   rich,
   cove = false,
   frost = false,
+  amber = false,
 }: {
   rich: boolean;
   cove?: boolean;
   frost?: boolean;
+  amber?: boolean;
 }) {
+  if (amber)
+    return (
+      <div className="scenery amber-scenery" aria-hidden="true">
+        <picture>
+          <source
+            media="(min-aspect-ratio: 4/3)"
+            srcSet="/assets/amber-dunes-wide.webp"
+          />
+          <img src="/assets/amber-dunes.webp" alt="" />
+        </picture>
+        <div className="scenery-wash" />
+      </div>
+    );
   if (frost)
     return (
       <div className="scenery frost-scenery" aria-hidden="true">

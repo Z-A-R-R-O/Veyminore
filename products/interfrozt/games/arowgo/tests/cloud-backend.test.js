@@ -201,3 +201,11 @@ describe("cloud persistence", () => {
     expect(cloud.load).toHaveBeenCalledWith("secret");
   });
 });
+import { gzipSync } from "node:zlib";
+import { createHash } from "node:crypto";
+it("continues to read previously stored gzip payloads exactly", () => {
+ const json=JSON.stringify(snapshot);
+ const old={encoding:"gzip-base64",data:gzipSync(json).toString("base64"),hash:createHash("sha256").update(json).digest("hex")};
+ expect(unpackSnapshot(old)).toEqual(snapshot);
+ expect(()=>unpackSnapshot({...old,encoding:"unknown"})).toThrow("invalid-cloud-save");
+});

@@ -31,7 +31,11 @@ export function TimingGuide({
       <button
         className="timing-help"
         onClick={() => dialog.current?.showModal()}
-        aria-label="Frostfall rules"
+        aria-label={
+          level.levelId.startsWith("amber-")
+            ? "Timing rules"
+            : "Frostfall rules"
+        }
       >
         ❄ Ice seals
         {gates ? ` · ${removed % 2 === 0 ? "☀ Sun" : "☾ Moon"} phase` : ""} ·

@@ -4,6 +4,24 @@ import { GameArt } from "./elements/GameArt";
 import { Star } from "./elements/Star";
 
 type Progress = { available: boolean; cleared: boolean; stars: number };
+const worldNames = [
+  "Bloom Valley",
+  "Verdant Cove",
+  "Frostfall Peaks",
+  "Amber Dunes",
+];
+const amberStops = [
+  [68, 79],
+  [27, 70],
+  [68, 62],
+  [28, 55],
+  [68, 47],
+  [28, 40],
+  [68, 34],
+  [33, 30],
+  [61, 25],
+  [81, 23],
+].map(([x, y]) => ({ x, y }));
 const frostStops = [26, 73, 26, 73, 26, 73, 26, 73, 26, 73].map((x, i) => ({
   x,
   y: [78, 61, 47, 34, 22][Math.floor(i / 2)],
@@ -65,7 +83,7 @@ export function Worlds({
   const worldProgress = progress.slice(offset, offset + 20);
   const cleared = worldProgress.filter((p) => p.cleared).length;
   const stars = worldProgress.reduce((n, p) => n + p.stars, 0);
-  const title = ["Bloom Valley", "Verdant Cove", "Frostfall Peaks"][world];
+  const title = worldNames[world];
   return (
     <>
       <header className="valley-heading" data-world={world + 1}>
@@ -121,8 +139,8 @@ export function Worlds({
                   className={`valley-stop ${p.cleared ? "is-cleared" : ""} ${selected === i ? "is-selected" : ""}`}
                   style={
                     {
-                      "--x": `${(world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
-                      "--y": `${(world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
+                      "--x": `${(world === 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
+                      "--y": `${(world === 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
                       "--wide-x": `${coveWideStops[localIndex].x}%`,
                       "--wide-y": `${coveWideStops[localIndex].y}%`,
                     } as CSSProperties
@@ -257,7 +275,7 @@ export function Worlds({
             "Frostfall Peaks",
             "Amber Dunes",
           ].map((name, w) => {
-            const placeholder = w >= 3;
+            const placeholder = w >= worldNames.length;
             const locked = placeholder || !progress[w * 20]?.available;
             return (
               <button
@@ -270,7 +288,7 @@ export function Worlds({
                     ? name +
                       (placeholder
                         ? " — coming soon, locked"
-                        : ` — complete ${w === 2 ? "Verdant Cove" : "Bloom Valley"} to unlock`)
+                        : ` — complete ${worldNames[w - 1]} to unlock`)
                     : "Explore " + name
                 }
                 onClick={() => {
