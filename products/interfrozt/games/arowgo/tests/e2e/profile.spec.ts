@@ -65,8 +65,10 @@ test("every portrait page loads and the last character saves", async ({
 }) => {
   await page.goto("/#profile");
   await page.getByRole("button", { name: "Edit profile", exact: true }).click();
-  for (let i = 0; i < 5; i++) {
-    await expect(page.locator(".adventure-picker img")).toHaveCount(6);
+  for (let i = 0; i < 3; i++) {
+    await expect(
+      page.locator(".adventure-picker .adventure-avatar"),
+    ).toHaveCount(i === 2 ? 6 : 12);
     await expect
       .poll(() =>
         page
@@ -76,7 +78,7 @@ test("every portrait page loads and the last character saves", async ({
           ),
       )
       .toBe(true);
-    if (i < 4)
+    if (i < 2)
       await page
         .getByRole("button", { name: "Next avatars", exact: true })
         .click();
@@ -116,7 +118,7 @@ test("backgrounds preview without saving, then persist alongside the avatar", as
     .getByRole("button", { name: "Choose Fox Explorer avatar" })
     .click();
   await page.getByRole("button", { name: "Background", exact: true }).click();
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     await expect
       .poll(() =>
         page
@@ -126,7 +128,7 @@ test("backgrounds preview without saving, then persist alongside the avatar", as
           ),
       )
       .toBe(true);
-    if (i < 2)
+    if (i < 1)
       await page
         .getByRole("button", { name: "Next backgrounds", exact: true })
         .click();
@@ -159,10 +161,10 @@ test("frames preview all thirty assets and save with avatar and background", asy
     .getByRole("button", { name: "Choose Ocean Teal background" })
     .click();
   await page.getByRole("button", { name: "Frame", exact: true }).click();
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 3; i++) {
     await expect(
       page.locator('[aria-label="Choose frame"] .avatar-frame-overlay'),
-    ).toHaveCount(6);
+    ).toHaveCount(i === 2 ? 6 : 12);
     await expect
       .poll(() =>
         page
@@ -172,7 +174,7 @@ test("frames preview all thirty assets and save with avatar and background", asy
           ),
       )
       .toBe(true);
-    if (i < 4)
+    if (i < 2)
       await page
         .getByRole("button", { name: "Next frames", exact: true })
         .click();
@@ -191,7 +193,7 @@ test("frames preview all thirty assets and save with avatar and background", asy
   ).toHaveAttribute("style", /background-02/);
   await page.getByRole("button", { name: "Edit profile", exact: true }).click();
   await page.getByRole("button", { name: "Frame", exact: true }).click();
-  for (let i = 0; i < 5; i++)
+  for (let i = 0; i < 2; i++)
     await page
       .getByRole("button", { name: "Next frames", exact: true })
       .click();

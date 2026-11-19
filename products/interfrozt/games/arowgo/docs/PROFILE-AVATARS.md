@@ -21,3 +21,7 @@ Added all 30 frames from the user-supplied Ornate Fantasy Avatar Frame Collectio
 Stable IDs and names: src/storage/avatar-frames.ts. Assets: public/assets/avatars/frames/frame-01.webp through frame-30.webp. Frame overlays render above a circular portrait/background inset by 18% to fit inside the opening. The Frame category previews six at a time; No frame is available on the final page. Save writes avatar, background and frame together. All options are free; no economy changes.
 
 Old saves and unknown frame IDs safely default avatarFrame to none without resetting other fields. Frames remain device-local alongside the other profile appearance selections. Tests cover every frame ID, all image loads, save/reload, background coexistence and frame removal.
+
+## Multi-row picker update
+
+Appearance categories now show twelve options per page: four columns and three rows on taller phones, six columns and two rows on desktop and compact screens. Avatar/Background/Frame use equal-width segmented controls, a purple active state, and selection checkmarks on tiles. Paging and explicit Save remain; no save format or economy changes.

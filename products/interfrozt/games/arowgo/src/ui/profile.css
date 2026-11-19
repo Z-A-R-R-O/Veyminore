@@ -702,3 +702,168 @@
     font-size: 11px;
   }
 }
+
+/* Multi-row appearance studio: twelve choices per page. */
+.player-panel .portrait-studio {
+  padding: 14px;
+  min-height: 0;
+}
+.portrait-studio .profile-identity {
+  display: none;
+}
+.portrait-studio .avatar-category {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  background: #e7d9f17a;
+  border: 1px solid #ffffffb0;
+  border-radius: 18px;
+  margin-top: 10px;
+}
+.portrait-studio .avatar-category button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 40px;
+  padding: 6px 4px;
+  border: 0;
+  border-radius: 13px;
+  background: transparent;
+  color: #806499;
+  font-weight: 700;
+  font-size: 12px;
+  transition:
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease;
+}
+.portrait-studio .avatar-category button[aria-pressed="true"] {
+  background: linear-gradient(145deg, #c790ef, #8b4ac4);
+  color: white;
+  box-shadow:
+    0 3px 8px #8050a52b,
+    inset 0 1px 1px #fff8;
+}
+.portrait-tab-symbol {
+  font-size: 18px;
+  line-height: 1;
+}
+.portrait-studio .avatar-picker.adventure-picker {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  max-width: none;
+  margin-top: 10px;
+}
+.portrait-studio .avatar-picker.adventure-picker button {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: 44px;
+  border-radius: 16px;
+  padding: 4px;
+  background: linear-gradient(150deg, #fff9, #e9dcf75c);
+  border: 2px solid #ffffff9e;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+.portrait-studio .avatar-picker button[aria-pressed="true"] {
+  border-color: #9b53d4;
+  background: #e9ccff;
+  box-shadow: 0 0 0 2px #b783dd26;
+}
+.portrait-studio .avatar-picker button[aria-pressed="true"]::after {
+  content: "✓";
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  display: grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #8542bb;
+  color: white;
+  font-size: 11px;
+}
+.portrait-studio .profile-message {
+  margin: 4px 0 0;
+  min-height: 16px;
+}
+@media (min-width: 600px) {
+  .portrait-studio .avatar-picker.adventure-picker {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+@media (max-height: 740px) and (max-width: 599px) {
+  .portrait-studio .avatar-picker.adventure-picker {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .player-panel .portrait-studio {
+    padding: 10px;
+  }
+  .portrait-tab-symbol {
+    display: none;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .portrait-studio form {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 3px 8px;
+  }
+  .portrait-studio .avatar-category {
+    margin: 0;
+    padding: 2px;
+  }
+  .portrait-studio .avatar-category button {
+    min-height: 34px;
+    padding: 4px;
+    font-size: 11px;
+  }
+  .portrait-studio .portrait-tab-symbol {
+    display: none;
+  }
+  .portrait-studio .avatar-picker.adventure-picker {
+    grid-column: 1;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 3px;
+    margin-top: 3px;
+  }
+  .portrait-studio .avatar-picker.adventure-picker button {
+    padding: 1px;
+    min-height: 34px;
+    border-radius: 10px;
+  }
+  .portrait-studio .avatar-controls {
+    align-self: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-studio button {
+    transition: none !important;
+  }
+}
+@media (max-height: 640px) and (max-width: 599px) {
+  .player-panel .portrait-studio {
+    padding: 8px;
+  }
+  .portrait-studio .avatar-category {
+    margin-top: 5px;
+    padding: 3px;
+  }
+  .portrait-studio .avatar-category button {
+    min-height: 36px;
+  }
+  .portrait-studio .avatar-picker.adventure-picker {
+    margin-top: 6px;
+    gap: 3px;
+  }
+  .portrait-studio .avatar-controls {
+    margin-top: 5px;
+  }
+  .portrait-studio .profile-message:empty {
+    display: none;
+  }
+}

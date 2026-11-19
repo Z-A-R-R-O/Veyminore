@@ -26,7 +26,7 @@ export function ProfileEditor({
       Math.max(
         0,
         adventureAvatars.findIndex((a) => a.id === profile.avatar),
-      ) / 6,
+      ) / 12,
     ),
   );
   const [background, setBackground] = useState<AvatarBackground>(
@@ -45,7 +45,7 @@ export function ProfileEditor({
     ...avatarBackgrounds,
   ];
   return (
-    <section className="profile-editor glass-panel">
+    <section className="profile-editor glass-panel portrait-studio">
       <div className="profile-identity">
         <AvatarArt avatar={avatar} background={background} frame={frame} />
         <div>
@@ -87,6 +87,9 @@ export function ProfileEditor({
             aria-pressed={tab === "avatar"}
             onClick={() => setTab("avatar")}
           >
+            <span className="portrait-tab-symbol" aria-hidden="true">
+              ◉
+            </span>{" "}
             Avatar
           </button>
           <button
@@ -94,6 +97,9 @@ export function ProfileEditor({
             aria-pressed={tab === "background"}
             onClick={() => setTab("background")}
           >
+            <span className="portrait-tab-symbol" aria-hidden="true">
+              ▧
+            </span>{" "}
             Background
           </button>
           <button
@@ -101,6 +107,9 @@ export function ProfileEditor({
             aria-pressed={tab === "frame"}
             onClick={() => setTab("frame")}
           >
+            <span className="portrait-tab-symbol" aria-hidden="true">
+              ◇
+            </span>{" "}
             Frame
           </button>
         </div>
@@ -110,10 +119,11 @@ export function ProfileEditor({
               className="avatar-picker adventure-picker"
               aria-label="Choose avatar"
             >
-              {choices.slice(page * 6, page * 6 + 6).map((a) => (
+              {choices.slice(page * 12, page * 12 + 12).map((a) => (
                 <button
                   type="button"
                   key={a.id}
+                  title={a.name}
                   aria-label={`Choose ${a.name} avatar`}
                   aria-pressed={avatar === a.id}
                   onClick={() => {
@@ -139,12 +149,12 @@ export function ProfileEditor({
                 ‹
               </button>
               <span aria-live="polite">
-                {page + 1} / {Math.ceil(choices.length / 6)}
+                {page + 1} / {Math.ceil(choices.length / 12)}
               </span>
               <button
                 type="button"
                 aria-label="Next avatars"
-                disabled={(page + 1) * 6 >= choices.length}
+                disabled={(page + 1) * 12 >= choices.length}
                 onClick={() => setPage(page + 1)}
               >
                 ›
@@ -160,10 +170,11 @@ export function ProfileEditor({
               className="avatar-picker adventure-picker"
               aria-label="Choose background"
             >
-              {bgChoices.slice(bgPage * 6, bgPage * 6 + 6).map((b) => (
+              {bgChoices.slice(bgPage * 12, bgPage * 12 + 12).map((b) => (
                 <button
                   type="button"
                   key={b.id}
+                  title={b.name}
                   aria-label={`Choose ${b.name} background`}
                   aria-pressed={background === b.id}
                   onClick={() => {
@@ -184,11 +195,11 @@ export function ProfileEditor({
               >
                 ‹
               </button>
-              <span aria-live="polite">{bgPage + 1} / 3</span>
+              <span aria-live="polite">{bgPage + 1} / 2</span>
               <button
                 type="button"
                 aria-label="Next backgrounds"
-                disabled={bgPage === 2}
+                disabled={bgPage === 1}
                 onClick={() => setBgPage(bgPage + 1)}
               >
                 ›
@@ -205,24 +216,27 @@ export function ProfileEditor({
               className="avatar-picker adventure-picker"
               aria-label="Choose frame"
             >
-              {frameChoices.slice(framePage * 6, framePage * 6 + 6).map((f) => (
-                <button
-                  type="button"
-                  key={f.id}
-                  aria-label={`Choose ${f.name} frame`}
-                  aria-pressed={frame === f.id}
-                  onClick={() => {
-                    setFrame(f.id);
-                    setMessage("");
-                  }}
-                >
-                  <AvatarArt
-                    avatar={avatar}
-                    background={background}
-                    frame={f.id}
-                  />
-                </button>
-              ))}
+              {frameChoices
+                .slice(framePage * 12, framePage * 12 + 12)
+                .map((f) => (
+                  <button
+                    type="button"
+                    key={f.id}
+                    title={f.name}
+                    aria-label={`Choose ${f.name} frame`}
+                    aria-pressed={frame === f.id}
+                    onClick={() => {
+                      setFrame(f.id);
+                      setMessage("");
+                    }}
+                  >
+                    <AvatarArt
+                      avatar={avatar}
+                      background={background}
+                      frame={f.id}
+                    />
+                  </button>
+                ))}
             </div>
             <div className="avatar-controls">
               <button
@@ -233,11 +247,11 @@ export function ProfileEditor({
               >
                 ‹
               </button>
-              <span aria-live="polite">{framePage + 1} / 6</span>
+              <span aria-live="polite">{framePage + 1} / 3</span>
               <button
                 type="button"
                 aria-label="Next frames"
-                disabled={framePage === 5}
+                disabled={framePage === 2}
                 onClick={() => setFramePage(framePage + 1)}
               >
                 ›
