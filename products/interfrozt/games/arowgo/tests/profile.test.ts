@@ -118,3 +118,18 @@ it("background migration preserves old saves and invalid cosmetic IDs never rese
     readProfile(JSON.stringify({ ...original, avatarBackground: "invalid" })),
   ).toEqual(original);
 });
+
+it("all frames round trip and missing or invalid frame IDs preserve existing saves", async () => {
+  const { avatarFrames } = await import("../src/storage/avatar-frames");
+  const p = { ...guest(), gems: 77, name: "Keeper" };
+  const { avatarFrame: _, ...old } = p;
+  expect(readProfile(JSON.stringify(old))).toEqual(p);
+  expect(readProfile(JSON.stringify({ ...p, avatarFrame: "unknown" }))).toEqual(
+    p,
+  );
+  for (const f of avatarFrames)
+    expect(readProfile(JSON.stringify({ ...p, avatarFrame: f.id }))).toEqual({
+      ...p,
+      avatarFrame: f.id,
+    });
+});

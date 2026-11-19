@@ -1,3 +1,4 @@
+import { readAvatarFrame, type AvatarFrame } from "./avatar-frames";
 import {
   readAvatarBackground,
   type AvatarBackground,
@@ -177,6 +178,7 @@ export interface Profile {
   name: string;
   avatar: Avatar;
   avatarBackground: AvatarBackground;
+  avatarFrame: AvatarFrame;
   owned: SkinId[];
   equipped: SkinId;
   spent: number;
@@ -192,6 +194,7 @@ export const guest = (): Profile => ({
   name: "Guest",
   avatar: "world",
   avatarBackground: "none",
+  avatarFrame: "none",
   owned: ["classic"],
   equipped: "classic",
   spent: 0,
@@ -229,6 +232,7 @@ export function readProfile(raw: string | null): Profile {
         name: p.name,
         avatar: p.avatar,
         avatarBackground: readAvatarBackground(p.avatarBackground),
+        avatarFrame: readAvatarFrame(p.avatarFrame),
         owned: p.owned,
         equipped: p.equipped,
         spent: p.owned.reduce(
@@ -278,6 +282,7 @@ export function readProfile(raw: string | null): Profile {
       name: p.name,
       avatar: p.avatar,
       avatarBackground: readAvatarBackground(p.avatarBackground),
+      avatarFrame: readAvatarFrame(p.avatarFrame),
       owned: p.owned,
       equipped: p.equipped,
       spent: p.spent,

@@ -145,3 +145,62 @@ test("backgrounds preview without saving, then persist alongside the avatar", as
     /adventure-01/,
   );
 });
+
+test("frames preview all thirty assets and save with avatar and background", async ({
+  page,
+}) => {
+  await page.goto("/#profile");
+  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Choose Fox Explorer avatar" })
+    .click();
+  await page.getByRole("button", { name: "Background", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Choose Ocean Teal background" })
+    .click();
+  await page.getByRole("button", { name: "Frame", exact: true }).click();
+  for (let i = 0; i < 5; i++) {
+    await expect(
+      page.locator('[aria-label="Choose frame"] .avatar-frame-overlay'),
+    ).toHaveCount(6);
+    await expect
+      .poll(() =>
+        page
+          .locator('[aria-label="Choose frame"] .avatar-frame-overlay')
+          .evaluateAll((imgs) =>
+            imgs.every((im) => (im as HTMLImageElement).naturalWidth > 0),
+          ),
+      )
+      .toBe(true);
+    if (i < 4)
+      await page
+        .getByRole("button", { name: "Next frames", exact: true })
+        .click();
+  }
+  await page
+    .getByRole("button", { name: "Choose Shadow Crystal frame", exact: true })
+    .click();
+  await page.screenshot({ path: `tmp/frames-${test.info().project.name}.png` });
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await page.reload();
+  await expect(
+    page.locator(".player-avatar .avatar-frame-overlay"),
+  ).toHaveAttribute("src", /frame-30/);
+  await expect(
+    page.locator(".player-avatar .adventure-avatar"),
+  ).toHaveAttribute("style", /background-02/);
+  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
+  await page.getByRole("button", { name: "Frame", exact: true }).click();
+  for (let i = 0; i < 5; i++)
+    await page
+      .getByRole("button", { name: "Next frames", exact: true })
+      .click();
+  await page
+    .getByRole("button", { name: "Choose No frame frame", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await page.reload();
+  await expect(
+    page.locator(".player-avatar .avatar-frame-overlay"),
+  ).toHaveCount(0);
+});

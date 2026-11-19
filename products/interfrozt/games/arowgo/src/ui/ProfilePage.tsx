@@ -44,6 +44,7 @@ export function ProfilePage({
           <AvatarArt
             avatar={profile.avatar}
             background={profile.avatarBackground}
+            frame={profile.avatarFrame}
           />
         </div>
         <div className="player-name">

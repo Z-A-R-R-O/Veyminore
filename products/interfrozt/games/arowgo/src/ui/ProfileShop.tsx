@@ -1,3 +1,4 @@
+import { avatarFrames, type AvatarFrame } from "../storage/avatar-frames";
 import {
   avatarBackgrounds,
   type AvatarBackground,
@@ -31,7 +32,13 @@ export function ProfileEditor({
   const [background, setBackground] = useState<AvatarBackground>(
     profile.avatarBackground,
   );
-  const [tab, setTab] = useState<"avatar" | "background">("avatar");
+  const [tab, setTab] = useState<"avatar" | "background" | "frame">("avatar");
+  const [frame, setFrame] = useState<AvatarFrame>(profile.avatarFrame);
+  const [framePage, setFramePage] = useState(0);
+  const frameChoices = [
+    ...avatarFrames,
+    { id: "none" as const, name: "No frame" },
+  ];
   const [bgPage, setBgPage] = useState(0);
   const bgChoices = [
     { id: "none" as const, name: "Original" },
@@ -40,7 +47,7 @@ export function ProfileEditor({
   return (
     <section className="profile-editor glass-panel">
       <div className="profile-identity">
-        <AvatarArt avatar={avatar} background={background} />
+        <AvatarArt avatar={avatar} background={background} frame={frame} />
         <div>
           <h2>{profile.name}</h2>
           <p>Guest profile · this device</p>
@@ -55,6 +62,7 @@ export function ProfileEditor({
               name: name.trim() || "Guest",
               avatar,
               avatarBackground: background,
+              avatarFrame: frame,
             })
           )
             setMessage("Profile saved.");
@@ -88,6 +96,13 @@ export function ProfileEditor({
           >
             Background
           </button>
+          <button
+            type="button"
+            aria-pressed={tab === "frame"}
+            onClick={() => setTab("frame")}
+          >
+            Frame
+          </button>
         </div>
         {tab === "avatar" ? (
           <>
@@ -106,7 +121,11 @@ export function ProfileEditor({
                     setMessage("");
                   }}
                 >
-                  <AvatarArt avatar={a.id} background={background} />
+                  <AvatarArt
+                    avatar={a.id}
+                    background={background}
+                    frame={frame}
+                  />
                 </button>
               ))}
             </div>
@@ -135,7 +154,7 @@ export function ProfileEditor({
               </button>
             </div>
           </>
-        ) : (
+        ) : tab === "background" ? (
           <>
             <div
               className="avatar-picker adventure-picker"
@@ -152,7 +171,7 @@ export function ProfileEditor({
                     setMessage("");
                   }}
                 >
-                  <AvatarArt avatar={avatar} background={b.id} />
+                  <AvatarArt avatar={avatar} background={b.id} frame={frame} />
                 </button>
               ))}
             </div>
@@ -171,6 +190,55 @@ export function ProfileEditor({
                 aria-label="Next backgrounds"
                 disabled={bgPage === 2}
                 onClick={() => setBgPage(bgPage + 1)}
+              >
+                ›
+              </button>
+              <button className="primary-button" type="submit">
+                Save
+              </button>
+            </div>
+          </>
+        ) : null}
+        {tab === "frame" && (
+          <>
+            <div
+              className="avatar-picker adventure-picker"
+              aria-label="Choose frame"
+            >
+              {frameChoices.slice(framePage * 6, framePage * 6 + 6).map((f) => (
+                <button
+                  type="button"
+                  key={f.id}
+                  aria-label={`Choose ${f.name} frame`}
+                  aria-pressed={frame === f.id}
+                  onClick={() => {
+                    setFrame(f.id);
+                    setMessage("");
+                  }}
+                >
+                  <AvatarArt
+                    avatar={avatar}
+                    background={background}
+                    frame={f.id}
+                  />
+                </button>
+              ))}
+            </div>
+            <div className="avatar-controls">
+              <button
+                type="button"
+                aria-label="Previous frames"
+                disabled={framePage === 0}
+                onClick={() => setFramePage(framePage - 1)}
+              >
+                ‹
+              </button>
+              <span aria-live="polite">{framePage + 1} / 6</span>
+              <button
+                type="button"
+                aria-label="Next frames"
+                disabled={framePage === 5}
+                onClick={() => setFramePage(framePage + 1)}
               >
                 ›
               </button>

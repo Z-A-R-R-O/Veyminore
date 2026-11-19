@@ -13,3 +13,11 @@ Verification covers all avatar IDs round-tripping without changing gems or inven
 Added the user-supplied Fantasy Gradient Background Grid.png (1448 x 1086), split into 4 x 3 cells of 362 pixels. Each tile is downsampled to 256 x 256 and encoded as WebP quality 88 under public/assets/avatars/backgrounds. Names and stable IDs live in src/storage/avatar-backgrounds.ts.
 
 Edit profile now has Avatar and Background categories with composited previews. All 12 backgrounds plus Original are available without currency charges. Save commits both selections together; previewing does not write. Existing version-1/version-2 profiles default the new avatarBackground field to none. Unknown background IDs fall back to none without discarding balances or inventory. Frames will be integrated separately when supplied. Name, avatar and background remain device-local for account-wallet users.
+
+## Avatar frames
+
+Added all 30 frames from the user-supplied Ornate Fantasy Avatar Frame Collection.png (1374 x 1145 RGBA). Cropped the six-column, five-row sheet into 229px square cells and encoded as WebP quality 90 with alpha preserved. No generated replacement artwork was used.
+
+Stable IDs and names: src/storage/avatar-frames.ts. Assets: public/assets/avatars/frames/frame-01.webp through frame-30.webp. Frame overlays render above a circular portrait/background inset by 18% to fit inside the opening. The Frame category previews six at a time; No frame is available on the final page. Save writes avatar, background and frame together. All options are free; no economy changes.
+
+Old saves and unknown frame IDs safely default avatarFrame to none without resetting other fields. Frames remain device-local alongside the other profile appearance selections. Tests cover every frame ID, all image loads, save/reload, background coexistence and frame removal.
