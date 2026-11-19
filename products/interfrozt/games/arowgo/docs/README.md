@@ -28,3 +28,5 @@ Updated 16 November 2026. Start here rather than treating an old prototype repor
 [Maintenance](maintenance.md) · [Changelog](CHANGELOG.md) · [Feature template](templates/feature.md) · [Decision template](templates/decision.md) · [Playtest template](templates/playtest.md) · [Release template](templates/release.md)
 
 Account work has started: [B01 implementation and remaining integration gates](ACCOUNT-FOUNDATION.md).
+
+- [Frostfall Peaks — implemented Levels 41–60](FROSTFALL-PEAKS.md) (19 November 2026).

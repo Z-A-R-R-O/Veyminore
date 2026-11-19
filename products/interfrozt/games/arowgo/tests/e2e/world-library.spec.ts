@@ -13,15 +13,23 @@ test("world name list locks future destinations and compact arrows page the map"
     await page.getByRole("button", { name: "Choose world" }).click();
     const dialog = page.getByRole("dialog", { name: "Choose a world" });
     await expect(dialog).toBeVisible();
-    await dialog.evaluate(async e => {await Promise.all(e.getAnimations().map(a=>a.finished));});
+    await dialog.evaluate(async (e) => {
+      await Promise.all(e.getAnimations().map((a) => a.finished));
+    });
     await expect(
       dialog.getByRole("button", {
         name: "Verdant Cove — complete Bloom Valley to unlock",
       }),
     ).toBeDisabled();
     await expect(dialog.locator(".world-name-row")).toHaveCount(4);
-    await expect(dialog.getByRole("button",{name:"Frostfall Peaks — coming soon, locked"})).toBeDisabled();
-    await expect(dialog.getByRole("button",{name:"Amber Dunes — coming soon, locked"})).toBeDisabled();
+    await expect(
+      dialog.getByRole("button", {
+        name: "Frostfall Peaks — complete Verdant Cove to unlock",
+      }),
+    ).toBeDisabled();
+    await expect(
+      dialog.getByRole("button", { name: "Amber Dunes — coming soon, locked" }),
+    ).toBeDisabled();
     await expect(dialog.locator("img")).toHaveCount(0);
     expect(
       await dialog.evaluate((e) => e.scrollHeight - e.clientHeight),

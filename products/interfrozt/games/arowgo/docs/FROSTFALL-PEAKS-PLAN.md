@@ -1,3 +1,5 @@
+> Update 19 November 2026: Levels 41–60 now ship in [Frostfall Peaks](FROSTFALL-PEAKS.md) using existing keys, anchors and deadlines. Any new mechanics below remain proposals.
+
 # Frostfall Peaks — World 3 proposal
 
 Status: planned, not implemented. Documented 16 November 2026. Account/cloud foundations now take priority. The current world selector contains a locked placeholder; there are no Levels 41–60 or new mechanics in shipped data.

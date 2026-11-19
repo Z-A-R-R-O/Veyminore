@@ -1,3 +1,23 @@
+import frost0 from "../../content/levels/frost/level-41.json";
+import frost1 from "../../content/levels/frost/level-42.json";
+import frost2 from "../../content/levels/frost/level-43.json";
+import frost3 from "../../content/levels/frost/level-44.json";
+import frost4 from "../../content/levels/frost/level-45.json";
+import frost5 from "../../content/levels/frost/level-46.json";
+import frost6 from "../../content/levels/frost/level-47.json";
+import frost7 from "../../content/levels/frost/level-48.json";
+import frost8 from "../../content/levels/frost/level-49.json";
+import frost9 from "../../content/levels/frost/level-50.json";
+import frost10 from "../../content/levels/frost/level-51.json";
+import frost11 from "../../content/levels/frost/level-52.json";
+import frost12 from "../../content/levels/frost/level-53.json";
+import frost13 from "../../content/levels/frost/level-54.json";
+import frost14 from "../../content/levels/frost/level-55.json";
+import frost15 from "../../content/levels/frost/level-56.json";
+import frost16 from "../../content/levels/frost/level-57.json";
+import frost17 from "../../content/levels/frost/level-58.json";
+import frost18 from "../../content/levels/frost/level-59.json";
+import frost19 from "../../content/levels/frost/level-60.json";
 import cove0 from "../../content/levels/cove/level-21.json";
 import cove1 from "../../content/levels/cove/level-22.json";
 import cove2 from "../../content/levels/cove/level-23.json";
@@ -78,6 +98,28 @@ export const levels = [
     cove18,
     cove19,
   ].map(validateLevel),
+  ...[
+    frost0,
+    frost1,
+    frost2,
+    frost3,
+    frost4,
+    frost5,
+    frost6,
+    frost7,
+    frost8,
+    frost9,
+    frost10,
+    frost11,
+    frost12,
+    frost13,
+    frost14,
+    frost15,
+    frost16,
+    frost17,
+    frost18,
+    frost19,
+  ].map(validateLevel),
 ];
 export const levelNames = [
   ...originalNames,
@@ -111,4 +153,24 @@ export const levelNames = [
   "Storm passage",
   "Captain’s riddle",
   "Verdant treasure",
+  "Snowbound arrival",
+  "Crystal crossing",
+  "Frozen moorings",
+  "Aurora trail",
+  "Icebound keys",
+  "Glacier passage",
+  "Winter cargo",
+  "Shimmering ridge",
+  "Silent avalanche",
+  "Frostfire crossing",
+  "Twin summits",
+  "Crystal labyrinth",
+  "Narrow escape",
+  "Polar current",
+  "Hidden crevasse",
+  "Aurora ascent",
+  "Frozen clockwork",
+  "Summit strategy",
+  "Last light",
+  "Crown of winter",
 ];

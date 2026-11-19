@@ -1,3 +1,5 @@
+> Campaign update — 19 November 2026: 60 levels across three worlds. [Frostfall Peaks, Levels 41–60](FROSTFALL-PEAKS.md) is implemented with existing mechanics; older 40-level counts below describe the earlier audit.
+
 # Current game state
 
 > 18 November update: an isolated development Google backend and test page are implemented. [Current provider-spike status](ACCOUNT-BACKEND-DEV.md) supersedes earlier statements that no service code exists. Live provider success and production service gates remain open.

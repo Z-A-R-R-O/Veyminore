@@ -3,10 +3,19 @@ import type { CSSProperties } from "react";
 export function Scenery({
   rich,
   cove = false,
+  frost = false,
 }: {
   rich: boolean;
   cove?: boolean;
+  frost?: boolean;
 }) {
+  if (frost)
+    return (
+      <div className="scenery frost-scenery" aria-hidden="true">
+        <img src="/assets/frostfall-peaks.webp" alt="" />
+        <div className="scenery-wash" />
+      </div>
+    );
   if (cove)
     return (
       <div className="scenery cove-scenery" aria-hidden="true">

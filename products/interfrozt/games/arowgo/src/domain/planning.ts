@@ -91,8 +91,8 @@ export function evaluatePlanning(level: Level) {
 
 /** Add genuine order decisions without changing geometry or increasing arrow count. */
 export function planDeadlines(source: Level, number: number) {
-  if (!Number.isInteger(number) || number < 10 || number > 40)
-    throw new Error("Planning campaign range is 10–40");
+  if (!Number.isInteger(number) || number < 10 || number > 60)
+    throw new Error("Planning campaign range is 10–60");
   const base = {
     ...source,
     contentVersion: 9,
@@ -120,7 +120,10 @@ export function planDeadlines(source: Level, number: number) {
     .filter(
       (a) => a.parents.size >= 2 && a.parents.size <= base.arrows.length - 5,
     );
-  const targetWinRate = 0.6 * Math.pow(0.06 / 0.6, (number - 10) / 30);
+  const targetWinRate =
+    number <= 40
+      ? 0.6 * Math.pow(0.06 / 0.6, (number - 10) / 30)
+      : 0.08 * Math.pow(0.025 / 0.08, (number - 41) / 19);
   const count = number < 25 ? 1 : 2;
   let best:
     | {

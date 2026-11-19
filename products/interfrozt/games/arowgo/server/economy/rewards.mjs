@@ -11,6 +11,7 @@ const paths = [
     (_, i) => `bloom-${String(i + 1).padStart(2, "0")}.json`,
   ),
   ...Array.from({ length: 20 }, (_, i) => `cove/level-${i + 21}.json`),
+  ...Array.from({ length: 20 }, (_, i) => `frost/level-${i + 41}.json`),
 ];
 export const rewardLevels = paths.map((path) =>
   validateLevel(

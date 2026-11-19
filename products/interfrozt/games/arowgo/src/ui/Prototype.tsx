@@ -346,6 +346,7 @@ export function Prototype() {
     >
       <Scenery
         rich={motion.rich}
+        frost={next >= 40 && page !== "worlds" && route !== "finale/bloom"}
         cove={next >= 20 && page !== "worlds" && route !== "finale/bloom"}
       />
       <header className="hub-header">
@@ -393,7 +394,7 @@ export function Prototype() {
               ? controllers.slice(0, 20)
               : controllers
             ).map((c) => c.state.bestStars)}
-            world={route === "finale/bloom" ? "bloom" : "cove"}
+            world={route === "finale/bloom" ? "bloom" : "frost"}
             onContinue={route === "finale/bloom" ? () => play(20) : undefined}
             onReplay={(i) => play(i, true, "story")}
             onWorlds={() => go("worlds")}

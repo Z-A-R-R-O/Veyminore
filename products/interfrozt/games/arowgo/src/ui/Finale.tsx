@@ -10,7 +10,7 @@ export function Finale({
   onReplay,
   onWorlds,
 }: {
-  world?: "bloom" | "cove";
+  world?: "bloom" | "cove" | "frost";
   onContinue?: () => void;
   scores: number[];
   onReplay: (index: number) => void;
@@ -29,11 +29,15 @@ export function Finale({
       aria-labelledby="finale-title"
     >
       <span className="eyebrow">
-        {world === "bloom" ? "WORLD 01 · COMPLETE" : "BOTH WORLDS · COMPLETE"}
+        {world === "bloom" ? "WORLD 01 · COMPLETE" : "ALL WORLDS · COMPLETE"}
       </span>
       <GameArt kind="trophy" />
       <h1 id="finale-title" ref={title} tabIndex={-1}>
-        {world === "bloom" ? "Bloom Valley cleared!" : "Verdant Cove cleared!"}
+        {world === "bloom"
+          ? "Bloom Valley cleared!"
+          : world === "frost"
+            ? "Frostfall Peaks cleared!"
+            : "Verdant Cove cleared!"}
       </h1>
       <p>Every path discovered. All {scores.length} levels complete.</p>
       <div

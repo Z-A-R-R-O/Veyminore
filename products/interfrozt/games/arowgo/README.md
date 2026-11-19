@@ -1,8 +1,8 @@
 # AROWGO
 
-A playable snake-arrow puzzle under **Veyminore → InterFrozt**, with 40 campaign levels across Bloom Valley and Verdant Cove. React/TypeScript menus, a Phaser/SVG board, Vite tooling and a Capacitor Android wrapper.
+A playable snake-arrow puzzle under **Veyminore → InterFrozt**, with 60 campaign levels across Bloom Valley, Verdant Cove and Frostfall Peaks. React/TypeScript menus, a Phaser/SVG board, Vite tooling and a Capacitor Android wrapper.
 
-**Status — 16 November 2026:** local browser prototype. Accounts, cloud saves, trusted economy, billing and public-release acceptance are not implemented. The next priority is the [account/backend foundation](docs/BACKEND-ACCOUNT-PLAN.md); [Frostfall Peaks](docs/FROSTFALL-PEAKS-PLAN.md) remains a proposal.
+**Historical status — 16 November 2026 (see later implementation documents for account/economy updates):** local browser prototype. Accounts, cloud saves, trusted economy, billing and public-release acceptance are not implemented. The next priority is the [account/backend foundation](docs/BACKEND-ACCOUNT-PLAN.md); the original [Frostfall proposal](docs/FROSTFALL-PEAKS-PLAN.md) is superseded for Levels 41–60 by the [implemented world](docs/FROSTFALL-PEAKS.md), using existing mechanics.
 
 ## Run locally
 
@@ -21,7 +21,7 @@ Tap an arrow whose head has a clear forward path; its body follows like a snake.
 
 Story has three mistake hearts. Practice has unlimited mistakes but still follows puzzle deadline rules and grants no campaign rewards. Hint selects a safe continuation; confirmed Erase consumes a removal and marks the attempt assisted. Both are currently free. Stars reward completion, zero mistakes and speed separately; assistance does not cap stars. The base speed target is eight seconds per arrow, minimum 60 seconds.
 
-First Story clear grants 25 coins once per level: 1,000 total coins and 120 possible stars. Progress is browser/device-local. Profiles have 15 cosmetic arrow skins and three prototype crates, with coin/gem spending and a Time Boost. These balances are client-controlled prototypes, not verified paid entitlements.
+First Story clear grants 25 coins once per level: 1,500 total coins and 180 possible stars. Progress is browser/device-local. Profiles have 15 cosmetic arrow skins and three prototype crates, with coin/gem spending and a Time Boost. These balances are client-controlled prototypes, not verified paid entitlements.
 
 ## Checks
 

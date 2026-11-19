@@ -319,3 +319,39 @@
  .hub-shell .hub-header .hub-coins .coin,.hub-shell .hub-header .hub-gems .gem-icon{width:20px;height:20px;flex-shrink:0}
  .hub-shell .hub-header .hub-coins strong,.hub-shell .hub-header .hub-gems strong{font-size:16px;min-width:0}
 }
+
+.hub-shell.worlds-screen:has(.valley-heading[data-world="3"]) {
+  background-image: url("/assets/frostfall-peaks.webp");
+  background-color: #bbd5ee;
+}
+.worlds-screen .valley-map[data-world="3"] .valley-stop {
+  left: var(--x);
+  top: var(--y);
+}
+
+.hub-shell:has(.page-home) .frost-scenery {
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    #efffff,
+    #c3dded 60%,
+    #d8c8ed
+  );
+}
+.hub-shell:has(.page-home) .frost-scenery > img {
+  display: none;
+}
+
+@media (min-aspect-ratio:4/3) {
+.hub-shell.worlds-screen:has(.valley-heading[data-world="3"]) {background-image:url("/assets/frostfall-peaks-wide.webp");}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(1) {left:9.5%;top:74%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(2) {left:19.8%;top:69%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(3) {left:29.6%;top:65%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(4) {left:39.5%;top:61%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(5) {left:49%;top:57%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(6) {left:59%;top:53%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(7) {left:69.8%;top:48%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(8) {left:79%;top:43%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(9) {left:86.5%;top:36.5%;}
+.worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(10) {left:94.1%;top:30%;}
+}
+@media(max-height:500px) and (min-aspect-ratio:4/3) { .worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(10) {top:40%;} }

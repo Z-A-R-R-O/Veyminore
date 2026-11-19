@@ -310,7 +310,11 @@ export function App({
       data-effects={motion.rich ? "rich" : "subtle"}
       data-paused={motion.hidden ? "true" : "false"}
     >
-      <Scenery rich={motion.rich} cove={levelNumber > 20} />
+      <Scenery
+        rich={motion.rich}
+        cove={levelNumber > 20}
+        frost={levelNumber > 40}
+      />
       <header className="topbar" inert={modalOpen || resultVisible}>
         <a
           className="wordmark"
@@ -364,7 +368,9 @@ export function App({
             {lab
               ? "Discover the mechanic"
               : levelNumber > 20
-                ? "World 2 · Verdant Cove"
+                ? levelNumber > 40
+                  ? "World 3 · Frostfall Peaks"
+                  : "World 2 · Verdant Cove"
                 : "World 1 · Bloom Valley"}{" "}
             <span />
           </div>
@@ -400,7 +406,7 @@ export function App({
             aria-label={
               lab
                 ? "Rule proof board"
-                : `${levelNumber > 20 ? "Verdant Cove" : "Bloom Valley"} level ${levelNumber}`
+                : `${levelNumber > 40 ? "Frostfall Peaks" : levelNumber > 20 ? "Verdant Cove" : "Bloom Valley"} level ${levelNumber}`
             }
           >
             {lab ? (
@@ -709,7 +715,7 @@ export function App({
                                 ? "Valley complete"
                                 : levelNumber < levels.length
                                   ? "Next level"
-                                  : "Cove complete"
+                                  : "Adventure complete"
                               : "Play again"
                           : "Try again"}{" "}
                         <span aria-hidden="true">↗</span>

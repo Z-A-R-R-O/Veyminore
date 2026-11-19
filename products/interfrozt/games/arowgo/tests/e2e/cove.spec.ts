@@ -67,7 +67,8 @@ test("old Bloom progress unlocks Cove; all 20 new levels, lessons and rewards wo
           name: i === 3 ? "Weigh anchor" : "Mind the powder",
         }),
       ).toBeVisible();
-      for (const id of i === 3 ? ["A", "B", "C"] : ["B", "A", "C"]) await move(id);
+      for (const id of i === 3 ? ["A", "B", "C"] : ["B", "A", "C"])
+        await move(id);
       await page.getByRole("button", { name: "Continue to level" }).click();
     }
     await expect(
@@ -83,17 +84,18 @@ test("old Bloom progress unlocks Cove; all 20 new levels, lessons and rewards wo
     ).toBeVisible();
     await page
       .getByRole("button", {
-        name: i === 19 ? "Cove complete" : "Next level",
+        name: "Next level",
         exact: true,
       })
       .click();
   }
-  await expect(
-    page.getByRole("heading", { name: "Verdant Cove cleared!" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Level 41" })).toBeVisible();
+  await page.goto("/#worlds");
   await page.reload();
   await expect(page.getByLabel("1000 total coins")).toBeVisible();
-  await expect(page.getByLabel("120 of 120 stars")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Frostfall Peaks", exact: true }),
+  ).toBeVisible();
 });
 
 test("Cove map fits small phones and wide screens without hiding level controls", async ({
