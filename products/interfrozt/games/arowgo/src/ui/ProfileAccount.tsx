@@ -121,7 +121,18 @@ export function ProfileAccount() {
                 <a href="/cloud-save.html">Manage cloud save</a>
               )}
             {state === "ready" && !account && (
-              <a className="primary-button" href="/account-test.html">
+              <a
+                className="primary-button google-signin-button"
+                href="/account-test.html"
+              >
+                <span className="google-signin-mark">
+                  <img
+                    src="/assets/google-signin.svg"
+                    width="20"
+                    height="20"
+                    alt=""
+                  />
+                </span>
                 Sign in with Google
               </a>
             )}

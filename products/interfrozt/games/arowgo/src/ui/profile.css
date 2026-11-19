@@ -1417,3 +1417,21 @@
 .player-stats > div:nth-child(3) .stat-symbol {
   background: transparent;
 }
+.account-actions .google-signin-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.google-signin-mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 9px;
+}
+.google-signin-mark img {
+  display: block;
+}
