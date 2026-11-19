@@ -1,9 +1,5 @@
 import { useState } from "react";
 import { avatarFrames, type AvatarFrame } from "../storage/avatar-frames";
-import {
-  avatarBackgrounds,
-  type AvatarBackground,
-} from "../storage/avatar-backgrounds";
 import { adventureAvatars } from "../storage/avatars";
 import { type Profile, type Avatar } from "../storage/profile";
 import { AvatarArt } from "./elements/AvatarArt";
@@ -11,13 +7,9 @@ const avatarChoices = [
   ...adventureAvatars,
   ...(["world", "modes", "trophy"] as const).map((id) => ({ id, name: id })),
 ];
-const backgrounds = [
-  { id: "none" as const, name: "Original" },
-  ...avatarBackgrounds,
-];
 const frames = [...avatarFrames, { id: "none" as const, name: "No frame" }];
 const pageSize = 12;
-type Category = "avatar" | "background" | "frame";
+type Category = "avatar" | "frame";
 export function ProfileEditor({
   profile,
   onSave,
@@ -27,9 +19,6 @@ export function ProfileEditor({
 }) {
   const [name, setName] = useState(profile.name);
   const [avatar, setAvatar] = useState<Avatar>(profile.avatar);
-  const [background, setBackground] = useState<AvatarBackground>(
-    profile.avatarBackground,
-  );
   const [frame, setFrame] = useState<AvatarFrame>(profile.avatarFrame);
   const [tab, setTab] = useState<Category>("avatar");
   const [message, setMessage] = useState("");
@@ -40,28 +29,15 @@ export function ProfileEditor({
         adventureAvatars.findIndex((a) => a.id === profile.avatar),
       ) / pageSize,
     ),
-    background: 0,
     frame: 0,
   });
-  const choices =
-    tab === "avatar"
-      ? avatarChoices
-      : tab === "background"
-        ? backgrounds
-        : frames;
-  const selected =
-    tab === "avatar" ? avatar : tab === "background" ? background : frame;
+  const choices = tab === "avatar" ? avatarChoices : frames;
+  const selected = tab === "avatar" ? avatar : frame;
   const page = pages[tab];
   const total = Math.ceil(choices.length / pageSize);
-  const label =
-    tab === "avatar"
-      ? "avatars"
-      : tab === "background"
-        ? "backgrounds"
-        : "frames";
+  const label = tab === "avatar" ? "avatars" : "frames";
   const select = (id: string) => {
     if (tab === "avatar") setAvatar(id as Avatar);
-    else if (tab === "background") setBackground(id as AvatarBackground);
     else setFrame(id as AvatarFrame);
     setMessage("");
   };
@@ -75,7 +51,7 @@ export function ProfileEditor({
               ...profile,
               name: name.trim() || "Guest",
               avatar,
-              avatarBackground: background,
+              avatarBackground: "none",
               avatarFrame: frame,
             })
               ? "Profile saved."
@@ -85,7 +61,7 @@ export function ProfileEditor({
       >
         <div className="portrait-preview-row profile-identity">
           <div className="portrait-live-preview" aria-label="Portrait preview">
-            <AvatarArt avatar={avatar} background={background} frame={frame} />
+            <AvatarArt avatar={avatar} background="none" frame={frame} />
           </div>
           <label className="name-field">
             Display name
@@ -101,7 +77,7 @@ export function ProfileEditor({
           </label>
         </div>
         <div className="avatar-category" aria-label="Customize portrait">
-          {(["avatar", "background", "frame"] as const).map((category, i) => (
+          {(["avatar", "frame"] as const).map((category, i) => (
             <button
               type="button"
               key={category}
@@ -109,9 +85,9 @@ export function ProfileEditor({
               onClick={() => setTab(category)}
             >
               <span aria-hidden="true" className="portrait-tab-symbol">
-                {["◉", "▧", "◇"][i]}
+                {["◉", "◇"][i]}
               </span>
-              {["Avatar", "Background", "Frame"][i]}
+              {["Avatar", "Frame"][i]}
             </button>
           ))}
         </div>
@@ -135,11 +111,7 @@ export function ProfileEditor({
                   <span className="portrait-tile-art">
                     <AvatarArt
                       avatar={tab === "avatar" ? (item.id as Avatar) : avatar}
-                      background={
-                        tab === "background"
-                          ? (item.id as AvatarBackground)
-                          : background
-                      }
+                      background="none"
                       frame={tab === "frame" ? (item.id as AvatarFrame) : frame}
                     />
                   </span>

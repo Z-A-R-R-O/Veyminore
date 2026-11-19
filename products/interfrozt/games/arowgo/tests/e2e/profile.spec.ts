@@ -94,60 +94,6 @@ test("every portrait page loads and the last character saves", async ({
   );
 });
 
-test("backgrounds preview without saving, then persist alongside the avatar", async ({
-  page,
-}) => {
-  await page.goto("/#profile");
-  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Choose Fox Explorer avatar" })
-    .click();
-  await page.getByRole("button", { name: "Background", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Choose Ocean Teal background" })
-    .click();
-  await expect(
-    page.locator(".profile-identity .adventure-avatar"),
-  ).toHaveAttribute("style", /background-02/);
-  await page.reload();
-  await expect(
-    page.locator(".player-avatar .game-art").first(),
-  ).not.toHaveAttribute("style", /background-02/);
-  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Choose Fox Explorer avatar" })
-    .click();
-  await page.getByRole("button", { name: "Background", exact: true }).click();
-  for (let i = 0; i < 2; i++) {
-    await expect
-      .poll(() =>
-        page
-          .locator('[aria-label="Choose background"] img')
-          .evaluateAll((imgs) =>
-            imgs.every((im) => (im as HTMLImageElement).naturalWidth > 0),
-          ),
-      )
-      .toBe(true);
-    if (i < 1)
-      await page
-        .getByRole("button", { name: "Next backgrounds", exact: true })
-        .click();
-  }
-  await page
-    .getByRole("button", { name: "Choose Pastel Aurora background" })
-    .click();
-  await page.getByRole("button", { name: "Save", exact: true }).click();
-  await page.reload();
-  await expect(page.locator(".player-avatar img")).toHaveAttribute(
-    "style",
-    /background-12/,
-  );
-  await expect(page.locator(".player-avatar img")).toHaveAttribute(
-    "src",
-    /adventure-01/,
-  );
-});
-
 test("frames preview all thirty assets and save with avatar and background", async ({
   page,
 }) => {
@@ -155,10 +101,6 @@ test("frames preview all thirty assets and save with avatar and background", asy
   await page.getByRole("button", { name: "Edit profile", exact: true }).click();
   await page
     .getByRole("button", { name: "Choose Fox Explorer avatar" })
-    .click();
-  await page.getByRole("button", { name: "Background", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Choose Ocean Teal background" })
     .click();
   await page.getByRole("button", { name: "Frame", exact: true }).click();
   for (let i = 0; i < 3; i++) {
@@ -190,7 +132,7 @@ test("frames preview all thirty assets and save with avatar and background", asy
   ).toHaveAttribute("src", /frame-30/);
   await expect(
     page.locator(".player-avatar .adventure-avatar"),
-  ).toHaveAttribute("style", /background-02/);
+  ).not.toHaveAttribute("style", /background-/);
   await page.getByRole("button", { name: "Edit profile", exact: true }).click();
   await page.getByRole("button", { name: "Frame", exact: true }).click();
   for (let i = 0; i < 2; i++)
@@ -225,7 +167,7 @@ test("appearance controls and portrait layers stay visible at all screen sizes",
     await page
       .getByRole("button", { name: "Choose Fox Explorer avatar" })
       .click();
-    for (const category of ["Avatar", "Background", "Frame"]) {
+    for (const category of ["Avatar", "Frame"]) {
       await page.getByRole("button", { name: category, exact: true }).click();
       const boxes = await page
         .locator(".adventure-picker button")
@@ -264,4 +206,32 @@ test("appearance controls and portrait layers stay visible at all screen sizes",
       }
     }
   }
+});
+
+test("settings profile edit shortcut opens editor without backgrounds", async ({
+  page,
+}) => {
+  await page.goto("/?account=1#settings");
+  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
+  await expect(page).toHaveURL(/#profile\/edit$/);
+  await expect(
+    page.getByRole("textbox", { name: "Display name" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Background", exact: true }),
+  ).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "Choose Fox Explorer avatar" })
+    .click();
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await page.reload();
+  await expect(
+    page.getByRole("textbox", { name: "Display name" }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem("arowgo.profile.v1")!).avatarBackground,
+    ),
+  ).toBe("none");
 });

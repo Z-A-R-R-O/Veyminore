@@ -1,3 +1,4 @@
+import { AvatarArt } from "./elements/AvatarArt";
 import {
   hasBoostReceipt,
   gameStorage,
@@ -329,7 +330,7 @@ export function Prototype() {
     route === "finale/bloom" &&
     controllers.slice(0, 20).every((c) => c.state.claimed)
       ? "finale"
-      : route === "progress"
+      : route === "progress" || route === "profile/edit"
         ? "profile"
         : (route === "finale" && completed === levels.length) ||
             route === "settings" ||
@@ -534,6 +535,7 @@ export function Prototype() {
         )}
         {page === "profile" && (
           <ProfilePage
+            key={route}
             profile={profile}
             onSave={saveProfile}
             completed={completed}
@@ -549,6 +551,39 @@ export function Prototype() {
               <span className="eyebrow">YOUR QUIET CORNER</span>
               <h1>Make it yours.</h1>
             </div>
+            <section className="settings-profile-row glass-panel">
+              <div className="settings-profile-avatar">
+                <AvatarArt
+                  avatar={profile.avatar}
+                  frame={profile.avatarFrame}
+                />
+              </div>
+              <div>
+                <strong>{profile.name}</strong>
+                <small>Your profile</small>
+              </div>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Edit profile"
+                title="Edit profile"
+                onClick={() => go("profile/edit")}
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m15 5 4 4M4 20l4-1 12-12a2.8 2.8 0 0 0-4-4L4 15z" />
+                </svg>
+              </button>
+            </section>
             <section className="settings-panel glass-panel">
               <SoundSetting />
               <label className="setting">

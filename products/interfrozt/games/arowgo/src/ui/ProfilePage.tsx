@@ -24,9 +24,11 @@ export function ProfilePage({
   onNavigate: (path: string) => void;
 }) {
   const [tab, setTab] = useState<"journey" | "collection" | "edit" | "account">(
-    new URLSearchParams(location.search).get("account") === "1"
-      ? "account"
-      : "journey",
+    location.hash === "#profile/edit"
+      ? "edit"
+      : new URLSearchParams(location.search).get("account") === "1"
+        ? "account"
+        : "journey",
   );
   const [page, setPage] = useState(0);
   const [notice, setNotice] = useState("");

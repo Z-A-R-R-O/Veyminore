@@ -45,3 +45,7 @@ Runtime files stay public/assets/avatars/frames/frame-01.webp through frame-30.w
 Replaced the accumulated picker overrides with a single bounded editor layout and shared category renderer. A live preview sits beside the name input; category tabs, a 12-slot grid, paging/Save footer and status each have defined space. Empty slots on the final page retain the same sizing as full pages. Framed portraits compensate for the padded source once (1.38x within the clipped circular opening); tile portraits use a restrained 1.22x presentation scale. Source assets are unchanged.
 
 The same selection/save path serves all categories. Missing legacy avatar selections open the first character page. Added geometric browser checks for all categories at 320x568, 390x844, 844x390 and 1280x800, including visible preview, minimum tile size and footer bounds. Existing profile persistence, background and frame removal checks remain.
+
+## Background removal and Settings shortcut
+
+Removed Background from the editor, including all background previews. Saving appearance now sets avatarBackground to none; existing stored profile data is not silently rewritten on page load. Added a profile summary and accessible pencil button in Settings, linking to #profile/edit. The direct route opens the editor and survives reload. Old background assets/parsing remain for backward compatibility with existing saves.
