@@ -248,3 +248,52 @@ test("profile portrait pencil opens editing", async ({ page }) => {
     page.getByRole("button", { name: "Avatar", exact: true }),
   ).toBeVisible();
 });
+
+test("badge collection loads all assets and fits every viewport", async ({
+  page,
+}) => {
+  for (const [width, height] of [
+    [320, 568],
+    [390, 844],
+    [844, 390],
+    [1280, 800],
+  ]) {
+    await page.setViewportSize({ width, height });
+    await page.goto("/#profile");
+    await page.getByRole("button", { name: "Journey", exact: true }).click();
+    await page.getByRole("button", { name: "Badges", exact: true }).click();
+    for (let i = 0; i < 5; i++) {
+      await expect(page.locator(".badge-grid img")).toHaveCount(6);
+      await expect
+        .poll(() =>
+          page
+            .locator(".badge-grid img")
+            .evaluateAll((ims) =>
+              ims.every((im) => (im as HTMLImageElement).naturalWidth > 0),
+            ),
+        )
+        .toBe(true);
+      expect(
+        await page
+          .locator(".player-profile")
+          .evaluate(
+            (el) =>
+              el.scrollHeight <= el.clientHeight + 1 &&
+              el.scrollWidth <= el.clientWidth + 1,
+          ),
+      ).toBe(true);
+      if (i < 4)
+        await page.getByRole("button", { name: "Next badges" }).click();
+    }
+    await expect(
+      page.getByRole("button", { name: "Next badges" }),
+    ).toBeDisabled();
+    await page
+      .getByRole("button", { name: "Ethereal Legend", exact: true })
+      .click();
+    await expect(page.locator(".badge-detail")).toContainText(
+      "Earn 120 campaign stars.",
+    );
+    await page.screenshot({ path: `tmp/badges-${width}-${height}.png` });
+  }
+});

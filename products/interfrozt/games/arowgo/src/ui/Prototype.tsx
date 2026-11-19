@@ -542,6 +542,14 @@ export function Prototype() {
             stars={stars}
             total={levels.length}
             perfect={controllers.filter((c) => c.state.bestStars === 3).length}
+            bloom={
+              controllers.slice(0, 20).filter((c) => c.state.bestStars > 0)
+                .length
+            }
+            cove={
+              controllers.slice(20, 40).filter((c) => c.state.bestStars > 0)
+                .length
+            }
             onNavigate={go}
           />
         )}

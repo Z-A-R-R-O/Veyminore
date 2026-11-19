@@ -1119,3 +1119,153 @@
     grid-template-rows: repeat(3, minmax(0, 1fr));
   }
 }
+.player-badges img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.player-badges [data-earned="false"] img {
+  filter: grayscale(0.9);
+  opacity: 0.65;
+}
+.badge-collection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  flex: 1;
+  min-height: 0;
+  gap: 9px;
+}
+.badge-grid button {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 3px;
+  border: 2px solid #fff;
+  border-radius: 18px;
+  background: #fff9;
+  color: #654482;
+  cursor: pointer;
+}
+.badge-grid img {
+  min-height: 0;
+  width: 100%;
+  height: calc(100% - 36px);
+  max-height: 125px;
+  object-fit: contain;
+}
+.badge-grid [data-earned="false"] img {
+  filter: saturate(0.3);
+  opacity: 0.7;
+}
+.badge-grid [aria-pressed="true"] {
+  border-color: #a266d4;
+  background: #f1e2ff;
+}
+.badge-grid strong {
+  font-size: 11px;
+  text-align: center;
+}
+.badge-grid small {
+  font-size: 10px;
+  color: #896d9f;
+}
+.badge-detail {
+  background: #fff9;
+  border: 1px solid white;
+  border-radius: 16px;
+  padding: 10px 14px;
+}
+.hub-content .badge-detail p {
+  font-size: 12px;
+  margin: 4px 0;
+}
+.badge-detail small {
+  font-size: 11px;
+  color: #856296;
+}
+@media (max-width: 599px) {
+  .player-tabs button {
+    font-size: 10px;
+    padding: 3px;
+  }
+}
+@media (max-height: 740px) {
+  .player-badges img {
+    width: 24px;
+    height: 24px;
+  }
+  .badge-detail {
+    padding: 7px 10px;
+  }
+  .badge-grid {
+    gap: 5px;
+  }
+  .badge-grid button {
+    padding: 3px;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .player-panel:has(.badge-collection) {
+    display: flex;
+  }
+  .badge-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .badge-grid strong {
+    font-size: 9px;
+  }
+  .badge-collection {
+    gap: 5px;
+  }
+  .badge-detail {
+    padding: 5px 10px;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .player-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .player-tabs button {
+    min-height: 34px;
+  }
+}
+@media (max-height: 700px) {
+  .badge-grid strong,
+  .badge-grid small {
+    display: none;
+  }
+  .badge-grid img {
+    height: 100%;
+    flex: 1;
+  }
+  .badge-collection {
+    gap: 6px;
+  }
+  .badge-detail strong {
+    font-size: 13px;
+  }
+  .hub-content .badge-detail p {
+    font-size: 11px;
+    margin: 2px 0;
+  }
+  .badge-detail small {
+    font-size: 10px;
+  }
+  .badge-collection .player-section-title h2 {
+    font-size: 19px;
+  }
+}

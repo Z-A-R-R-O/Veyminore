@@ -1,3 +1,4 @@
+import { BadgeCollection } from "./BadgeCollection";
 import { AvatarArt } from "./elements/AvatarArt";
 import { useState } from "react";
 import { ProfileEditor } from "./ProfileShop";
@@ -13,6 +14,8 @@ export function ProfilePage({
   stars,
   total,
   perfect,
+  bloom,
+  cove,
   onNavigate,
 }: {
   profile: Profile;
@@ -21,9 +24,13 @@ export function ProfilePage({
   stars: number;
   total: number;
   perfect: number;
+  bloom: number;
+  cove: number;
   onNavigate: (path: string) => void;
 }) {
-  const [tab, setTab] = useState<"journey" | "collection" | "edit" | "account">(
+  const [tab, setTab] = useState<
+    "journey" | "collection" | "edit" | "account" | "badges"
+  >(
     location.hash === "#profile/edit"
       ? "edit"
       : new URLSearchParams(location.search).get("account") === "1"
@@ -35,8 +42,8 @@ export function ProfilePage({
   const equipped = skins.find((s) => s.id === profile.equipped)!;
   const milestones = [
     { name: "First bloom", target: 1 },
-    { name: "Pathfinder", target: 3 },
-    { name: "Cove captain", target: total },
+    { name: "Pathfinder", target: 10 },
+    { name: "World wanderer", target: 40 },
   ];
   const next = milestones.find((m) => completed < m.target);
   return (
@@ -98,24 +105,28 @@ export function ProfilePage({
         </button>
       </header>
       <nav className="player-tabs" aria-label="Profile sections">
-        {(["journey", "collection", "edit", "account"] as const).map((t) => (
-          <button
-            key={t}
-            aria-current={tab === t ? "page" : undefined}
-            onClick={() => {
-              setTab(t);
-              setNotice("");
-            }}
-          >
-            {t === "journey"
-              ? "Journey"
-              : t === "collection"
-                ? "Arrows"
-                : t === "edit"
-                  ? "Edit profile"
-                  : "Account"}
-          </button>
-        ))}
+        {(["journey", "badges", "collection", "edit", "account"] as const).map(
+          (t) => (
+            <button
+              key={t}
+              aria-current={tab === t ? "page" : undefined}
+              onClick={() => {
+                setTab(t);
+                setNotice("");
+              }}
+            >
+              {t === "journey"
+                ? "Journey"
+                : t === "collection"
+                  ? "Arrows"
+                  : t === "edit"
+                    ? "Edit profile"
+                    : t === "badges"
+                      ? "Badges"
+                      : "Account"}
+            </button>
+          ),
+        )}
       </nav>
       <div className="player-panel" key={tab}>
         {tab === "journey" && (
@@ -179,9 +190,10 @@ export function ProfilePage({
             <div className="player-badges" aria-label="Milestones">
               {milestones.map((m, i) => (
                 <div key={m.name} data-earned={completed >= m.target}>
-                  <span aria-hidden="true">
-                    {i === 0 ? "✦" : i === 1 ? "➤" : "♛"}
-                  </span>
+                  <img
+                    src={`/assets/badges/badge-${["01", "03", "18"][i]}.webp`}
+                    alt=""
+                  />
                   <strong>{m.name}</strong>
                   <small>
                     {completed >= m.target
@@ -283,6 +295,19 @@ export function ProfilePage({
         )}
         {tab === "edit" && <ProfileEditor profile={profile} onSave={onSave} />}
         {tab === "account" && <ProfileAccount />}
+        {tab === "badges" && (
+          <BadgeCollection
+            stats={{
+              completed,
+              stars,
+              perfect,
+              bloom,
+              cove,
+              owned: profile.owned.length,
+              styled: profile.avatarFrame !== "none" ? 1 : 0,
+            }}
+          />
+        )}
       </div>
       {notice && (
         <p className="player-notice" role="status">
