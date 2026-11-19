@@ -64,7 +64,7 @@ export function validateLevel(value: unknown): Level {
   if (
     level.schemaVersion !== 1 ||
     ![1, 2].includes(level.rulesVersion) ||
-    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10].includes(level.contentVersion) ||
+    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].includes(level.contentVersion) ||
     typeof level.levelId !== "string" ||
     !level.levelId ||
     !level.board ||

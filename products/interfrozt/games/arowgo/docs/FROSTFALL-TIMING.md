@@ -54,3 +54,5 @@ Cloud validation accepts the known archived version and preserves its raw data f
 
 
 Timing-save validation replays each recorded select/erase to check active arrows, mistakes, erased arrows and result status. It does not reuse the old monotone test that hypothetically reinserts cleared arrows at the final phase. That assumption is invalid for alternating gates. A regression round-trips every intermediate and completed state of every Frostfall puzzle and rejects forged empty histories. The interactive guide keeps ice thawed as further demonstration moves toggle the aurora.
+
+See [Levels 40–60 difficulty revision](LEVELS-40-60-HARDENING.md) for the current content-11 planning curve, candidate measurements and save compatibility.

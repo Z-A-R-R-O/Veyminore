@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 9,
+  "contentVersion": 11,
   "levelId": "cove-40",
   "board": {
     "columns": 10,
@@ -20,7 +20,7 @@
           6
         ]
       ],
-      "deadline": 9
+      "deadline": 7
     },
     {
       "id": "B",
@@ -290,7 +290,6 @@
     "E",
     "K",
     "M",
-    "O",
     "S",
     "F",
     "A",
@@ -299,6 +298,7 @@
     "I",
     "H",
     "G",
+    "O",
     "R",
     "Q",
     "N",
@@ -307,11 +307,12 @@
     "P"
   ],
   "generation": {
-    "planningVersion": 1,
-    "analysis": {
-      "randomLegalWinRate": 0.056120847114995355,
-      "decisionStates": 33,
-      "blockedTargetDecisions": 29,
+    "hardeningVersion": 1,
+    "targetWinRate": 0.018,
+    "planning": {
+      "randomLegalWinRate": 0.01967228936279354,
+      "decisionStates": 30,
+      "blockedTargetDecisions": 26,
       "exampleDecision": {
         "active": [
           "A",
@@ -323,21 +324,24 @@
           "H",
           "I",
           "K",
+          "L",
           "N",
+          "O",
           "P",
           "Q",
-          "R"
+          "R",
+          "S"
         ],
         "safeMove": "K",
-        "unsafeMove": "C"
+        "unsafeMove": "O"
       },
-      "earliestDecisionMove": 7,
+      "earliestDecisionMove": 4,
       "deadlines": [
         {
           "id": "A",
           "prerequisiteCount": 4,
-          "deadline": 9,
-          "spareMoves": 4
+          "deadline": 7,
+          "spareMoves": 2
         },
         {
           "id": "D",
@@ -346,7 +350,6 @@
           "spareMoves": 6
         }
       ]
-    },
-    "targetWinRate": 0.06
+    }
   }
 }

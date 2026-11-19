@@ -72,7 +72,9 @@ test("old progress opens the new rules; guide and timing badges fit small screen
   await expect(dialog).not.toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.locator('.timing-badge[data-kind="aurora"]')).toHaveCount(
-    1,
+    validateLevel(
+      JSON.parse(readFileSync("content/levels/frost/level-46.json", "utf8")),
+    ).arrows.filter((a) => a.phase !== undefined).length,
   );
   await expect(page.locator('.timing-badge[data-kind="ice"]')).toHaveCount(2);
   const restored = await page.evaluate(() =>

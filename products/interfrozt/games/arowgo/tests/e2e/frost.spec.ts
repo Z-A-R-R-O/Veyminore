@@ -131,6 +131,13 @@ test("Frostfall map fits small phones and wide screens without hiding level cont
     await expect(
       page.getByRole("heading", { name: "Frostfall Peaks", exact: true }),
     ).toBeVisible();
+    // Developer overlay is movable and can otherwise cover a map marker after resizing.
+    const dock = page.getByRole("button", {
+      name: "Developer tools and bug report",
+    });
+    await dock.focus();
+    for (let step = 0; step < 30; step++)
+      await page.keyboard.press("Shift+ArrowDown");
     const nodes = page.locator(".valley-stop");
     await expect(nodes).toHaveCount(10);
     for (const node of await nodes.all()) {

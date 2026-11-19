@@ -1,3 +1,4 @@
+import { beforeHardeningLevels } from "../domain/campaignBeforeHardening";
 import { beforeTimingLevels } from "../domain/campaignBeforeTiming";
 import type { Level } from "../domain/rules";
 import { levels } from "../domain/campaign";
@@ -9,9 +10,14 @@ function compatibleSession(raw: string, level: Level) {
   try {
     return parseSession(raw, level);
   } catch (error) {
-    const old = beforeTimingLevels.find((l) => l.levelId === level.levelId);
-    if (!old) throw error;
-    return parseSession(raw, old);
+    for (const old of [...beforeHardeningLevels, ...beforeTimingLevels].filter(
+      (l) => l.levelId === level.levelId,
+    )) {
+      try {
+        return parseSession(raw, old);
+      } catch {}
+    }
+    throw error;
   }
 }
 /** Never let a corrupt or incompatible primary save silently fall back to a new game. */

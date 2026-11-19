@@ -1,3 +1,4 @@
+import { beforeHardeningLevels } from "../domain/campaignBeforeHardening";
 import { AvatarArt } from "./elements/AvatarArt";
 import {
   hasBoostReceipt,
@@ -64,6 +65,7 @@ const controllers = levels.map(
         level,
         i === 0 ? SAVE_KEY : `arowgo.level.${level.levelId}.v1`,
         [
+          ...beforeHardeningLevels.filter((p) => p.levelId === level.levelId),
           ...beforeTimingLevels.filter((p) => p.levelId === level.levelId),
           ...(beforePlanningLevels[i] ? [beforePlanningLevels[i]] : []),
           ...(beforeChallengeLevels[i] ? [beforeChallengeLevels[i]] : []),

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 10,
+  "contentVersion": 11,
   "levelId": "frost-57",
   "board": {
     "columns": 10,
@@ -49,7 +49,8 @@
           6,
           4
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "D",
@@ -67,7 +68,7 @@
           6
         ]
       ],
-      "thawAfter": 6
+      "thawAfter": 9
     },
     {
       "id": "E",
@@ -128,7 +129,7 @@
           7
         ]
       ],
-      "deadline": 6
+      "deadline": 8
     },
     {
       "id": "I",
@@ -145,8 +146,7 @@
           2,
           1
         ]
-      ],
-      "phase": 0
+      ]
     },
     {
       "id": "J",
@@ -191,7 +191,7 @@
           0
         ]
       ],
-      "thawAfter": 3
+      "thawAfter": 2
     },
     {
       "id": "M",
@@ -241,7 +241,7 @@
           5
         ]
       ],
-      "deadline": 12
+      "deadline": 9
     },
     {
       "id": "P",
@@ -254,7 +254,8 @@
           2,
           6
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "Q",
@@ -292,12 +293,12 @@
     "L",
     "I",
     "H",
-    "D",
     "E",
-    "M",
-    "N",
     "R",
     "O",
+    "D",
+    "M",
+    "N",
     "K",
     "F",
     "J",
@@ -306,11 +307,12 @@
     "A"
   ],
   "generation": {
-    "timingAuthorVersion": 1,
+    "hardeningVersion": 1,
+    "targetWinRate": 0.0021775515547341378,
     "planning": {
-      "randomLegalWinRate": 0.005874358583549256,
-      "decisionStates": 12,
-      "blockedTargetDecisions": 10,
+      "randomLegalWinRate": 0.002133821063862216,
+      "decisionStates": 10,
+      "blockedTargetDecisions": 9,
       "exampleDecision": {
         "active": [
           "A",
@@ -339,17 +341,16 @@
         {
           "id": "H",
           "prerequisiteCount": 4,
-          "deadline": 6,
-          "spareMoves": 1
+          "deadline": 8,
+          "spareMoves": 3
         },
         {
           "id": "O",
           "prerequisiteCount": 8,
-          "deadline": 12,
-          "spareMoves": 3
+          "deadline": 9,
+          "spareMoves": 0
         }
       ]
-    },
-    "targetWinRate": 0.005633756925648682
+    }
   }
 }

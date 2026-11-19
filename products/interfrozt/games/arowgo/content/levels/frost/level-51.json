@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 10,
+  "contentVersion": 11,
   "levelId": "frost-51",
   "board": {
     "columns": 10,
@@ -90,7 +90,7 @@
           6
         ]
       ],
-      "deadline": 6
+      "deadline": 3
     },
     {
       "id": "F",
@@ -137,7 +137,8 @@
           1,
           8
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "I",
@@ -187,7 +188,7 @@
           3
         ]
       ],
-      "deadline": 9
+      "deadline": 11
     },
     {
       "id": "L",
@@ -204,8 +205,7 @@
           5,
           4
         ]
-      ],
-      "phase": 0
+      ]
     },
     {
       "id": "M",
@@ -253,7 +253,8 @@
           2,
           0
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "P",
@@ -267,7 +268,7 @@
           1
         ]
       ],
-      "thawAfter": 5
+      "thawAfter": 8
     },
     {
       "id": "Q",
@@ -288,17 +289,17 @@
     }
   ],
   "solution": [
-    "G",
-    "J",
-    "I",
     "Q",
     "L",
     "E",
+    "G",
+    "J",
+    "D",
+    "O",
+    "I",
     "P",
     "M",
     "K",
-    "D",
-    "O",
     "N",
     "H",
     "F",
@@ -307,11 +308,12 @@
     "A"
   ],
   "generation": {
-    "timingAuthorVersion": 1,
+    "hardeningVersion": 1,
+    "targetWinRate": 0.004589050319120089,
     "planning": {
-      "randomLegalWinRate": 0.01072208659267621,
-      "decisionStates": 35,
-      "blockedTargetDecisions": 28,
+      "randomLegalWinRate": 0.004581404320987655,
+      "decisionStates": 23,
+      "blockedTargetDecisions": 16,
       "exampleDecision": {
         "active": [
           "A",
@@ -320,7 +322,10 @@
           "D",
           "E",
           "F",
+          "G",
           "H",
+          "I",
+          "J",
           "K",
           "L",
           "M",
@@ -330,24 +335,23 @@
           "Q"
         ],
         "safeMove": "Q",
-        "unsafeMove": "O"
+        "unsafeMove": "G"
       },
-      "earliestDecisionMove": 4,
+      "earliestDecisionMove": 1,
       "deadlines": [
         {
           "id": "E",
           "prerequisiteCount": 2,
-          "deadline": 6,
-          "spareMoves": 3
+          "deadline": 3,
+          "spareMoves": 0
         },
         {
           "id": "K",
           "prerequisiteCount": 3,
-          "deadline": 9,
-          "spareMoves": 5
+          "deadline": 11,
+          "spareMoves": 7
         }
       ]
-    },
-    "targetWinRate": 0.011175689633534363
+    }
   }
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 10,
+  "contentVersion": 11,
   "levelId": "frost-44",
   "board": {
     "columns": 10,
@@ -133,7 +133,7 @@
           7
         ]
       ],
-      "thawAfter": 3
+      "thawAfter": 2
     },
     {
       "id": "I",
@@ -164,7 +164,7 @@
           3
         ]
       ],
-      "deadline": 11
+      "deadline": 12
     },
     {
       "id": "K",
@@ -260,7 +260,7 @@
           0
         ]
       ],
-      "thawAfter": 3
+      "thawAfter": 5
     }
   ],
   "solution": [
@@ -282,11 +282,12 @@
     "A"
   ],
   "generation": {
-    "timingAuthorVersion": 1,
+    "hardeningVersion": 1,
+    "targetWinRate": 0.010476952780189043,
     "planning": {
-      "randomLegalWinRate": 0.023282117289308984,
-      "decisionStates": 41,
-      "blockedTargetDecisions": 27,
+      "randomLegalWinRate": 0.010802469135802469,
+      "decisionStates": 30,
+      "blockedTargetDecisions": 21,
       "exampleDecision": {
         "active": [
           "A",
@@ -315,11 +316,10 @@
         {
           "id": "J",
           "prerequisiteCount": 4,
-          "deadline": 11,
-          "spareMoves": 6
+          "deadline": 12,
+          "spareMoves": 7
         }
       ]
-    },
-    "targetWinRate": 0.024850202422228247
+    }
   }
 }

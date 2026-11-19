@@ -11,7 +11,7 @@ it("accepts authenticated old-version attempt replays and validates new timing c
   for (const old of beforeTimingLevels)
     expect(verifyClear(old.levelId, 9, old.solution)).toBe(true);
   for (const level of levels.slice(40))
-    expect(verifyClear(level.levelId, 10, level.solution)).toBe(true);
+    expect(verifyClear(level.levelId, level.contentVersion, level.solution)).toBe(true);
   expect(() => verifyClear("frost-41", 8, [])).toThrow();
 });
 it("old cloud save remains restorable with its earned coins and stars", () => {

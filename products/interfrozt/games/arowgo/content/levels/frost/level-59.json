@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 10,
+  "contentVersion": 11,
   "levelId": "frost-59",
   "board": {
     "columns": 10,
@@ -54,8 +54,7 @@
           2,
           6
         ]
-      ],
-      "phase": 0
+      ]
     },
     {
       "id": "D",
@@ -86,7 +85,7 @@
           2
         ]
       ],
-      "deadline": 13
+      "deadline": 12
     },
     {
       "id": "F",
@@ -100,7 +99,7 @@
           0
         ]
       ],
-      "thawAfter": 5
+      "thawAfter": 8
     },
     {
       "id": "G",
@@ -113,8 +112,7 @@
           1,
           4
         ]
-      ],
-      "phase": 1
+      ]
     },
     {
       "id": "H",
@@ -163,7 +161,8 @@
           1,
           5
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "K",
@@ -193,7 +192,8 @@
           4,
           8
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "M",
@@ -223,7 +223,8 @@
           5,
           6
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "O",
@@ -237,7 +238,7 @@
           4
         ]
       ],
-      "deadline": 11
+      "deadline": 7
     },
     {
       "id": "P",
@@ -265,7 +266,7 @@
           9
         ]
       ],
-      "thawAfter": 2
+      "thawAfter": 1
     },
     {
       "id": "R",
@@ -288,8 +289,6 @@
   "solution": [
     "D",
     "A",
-    "I",
-    "H",
     "Q",
     "M",
     "P",
@@ -299,6 +298,8 @@
     "J",
     "G",
     "E",
+    "I",
+    "H",
     "L",
     "R",
     "F",
@@ -306,11 +307,12 @@
     "B"
   ],
   "generation": {
-    "timingAuthorVersion": 1,
+    "hardeningVersion": 1,
+    "targetWinRate": 0.0016984404380108052,
     "planning": {
-      "randomLegalWinRate": 0.004329630369537981,
-      "decisionStates": 101,
-      "blockedTargetDecisions": 87,
+      "randomLegalWinRate": 0.0017126196304567034,
+      "decisionStates": 64,
+      "blockedTargetDecisions": 55,
       "exampleDecision": {
         "active": [
           "B",
@@ -318,6 +320,8 @@
           "E",
           "F",
           "G",
+          "H",
+          "I",
           "J",
           "K",
           "L",
@@ -329,24 +333,23 @@
           "R"
         ],
         "safeMove": "Q",
-        "unsafeMove": "R"
+        "unsafeMove": "I"
       },
-      "earliestDecisionMove": 5,
+      "earliestDecisionMove": 3,
       "deadlines": [
         {
           "id": "E",
           "prerequisiteCount": 7,
-          "deadline": 13,
-          "spareMoves": 5
+          "deadline": 12,
+          "spareMoves": 4
         },
         {
           "id": "O",
           "prerequisiteCount": 3,
-          "deadline": 11,
-          "spareMoves": 7
+          "deadline": 7,
+          "spareMoves": 3
         }
       ]
-    },
-    "targetWinRate": 0.004483729071372791
+    }
   }
 }

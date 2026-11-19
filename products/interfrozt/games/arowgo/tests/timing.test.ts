@@ -106,7 +106,7 @@ it("migrates every Frostfall clear without losing rewards or best stars and arch
     expect(result.state?.coins).toBe(25);
     expect(result.state?.bestStars).toBe(3);
     expect(result.state?.claimed).toBe(true);
-    expect(result.state?.contentVersion).toBe(10);
+    expect(result.state?.contentVersion).toBe(levels[40 + i].contentVersion);
     expect(data.get(key + ".content-9")).toBe(raw);
   }
 });

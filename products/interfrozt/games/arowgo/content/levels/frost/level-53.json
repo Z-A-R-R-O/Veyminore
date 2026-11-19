@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": 2,
-  "contentVersion": 10,
+  "contentVersion": 11,
   "levelId": "frost-53",
   "board": {
     "columns": 10,
@@ -23,7 +23,8 @@
           7,
           3
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "B",
@@ -40,7 +41,8 @@
           3,
           7
         ]
-      ]
+      ],
+      "phase": 0
     },
     {
       "id": "C",
@@ -54,7 +56,7 @@
           5
         ]
       ],
-      "thawAfter": 5
+      "thawAfter": 8
     },
     {
       "id": "D",
@@ -71,8 +73,7 @@
           6,
           6
         ]
-      ],
-      "phase": 0
+      ]
     },
     {
       "id": "E",
@@ -150,7 +151,7 @@
           2
         ]
       ],
-      "deadline": 7
+      "deadline": 8
     },
     {
       "id": "J",
@@ -167,8 +168,7 @@
           1,
           5
         ]
-      ],
-      "phase": 1
+      ]
     },
     {
       "id": "K",
@@ -182,7 +182,7 @@
           5
         ]
       ],
-      "thawAfter": 6
+      "thawAfter": 5
     },
     {
       "id": "L",
@@ -228,7 +228,7 @@
           5
         ]
       ],
-      "deadline": 12
+      "deadline": 11
     },
     {
       "id": "O",
@@ -245,7 +245,8 @@
           0,
           8
         ]
-      ]
+      ],
+      "phase": 1
     },
     {
       "id": "P",
@@ -288,10 +289,10 @@
     "O",
     "K",
     "J",
-    "C",
     "G",
     "Q",
     "N",
+    "C",
     "D",
     "E",
     "A",
@@ -299,11 +300,12 @@
     "B"
   ],
   "generation": {
-    "timingAuthorVersion": 1,
+    "hardeningVersion": 1,
+    "targetWinRate": 0.003579354351962318,
     "planning": {
-      "randomLegalWinRate": 0.011989068483510515,
-      "decisionStates": 24,
-      "blockedTargetDecisions": 14,
+      "randomLegalWinRate": 0.0036448511892003877,
+      "decisionStates": 21,
+      "blockedTargetDecisions": 13,
       "exampleDecision": {
         "active": [
           "A",
@@ -327,17 +329,16 @@
         {
           "id": "I",
           "prerequisiteCount": 3,
-          "deadline": 7,
-          "spareMoves": 3
+          "deadline": 8,
+          "spareMoves": 4
         },
         {
           "id": "N",
           "prerequisiteCount": 5,
-          "deadline": 12,
-          "spareMoves": 6
+          "deadline": 11,
+          "spareMoves": 5
         }
       ]
-    },
-    "targetWinRate": 0.008894378150109473
+    }
   }
 }
