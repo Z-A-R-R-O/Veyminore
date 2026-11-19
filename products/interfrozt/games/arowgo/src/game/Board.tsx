@@ -640,7 +640,7 @@ class PuzzleScene extends Phaser.Scene {
             : anchored
               ? "anchored"
               : "anchor";
-        // One-cell badges at the tail; deadline count has an ivory face for contrast.
+        // Compact tail attachments keep the arrow direction visible.
         badge.setAttribute(
           "transform",
           `translate(${points[0][0]} ${points[0][1]})`,
@@ -651,7 +651,15 @@ class PuzzleScene extends Phaser.Scene {
             : 0;
         badge.innerHTML =
           arrow.deadline !== undefined
-            ? `<circle r="23" fill="#fff3ca" stroke="#a55725" stroke-width="2"/><rect x="-20" y="-20" width="40" height="40" rx="10" fill="${remaining <= 3 ? "#a73535" : "#8c481b"}"/><path d="M-13-16h26M-13 16h26" stroke="#f5cb80" stroke-width="2"/><text text-anchor="middle" y="10" font-family="Arial" font-size="30" font-weight="bold" fill="#fffdf5">${remaining}</text>`
+            ? `<g class="countdown-badge" data-urgent="${remaining <= 3}">
+                <circle class="countdown-aura" r="25" fill="${remaining <= 3 ? '#ff647c' : '#ffc35c'}" opacity=".16"/>
+                <circle cy="2" r="22" fill="${remaining <= 3 ? '#802341' : '#925020'}"/>
+                <circle r="21" fill="${remaining <= 3 ? '#f0617e' : '#ffcc76'}" stroke="#fff7df" stroke-width="1.5"/>
+                <circle r="17.5" fill="${remaining <= 3 ? '#c12d53' : '#b96320'}"/>
+                <path d="M-14-7Q0-20 14-7Q8-15 0-15Q-8-15-14-7" fill="#fff" opacity=".45"/>
+                <circle r="19" fill="none" stroke="${remaining <= 3 ? '#ffb2c0' : '#ffe8ad'}" stroke-width="2.5" stroke-dasharray="${Math.max(0, Math.min(1, remaining / arrow.deadline!)) * 119.4} 119.4" transform="rotate(-90)" stroke-linecap="round"/>
+                <text text-anchor="middle" dominant-baseline="central" y="1" font-family="Arial, sans-serif" font-size="${remaining >= 10 ? 23 : 28}" font-weight="900" fill="#fffdf5" stroke="${remaining <= 3 ? '#8b173a' : '#844217'}" stroke-width="1" paint-order="stroke">${Math.max(0, remaining)}</text>
+              </g>`
             : `<circle r="17" fill="${anchored ? "#e3e9e7" : "#fff0ae"}" stroke="${anchored ? "#708780" : "#bd821f"}" stroke-width="2.5"/><g class="anchor-symbol" transform="rotate(${anchored ? 0 : 180})" stroke="${anchored ? "#526c64" : "#875215"}"><circle cy="-8" r="3" fill="none" stroke-width="2.5"/><path d="M0-5V11M-6-1H6M-10 4Q-10 12 0 12Q10 12 10 4M-10 4l-2 5M10 4l2 5" fill="none" stroke-width="3" stroke-linecap="round"/></g>`;
         element.append(badge);
       }

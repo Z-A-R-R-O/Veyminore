@@ -6283,3 +6283,17 @@ main {
 .timing-demo{display:flex;justify-content:center;gap:16px;padding:20px}.timing-demo span{background:#ceefe9;border-radius:18px;padding:12px;color:#135e56}
 .timing-badge{transition:opacity .2s ease}.timing-badge[data-open="false"]{opacity:.94}
 @media(prefers-reduced-motion:reduce){.timing-badge{transition:none}}
+
+/* Move-count badges: breathe only the halo, never the number or hit target. */
+.countdown-badge[data-urgent="true"] .countdown-aura {
+  animation: countdown-warning 1.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes countdown-warning {
+  0%, 100% { opacity: .12; transform: scale(.96); }
+  50% { opacity: .32; transform: scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .countdown-badge[data-urgent="true"] .countdown-aura { animation: none; opacity: .24; }
+}
