@@ -901,3 +901,22 @@
     gap: 3px;
   }
 }
+
+/* More breathing room between appearance choices. */
+.portrait-studio .avatar-picker.adventure-picker {
+  column-gap: 12px;
+  row-gap: 14px;
+}
+@media (min-width: 600px) and (min-height: 461px) {
+  .portrait-studio .avatar-picker.adventure-picker {
+    column-gap: 14px;
+    row-gap: 16px;
+  }
+}
+@media (max-height: 640px) and (max-width: 599px),
+  (max-height: 460px) and (min-width: 600px) {
+  .portrait-studio .avatar-picker.adventure-picker {
+    column-gap: 6px;
+    row-gap: 8px;
+  }
+}
