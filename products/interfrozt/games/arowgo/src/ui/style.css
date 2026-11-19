@@ -6078,11 +6078,11 @@ main {
   }
 }
 
-/* Shared AROWGO monogram, preserving responsive header dimensions. */
+/* Shared AROWGO arrow mark, preserving responsive header dimensions. */
 .brand-icon {
   overflow: hidden;
   flex-shrink: 0;
-  background: #3d43ff;
+  background: #37104f;
 }
 .brand-icon img {
   display: block;

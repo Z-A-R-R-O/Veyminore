@@ -332,7 +332,7 @@ export function App({
           }}
         >
           <span className="brand-icon">
-            <img src="/assets/brand/arowgo-icon-128.png" alt="" />
+            <img src="/assets/brand/arowgo-arrow-v4-128.png" alt="" />
           </span>
           AROWGO
         </a>
