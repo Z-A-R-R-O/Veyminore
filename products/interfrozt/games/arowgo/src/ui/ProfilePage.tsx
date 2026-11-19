@@ -1,7 +1,7 @@
+import { AvatarArt } from "./elements/AvatarArt";
 import { useState } from "react";
 import { ProfileEditor } from "./ProfileShop";
 import { ArrowPreview } from "./Shop";
-import { GameArt } from "./elements/GameArt";
 import { skins, type Profile } from "../storage/profile";
 import "./profile.css";
 import { ProfileAccount } from "./ProfileAccount";
@@ -41,7 +41,7 @@ export function ProfilePage({
     <section className="player-profile" aria-label="Player profile">
       <header className="player-card">
         <div className="player-avatar">
-          <GameArt kind={profile.avatar} />
+          <AvatarArt avatar={profile.avatar} />
         </div>
         <div className="player-name">
           <span className="eyebrow">YOUR PROFILE</span>

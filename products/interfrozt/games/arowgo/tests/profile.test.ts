@@ -79,3 +79,26 @@ it("all crates use published rarity boundaries and every collectible is reachabl
   expect(() => rollSkin("bloom", 1, 0)).toThrow();
   expect(() => rollSkin("bloom", 0, -1)).toThrow();
 });
+
+it("all 30 adventure portraits preserve profile balances and ownership on reload", async () => {
+  const { adventureAvatars } = await import("../src/storage/avatars");
+  expect(adventureAvatars).toHaveLength(30);
+  expect(new Set(adventureAvatars.map((a) => a.id)).size).toBe(30);
+  for (const avatar of [
+    ...adventureAvatars.map((a) => a.id),
+    "world",
+    "modes",
+    "trophy",
+  ]) {
+    const p = {
+      ...guest(),
+      avatar,
+      name: "Keeper",
+      gems: 71,
+      owned: ["classic", "mint"],
+      equipped: "mint",
+      spent: 10,
+    };
+    expect(readProfile(JSON.stringify(p))).toEqual(p);
+  }
+});

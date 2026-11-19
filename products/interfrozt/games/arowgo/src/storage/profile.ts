@@ -1,3 +1,5 @@
+import { isAvatar, type Avatar } from "./avatars";
+export type { Avatar } from "./avatars";
 export const PROFILE_KEY = "arowgo.profile.v1";
 export type Rarity = "common" | "rare" | "epic" | "legendary" | "mythic";
 export const skins = [
@@ -124,7 +126,7 @@ export const skins = [
 ] as const;
 export type SkinId = (typeof skins)[number]["id"];
 export type Skin = (typeof skins)[number];
-export type Avatar = "world" | "modes" | "trophy";
+
 export const rarities: Rarity[] = [
   "common",
   "rare",
@@ -206,7 +208,7 @@ export function readProfile(raw: string | null): Profile {
       typeof p.name !== "string" ||
       !p.name.trim() ||
       p.name.length > 20 ||
-      !["world", "modes", "trophy"].includes(p.avatar) ||
+      !isAvatar(p.avatar) ||
       !Array.isArray(p.owned) ||
       !p.owned.includes("classic") ||
       new Set(p.owned).size !== p.owned.length ||
