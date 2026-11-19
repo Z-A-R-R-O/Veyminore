@@ -37,11 +37,20 @@ const archivedHardening = JSON.parse(
     "utf8",
   ),
 ).map(validateLevel);
+const archivedDensity = JSON.parse(
+  readFileSync(
+    new URL("../../content/levels/before-density.json", import.meta.url),
+    "utf8",
+  ),
+).map(validateLevel);
 /** Server-owned content; neither balances nor a client's completion flag are accepted. */
 export function verifyClear(levelId, contentVersion, moves, details = false) {
-  const level = [...rewardLevels, ...archivedFrost, ...archivedHardening].find(
-    (l) => l.levelId === levelId && l.contentVersion === contentVersion,
-  );
+  const level = [
+    ...rewardLevels,
+    ...archivedDensity,
+    ...archivedFrost,
+    ...archivedHardening,
+  ].find((l) => l.levelId === levelId && l.contentVersion === contentVersion);
   if (
     !level ||
     level.contentVersion !== contentVersion ||

@@ -1,4 +1,4 @@
-import {beforeChallengeLevels} from "../src/domain/campaignBeforeChallenge";
+import { beforeChallengeLevels } from "../src/domain/campaignBeforeChallenge";
 import { expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import {
@@ -48,7 +48,7 @@ it("reproduces controlled candidates and rejects invalid or impossible bounds", 
       depthRange: g.depthRange,
       scoreRange: g.scoreRange,
     }),
-  ).toEqual(raw);
+  ).toEqual({ ...raw, generation: { ...raw.generation, version: 4 } });
   expect(() =>
     generatePuzzle(1, 10, 50, "invalid", { openingMoves: [4, 2] }),
   ).toThrow("Invalid difficulty bounds");

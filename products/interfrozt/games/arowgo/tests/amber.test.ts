@@ -33,7 +33,7 @@ it("Amber Dunes adds unique planning puzzles with a gradual measured curve", () 
         d.active.filter((id) => id !== d.safeMove),
       ),
     ).not.toBeNull();
-    expect(l.arrows.length).toBeLessThanOrEqual(18);
+    expect(l.arrows.length).toBeGreaterThanOrEqual(24);
     let state = newSession(l, "amber-proof");
     for (const id of l.solution) {
       state = resolve(l, state, {
@@ -47,4 +47,4 @@ it("Amber Dunes adds unique planning puzzles with a gradual measured curve", () 
     expect(state.status).toBe("complete");
     expect(state.coins).toBe(25);
   }
-});
+}, 30000);

@@ -64,7 +64,7 @@ export function validateLevel(value: unknown): Level {
   if (
     level.schemaVersion !== 1 ||
     ![1, 2].includes(level.rulesVersion) ||
-    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].includes(level.contentVersion) ||
+    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].includes(level.contentVersion) ||
     typeof level.levelId !== "string" ||
     !level.levelId ||
     !level.board ||
@@ -153,7 +153,7 @@ export function validateLevel(value: unknown): Level {
       (!Number.isSafeInteger(arrow.deadline) ||
         arrow.deadline < 1 ||
         arrow.deadline > level.arrows.length ||
-        level.arrows.length > 20)
+        level.arrows.length > 28)
     )
       throw new Error("Invalid keg deadline");
     if (
@@ -176,9 +176,9 @@ export function validateLevel(value: unknown): Level {
       (a.phase !== undefined || a.thawAfter !== undefined) &&
       (level.contentVersion < 10 ||
         level.rulesVersion !== 2 ||
-        level.arrows.length > 20)
+        level.arrows.length > 28)
     )
-      throw Error("Timing mechanics require content 10 and at most 20 arrows");
+      throw Error("Timing mechanics require content 10 and at most 28 arrows");
   }
   let active = [...ids];
   for (const id of level.solution) {
@@ -340,12 +340,69 @@ export function expiredKeg(level: Level, active: readonly string[]): boolean {
       removed >= a.deadline,
   );
 }
+const timingSolutions = new WeakMap<
+  Level,
+  { signature: string; states: Map<string, string[] | null> }
+>();
 function solveDeadlines(level: Level, initial: string[]): string[] | null {
+  const signature = JSON.stringify([
+    level.board,
+    level.rulesVersion,
+    level.arrows,
+  ]);
+  let cache = timingSolutions.get(level);
+  if (!cache || cache.signature !== signature) {
+    cache = { signature, states: new Map() };
+    timingSolutions.set(level, cache);
+  }
+  const stateKey = JSON.stringify([...initial].sort());
+  if (cache.states.has(stateKey)) {
+    const solution = cache.states.get(stateKey)!;
+    return solution ? [...solution] : null;
+  }
+  if (level.arrows.length > 28)
+    throw new Error("Timing solver supports at most 28 arrows");
   const ids = level.arrows.map((a) => a.id),
     graph = dependencies(level);
   const bits = new Map(ids.map((id, i) => [id, 1 << i]));
   const blockers = ids.map((id) =>
     [...graph.get(id)!].reduce((mask, b) => mask | bits.get(b)!, 0),
+  );
+  const ancestors = blockers.map((mask) => {
+    let previous = -1;
+    while (previous !== mask) {
+      previous = mask;
+      for (let i = 0; i < ids.length; i++)
+        if (mask & (1 << i)) mask |= blockers[i];
+    }
+    return mask;
+  });
+  const countBits = (value: number) => {
+    let count = 0;
+    while (value) {
+      value &= value - 1;
+      count++;
+    }
+    return count;
+  };
+  // Removed intermediate blockers (including erased arrows) no longer require their ancestors.
+  const activeAncestors = (index: number, mask: number) => {
+    let result = blockers[index] & mask,
+      previous = -1;
+    while (previous !== result) {
+      previous = result;
+      for (let i = 0; i < ids.length; i++)
+        if (result & (1 << i)) result |= blockers[i] & mask;
+    }
+    return result;
+  };
+  const urgency = ids.map((_, i) =>
+    Math.min(
+      999,
+      ...level.arrows.map((a, j) =>
+        j === i || ancestors[j] & (1 << i) ? (a.deadline ?? 999) : 999,
+      ),
+    ),
   );
   const failed = new Set<number>();
   let visited = 0;
@@ -354,11 +411,13 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
     if (failed.has(mask)) return null;
     if (++visited > 1100000)
       throw new Error("Deadline solver budget exhausted");
-    const removed = ids.length - ids.filter((_, i) => mask & (1 << i)).length;
+    const removed = ids.length - countBits(mask);
     if (
       level.arrows.some(
         (a, i) =>
-          a.deadline !== undefined && mask & (1 << i) && removed >= a.deadline,
+          a.deadline !== undefined &&
+          mask & (1 << i) &&
+          removed + countBits(activeAncestors(i, mask)) >= a.deadline,
       )
     )
       return null;
@@ -370,10 +429,7 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
           !(blockers[i] & mask) &&
           timingOpen(level.arrows[i], removed),
       )
-      .sort(
-        (a, b) =>
-          (level.arrows[a].deadline ?? 999) - (level.arrows[b].deadline ?? 999),
-      );
+      .sort((a, b) => urgency[a] - urgency[b]);
     for (const i of candidates) {
       const rest = search(mask & ~(1 << i));
       if (rest) return [ids[i], ...rest];
@@ -381,7 +437,10 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
     failed.add(mask);
     return null;
   }
-  return search(initial.reduce((mask, id) => mask | bits.get(id)!, 0));
+  const result = search(initial.reduce((mask, id) => mask | bits.get(id)!, 0));
+  if (cache.states.size >= 512) cache.states.clear();
+  cache.states.set(stateKey, result ? [...result] : null);
+  return result;
 }
 export function safeArrows(level: Level, active: readonly string[]): string[] {
   const legal = legalArrows(level, active);

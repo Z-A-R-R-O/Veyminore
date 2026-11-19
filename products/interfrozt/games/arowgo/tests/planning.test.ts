@@ -175,7 +175,11 @@ it("preserves version-8 rewards and archives unfinished or completed saves on ev
 it("promotes the reviewed planning candidates and leaves Levels 1–9 intact", async () => {
   const { levels } = await import("../src/domain/campaign");
   expect(levels.slice(0, 9)).toEqual(beforePlanningLevels.slice(0, 9));
-  expect(levels.slice(9, 39)).toEqual(candidates.slice(0, 30));
+  expect(levels.slice(9, 29)).toEqual(candidates.slice(0, 20));
+  const { beforeDensityLevels } = await import(
+    "../src/domain/campaignBeforeDensity"
+  );
+  expect(beforeDensityLevels.slice(0, 10)).toEqual(candidates.slice(20, 30));
   const { beforeHardeningLevels } = await import(
     "../src/domain/campaignBeforeHardening"
   );

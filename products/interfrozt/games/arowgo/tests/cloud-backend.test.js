@@ -51,20 +51,34 @@ function fake() {
     provider: cloudProvider({ titleId: "116A87", request }),
     request,
     bump: () => version++,
+    objects: () => objects,
   };
 }
 describe("cloud persistence", () => {
   it("runs the live-test workflow only against probe objects, preserving a populated normal save", async () => {
-    const {provider,request}=fake();
-    await provider.save('ticket',{expectedVersion:0,operationId,snapshot});
+    const { provider, request } = fake();
+    await provider.save("ticket", {
+      expectedVersion: 0,
+      operationId,
+      snapshot,
+    });
     request.mockClear();
-    const result=await createCloudProbe({titleId:'116A87',request})('ticket');
+    const result = await createCloudProbe({ titleId: "116A87", request })(
+      "ticket",
+    );
     expect(result.passed).toBe(true);
     expect(JSON.parse(result.snapshot.entries[0].raw).gems).toBe(19);
-    const writes=request.mock.calls.filter(([url])=>url.endsWith('/SetObjects'));
+    const writes = request.mock.calls.filter(([url]) =>
+      url.endsWith("/SetObjects"),
+    );
     expect(writes).toHaveLength(3);
-    for(const [,init] of writes) expect(JSON.parse(init.body).Objects.every(o=>o.ObjectName.startsWith('arowgo-sync-probe-'))).toBe(true);
-    expect((await provider.load('ticket')).save.snapshot).toEqual(snapshot);
+    for (const [, init] of writes)
+      expect(
+        JSON.parse(init.body).Objects.every((o) =>
+          o.ObjectName.startsWith("arowgo-sync-probe-"),
+        ),
+      ).toBe(true);
+    expect((await provider.load("ticket")).save.snapshot).toEqual(snapshot);
   });
   it("round trips exact currency and progress bytes; rejects corruption", () => {
     const packed = packSnapshot(snapshot);
@@ -204,8 +218,87 @@ describe("cloud persistence", () => {
 import { gzipSync } from "node:zlib";
 import { createHash } from "node:crypto";
 it("continues to read previously stored gzip payloads exactly", () => {
- const json=JSON.stringify(snapshot);
- const old={encoding:"gzip-base64",data:gzipSync(json).toString("base64"),hash:createHash("sha256").update(json).digest("hex")};
- expect(unpackSnapshot(old)).toEqual(snapshot);
- expect(()=>unpackSnapshot({...old,encoding:"unknown"})).toThrow("invalid-cloud-save");
+  const json = JSON.stringify(snapshot);
+  const old = {
+    encoding: "gzip-base64",
+    data: gzipSync(json).toString("base64"),
+    hash: createHash("sha256").update(json).digest("hex"),
+  };
+  expect(unpackSnapshot(old)).toEqual(snapshot);
+  expect(() => unpackSnapshot({ ...old, encoding: "unknown" })).toThrow(
+    "invalid-cloud-save",
+  );
+});
+
+it("atomically preserves large current and previous saves with bounded overflow fragments", async () => {
+  const { provider, request, objects } = fake();
+  const large = {
+    ...snapshot,
+    entries: [
+      {
+        key: "arowgo.profile.v1",
+        raw: Array.from({ length: 210 }, (_, i) =>
+          createHash("sha256").update(String(i)).digest("hex"),
+        ).join(""),
+      },
+    ],
+  };
+  expect(
+    Buffer.byteLength(JSON.stringify(packSnapshot(large))),
+  ).toBeGreaterThan(8000);
+  const first = await provider.save("ticket", {
+    expectedVersion: 0,
+    operationId,
+    snapshot: large,
+  });
+  expect(first.save.snapshot).toEqual(large);
+  const secondId = operationId.replace("f1", "a1");
+  const second = {
+    ...large,
+    entries: [{ ...large.entries[0], raw: large.entries[0].raw + "changed" }],
+  };
+  await provider.save("ticket", {
+    expectedVersion: 1,
+    operationId: secondId,
+    snapshot: second,
+  });
+  expect((await provider.load("ticket")).save.snapshot).toEqual(second);
+  const state = objects(),
+    tails = state["arowgo-save-overflow-v1"].records;
+  const previous = state["arowgo-save-previous-v1"];
+  expect(
+    unpackSnapshot({
+      ...previous.snapshot,
+      data: previous.snapshot.data + tails[previous.operationId],
+    }),
+  ).toEqual(large);
+  const writes = request.mock.calls.filter(([u]) => u.endsWith("/SetObjects"));
+  expect(writes).toHaveLength(2);
+  for (const [, init] of writes) {
+    const body = JSON.parse(init.body);
+    expect(body.Objects.length).toBeLessThanOrEqual(3);
+    for (const object of body.Objects)
+      expect(
+        Buffer.byteLength(JSON.stringify(object.DataObject)),
+      ).toBeLessThanOrEqual(8000);
+  }
+  await provider.save("ticket", {
+    expectedVersion: 1,
+    operationId: secondId,
+    snapshot: second,
+  });
+  expect(
+    request.mock.calls.filter(([u]) => u.endsWith("/SetObjects")),
+  ).toHaveLength(2);
+  await expect(
+    provider.save("ticket", {
+      expectedVersion: 1,
+      operationId: operationId.replace("f1", "b1"),
+      snapshot: large,
+    }),
+  ).rejects.toMatchObject({ status: 409 });
+  delete tails[secondId];
+  await expect(provider.load("ticket")).rejects.toMatchObject({
+    message: "invalid-cloud-save",
+  });
 });

@@ -4,6 +4,8 @@ A playable snake-arrow puzzle under **Veyminore → InterFrozt**, with 80 campai
 
 **Historical status — 16 November 2026 (see later implementation documents for account/economy updates):** local browser prototype. Accounts, cloud saves, trusted economy, billing and public-release acceptance are not implemented. The next priority is the [account/backend foundation](docs/BACKEND-ACCOUNT-PLAN.md); the original [Frostfall proposal](docs/FROSTFALL-PEAKS-PLAN.md) is superseded for Levels 41–60 by the [implemented world](docs/FROSTFALL-PEAKS.md), using existing mechanics.
 
+Latest difficulty update: [Dense planning campaign, Levels 30–80](docs/DENSE-CAMPAIGN.md): 20–28 arrows, 70–85% grid coverage, archived save compatibility and stronger removal-order decisions.
+
 Latest chapter: [Amber Dunes, Levels 61–80](docs/AMBER-DUNES.md), including difficulty measurements, save compatibility and verification.
 
 ## Run locally
@@ -15,7 +17,7 @@ pnpm install
 pnpm --filter @veyminore/arowgo dev --port 4173
 ```
 
-Open [AROWGO](http://127.0.0.1:4173). The package requires Node >=22.12; use the package-manager version pinned in the repository root.
+Open [AROWGO](http://127.0.0.1:4173). The package requires Node >=24.0.0; use the package-manager version pinned in the repository root.
 
 ## Play
 

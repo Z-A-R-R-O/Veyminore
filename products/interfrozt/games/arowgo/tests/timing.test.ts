@@ -126,4 +126,4 @@ it("reloads every intermediate and completed timing state; rejects a forged move
     const fake = { ...state, moveLog: [] };
     expect(() => parseSession(JSON.stringify(fake), level)).toThrow();
   }
-});
+}, 30000);

@@ -1,6 +1,6 @@
 # Amber Dunes — World 4, Levels 61–80
 
-Implemented 19 November 2026. The campaign now contains 80 levels, 240 possible stars and 2,000 first-clear coins. Existing Levels 1–60 and their save identities are unchanged.
+Original expansion implemented 19 November 2026. **Current difficulty revision:** Levels 30–80 now use the denser content-12 boards described in [DENSE-CAMPAIGN.md](DENSE-CAMPAIGN.md). The original content-11 generation details below are retained as history. The campaign now contains 80 levels, 240 possible stars and 2,000 first-clear coins. Existing Levels 1–60 and their save identities are unchanged.
 
 ## Player experience
 

@@ -12,7 +12,7 @@ export interface PlanningDecision {
  */
 export function evaluatePlanning(level: Level) {
   const n = level.arrows.length;
-  if (n > 20) throw new Error("Planning analysis supports at most 20 arrows");
+  if (n > 28) throw new Error("Planning analysis supports at most 28 arrows");
   const graph = dependencies(level);
   const ids = level.arrows.map((a) => a.id);
   const bit = new Map(ids.map((id, i) => [id, 1 << i]));
@@ -35,6 +35,8 @@ export function evaluatePlanning(level: Level) {
       )
     )
       return 0;
+    if (memo.size > 1100000)
+      throw new Error("Planning analysis budget exhausted");
     const legal = ids
       .map((_, i) => i)
       .filter(

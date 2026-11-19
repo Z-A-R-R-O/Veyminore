@@ -9,13 +9,15 @@ import {
   type Level,
 } from "./rules";
 
-export const GENERATOR_VERSION = 3;
+export const GENERATOR_VERSION = 4;
 export interface GenerationOptions {
   /** Hard acceptance bounds; unmet constraints exhaust the bounded search. */
   openingMoves?: readonly [number, number];
   depthRange?: readonly [number, number];
   scoreRange?: readonly [number, number];
   connectedPlacement?: boolean;
+  /** Minimum occupied cells for dense campaign authoring. */
+  minimumOccupiedCells?: number;
   /** One pair keeps the shared key/lock artwork unambiguous. */
   keyLockPairs?: 0 | 1;
 }
@@ -126,9 +128,13 @@ export function generatePuzzle(
     seed > 0xffffffff ||
     !Number.isInteger(count) ||
     count < 4 ||
-    count > 20 ||
+    count > 28 ||
     !Number.isFinite(targetScore) ||
     targetScore < 0 ||
+    (options.minimumOccupiedCells !== undefined &&
+      (!Number.isInteger(options.minimumOccupiedCells) ||
+        options.minimumOccupiedCells < 0 ||
+        options.minimumOccupiedCells > 100)) ||
     ![0, 1].includes(keyLockPairs)
   )
     throw new Error("Invalid generation options");
@@ -152,7 +158,11 @@ export function generatePuzzle(
         cost: number;
       }
     | undefined;
-  for (let candidate = 0; candidate < 250; candidate++) {
+  for (
+    let candidate = 0;
+    candidate < (options.minimumOccupiedCells ? 80 : 250);
+    candidate++
+  ) {
     const level: Level = {
       schemaVersion: 1,
       rulesVersion: 2,
@@ -165,7 +175,8 @@ export function generatePuzzle(
     const occupied = new Set<string>();
     for (
       let attempt = 0;
-      attempt < 500 && level.arrows.length < count;
+      attempt < (options.minimumOccupiedCells ? 800 : 500) &&
+      level.arrows.length < count;
       attempt++
     ) {
       const points: Cell[] = [[pick(10), pick(10)]];
@@ -174,13 +185,16 @@ export function generatePuzzle(
       for (let s = 0; s < segments; s++) {
         if (s) dir = dir < 2 ? 2 + pick(2) : pick(2);
         const [x, y] = points.at(-1)!;
-        const length = 1 + pick(2);
+        const length = count >= 24 ? 1 : 1 + pick(2);
         points.push([x + dirs[dir][0] * length, y + dirs[dir][1] * length]);
       }
       if (points.some(([x, y]) => x < 0 || y < 0 || x >= 10 || y >= 10))
         continue;
       const arrow: Arrow = {
-        id: String.fromCharCode(65 + level.arrows.length),
+        id:
+          level.arrows.length < 26
+            ? String.fromCharCode(65 + level.arrows.length)
+            : `A${String.fromCharCode(65 + level.arrows.length - 26)}`,
         points,
       };
       const cells = expand(arrow);
@@ -209,6 +223,11 @@ export function generatePuzzle(
     if (level.arrows.length !== count) continue;
     if (keyLockPairs && !placeKeyLock(level, pick)) continue;
     level.solution = solve(level)!;
+    if (options.minimumOccupiedCells)
+      level.arrows = fillUnusedCells(
+        level,
+        options.minimumOccupiedCells,
+      ).arrows;
     validateLevel(level);
     const difficulty = evaluateDifficulty(level);
     const quality = evaluateLayout(level);
@@ -226,6 +245,7 @@ export function generatePuzzle(
       })
     )
       continue;
+    if (quality.occupiedCells < (options.minimumOccupiedCells ?? 0)) continue;
     // Reject boards dominated by unrelated, immediately free arrows.
     if (
       count >= 10 &&
@@ -263,4 +283,70 @@ export function generatePuzzle(
       ...(keyLockPairs ? { mechanicsVersion: 1, keyLockPairs } : {}),
     },
   };
+}
+/** Fill spare cells without changing the puzzle's dependency graph or timing decisions. */
+export function fillUnusedCells(source: Level, targetCells: number): Level {
+  const level = structuredClone(source);
+  const signature = (l: Level) =>
+    JSON.stringify(
+      [...dependencies(l)].map(([id, blockers]) => [id, [...blockers].sort()]),
+    );
+  const graph = signature(level);
+  const directions: Cell[] = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ];
+  for (
+    let round = 0;
+    round < 100 && evaluateLayout(level).occupiedCells < targetCells;
+    round++
+  ) {
+    let added = false;
+    const occupied = new Set(
+      level.arrows.flatMap(expand).map((c) => c.join(",")),
+    );
+    for (const arrow of level.arrows) {
+      if (evaluateLayout(level).occupiedCells >= targetCells) break;
+      const [x, y] = arrow.points[0];
+      for (const [dx, dy] of directions) {
+        const cell: Cell = [x + dx, y + dy];
+        if (
+          cell[0] < 0 ||
+          cell[1] < 0 ||
+          cell[0] >= level.board.columns ||
+          cell[1] >= level.board.rows ||
+          occupied.has(cell.join(","))
+        )
+          continue;
+        arrow.points.unshift(cell);
+        if (signature(level) === graph) {
+          try {
+            validateLevel(level);
+            occupied.add(cell.join(","));
+            added = true;
+            break;
+          } catch {
+            /* Reject self-crossing head rays. */
+          }
+        }
+        arrow.points.shift();
+      }
+    }
+    if (!added) break;
+  }
+  for (const arrow of level.arrows) {
+    arrow.points = arrow.points.filter((point, i, points) => {
+      if (i === 0 || i === points.length - 1) return true;
+      const before = points[i - 1],
+        after = points[i + 1];
+      return (
+        (point[0] - before[0]) * (after[1] - point[1]) !==
+        (point[1] - before[1]) * (after[0] - point[0])
+      );
+    });
+  }
+  validateLevel(level);
+  return level;
 }

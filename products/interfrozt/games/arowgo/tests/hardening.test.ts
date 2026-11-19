@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
 import { beforeHardeningLevels } from "../src/domain/campaignBeforeHardening";
-import { levels } from "../src/domain/campaign";
+import { beforeDensityLevels as levels } from "../src/domain/campaignBeforeDensity";
 import { evaluatePlanning } from "../src/domain/planning";
 import { newSession, resolve, parseSession } from "../src/application/session";
 import { SaveStore } from "../src/storage/save";

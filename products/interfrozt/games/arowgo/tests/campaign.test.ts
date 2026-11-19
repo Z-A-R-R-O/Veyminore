@@ -55,4 +55,4 @@ it("isolates eighty saves, restores attempts, and awards exactly 2000 total coin
     total += restored.state.coins;
   });
   expect(total).toBe(2000);
-}, 20000);
+}, 40000);

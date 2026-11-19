@@ -1,3 +1,4 @@
+import { beforeDensityLevels } from "../domain/campaignBeforeDensity";
 import { beforeHardeningLevels } from "../domain/campaignBeforeHardening";
 import { beforeTimingLevels } from "../domain/campaignBeforeTiming";
 import type { Level } from "../domain/rules";
@@ -10,9 +11,11 @@ function compatibleSession(raw: string, level: Level) {
   try {
     return parseSession(raw, level);
   } catch (error) {
-    for (const old of [...beforeHardeningLevels, ...beforeTimingLevels].filter(
-      (l) => l.levelId === level.levelId,
-    )) {
+    for (const old of [
+      ...beforeDensityLevels,
+      ...beforeHardeningLevels,
+      ...beforeTimingLevels,
+    ].filter((l) => l.levelId === level.levelId)) {
       try {
         return parseSession(raw, old);
       } catch {}

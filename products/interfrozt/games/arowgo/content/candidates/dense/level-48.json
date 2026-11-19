@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 12,
+  "levelId": "frost-48",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          9,
+          6
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          6,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          9,
+          3
+        ],
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          5,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "requires": "Q"
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "deadline": 16
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          5,
+          7
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "deadline": 12
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          3,
+          9
+        ],
+        [
+          5,
+          9
+        ]
+      ],
+      "anchorRequires": "L"
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          3,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          6,
+          9
+        ],
+        [
+          8,
+          9
+        ]
+      ],
+      "anchorRequires": "L"
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          6,
+          6
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "phase": 1
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          9,
+          7
+        ],
+        [
+          9,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "S",
+      "points": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "thawAfter": 5
+    },
+    {
+      "id": "T",
+      "points": [
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          9
+        ]
+      ],
+      "thawAfter": 4
+    },
+    {
+      "id": "U",
+      "points": [
+        [
+          7,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "V",
+      "points": [
+        [
+          8,
+          2
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          9,
+          4
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "L",
+    "Q",
+    "M",
+    "K",
+    "T",
+    "S",
+    "R",
+    "P",
+    "N",
+    "J",
+    "I",
+    "H",
+    "G",
+    "F",
+    "D",
+    "A",
+    "O",
+    "U",
+    "E",
+    "C",
+    "B",
+    "V"
+  ],
+  "generation": {
+    "densityAuthorVersion": 1,
+    "metrics": {
+      "level": 48,
+      "count": 22,
+      "isolated": 1,
+      "emptyQuadrants": 0,
+      "imbalance": 7,
+      "occupiedCells": 75,
+      "depth": 7,
+      "edges": 34,
+      "bends": 14,
+      "initialChoices": 4,
+      "forcedSteps": 1,
+      "score": 141,
+      "rate": 0.002036192074438197,
+      "target": 0.002128395001023645
+    },
+    "planning": {
+      "randomLegalWinRate": 0.002036192074438197,
+      "decisionStates": 292,
+      "blockedTargetDecisions": 276,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "D",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "N",
+          "O",
+          "P",
+          "R",
+          "S",
+          "T",
+          "V"
+        ],
+        "safeMove": "T",
+        "unsafeMove": "V"
+      },
+      "earliestDecisionMove": 8,
+      "deadlines": [
+        {
+          "id": "H",
+          "prerequisiteCount": 8,
+          "deadline": 16,
+          "spareMoves": 7
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 4,
+          "deadline": 12,
+          "spareMoves": 7
+        }
+      ]
+    }
+  }
+}

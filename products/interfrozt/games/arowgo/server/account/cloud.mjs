@@ -57,7 +57,12 @@ export function packSnapshot(value) {
       params: { [constants.BROTLI_PARAM_QUALITY]: 6 },
     }).toString("base64");
   }
-  if (Buffer.byteLength(JSON.stringify(packed)) > 8000)
+  if (Buffer.byteLength(JSON.stringify(packed)) > 8000) {
+    packed.data = brotliCompressSync(json, {
+      params: { [constants.BROTLI_PARAM_QUALITY]: 11 },
+    }).toString("base64");
+  }
+  if (Buffer.byteLength(JSON.stringify(packed)) > 10700)
     throw new AuthError(413, "save-too-large");
   return packed;
 }
@@ -90,6 +95,9 @@ export function cloudProvider({
   const previousName = testNamespace
     ? "arowgo-sync-probe-previous-v1"
     : "arowgo-save-previous-v1";
+  const overflowName = testNamespace
+    ? "arowgo-sync-probe-overflow-v1"
+    : "arowgo-save-overflow-v1";
   async function call(path, body, headers) {
     try {
       const response = await request(
@@ -138,7 +146,22 @@ export function cloudProvider({
     );
     if (!Number.isSafeInteger(data?.ProfileVersion) || data.ProfileVersion < 0)
       throw new AuthError(502, "invalid-cloud-save");
-    const record = data.Objects?.[name]?.DataObject;
+    let record = data.Objects?.[name]?.DataObject;
+    if (record?.snapshot?.overflow === true) {
+      const overflow = data.Objects?.[overflowName]?.DataObject;
+      const tail = overflow?.records?.[record.operationId];
+      if (
+        overflow?.schemaVersion !== 1 ||
+        typeof tail !== "string" ||
+        tail.length > 4000
+      )
+        throw new AuthError(502, "invalid-cloud-save");
+      const { overflow: marker, ...snapshot } = record.snapshot;
+      record = {
+        ...record,
+        snapshot: { ...snapshot, data: snapshot.data + tail },
+      };
+    }
     if (
       record &&
       (record.schemaVersion !== 1 ||
@@ -190,13 +213,33 @@ export function cloudProvider({
         operationId,
         snapshot: packed,
       };
-      const objects = [{ ObjectName: name, DataObject: record }];
+      // Keep both complete generations within three entity objects. All fragments
+      // are written under the same ExpectedProfileVersion, never in separate requests.
+      const overflow = { schemaVersion: 1, records: {} };
+      const fragment = (value) => {
+        if (Buffer.byteLength(JSON.stringify(value)) <= 8000) return value;
+        overflow.records[value.operationId] = value.snapshot.data.slice(7000);
+        return {
+          ...value,
+          snapshot: {
+            ...value.snapshot,
+            data: value.snapshot.data.slice(0, 7000),
+            overflow: true,
+          },
+        };
+      };
+      const objects = [{ ObjectName: name, DataObject: fragment(record) }];
       // Preserve the previous complete save with the same atomic profile-version update.
       if (current.record)
         objects.push({
           ObjectName: previousName,
-          DataObject: current.record,
+          DataObject: fragment(current.record),
         });
+      if (Object.keys(overflow.records).length)
+        objects.push({ ObjectName: overflowName, DataObject: overflow });
+      for (const object of objects)
+        if (Buffer.byteLength(JSON.stringify(object.DataObject)) > 8000)
+          throw new AuthError(413, "save-too-large");
       const result = await call(
         "Object/SetObjects",
         {
