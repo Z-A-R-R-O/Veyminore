@@ -1390,3 +1390,30 @@
     display: none;
   }
 }
+/* Sculpted purple-and-gold artwork, sized for readable small controls. */
+.profile-icon {
+  object-fit: contain;
+}
+.player-local .profile-icon {
+  width: 32px;
+  height: 32px;
+}
+.profile-pencil .profile-icon {
+  width: 25px;
+  height: 25px;
+}
+.portrait-tab-symbol .profile-icon {
+  width: 27px;
+  height: 27px;
+}
+.player-stats .stat-symbol {
+  background: transparent;
+}
+.player-stats .stat-symbol .profile-icon {
+  width: 32px;
+  height: 32px;
+}
+.player-stats > div:nth-child(2) .stat-symbol,
+.player-stats > div:nth-child(3) .stat-symbol {
+  background: transparent;
+}

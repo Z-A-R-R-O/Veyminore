@@ -65,3 +65,9 @@ Prompt: “Use case: background-extraction. Edit target: supplied 30 character s
 ## Continuous collections
 
 Profile collections now show all items in vertically scrollable grids, replacing pagination buttons. Avatar/frame scrolling is confined to the choice area, with Save fixed below it. Badge details remain below their scrolling grid. Arrow collection scrolling keeps the shop action reachable. Touch, wheel and keyboard focus can reach the final items without scrolling the game shell. Stable IDs and explicit saving are unchanged.
+
+## Glossy profile controls
+
+Replaced the line icons with built-in imagegen artwork matching the game's purple enamel, gold rims and turquoise jewels. Runtime assets: `public/assets/profile-icons/{account,pencil,avatar,frame,levels,star,perfect}.webp` (160px transparent WebP). A matching chevron is included for future use.
+
+Generation prompt: Create exactly eight isolated icons in a four-column/two-row sheet: account shield with person, diagonal pencil, avatar portrait tile, decorative frame ring, completed-level flag, gold star, three-star medal, right chevron. Glossy rounded sculpted 3D fantasy-game style; purple/gold/turquoise palette; front-facing, simple at 24px; generous transparent margins; no text or backdrop. Follow-up edit removed the cream background and ring interior to true transparency while preserving artwork and positions. Final sheet: `exec-0a6739e8-85a9-44d6-92a8-f122c60f1f5c.png`. Exported row-major into individual assets. Existing accessible button labels and behavior are preserved.

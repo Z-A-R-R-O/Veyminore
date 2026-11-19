@@ -14,7 +14,7 @@ test("profile edits persist and collection equips only owned skins", async ({
   await expect(page.getByText("Profile saved.", { exact: true })).toBeVisible();
   await page.reload();
   await expect(page.locator(".player-name h1")).toHaveText("Path Explorer");
-  await expect(page.locator(".player-avatar img")).toHaveAttribute(
+  await expect(page.locator(".player-avatar .adventure-avatar")).toHaveAttribute(
     "src",
     "/assets/avatars/adventure-01.webp",
   );
@@ -142,3 +142,4 @@ test("all collections scroll to their final item with fixed controls", async ({
     page.locator(".player-avatar .avatar-frame-overlay"),
   ).toHaveAttribute("src", "/assets/avatars/frames/frame-30.webp");
 });
+
