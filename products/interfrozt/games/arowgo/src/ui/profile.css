@@ -595,3 +595,73 @@
     min-height: 16px;
   }
 }
+.avatar-composite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar-composite > .game-art {
+  width: 90% !important;
+  height: 90% !important;
+  object-fit: contain;
+}
+.avatar-category {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.avatar-category button {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+.avatar-category button[aria-pressed="true"] {
+  background: #e5c9fa;
+  color: #542575;
+}
+@media (max-height: 740px) {
+  .player-panel .profile-identity {
+    display: none;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .profile-editor form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 10px;
+  }
+  .profile-editor .name-field {
+    min-width: 0;
+    font-size: 11px;
+  }
+  .profile-editor .name-field input {
+    min-width: 0;
+    width: 100%;
+    padding: 6px;
+  }
+  .profile-editor .avatar-category {
+    margin: 0;
+    align-items: center;
+  }
+  .profile-editor .adventure-picker {
+    grid-column: 1;
+    margin-top: 0;
+  }
+  .profile-editor .avatar-controls {
+    grid-column: 2;
+    margin-top: 0;
+    gap: 3px;
+  }
+  .profile-editor .avatar-controls .primary-button {
+    padding: 6px 10px;
+  }
+  .profile-editor .profile-message {
+    grid-column: 1 / -1;
+  }
+  .profile-editor .profile-message:empty {
+    display: none;
+  }
+}

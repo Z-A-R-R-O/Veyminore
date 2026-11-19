@@ -91,3 +91,57 @@ test("every portrait page loads and the last character saves", async ({
     "/assets/avatars/adventure-30.webp",
   );
 });
+
+test("backgrounds preview without saving, then persist alongside the avatar", async ({
+  page,
+}) => {
+  await page.goto("/#profile");
+  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Choose Fox Explorer avatar" })
+    .click();
+  await page.getByRole("button", { name: "Background", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Choose Ocean Teal background" })
+    .click();
+  await expect(
+    page.locator(".profile-identity .adventure-avatar"),
+  ).toHaveAttribute("style", /background-02/);
+  await page.reload();
+  await expect(
+    page.locator(".player-avatar .game-art").first(),
+  ).not.toHaveAttribute("style", /background-02/);
+  await page.getByRole("button", { name: "Edit profile", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Choose Fox Explorer avatar" })
+    .click();
+  await page.getByRole("button", { name: "Background", exact: true }).click();
+  for (let i = 0; i < 3; i++) {
+    await expect
+      .poll(() =>
+        page
+          .locator('[aria-label="Choose background"] img')
+          .evaluateAll((imgs) =>
+            imgs.every((im) => (im as HTMLImageElement).naturalWidth > 0),
+          ),
+      )
+      .toBe(true);
+    if (i < 2)
+      await page
+        .getByRole("button", { name: "Next backgrounds", exact: true })
+        .click();
+  }
+  await page
+    .getByRole("button", { name: "Choose Pastel Aurora background" })
+    .click();
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await page.reload();
+  await expect(page.locator(".player-avatar img")).toHaveAttribute(
+    "style",
+    /background-12/,
+  );
+  await expect(page.locator(".player-avatar img")).toHaveAttribute(
+    "src",
+    /adventure-01/,
+  );
+});

@@ -1,3 +1,7 @@
+import {
+  avatarBackgrounds,
+  type AvatarBackground,
+} from "../storage/avatar-backgrounds";
 import { useState } from "react";
 import { AvatarArt } from "./elements/AvatarArt";
 import { adventureAvatars } from "../storage/avatars";
@@ -24,10 +28,19 @@ export function ProfileEditor({
       ) / 6,
     ),
   );
+  const [background, setBackground] = useState<AvatarBackground>(
+    profile.avatarBackground,
+  );
+  const [tab, setTab] = useState<"avatar" | "background">("avatar");
+  const [bgPage, setBgPage] = useState(0);
+  const bgChoices = [
+    { id: "none" as const, name: "Original" },
+    ...avatarBackgrounds,
+  ];
   return (
     <section className="profile-editor glass-panel">
       <div className="profile-identity">
-        <AvatarArt avatar={avatar} />
+        <AvatarArt avatar={avatar} background={background} />
         <div>
           <h2>{profile.name}</h2>
           <p>Guest profile · this device</p>
@@ -36,7 +49,14 @@ export function ProfileEditor({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          if (onSave({ ...profile, name: name.trim() || "Guest", avatar }))
+          if (
+            onSave({
+              ...profile,
+              name: name.trim() || "Guest",
+              avatar,
+              avatarBackground: background,
+            })
+          )
             setMessage("Profile saved.");
           else setMessage("Could not save. Please try again.");
         }}
@@ -53,49 +73,113 @@ export function ProfileEditor({
             }}
           />
         </label>
-        <div
-          className="avatar-picker adventure-picker"
-          aria-label="Choose avatar"
-        >
-          {choices.slice(page * 6, page * 6 + 6).map((a) => (
-            <button
-              type="button"
-              key={a.id}
-              aria-label={`Choose ${a.name} avatar`}
-              aria-pressed={avatar === a.id}
-              onClick={() => {
-                setAvatar(a.id);
-                setMessage("");
-              }}
+        <div className="avatar-category" aria-label="Customize portrait">
+          <button
+            type="button"
+            aria-pressed={tab === "avatar"}
+            onClick={() => setTab("avatar")}
+          >
+            Avatar
+          </button>
+          <button
+            type="button"
+            aria-pressed={tab === "background"}
+            onClick={() => setTab("background")}
+          >
+            Background
+          </button>
+        </div>
+        {tab === "avatar" ? (
+          <>
+            <div
+              className="avatar-picker adventure-picker"
+              aria-label="Choose avatar"
             >
-              <AvatarArt avatar={a.id} />
-            </button>
-          ))}
-        </div>
-        <div className="avatar-controls">
-          <button
-            type="button"
-            aria-label="Previous avatars"
-            disabled={page === 0}
-            onClick={() => setPage(page - 1)}
-          >
-            ‹
-          </button>
-          <span aria-live="polite">
-            {page + 1} / {Math.ceil(choices.length / 6)}
-          </span>
-          <button
-            type="button"
-            aria-label="Next avatars"
-            disabled={(page + 1) * 6 >= choices.length}
-            onClick={() => setPage(page + 1)}
-          >
-            ›
-          </button>
-          <button className="primary-button" type="submit">
-            Save
-          </button>
-        </div>
+              {choices.slice(page * 6, page * 6 + 6).map((a) => (
+                <button
+                  type="button"
+                  key={a.id}
+                  aria-label={`Choose ${a.name} avatar`}
+                  aria-pressed={avatar === a.id}
+                  onClick={() => {
+                    setAvatar(a.id);
+                    setMessage("");
+                  }}
+                >
+                  <AvatarArt avatar={a.id} background={background} />
+                </button>
+              ))}
+            </div>
+            <div className="avatar-controls">
+              <button
+                type="button"
+                aria-label="Previous avatars"
+                disabled={page === 0}
+                onClick={() => setPage(page - 1)}
+              >
+                ‹
+              </button>
+              <span aria-live="polite">
+                {page + 1} / {Math.ceil(choices.length / 6)}
+              </span>
+              <button
+                type="button"
+                aria-label="Next avatars"
+                disabled={(page + 1) * 6 >= choices.length}
+                onClick={() => setPage(page + 1)}
+              >
+                ›
+              </button>
+              <button className="primary-button" type="submit">
+                Save
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              className="avatar-picker adventure-picker"
+              aria-label="Choose background"
+            >
+              {bgChoices.slice(bgPage * 6, bgPage * 6 + 6).map((b) => (
+                <button
+                  type="button"
+                  key={b.id}
+                  aria-label={`Choose ${b.name} background`}
+                  aria-pressed={background === b.id}
+                  onClick={() => {
+                    setBackground(b.id);
+                    setMessage("");
+                  }}
+                >
+                  <AvatarArt avatar={avatar} background={b.id} />
+                </button>
+              ))}
+            </div>
+            <div className="avatar-controls">
+              <button
+                type="button"
+                aria-label="Previous backgrounds"
+                disabled={bgPage === 0}
+                onClick={() => setBgPage(bgPage - 1)}
+              >
+                ‹
+              </button>
+              <span aria-live="polite">{bgPage + 1} / 3</span>
+              <button
+                type="button"
+                aria-label="Next backgrounds"
+                disabled={bgPage === 2}
+                onClick={() => setBgPage(bgPage + 1)}
+              >
+                ›
+              </button>
+              <button className="primary-button" type="submit">
+                Save
+              </button>
+            </div>
+          </>
+        )}
         <p role="status" className="profile-message">
           {message}
         </p>

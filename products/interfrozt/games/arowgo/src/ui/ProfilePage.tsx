@@ -41,7 +41,10 @@ export function ProfilePage({
     <section className="player-profile" aria-label="Player profile">
       <header className="player-card">
         <div className="player-avatar">
-          <AvatarArt avatar={profile.avatar} />
+          <AvatarArt
+            avatar={profile.avatar}
+            background={profile.avatarBackground}
+          />
         </div>
         <div className="player-name">
           <span className="eyebrow">YOUR PROFILE</span>

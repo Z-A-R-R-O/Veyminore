@@ -1,3 +1,7 @@
+import {
+  readAvatarBackground,
+  type AvatarBackground,
+} from "./avatar-backgrounds";
 import { isAvatar, type Avatar } from "./avatars";
 export type { Avatar } from "./avatars";
 export const PROFILE_KEY = "arowgo.profile.v1";
@@ -172,6 +176,7 @@ export interface Profile {
   version: 2;
   name: string;
   avatar: Avatar;
+  avatarBackground: AvatarBackground;
   owned: SkinId[];
   equipped: SkinId;
   spent: number;
@@ -186,6 +191,7 @@ export const guest = (): Profile => ({
   version: 2,
   name: "Guest",
   avatar: "world",
+  avatarBackground: "none",
   owned: ["classic"],
   equipped: "classic",
   spent: 0,
@@ -222,6 +228,7 @@ export function readProfile(raw: string | null): Profile {
         ...guest(),
         name: p.name,
         avatar: p.avatar,
+        avatarBackground: readAvatarBackground(p.avatarBackground),
         owned: p.owned,
         equipped: p.equipped,
         spent: p.owned.reduce(
@@ -270,6 +277,7 @@ export function readProfile(raw: string | null): Profile {
       version: 2,
       name: p.name,
       avatar: p.avatar,
+      avatarBackground: readAvatarBackground(p.avatarBackground),
       owned: p.owned,
       equipped: p.equipped,
       spent: p.spent,

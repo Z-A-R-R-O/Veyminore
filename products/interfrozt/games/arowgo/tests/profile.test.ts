@@ -102,3 +102,19 @@ it("all 30 adventure portraits preserve profile balances and ownership on reload
     expect(readProfile(JSON.stringify(p))).toEqual(p);
   }
 });
+
+it("background migration preserves old saves and invalid cosmetic IDs never reset balances", async () => {
+  const { avatarBackgrounds } = await import(
+    "../src/storage/avatar-backgrounds"
+  );
+  const original = { ...guest(), gems: 88, name: "Keeper" };
+  const { avatarBackground: _, ...legacy } = original;
+  expect(readProfile(JSON.stringify(legacy))).toEqual(original);
+  for (const bg of avatarBackgrounds)
+    expect(
+      readProfile(JSON.stringify({ ...original, avatarBackground: bg.id })),
+    ).toEqual({ ...original, avatarBackground: bg.id });
+  expect(
+    readProfile(JSON.stringify({ ...original, avatarBackground: "invalid" })),
+  ).toEqual(original);
+});
