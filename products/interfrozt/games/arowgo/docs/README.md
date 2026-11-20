@@ -8,6 +8,7 @@ Reconciled 20 November 2026. Start with the current summaries; dated rollout not
 - [Production deployment](DEPLOYMENT-PRODUCTION.md): Vercel CDN live release and service boundaries.
 - [Production infrastructure](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md): durable sessions, rate limiting, ledger backups and recovery runbooks.
 - [Cloud-save recovery](CLOUD-SAVE-RECOVERY.md): envelope size limits, failed uploads, conflicts and recovery.
+- [Account continuity & conflicts](ACCOUNT-CONTINUITY-AND-CONFLICTS.md): cross-device appearance sync, clean in-progress restarts, and deterministic conflict policy.
 - [Account & currency flows](ACCOUNT-CURRENCY-FLOWS.md): balance ownership across local, cloud and server wallet.
 - [Release checklist](RELEASE-CHECKLIST.md): physical devices, performance, accessibility and production gates.
 - [Test coverage map](TEST-COVERAGE-MAP.md): automated, mocked, live provider and physical device tiers.

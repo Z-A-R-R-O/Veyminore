@@ -24,7 +24,7 @@ Three stars are independent: finish, no mistakes, and finish within the target (
 
 ## Presentation and collection
 
-Home, Worlds, Modes, play, results, Profile, Shop, Settings and finale are implemented. Multiplayer is a coming-soon placeholder, not network play. Profile supports 30 supplied character portraits, 30 frames, badges and explicit appearance Save. Avatar/Frame choices scroll; background editing was removed. Legacy background assets/parsing remain for compatibility. Appearance remains device-local in account-wallet restoration. [Profile history](PROFILE-AVATARS.md) and [badges](BADGES.md) describe assets and rollout.
+Home, Worlds, Modes, play, results, Profile, Shop, Settings and finale are implemented. Multiplayer is a coming-soon placeholder, not network play. Profile supports 30 supplied character portraits, 30 frames, badges and explicit appearance Save. Avatar/Frame choices scroll; background editing was removed. Legacy background assets/parsing remain for compatibility. Appearance (avatar, frame, display name) is synchronized across devices via the server ledger with optimistic revision locking, and restored into the local profile during account restore. [Profile history](PROFILE-AVATARS.md), [badges](BADGES.md), and [account continuity](ACCOUNT-CONTINUITY-AND-CONFLICTS.md) describe assets and synchronization behavior.
 
 Current branding uses the purple arrow-v4 artwork; the blue A monogram is historical. Matcha display fonts and Satoshi support the interface. Existing supplied audio and generated art still require release rights review. Move feedback, unlock bubbles and reduced-motion behavior are implemented. The collection currently contains 15 arrow skins and three crates; five chest tiers, Ethereal and a 100-skin launch catalog remain a [proposal](CHEST-AND-SKIN-LAUNCH-PLAN.md).
 
@@ -36,7 +36,7 @@ There are distinct modes; do not mix their authority or restore behavior:
 | --- | --- |
 | Legacy local play | Device saves own progress and currency; no online identity required. |
 | Development PlayFab snapshot sync | Google sign-in plus explicit initial cloud association; automatic completion uploads when enabled. Revision conflicts pause for resolution; snapshots do not merge currency. |
-| Reviewed account-wallet preview | SQLite server ledger owns balances, inventory and clear receipts. Account-scoped local saves preserve legacy originals. Explicit second-device restore recreates cleared boards/stars; partial boards and appearance are not synchronized. Legacy snapshot uploads pause in this mode. |
+| Reviewed account-wallet preview | SQLite server ledger owns balances, inventory, appearance and clear receipts. Account-scoped local saves preserve legacy originals. Explicit second-device restore recreates cleared boards, stars, equipped skins, and appearance; uncompleted boards restart cleanly at move 0 to prevent state corruption. Legacy snapshot uploads pause in this mode. See [account continuity](ACCOUNT-CONTINUITY-AND-CONFLICTS.md). |
 
 Google ID tokens are verified server-side and exchanged through PlayFab OIDC `google-web`. The old authorization-code experiment is superseded. Live identity success and an isolated real PlayFab save/restore probe were user-confirmed; those checks do not certify large-history sync or production operation. See [account services](ACCOUNT-SERVICES.md).
 

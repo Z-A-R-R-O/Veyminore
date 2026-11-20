@@ -5,6 +5,7 @@ Reconciled 20 November 2026. Every Markdown file under docs is listed. [Current 
 | Document | Status |
 | --- | --- |
 | [ACCOUNT-BACKEND-DEV.md](ACCOUNT-BACKEND-DEV.md) | Historical design, rollout or verification; use current-state guide |
+| [ACCOUNT-CONTINUITY-AND-CONFLICTS.md](ACCOUNT-CONTINUITY-AND-CONFLICTS.md) | Current guide / contract |
 | [ACCOUNT-CURRENCY-FLOWS.md](ACCOUNT-CURRENCY-FLOWS.md) | Current guide / contract |
 | [ACCOUNT-FOUNDATION.md](ACCOUNT-FOUNDATION.md) | Historical design, rollout or verification; use current-state guide |
 | [ACCOUNT-SERVICES.md](ACCOUNT-SERVICES.md) | Current guide / contract |

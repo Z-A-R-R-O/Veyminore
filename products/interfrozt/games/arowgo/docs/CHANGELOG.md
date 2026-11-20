@@ -1,5 +1,14 @@
 # Documentation changelog
 
+## Account continuity and conflict resolution policy — 20 November 2026
+
+- Implemented cross-device appearance synchronization (`avatar`, `frame`, `name`) in server wallet ledger `preferences` table with optimistic concurrency control (`expectedRevision`).
+- Updated `accountRestorePlan` in `src/account/account-restore.ts` to restore remote appearance attributes into local `arowgo.profile.v1` with validation and fallback to guest defaults.
+- Established clean restart policy for in-progress and mid-puzzle boards: completed levels are restored as finished (`claimed: true, bestStars, coins: 25`); uncompleted levels restart cleanly at move 0 with an empty move log and a fresh unique `attemptId`.
+- Codified deterministic conflict resolution matrix across concurrent first-clears (idempotent 25 coin award), replay star upgrades (`MAX`), time records (`MIN`), appearance updates (optimistic revision locks), and wallet transactions (atomic serializable `BEGIN IMMEDIATE`).
+- Enforced strict account storage isolation between guest (`arowgo.save.v1`, `arowgo.profile.v1`, `arowgo.wallet.v1`) and bound accounts (`arowgo.economy.<accountId>.*`).
+- Added dedicated guide `docs/ACCOUNT-CONTINUITY-AND-CONFLICTS.md` and test suite `tests/account-continuity.test.ts` (5 tests). All 59 test files (407 tests) pass cleanly.
+
 ## Production account and ledger infrastructure — 20 November 2026
 
 - Implemented durable SQLite session store in `server/account/session-store.mjs` (`sessions.sqlite`) in WAL mode with automated TTL pruning and transparent mutation synchronization via recursive Proxy wrappers.

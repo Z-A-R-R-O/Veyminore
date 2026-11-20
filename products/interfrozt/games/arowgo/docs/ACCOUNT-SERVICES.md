@@ -24,7 +24,7 @@ The cloud envelope accepts up to 512 KiB raw data and 150,000 bytes packed using
 
 This mode uses an authoritative SQLite server ledger, with account-bound balances, inventory, idempotent receipts and canonical completion replay. All 100 campaign IDs are in the reward manifest. First-clear rewards cannot be repeated; stars can improve on replay. Reported elapsed time is not trusted human-play anti-cheat.
 
-Legacy import requires review, exported recovery data and an exact snapshot match. Original legacy keys stay intact; binding occurs last. Account-wallet mode pauses legacy automatic cloud snapshots. An explicit second-device flow restores known clears/stars and equipment, never adds device currency to server funds. Partial boards restart; name/avatar/frame remain local. See [wallet workflow and history](SERVER-ECONOMY.md).
+Legacy import requires review, exported recovery data and an exact snapshot match. Original legacy keys stay intact; binding occurs last. Account-wallet mode pauses legacy automatic cloud snapshots. An explicit second-device flow restores known clears/stars, equipped skins, and appearance; partial boards restart cleanly at move 0 with a fresh attempt ID. See [wallet workflow and history](SERVER-ECONOMY.md) and [account continuity & conflict policy](ACCOUNT-CONTINUITY-AND-CONFLICTS.md).
 
 ## Production infrastructure
 

@@ -41,6 +41,7 @@ The AROWGO test suite uses four distinct verification tiers:
 | **Live PlayFab Entity Probe** | `server/account/cloud-probe.mjs` | `tests/cloud-backend.test.js` | Live Provider | Tests real PlayFab `SetObjects`/`GetObjects` with probe objects. |
 | **Full-History Cloud Capacity** | `server/account/cloud.mjs` | `tests/cloud-capacity.test.js`, `tests/sanctum.test.ts` | Mocked Backend | Tests multi-chunk envelope up to 150 KB, 100-level UUID saves, and previous-save atomicity. |
 | **Production Account Infrastructure** | `server/account/session-store.mjs`, `server/account/rate-limiter.mjs`, `server/economy/backup.mjs` | `tests/production-infrastructure.test.js` | Mocked Backend | Tests durable SQLite sessions, IP sliding-window rate limiting, atomic ledger backups, invariant verification, and health probe. |
+| **Account Continuity & Conflicts** | `server/economy/wallet.mjs`, `src/account/account-restore.ts` | `tests/account-continuity.test.ts` | Mocked Backend | Tests cross-device appearance sync, optimistic locking, concurrent first-clears, in-progress clean restarts, and namespace isolation. |
 | **Responsive Viewports & Flow** | `src/ui/App.tsx` | `tests/e2e/*` | Playwright E2E | Desktop (1280×800) and emulated mobile (Pixel 7 390×844) viewport checks. |
 | **Physical Hardware** | Android APK | `android/` | Physical Device | **OPEN GATE**: Touch targets, safe-area insets, thermal stability, haptics. |
 

@@ -180,6 +180,13 @@ export function createAccountService({
             body.skin,
             body.expectedRevision,
           );
+        if (body?.action === "appearance")
+          return economy.appearance(s.account.id, body.operationId, {
+            avatar: body.avatar,
+            frame: body.frame,
+            name: body.name,
+            expectedRevision: body.expectedRevision,
+          });
         if (body?.action === "gift")
           return economy.gift(s.account.id, body.operationId);
         if (body?.action === "chest")

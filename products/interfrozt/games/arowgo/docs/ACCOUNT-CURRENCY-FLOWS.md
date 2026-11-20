@@ -116,6 +116,6 @@ sequenceDiagram
 
 ### Key isolation rules
 
-1. **Unlinked device saves are untouched**: When an account is bound on Device 2, the local unlinked saves (`arowgo.profile.v1`) remain intact in storage.
-2. **Appearance remains device-local**: Selected avatar portraits and frames remain stored locally on each device.
+1. **Unlinked device saves are untouched**: When an account is bound on Device 2, the local unlinked guest saves (`arowgo.profile.v1`) remain intact in storage under their own namespace.
+2. **Appearance synchronized across devices**: Selected avatar portraits, frames, and display names are synchronized via the server ledger with optimistic revision locking, and restored into the local profile during account restore. In-progress board attempts restart cleanly at move 0. See [account continuity & conflict policy](ACCOUNT-CONTINUITY-AND-CONFLICTS.md).
 3. **No double claiming**: First-clear coin rewards exist in the server ledger. Replaying a completed level on Device 2 cannot award duplicate first-clear coins.
