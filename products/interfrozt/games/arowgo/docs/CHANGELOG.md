@@ -1,5 +1,13 @@
 # Documentation changelog
 
+## Full-history cloud capacity resolution — 20 November 2026
+
+- Implemented multi-chunk PlayFab object envelope in `server/account/cloud.mjs` supporting realistic 100-level UUID transcripts, backups, and migration archives up to 150 KB packed / 512 KiB raw.
+- Slices payloads into indexed PlayFab objects (`arowgo-save-v1-chunk-i`) up to 30 chunks, well within PlayFab's 100-object limit and 8,000-byte-per-object limit.
+- Preserves atomic single-request commits under `ExpectedProfileVersion`, full previous-generation rollback copies, corruption rejection, and zero truncation.
+- Backward compatibility maintained for legacy single-overflow saves.
+- Added dedicated test suite `tests/cloud-capacity.test.js` and updated `tests/sanctum.test.ts`. All 57 test files (397 tests) pass.
+
 ## Documentation suite and production/cloud audit — 20 November 2026
 
 Added dedicated guides for cloud-save recovery (`CLOUD-SAVE-RECOVERY.md`), production deployment and service boundaries (`DEPLOYMENT-PRODUCTION.md`), generator specification (`GENERATOR-SPECIFICATION.md`), mechanics handbook (`MECHANICS-HANDBOOK.md`), 100-level register (`LEVEL-DIFFICULTY-REGISTER.md`), account and currency flow diagrams (`ACCOUNT-CURRENCY-FLOWS.md`), release checklist (`RELEASE-CHECKLIST.md`), asset catalog (`ASSET-CATALOG.md`), and test coverage map (`TEST-COVERAGE-MAP.md`). Reconciled status index across 90 files and 472 verified links.

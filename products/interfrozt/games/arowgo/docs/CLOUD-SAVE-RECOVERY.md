@@ -35,7 +35,7 @@ AROWGO implements an offline-first storage hierarchy. Gameplay never blocks on n
 |   - Node.js IPv4 HTTP service (refuses NODE_ENV=production)             |
 |   - Validates snapshot entries <= 500, regex-checked keys, <= 512 KiB   |
 |   - Compression: Gzip level 9 -> Brotli quality 6 -> Brotli quality 11  |
-|   - Packed envelope gate: max 10,700 bytes                              |
+|   - Packed envelope gate: max 150,000 bytes (multi-chunk PlayFab store) |
 +-------------------------------------------------------------------------+
                                     |
                                     | PlayFab Entity API (SetObjects)
@@ -44,9 +44,11 @@ AROWGO implements an offline-first storage hierarchy. Gameplay never blocks on n
 +-------------------------------------------------------------------------+
 |                      PlayFab Entity Objects (116A87)                    |
 |                                                                         |
-|   - arowgo-save-v1          (Current save, head slice <= 7,000 bytes)   |
-|   - arowgo-save-previous-v1 (Previous generation rollback copy)         |
-|   - arowgo-save-overflow-v1 (Overflow tail fragments for current/prev)  |
+|   - arowgo-save-v1          (Current save, head chunk <= 7,000 chars)   |
+|   - arowgo-save-v1-chunk-i  (Indexed overflow chunks 1..N <= 7,000 ch)  |
+|   - arowgo-save-previous-v1 (Previous generation rollback head chunk)   |
+|   - arowgo-save-previous-v1-chunk-i (Previous generation chunks 1..N)   |
+|   - arowgo-save-overflow-v1 (Legacy single-overflow backwards compat)   |
 +-------------------------------------------------------------------------+
 ```
 
@@ -56,7 +58,7 @@ There are two distinct cloud mechanisms in the codebase:
 
 ---
 
-## 2. Envelope and size constraints (the 10,700-byte cap)
+## 2. Envelope and size constraints (multi-chunk cloud capacity)
 
 ### Limits
 
@@ -64,25 +66,29 @@ There are two distinct cloud mechanisms in the codebase:
 | --- | --- | --- | --- |
 | Raw JSON size | **512 KiB** (`524,288` bytes) | `validateSnapshot` in `cloud.mjs` | HTTP 413 `save-too-large` |
 | Entry count | **500 entries** | `validateSnapshot` in `cloud.mjs` | HTTP 400 `invalid-save` |
-| Packed envelope | **10,700 bytes** | `packSnapshot` in `cloud.mjs` | HTTP 413 `save-too-large` |
-| PlayFab object size | **8,000 bytes** per object | PlayFab `SetObjects` API limit | HTTP 413 `save-too-large` |
+| Packed envelope | **150,000 bytes** | `packSnapshot` in `cloud.mjs` | HTTP 413 `save-too-large` |
+| PlayFab object size | **8,000 bytes** per object | PlayFab `SetObjects` API limit | Multi-chunk slicing at 7,000 chars |
+| Max chunks per snapshot | **30 chunks** (~210 KiB base64) | `fragment()` in `cloud.mjs` | Bounded within PlayFab 100-object limit |
 
-### Multi-object fragmentation
+### Multi-chunk fragmentation architecture
 
-PlayFab entity objects enforce a strict limit of 8,000 bytes per `DataObject`. To store snapshots exceeding a single object while maintaining atomic single-request commits:
-- `arowgo-save-v1`: Stores the current save record. If the JSON payload exceeds 8,000 bytes, `fragment()` slices base64 data at 7,000 characters, sets `overflow: true`, and routes the remaining bytes to `arowgo-save-overflow-v1`.
-- `arowgo-save-previous-v1`: Stores the complete previous generation record using the identical slicing rule.
-- `arowgo-save-overflow-v1`: Contains `{ schemaVersion: 1, records: { [operationId]: tail } }` holding overflow fragments for both current and previous generations.
-- Atomic commit: All three objects are submitted in a single `SetObjects` call under the same `ExpectedProfileVersion`.
+PlayFab entity objects enforce a strict limit of 8,000 bytes per `DataObject`. To store complete 100-level saves (with move attempt timestamps, UUID transcripts, star ratings, and backup entries) while maintaining atomic single-request commits:
 
-### Why realistic 80–100 level saves exceed the cap
+- **Primary Object (`arowgo-save-v1`)**: Stores the save header, checksum metadata (`operationId`, `hash`, `encoding`, `profileVersion`), and chunk 0 (`data: base64.slice(0, 7000)`). If the payload requires multiple chunks, `chunkCount: N` is recorded on the object.
+- **Indexed Overflow Chunks (`arowgo-save-v1-chunk-1` .. `arowgo-save-v1-chunk-${N-1}`)**: Overflow chunks are committed as discrete, indexed entity objects. Each chunk object contains `{ schemaVersion: 1, operationId, chunkIndex, totalChunks, data }`. With chunks sized at 7,000 characters, each JSON object safely occupies ~7,100 bytes, remaining well under the 8,000-byte PlayFab cap.
+- **Atomic Previous-Generation Preservation**: `arowgo-save-previous-v1` and its indexed chunks (`arowgo-save-previous-v1-chunk-${i}`) preserve the preceding snapshot in its entirety.
+- **Atomic Single-Call Commit**: All objects (current head, current chunks, previous head, previous chunks) are committed together in a single `SetObjects` call under `ExpectedProfileVersion`. PlayFab allows up to 100 objects per entity; using up to 30 chunks per generation consumes at most ~62 objects in the worst case.
+- **Backward Compatibility**: Reading existing legacy saves that used the single `arowgo-save-overflow-v1` dictionary is fully supported. If `chunkCount` is omitted and `overflow: true`, the reader pulls the tail from `arowgo-save-overflow-v1`.
+
+### Resolution of the realistic 80–100 level history capacity gap
 
 In realistic play, every completed level writes an `arowgo.level.<id>.v1` entry containing run attempt timestamps, full UUID move transcripts, star ratings, and backup entries. 
-- At **40 levels**: packed size is ~5.5–7.2 KiB (passes).
-- At **80 levels**: packed size reaches ~11–13 KiB (exceeds 10,700 bytes).
-- At **100 levels**: packed size reaches ~14–17 KiB (exceeds 10,700 bytes).
+- At **40 levels**: packed size is ~5.5–7.2 KiB (1 to 2 chunks).
+- At **80 levels**: packed size reaches ~11–13 KiB (2 to 3 chunks).
+- At **100 levels**: packed size reaches ~14–17 KiB (3 to 4 chunks).
+- At **100 levels with heavy retries & migration archives**: packed size reaches 50–80 KiB (8 to 12 chunks), raw JSON ~200–400 KiB.
 
-Synthetic compact fixtures pass tests because they omit realistic multi-attempt UUID histories. Real gameplay with 80+ levels triggers HTTP 413 `save-too-large`.
+The multi-chunk architecture easily handles these realistic payloads up to 150,000 packed bytes (512 KiB raw), resolving the historical 10,700-byte single-overflow bottleneck without dropping any move history, transcripts, or recovery data.
 
 ### Zero-truncation guarantee
 

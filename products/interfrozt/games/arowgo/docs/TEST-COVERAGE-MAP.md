@@ -39,6 +39,7 @@ The AROWGO test suite uses four distinct verification tiers:
 | **Economy Purchases** | `server/economy/rewards.mjs` | `tests/economy-purchases.test.js`, `tests/economy-client.test.ts` | Mocked Backend | Tests crate purchase validation and balance deductions. |
 | **Account Progress Restore** | `src/account/account-restore.ts` | `tests/account-progress.test.js`, `tests/account-restore.test.ts` | Mocked Backend | Tests clean second-device board reconstruction and account namespaces. |
 | **Live PlayFab Entity Probe** | `server/account/cloud-probe.mjs` | `tests/cloud-backend.test.js` | Live Provider | Tests real PlayFab `SetObjects`/`GetObjects` with probe objects. |
+| **Full-History Cloud Capacity** | `server/account/cloud.mjs` | `tests/cloud-capacity.test.js`, `tests/sanctum.test.ts` | Mocked Backend | Tests multi-chunk envelope up to 150 KB, 100-level UUID saves, and previous-save atomicity. |
 | **Responsive Viewports & Flow** | `src/ui/App.tsx` | `tests/e2e/*` | Playwright E2E | Desktop (1280×800) and emulated mobile (Pixel 7 390×844) viewport checks. |
 | **Physical Hardware** | Android APK | `android/` | Physical Device | **OPEN GATE**: Touch targets, safe-area insets, thermal stability, haptics. |
 

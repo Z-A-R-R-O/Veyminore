@@ -2,24 +2,26 @@
 
 Updated 20 November 2026. [Gap register](GAME-EXPERIENCE-GAPS.md) owns open acceptance criteria; [current state](CURRENT-GAME-STATE.md) owns implemented behavior.
 
-## Next: full-history cloud capacity
+## Next: production account and ledger infrastructure
 
-See [cloud recovery guide](CLOUD-SAVE-RECOVERY.md) for limits, recovery workflows, and current safe failure handling.
+See [production deployment guide](DEPLOYMENT-PRODUCTION.md) for live architecture, Vercel SPA packaging, and development backend boundaries.
 
-1. Reproduce with realistic UUID-bearing transcripts for 100 completed levels plus migration archives and previous snapshot.
-2. Design bounded storage that retains every byte, current/previous atomicity and optimistic concurrency. Do not discard history, rewards or recovery copies to pass quotas.
-3. Implement with legacy-format compatibility, interrupted-write recovery, corrupt/missing-fragment rejection and account isolation.
-4. Test exact restores and unchanged balances with synthetic fixtures in isolated storage; then verify against real PlayFab test objects.
-5. Enable only after the capacity and recovery gates pass. Keep local saves and clear failure status throughout.
+1. Deploy production-grade account service (migrating from localhost-only HTTP on port 4174).
+2. Provision managed persistence for server wallet, idempotent clear receipts, and session tokens (replacing local development SQLite).
+3. Establish operational runbooks: automated backups, tested ledger recovery, rate limiting, and observability.
+4. Add client retry policies and network resilience against live PlayFab / cloud outages.
 
 ## Following work
 
-- Production account/ledger infrastructure and operational recovery; see [production deployment guide](DEPLOYMENT-PRODUCTION.md).
-- Account continuity beyond completed-board restore, with explicit conflict policy.
-- Human playtesting and physical-device release acceptance.
-- Release regression, performance, formatting and rights/privacy checks.
-- Collection expansion after economy/design review; multiplayer remains later work.
+- Account continuity beyond completed-board restore, with explicit conflict policy and appearance sync.
+- Human playtesting and physical-device release acceptance (touch targets, thermal stability, 60 FPS, safe areas).
+- Release regression, performance, formatting and rights/privacy checks (audio provenance, generated art rights).
+- Collection expansion after economy/design review (5 chest tiers, 100 skins); multiplayer remains later work.
 
 ## Delivered milestones
 
-100-level campaign; snake movement and ordering mechanics; dense late boards; hold preview; profiles/badges; Google OIDC integration; legacy snapshot conflict protection and completion uploads; reviewed account wallet, idempotent rewards/purchases, and second-device completion restore. These are development implementations, not a declaration that all launch gates have passed.
+- **Full-history cloud capacity**: Multi-chunk PlayFab object envelope supporting realistic 100-level UUID transcripts, backups, and migration archives up to 150 KB packed / 512 KiB raw, with atomic commits under `ExpectedProfileVersion`, previous-generation rollback preservation, and corruption rejection. Verified in `tests/cloud-capacity.test.js` and `tests/sanctum.test.ts`. See [cloud recovery guide](CLOUD-SAVE-RECOVERY.md).
+- **100-level campaign & dense late boards**: 100 levels across 5 worlds (Bloom Valley, Verdant Cove, Frostfall Peaks, Amber Dunes, Amber Sanctum); snake movement v2, keys & locks, anchors, ice seals, phase gates, removal-count countdowns.
+- **Reviewed account wallet & restore**: SQLite server ledger, idempotent first-clear rewards (2,500 coins total), second-device completion reconstruction, Google OIDC token exchange (`google-web`), and isolated live PlayFab entity probes.
+- **Hold preview & presentation**: 400ms neutral hold inspection, 30 avatars, 30 frames, 15 arrow skins, 3 crate tiers, Satoshi typography, and purple arrow-v4 branding.
+- **Comprehensive documentation suite**: 10 new/updated guides covering cloud recovery, deployment, generator v4, mechanics, level register, currency flows, release checklist, asset catalog, test coverage, and changelog.
