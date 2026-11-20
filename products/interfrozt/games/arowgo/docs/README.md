@@ -6,6 +6,7 @@ Reconciled 20 November 2026. Start with the current summaries; dated rollout not
 
 - [Game state](CURRENT-GAME-STATE.md): 100 levels, behavior, accounts and limitations.
 - [Production deployment](DEPLOYMENT-PRODUCTION.md): Vercel CDN live release and service boundaries.
+- [Production infrastructure](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md): durable sessions, rate limiting, ledger backups and recovery runbooks.
 - [Cloud-save recovery](CLOUD-SAVE-RECOVERY.md): envelope size limits, failed uploads, conflicts and recovery.
 - [Account & currency flows](ACCOUNT-CURRENCY-FLOWS.md): balance ownership across local, cloud and server wallet.
 - [Release checklist](RELEASE-CHECKLIST.md): physical devices, performance, accessibility and production gates.

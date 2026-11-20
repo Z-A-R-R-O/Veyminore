@@ -56,6 +56,7 @@ Reconciled 20 November 2026. Every Markdown file under docs is listed. [Current 
 | [motion-and-art.md](motion-and-art.md) | Historical design, rollout or verification; use current-state guide |
 | [MOVE-FEEDBACK.md](MOVE-FEEDBACK.md) | Implemented feature; dated measurements retain their original scope |
 | [PLANNING-DIFFICULTY.md](PLANNING-DIFFICULTY.md) | Historical design, rollout or verification; use current-state guide |
+| [PRODUCTION-ACCOUNT-INFRASTRUCTURE.md](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md) | Current guide / contract |
 | [PROFILE-AVATARS.md](PROFILE-AVATARS.md) | Historical design, rollout or verification; use current-state guide |
 | [profile-shop-and-results.md](profile-shop-and-results.md) | Historical design, rollout or verification; use current-state guide |
 | [PUZZLE-GENERATOR.md](PUZZLE-GENERATOR.md) | Historical design, rollout or verification; use current-state guide |

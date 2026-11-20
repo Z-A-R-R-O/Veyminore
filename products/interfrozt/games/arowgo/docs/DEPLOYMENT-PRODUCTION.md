@@ -69,10 +69,16 @@ The development services cannot accidentally run in production:
 1. **Backend production rejection guard**:
    In `server/account/start.mjs`:
    ```javascript
-   if (process.env.NODE_ENV === "production")
-     throw new Error("Development authentication spike cannot run in production");
+   const isProduction = process.env.NODE_ENV === "production";
+   const isProductionServer = process.env.AROWGO_PRODUCTION_SERVER === "1";
+
+   if (isProduction && !isProductionServer) {
+     throw new Error(
+       "Development authentication spike cannot run in production without explicit AROWGO_PRODUCTION_SERVER=1 and configured storage",
+     );
+   }
    ```
-   The backend server explicitly crashes if booted in production mode.
+   The backend server explicitly crashes if booted in production mode without explicit `AROWGO_PRODUCTION_SERVER=1`. See [production account infrastructure](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md) for full production deployment and container orchestration.
 
 2. **Frontend auto-sync environment guard**:
    In `src/account/auto-sync.ts`:

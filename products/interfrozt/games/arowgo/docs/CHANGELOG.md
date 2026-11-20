@@ -1,5 +1,16 @@
 # Documentation changelog
 
+## Production account and ledger infrastructure — 20 November 2026
+
+- Implemented durable SQLite session store in `server/account/session-store.mjs` (`sessions.sqlite`) in WAL mode with automated TTL pruning and transparent mutation synchronization via recursive Proxy wrappers.
+- Implemented sliding-window IP rate limiter in `server/account/rate-limiter.mjs` with standard HTTP 429 and `Retry-After` response headers.
+- Implemented automated atomic ledger backup and restore engine in `server/economy/backup.mjs` using SQLite `VACUUM INTO`, SHA-256 cryptographic audit manifests, dual-entry balance invariant validation, and pre-restore safety copies.
+- Created operational CLI commands: `scripts/backup-ledger.mjs`, `scripts/restore-ledger.mjs`, and `scripts/verify-ledger.mjs`.
+- Added unauthenticated container health probe `GET /api/arowgo/v1/health` for load balancers and container orchestrators.
+- Updated `server/account/start.mjs` to support explicit production boots (`AROWGO_PRODUCTION_SERVER=1`) while strictly guarding against accidental unconfigured production runs.
+- Added dedicated guide `docs/PRODUCTION-ACCOUNT-INFRASTRUCTURE.md` covering architecture, persistence models, SQLite vs Postgres scaling, rate limits, backup retention, and disaster recovery runbooks.
+- Added comprehensive test suite `tests/production-infrastructure.test.js` (5 tests). All 58 test files (402 tests) pass cleanly.
+
 ## Full-history cloud capacity resolution — 20 November 2026
 
 - Implemented multi-chunk PlayFab object envelope in `server/account/cloud.mjs` supporting realistic 100-level UUID transcripts, backups, and migration archives up to 150 KB packed / 512 KiB raw.
