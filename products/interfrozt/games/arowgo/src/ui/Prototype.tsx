@@ -13,6 +13,7 @@ import {
   timeBoost,
   flushCompletions,
   equipSkin,
+  updateAppearance,
 } from "../account/economy-runtime";
 import { beforeTimingLevels } from "../domain/campaignBeforeTiming";
 import { beforePlanningLevels } from "../domain/campaignBeforePlanning";
@@ -141,6 +142,13 @@ export function Prototype() {
       gameStorage.setItem(PROFILE_KEY, JSON.stringify(next));
       setProfile(next);
       setProfileNotice("");
+      if (economyOwner()) {
+        void updateAppearance({
+          avatar: next.avatar,
+          frame: next.avatarFrame,
+          name: next.name,
+        });
+      }
       return true;
     } catch {
       setProfileNotice("Profile storage is unavailable. Purchases are paused.");

@@ -32,9 +32,11 @@ export function TimingGuide({
         className="timing-help"
         onClick={() => dialog.current?.showModal()}
         aria-label={
-          level.levelId.startsWith("amber-")
-            ? "Timing rules"
-            : "Frostfall rules"
+          level.levelId.startsWith("sanctum-")
+            ? "Sanctum timing rules"
+            : level.levelId.startsWith("amber-")
+              ? "Timing rules"
+              : "Frostfall rules"
         }
       >
         ❄ Ice seals

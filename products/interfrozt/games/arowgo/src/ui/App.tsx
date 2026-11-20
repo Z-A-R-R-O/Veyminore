@@ -427,7 +427,17 @@ export function App({
             aria-label={
               lab
                 ? "Rule proof board"
-                : `${levelNumber > 40 ? "Frostfall Peaks" : levelNumber > 20 ? "Verdant Cove" : "Bloom Valley"} level ${levelNumber}`
+                : `${
+                    levelNumber > 80
+                      ? "Amber Sanctum"
+                      : levelNumber > 60
+                        ? "Amber Dunes"
+                        : levelNumber > 40
+                          ? "Frostfall Peaks"
+                          : levelNumber > 20
+                            ? "Verdant Cove"
+                            : "Bloom Valley"
+                  } level ${levelNumber}`
             }
           >
             {lab ? (

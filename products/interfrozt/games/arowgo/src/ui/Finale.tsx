@@ -29,7 +29,15 @@ export function Finale({
       aria-labelledby="finale-title"
     >
       <span className="eyebrow">
-        {world === "bloom" ? "WORLD 01 · COMPLETE" : "ALL WORLDS · COMPLETE"}
+        {world === "bloom"
+          ? "WORLD 01 · COMPLETE"
+          : world === "cove"
+            ? "WORLD 02 · COMPLETE"
+            : world === "frost"
+              ? "WORLD 03 · COMPLETE"
+              : world === "amber"
+                ? "WORLD 04 · COMPLETE"
+                : "ALL WORLDS · COMPLETE"}
       </span>
       <GameArt kind="trophy" />
       <h1 id="finale-title" ref={title} tabIndex={-1}>

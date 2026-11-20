@@ -49,10 +49,10 @@ export function Scenery({
       <picture>
         <source
           media="(max-width: 680px)"
-          srcSet="./assets/bloom-valley-portrait.png"
+          srcSet="/assets/bloom-valley-portrait.png"
         />
         <img
-          src="./assets/bloom-valley-landscape.png"
+          src="/assets/bloom-valley-landscape.png"
           alt=""
           fetchPriority="high"
         />

@@ -9,19 +9,28 @@ try {
 }
 const listeners = new Set<() => void>();
 let context: AudioContext | undefined;
-const clips = {
-  click: new Audio("/audio/arrow-collapse.mp3"),
-  win: new Audio("/audio/victory.mp3"),
-  defeat: new Audio("/audio/defeat.mp3"),
-};
-Object.values(clips).forEach((clip) => {
-  clip.preload = "auto";
-  clip.volume = 0.45;
-});
+const clips: Record<string, HTMLAudioElement | undefined> = {};
+if (typeof Audio !== "undefined") {
+  try {
+    clips.click = new Audio("/audio/arrow-collapse.mp3");
+    clips.win = new Audio("/audio/victory.mp3");
+    clips.defeat = new Audio("/audio/defeat.mp3");
+    Object.values(clips).forEach((clip) => {
+      if (clip) {
+        clip.preload = "auto";
+        clip.volume = 0.45;
+      }
+    });
+  } catch {
+    /* Audio element creation failed or unsupported. */
+  }
+}
 function stopClips() {
   Object.values(clips).forEach((clip) => {
-    clip.pause();
-    clip.currentTime = 0;
+    if (clip) {
+      clip.pause();
+      clip.currentTime = 0;
+    }
   });
 }
 const subscribe = (fn: () => void) => {
@@ -35,17 +44,22 @@ export async function playSound(
 ) {
   if (!enabled || document.hidden) return;
   try {
-    if (
-      kind === "click" ||
-      kind === "win" ||
-      kind === "defeat"
-    ) {
+    if (kind === "click" || kind === "win" || kind === "defeat") {
       const clip = clips[kind];
-      clip.currentTime = 0;
-      void clip.play().catch(() => {});
+      if (clip) {
+        clip.currentTime = 0;
+        void clip.play().catch(() => {});
+      }
       return;
     }
-    context ??= new AudioContext();
+    const AudioCtx =
+      typeof window !== "undefined"
+        ? window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext })
+            .webkitAudioContext
+        : undefined;
+    if (!AudioCtx) return;
+    context ??= new AudioCtx();
     await context.resume();
     if (!enabled || document.hidden) return;
     const notes = kind === "blocked" ? [180, 130] : [659, 880];
