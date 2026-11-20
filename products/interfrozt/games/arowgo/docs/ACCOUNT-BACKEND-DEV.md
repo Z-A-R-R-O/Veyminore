@@ -1,3 +1,5 @@
+> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](ACCOUNT-SERVICES.md) for present behavior; this history is not a current setup checklist.
+
 # Development Google sign-in backend — ID token refactor
 
 Updated 18 November 2026. The failed authorization-code spike has been replaced for web with Google Identity Services Sign in with Google, server-side Google ID token verification and PlayFab OpenID Connect.

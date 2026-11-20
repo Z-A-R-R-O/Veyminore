@@ -1,3 +1,5 @@
+> Current status, 20 November 2026: development wallet with all 100 campaign reward IDs and second-device completed-level restore. The sections below retain dated rollout stages; later restore work supersedes earlier statements that it is the next step. See [current account contract](ACCOUNT-SERVICES.md).
+
 # Server economy — 19 November 2026
 
 Status: integrated development preview, default-off on the account server. No real player was migrated or charged during verification. Production deployment remains separate.
@@ -5,7 +7,7 @@ Status: integrated development preview, default-off on the account server. No re
 ## Delivered
 
 - Account-bound SQLite wallet, balance constraints, transaction history and durable operation receipts. Exact retries return the original result; changed payloads cannot reuse a receipt.
-- First-clear reward validation against all 40 canonical campaign levels. Recorded select and free erase actions are replayed against the game's rules, including keg expiry and stranded-board failure. A stable level ID earns 25 coins only once.
+- First-clear reward validation against all 100 canonical campaign levels. Recorded select and free erase actions are replayed against the game's rules, including keg expiry and stranded-board failure. A stable level ID earns 25 coins only once.
 - Server-priced chest purchases with cryptographic rolls, duplicate refunds, saved inventory and recovery of the last discovery. Payment and reward commit together.
 - Starter gem and welcome-chest claims once per account. Three-gem time boosts grant once per server attempt; the client applies a retained receipt once to its local attempt.
 - Migration review/export page, operator import command, atomic source-backup archive, hash-matched activation and account-specific save copies. Existing original saves remain available for recovery.
@@ -40,7 +42,7 @@ This is a single-host development ledger, not PlayFab Economy V2 or a deployed p
 
 ## Verification
 
-Synthetic unit tests cover all 40 canonical solutions, idempotence, ownership, conflicting operation IDs, expiry, progression, durable reopen, duplicate refunds, insufficient funds, boosts, migration hash/account mismatch, exact balances, recovery preservation, storage failures and transaction rollback at the balance cap. Browser tests exercise reviewed activation, a real isolated SQLite ledger, completing a puzzle, losing a paid-chest response, retrying without double charge, reload persistence and a paid boost on desktop and phone. No real PlayFab player wallet or user save is used in these tests.
+The original 19 November synthetic unit tests covered all 40 then-canonical solutions, idempotence, ownership, conflicting operation IDs, expiry, progression, durable reopen, duplicate refunds, insufficient funds, boosts, migration hash/account mismatch, exact balances, recovery preservation, storage failures and transaction rollback at the balance cap. Browser tests exercise reviewed activation, a real isolated SQLite ledger, completing a puzzle, losing a paid-chest response, retrying without double charge, reload persistence and a paid boost on desktop and phone. No real PlayFab player wallet or user save is used in these tests.
 
 ## Account progression sync — step 1, 19 November 2026
 

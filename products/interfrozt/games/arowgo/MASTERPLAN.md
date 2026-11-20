@@ -1,27 +1,26 @@
-# AROWGO — Current delivery plan
+# AROWGO delivery plan
 
-Updated 16 November 2026. Parent: InterFrozt / Veyminore. Implementation truth is [Current game state](docs/CURRENT-GAME-STATE.md); verification truth is the [dated audit](docs/AUDIT-2026-11-16.md). Earlier 2.x reference plans and prototype reports are historical/design context.
+Updated 20 November 2026. [Current implementation](docs/CURRENT-GAME-STATE.md) · [Open gaps](docs/GAME-EXPERIENCE-GAPS.md) · [Execution backlog](docs/execution-backlog.md).
 
-## Current product
+## Product
 
-Forty local campaign levels: Bloom Valley 1–20 and Verdant Cove 21–40. Snake head-ray movement, keys, anchors, move-count deadlines, tutorials, safe hints, results, local profiles, three crates and fifteen skins are implemented. Levels 10–40 use content 9 planning constraints. Accounts, cloud sync, backend economy, billing, rankings and multiplayer are not implemented. Android debug assembly is verified with Java 21; physical-device/release and human difficulty acceptance remain open.
+A mobile-first snake-arrow puzzle game built around readable rules and deliberate removal order. The campaign now has 100 levels across five chapters. Difficulty must be validated with people as well as solvers. Additional arrow density alone is not a substitute for meaningful choices.
 
-## Delivery priority
+## Delivered development baseline
 
-1. **Account and cloud foundation:** implement the [backend plan](docs/BACKEND-ACCOUNT-PLAN.md), including guest-to-account linking, safe legacy migration, conflict handling and server-owned valuable rewards.
-2. **Verification and release readiness:** resolve the audit's failed checks and native setup gaps; validate on physical devices; review asset rights, economy and player comprehension.
-3. **World 3:** resume the [Frostfall Peaks proposal](docs/FROSTFALL-PEAKS-PLAN.md) after the account foundation. Prototype rules and a small reviewed puzzle set before all twenty levels.
-4. **Collection expansion:** five chest tiers, Ethereal and 100 skins remain [planned](docs/CHEST-AND-SKIN-LAUNCH-PLAN.md). Current odds must not silently change to a planning table.
-5. **Later services:** additional login providers, rankings, PGS, daily/endless, social and multiplayer need their own acceptance gates.
+Campaign authoring/solver pipeline, progressively combined mechanics, neutral hold inspection, local save migration and recovery, responsive game screens, profiles and collection. Google/PlayFab identity, revisioned legacy cloud snapshots and automatic completion upload exist. A separate reviewed SQLite wallet provides authoritative development rewards/purchases and completed-level restoration.
 
-## Architectural boundaries
+## Delivery order
 
-Keep the TypeScript domain separate from React/Phaser rendering. Preserve versioned saves and stable level IDs. Generation and planning are offline authoring steps; ship reviewed JSON. Use Capacitor adapters for native integration. The proposed trusted backend reuses canonical rule validation and owns account/economic commands. No Kotlin rewrite is required.
+1. Fix realistic full-history cloud capacity without dropping progress, currency or recovery history.
+2. Establish production account/ledger hosting, sessions, backup/restore and operating ownership.
+3. Complete cross-device continuity requirements and account conflict UX.
+4. Validate difficulty with human playtests and the app on physical mobile devices.
+5. Complete release regression, performance, accessibility and asset/privacy review.
+6. Expand skins/chests only after the proposed catalog and earning model are reviewed. Multiplayer and other live services require their own milestones.
 
-## Definition of done
+## Architecture and release boundaries
 
-Each milestone needs implementation evidence, relevant tests, explicit migration/rollback behavior and current documentation. A passing solver is not human difficulty validation. A build is not native certification. Local prototype balances are not verified purchases. No planned feature is advertised as live until it exists.
+Keep domain rules/solver independent of React/Phaser. Ship reviewed static level JSON, retain historical versions for save compatibility, and keep provider credentials server-side. Preserve legacy saves during account migration and never merge balances using max/addition or last-write-wins.
 
-See the [backlog](docs/execution-backlog.md) and [decision register](docs/decisions/README.md). Source references in references/ remain unchanged. No delivery dates, staffing, production budget or external provisioning are implied by this plan.
-
-B01 is now in progress: isolated contracts, disabled web transport and raw legacy capture are implemented. Live credential/linking proof remains open. See [account implementation](docs/ACCOUNT-FOUNDATION.md).
+Localhost account services are not production infrastructure. Compact cloud fixtures do not prove large-history support. Automated solving does not prove fun or fairness, and browser mobile emulation does not prove native acceptance. Record each gate with dated evidence and explicit scope; [latest record](docs/AUDIT-2026-11-20.md).

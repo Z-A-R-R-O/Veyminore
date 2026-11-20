@@ -1,3 +1,7 @@
+> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](CURRENT-GAME-STATE.md) for present behavior; this history is not a current setup checklist.
+
+Current editor: 30 character portraits and 30 frames in scrollable choices, explicit Save, no Background category. Stable IDs and compatibility parsing are retained.
+
 # Adventure profile avatars
 
 Added 2026-11-19 from the user-supplied `Thirty Whimsical 3D Adventure Avatars.png` (1374 x 1145 RGBA). The sheet has six columns and five rows of 229 x 229 pixels. Each cell was cropped without AI regeneration and encoded as WebP quality 90, preserving alpha. All 30 files total about 739 KiB.

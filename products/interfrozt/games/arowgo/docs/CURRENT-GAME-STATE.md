@@ -1,84 +1,51 @@
-> 20 November campaign update: [Amber Sanctum, Levels 81–100](AMBER-SANCTUM.md). Five playable chapters, 100 levels, 300 possible stars and 2,500 first-clear coins. Levels 1–80 are unchanged. The inventory below remains historical.
-
-> Campaign update: [Amber Dunes, Levels 61–80](AMBER-DUNES.md) adds a fourth playable world. Current totals: 80 levels, 240 stars, 2,000 first-clear coins. Earlier counts below are historical.
-
-> Latest difficulty update: [Levels 40–60, content 11](LEVELS-40-60-HARDENING.md) increase move-order planning while preserving earned rewards and prior saves.
-
-> Latest update: [Ice Seals and Aurora Gates, content 10](FROSTFALL-TIMING.md) replace the original Frostfall puzzles with harder timing challenges. Earlier content-9 details below are historical.
-
-> Campaign update — 19 November 2026: 60 levels across three worlds. [Frostfall Peaks, Levels 41–60](FROSTFALL-PEAKS.md) is implemented with existing mechanics; older 40-level counts below describe the earlier audit.
-
 # Current game state
 
-> 18 November update: an isolated development Google backend and test page are implemented. [Current provider-spike status](ACCOUNT-BACKEND-DEV.md) supersedes earlier statements that no service code exists. Live provider success and production service gates remain open.
+Updated 20 November 2026. This is the current implementation summary; older design documents and dated test reports are not competing contracts. [Index](README.md) · [Verification](AUDIT-2026-11-20.md) · [Open gaps](GAME-EXPERIENCE-GAPS.md).
 
-Audited 16 November 2026 against this checkout. This is the implementation inventory; [audit outcomes](AUDIT-2026-11-16.md) distinguish fresh verification from historical evidence. The package remains version 0.1.0; that version string does not mean the original five-level scope is current.
+## Campaign
 
-## Status at a glance
+| Chapter | Levels | Current guide |
+| --- | --- | --- |
+| Bloom Valley | 1–20 | [Movement](SNAKE-MOVEMENT.md), [planning](PLANNING-DIFFICULTY.md) |
+| Verdant Cove | 21–40 | [Cove](VERDANT-COVE.md) |
+| Frostfall Peaks | 41–60 | [Frostfall](FROSTFALL-PEAKS.md), [timing](FROSTFALL-TIMING.md) |
+| Amber Dunes | 61–80 | [Dunes](AMBER-DUNES.md) |
+| Amber Sanctum | 81–100 | [Sanctum](AMBER-SANCTUM.md) |
 
-| Area          | Current state                                                                                         |
-| ------------- | ----------------------------------------------------------------------------------------------------- |
-| Game          | Playable browser prototype; 40 campaign levels, two worlds                                            |
-| Movement      | Snake head-ray rules, keys, anchors and move-count deadlines                                          |
-| Persistence   | Device/browser-local sessions and profile; no cloud account                                           |
-| Economy       | Local coins/gems, three crates, 15 skins, Time Boost; no real-money purchases                         |
-| Native        | Capacitor sync and Android debug build verified with Java 21; physical-device/release acceptance open |
-| Next priority | Account/cloud/trusted-economy foundation, documented but not built                                    |
-| World 3       | Frostfall Peaks placeholder and proposal only; no Levels 41–60                                        |
-| Public launch | Not certified; device, operations, rights and player review remain open                               |
+The campaign has 100 stable level IDs, 300 available stars and 2,500 first-clear coins. Worlds unlock sequentially and show ten level markers per map page. Level 80 continues to 81; Level 100 reaches the finale. Sanctum reuses Amber artwork. Canonical content is checked-in JSON selected by `src/domain/campaign.ts`; generation does not run on entering a level.
 
-## Campaign, rules and authoring
+Generator version 4 supports dense authoring. Levels 30–80 use the content-12 density pass; Sanctum uses content 12, 28 arrows on 10×10 boards, with keys, anchors, ice, phase gates and removal-count deadlines. Versions differ across earlier content; do not relabel the whole campaign as one content version. [Dense campaign](DENSE-CAMPAIGN.md) and [Sanctum](AMBER-SANCTUM.md) record acceptance measurements. Solver probability measures arbitrary legal-play outcomes, not human success or IQ. Human tuning remains necessary.
 
-Bloom Valley is Levels 1–20; Verdant Cove is 21–40. Each world has two ten-stop map sections. Unlocked markers launch directly; later worlds remain locked/clouded. Frostfall Peaks and Amber Dunes are non-playable placeholders.
+## Play behavior
 
-All live campaign levels use rulesVersion 2. Content versions: Levels 1–4 use 5, Levels 5–9 use 8, Levels 10–40 use 9. Level IDs remain stable. Geometry generation is version 3; the offline planning pass is version 1. Shipped JSON is reviewed output, not generated at play time.
+Snake movement follows the head's exit ray and then the body path. Blocked taps cost Story hearts; Practice permits unlimited mistakes. Mechanic deadlines count removals rather than elapsed seconds. Hint and blocked taps do not consume removals; Erase does. Hints may reveal a solver-safe choice. The separate 400ms hold preview shows neutral immediate effects, never a winning route; release cancels inspection and a separate tap commits. See [hold preview](HOLD-PREVIEW.md).
 
-The head must have a clear forward ray; its body follows the existing path. Keys and anchors add prerequisites. Keys appear at 11, 14, 17, 19, 20, 22, 23, 25–30 and 32–40. Anchors start at 24. One barrel starts at 10; two start at 25. Successful removals, including Erase, consume one move; hints/blocked taps do not. Expired or stranded deadlines fail an attempt. Players can think without a real-time fuse. Hints use the deadline-aware solver. Hold previews do not use the solver: see HOLD-PREVIEW.md for neutral route inspection and immediate mechanic effects.
+Three stars are independent: finish, no mistakes, and finish within the target (eight seconds per arrow, minimum 60 seconds). Assistance does not cap stars. Hint/Erase remain free in this prototype. Time Boost costs three gems for 30 extra seconds. Practice grants no campaign rewards. Repeat clears do not grant another first-clear payment.
 
-The first snake lesson teaches three movement cases. The first barrel lesson teaches clearing its blocker before the marked arrow. Keys have a first-encounter preview and separate Practice lesson; anchors have an interactive introduction. Lessons are separate from campaign rewards. See [Snake movement](SNAKE-MOVEMENT.md), [Planning difficulty](PLANNING-DIFFICULTY.md), [Keys](KEYS-AND-LOCKS.md) and [Cove](VERDANT-COVE.md).
+## Presentation and collection
 
-## Scoring and rewards
+Home, Worlds, Modes, play, results, Profile, Shop, Settings and finale are implemented. Multiplayer is a coming-soon placeholder, not network play. Profile supports 30 supplied character portraits, 30 frames, badges and explicit appearance Save. Avatar/Frame choices scroll; background editing was removed. Legacy background assets/parsing remain for compatibility. Appearance remains device-local in account-wallet restoration. [Profile history](PROFILE-AVATARS.md) and [badges](BADGES.md) describe assets and rollout.
 
-Story has three mistake hearts; Practice allows unlimited mistakes but still enforces puzzle constraints and grants no stars/coins. Stars independently reward completion, no mistakes and meeting the speed target. Base target: eight seconds per arrow, minimum 60 seconds. Time starts on the first accepted action and includes time away/reloads. Hint and Erase mark assistance without capping new stars. First Story clear awards 25 coins once per level: 1,000 total campaign coins and 120 possible stars. Replays improve best stars without repeating the reward.
+Current branding uses the purple arrow-v4 artwork; the blue A monogram is historical. Matcha display fonts and Satoshi support the interface. Existing supplied audio and generated art still require release rights review. Move feedback, unlock bubbles and reduced-motion behavior are implemented. The collection currently contains 15 arrow skins and three crates; five chest tiers, Ethereal and a 100-skin launch catalog remain a [proposal](CHEST-AND-SKIN-LAUNCH-PLAN.md).
 
-## Profile, collection and gems
+## Accounts, storage and currency
 
-Journey, Arrows and Edit profile are implemented locally. Journey derives progress and milestones; Arrows paginates owned/locked cosmetics; name/avatar and equipped skin persist. Fifteen skins span Common, Rare, Epic, Legendary and Mythic. Ethereal and the 100-skin catalog are planned only.
+There are distinct modes; do not mix their authority or restore behavior:
 
-| Existing crate | Coins | Gems | Common / Rare / Epic / Legendary / Mythic odds |
-| -------------- | ----: | ---: | ---------------------------------------------- |
-| Bloom          |    10 |    1 | 60 / 25 / 10 / 4 / 1%                          |
-| Aurora         |    20 |    2 | 30 / 40 / 20 / 8 / 2%                          |
-| Celestial      |    35 |    4 | 10 / 30 / 35 / 20 / 5%                         |
+| Mode | Authority and limits |
+| --- | --- |
+| Legacy local play | Device saves own progress and currency; no online identity required. |
+| Development PlayFab snapshot sync | Google sign-in plus explicit initial cloud association; automatic completion uploads when enabled. Revision conflicts pause for resolution; snapshots do not merge currency. |
+| Reviewed account-wallet preview | SQLite server ledger owns balances, inventory and clear receipts. Account-scoped local saves preserve legacy originals. Explicit second-device restore recreates cleared boards/stars; partial boards and appearance are not synchronized. Legacy snapshot uploads pause in this mode. |
 
-A one-time welcome opening and one-time 20-gem starter gift exist. Crate payment and outcome are saved before the chest/reel/reveal animation; duplicates refund according to the current local contract. Time Boost costs 3 gems and adds 30 seconds to one current Story attempt. Hint/Erase remain free; extra hearts and paid gem packs are not implemented. All economy authority remains in the client. See [Gems](GEMS-AND-BOOSTERS.md); the [five-tier chest plan](CHEST-AND-SKIN-LAUNCH-PLAN.md) does not describe live odds.
+Google ID tokens are verified server-side and exchanged through PlayFab OIDC `google-web`. The old authorization-code experiment is superseded. Live identity success and an isolated real PlayFab save/restore probe were user-confirmed; those checks do not certify large-history sync or production operation. See [account services](ACCOUNT-SERVICES.md).
 
-## UI, art and accessibility
+The cloud envelope accepts at most 512 KiB raw and 10,700 bytes packed. Realistic UUID-rich histories already exceed the packed cap at 80 completed levels. Oversized saves are rejected without truncation; local data remains intact. Compact synthetic full-campaign fixtures do not establish real capacity. This is the highest current cloud gap.
 
-Home, Worlds, Modes, Shop, Profile, Settings and result/finale flows are implemented. Play has phone and desktop/landscape arrangements; longer settings content may scroll within its panel. Bloom and Cove have distinct scenery, with a separate Cove home illustration/background. The A-arrow monogram is the applied app icon. Generated reward titles, stars, chests, gem and feedback symbols are integrated. Move-feedback counts show categories earned in that attempt; unlock bubbles and snake/recoil/result transitions are present.
+The account server is localhost-only and refuses production mode. Its wallet is a development SQLite service, not deployed PlayFab Economy. Signed-in identity alone never authorizes importing legacy balances. Reviewed migration, recovery copies, idempotent receipts and explicit account binding protect existing saves. See [server economy](SERVER-ECONOMY.md).
 
-Matcha display/action fonts and Satoshi reading text are used. Matcha Squishy was excluded because its supplied license was personal-use only. Sound is optional and initially off: one supplied arrow-click clip plus victory/defeat clips and synthesized supporting cues. Reduced motion, keyboard controls and semantic labels exist. Physical-device sound, screen-reader behavior and release licensing are not certified by browser automation.
+## Engineering and verification
 
-## Save compatibility
+Node >=24, TypeScript, React, Vite, Phaser, Vitest, Playwright and Capacitor Android. Domain rules are separate from UI and persistence. Developer tools provide isolated level selection through 100 and downloadable screenshot bug reports; reports require manual sending.
 
-Session schema is 1; profile schema is 2, with additive gem/receipt fields. Storage keys include arowgo.slice.v1, per-level arowgo.level.<levelId>.v1, and arowgo.profile.v1. Save validation, backups and explicit error notices exist. Historical definitions cover prior rules/content editions, including pre-challenge and pre-planning archives.
-
-Unchanged validated layouts can retain attempts. Replaced geometry or deadlines restart the attempt while keeping claimed rewards, coins, best stars and mode; raw old saves are archived by content version. Time Boost receipts bind to attempts and are reconciled after interrupted writes. These checks protect local consistency, not authenticity against a modified client. Account-based sync and trusted economic authority are absent.
-
-## Technology and release state
-
-Installed package declarations: React 19.3.1, Phaser 4.2.1, Vite 8.3.7, TypeScript 5.9.3, Capacitor 8.6.0, Vitest 4.1.12 and Playwright 1.65.0. Node requirement is >=22.12. Android app ID: com.veyminore.arowgo; checked-in compile/target SDK declarations are 36. Java is now available with JAVA_HOME set. ANDROID_HOME and android/local.properties are absent here; the standard SDK directory is present. Native sync and assembleDebug passed with Android Studio’s bundled Java 21. The default Java 17 failed with invalid source release: 21. Physical-device testing and release signing remain open.
-
-No PlayFab/OAuth integration, server, billing SDK, analytics SDK, friends, leaderboard, daily/endless service or multiplayer implementation was found in the audited game source/dependencies. External accounts or hosting were not inspected. A previous deployment report is historical evidence, not a fresh production check.
-
-## Next work
-
-1. Follow [Backend/account plan](BACKEND-ACCOUNT-PLAN.md): protected guest/Google identity, safe import, cloud conflicts, server economy and recovery.
-2. Resolve open checks in the [current audit](AUDIT-2026-11-16.md), including formatting and native verification.
-3. Observe real players and tune difficulty/clarity; structural simulations are not human success rates.
-4. Resume [Frostfall Peaks](FROSTFALL-PEAKS-PLAN.md) after the account foundation.
-5. Review collection expansion, operating economy and release requirements before launch.
-
-## Account foundation update after the audit
-
-B01 has started: isolated session contracts, a disabled same-origin web adapter and read-only legacy snapshot capture are implemented and tested. They are not connected to game UI or a live service. Google/native provider proof, server sessions, account storage, import and cloud sync remain unfinished. See [implementation status](ACCOUNT-FOUNDATION.md).
+Latest recorded runtime evidence: 393 unit tests across 56 files; 10 targeted Desktop Chrome/emulated Pixel 7 checks; typecheck and build passed. This documentation cleanup does not rerun those runtime checks. Full browser-suite, formatting, physical-device, production deployment and human difficulty acceptance are not asserted. See [dated evidence](AUDIT-2026-11-20.md).

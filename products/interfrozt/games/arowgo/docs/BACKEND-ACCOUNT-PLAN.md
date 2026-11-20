@@ -1,3 +1,5 @@
+> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](ACCOUNT-SERVICES.md) for present behavior; this history is not a current setup checklist.
+
 # AROWGO account and backend plan
 
 > Current web implementation now uses verified Google ID tokens and PlayFab OpenID Connect. The earlier authorization-code contract below is superseded for web. See [refactor and required setup](ACCOUNT-BACKEND-DEV.md).

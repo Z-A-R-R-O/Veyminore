@@ -1,12 +1,12 @@
 # AROWGO build and verification guide
 
-Updated 16 November 2026. [Current state](CURRENT-GAME-STATE.md) · [Backlog](execution-backlog.md). This replaces the original one-level candidate-stack checklist.
+Updated 20 November 2026. [Current state](CURRENT-GAME-STATE.md) · [Backlog](execution-backlog.md). This replaces the original one-level candidate-stack checklist.
 
 ## Workspace and runtime
 
-Game package: products/interfrozt/games/arowgo in the active checkout. During this audit the checkout is E:/Veyminore-arowgo-preview, not the separate E:/Veyminore directory. Reuse the intended checkout and inspect Git status before editing; this branch contains substantial prior uncommitted work.
+Game package: products/interfrozt/games/arowgo in the active checkout. During this audit the checkout is E:/Veyminore-arowgo-preview, not the separate E:/Veyminore directory. Reuse the intended checkout and inspect Git status before editing; leave unrelated changes outside the game package untouched.
 
-Node >=22.12 is required by this package. Use the workspace-pinned package manager and lockfile. From the workspace root run pnpm --filter @veyminore/arowgo dev --port 4173. From the game folder run pnpm dev --port 4173. Preview: http://127.0.0.1:4173.
+Node >=24 is required by this package. Use the workspace-pinned package manager and lockfile. From the workspace root run pnpm --filter @veyminore/arowgo dev --port 4173. From the game folder run pnpm dev --port 4173. Preview: http://127.0.0.1:4173.
 
 ## Boundaries
 
@@ -22,7 +22,7 @@ Node >=22.12 is required by this package. Use the workspace-pinned package manag
 | tests              | Vitest; tests/e2e holds Playwright cases                             |
 | android            | Capacitor native wrapper; separate build/device gate                 |
 
-Domain code must not depend on React/Phaser. Runtime trusts checked-in canonical content, not random generation on entry. The proposed backend is documented in BACKEND-ACCOUNT-PLAN.md and is not an existing directory/service.
+Domain code must not depend on React/Phaser. Runtime trusts checked-in canonical content, not random generation on entry. Development services exist in server/account and server/economy. See [current account contract](ACCOUNT-SERVICES.md).
 
 ## Change workflow
 
@@ -44,11 +44,11 @@ pnpm lint
 pnpm exec playwright test
 ```
 
-Lint is formatting only; it is currently a known failing gate, not silently waived. Unit/build checks and browser runs should be scheduled to avoid needless resource contention. A targeted passing test does not mean the entire suite passed. Do not claim native acceptance from Playwright phone emulation.
+Lint is formatting only; its current full status was not reverified during documentation cleanup. Unit/build checks and browser runs should be scheduled to avoid needless resource contention. A targeted passing test does not mean the entire suite passed. Do not claim native acceptance from Playwright phone emulation.
 
 ## Android gate
 
-Capacitor configuration points to dist and com.veyminore.arowgo. Build web assets, run pnpm android:sync, then inspect/build with a compatible Android toolchain. The current audit found Java/JAVA_HOME available but no ANDROID_HOME or local.properties in this checkout. Verify SDK location, toolchain compatibility, signing, build output and physical-device behavior before marking native work complete. This audit passed assembleDebug using Android Studio's bundled Java 21. The default Java 17 cannot compile the current source target (invalid source release: 21). Reproduce with process-local settings from the game folder:
+Capacitor configuration points to dist and com.veyminore.arowgo. Build web assets, run pnpm android:sync, then inspect/build with a compatible Android toolchain. The historical 16 November audit found Java/JAVA_HOME available but no ANDROID_HOME or local.properties in this checkout. Verify SDK location, toolchain compatibility, signing, build output and physical-device behavior before marking native work complete. That historical audit passed assembleDebug using Android Studio's bundled Java 21. The default Java 17 cannot compile the current source target (invalid source release: 21). Reproduce with process-local settings from the game folder:
 
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
@@ -61,3 +61,7 @@ Use the actual compatible JDK/SDK paths on another machine. The debug APK is and
 ## Release evidence
 
 Capture dated command results, browser project/viewport scope, device model/OS for native checks, unresolved warnings/failures and migration behavior. Generated art and supplied audio/fonts require a release rights review. Account/billing features additionally require secure identity, server authority, receipt recovery and operating ownership before activation.
+
+## Account preview
+
+Run `pnpm account:server` and `pnpm account:web` in separate terminals, using http://localhost:4173. Follow [setup](ACCOUNT-SETUP.md); do not print or commit the ignored environment file. The gameplay-only 127.0.0.1 origin has separate browser storage. Never clear saves to switch origins. The account server refuses production mode.

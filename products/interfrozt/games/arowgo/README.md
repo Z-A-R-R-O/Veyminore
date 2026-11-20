@@ -1,59 +1,40 @@
 # AROWGO
 
-A playable snake-arrow puzzle under **Veyminore → InterFrozt**, with 80 campaign levels across Bloom Valley, Verdant Cove, Frostfall Peaks and Amber Dunes. React/TypeScript menus, a Phaser/SVG board, Vite tooling and a Capacitor Android wrapper.
+A mobile-first snake-arrow puzzle game. Current development status: **20 November 2026**, 100 campaign levels across five chapters. This is a development preview, not a production launch certification.
 
-**Historical status — 16 November 2026 (see later implementation documents for account/economy updates):** local browser prototype. Accounts, cloud saves, trusted economy, billing and public-release acceptance are not implemented. The next priority is the [account/backend foundation](docs/BACKEND-ACCOUNT-PLAN.md); the original [Frostfall proposal](docs/FROSTFALL-PEAKS-PLAN.md) is superseded for Levels 41–60 by the [implemented world](docs/FROSTFALL-PEAKS.md), using existing mechanics.
+## Start here
 
-Latest difficulty update: [Dense planning campaign, Levels 30–80](docs/DENSE-CAMPAIGN.md): 20–28 arrows, 70–85% grid coverage, archived save compatibility and stronger removal-order decisions.
-
-Latest chapter: [Amber Dunes, Levels 61–80](docs/AMBER-DUNES.md), including difficulty measurements, save compatibility and verification.
+- [Current game state](docs/CURRENT-GAME-STATE.md): shipped behavior and service boundaries.
+- [Documentation index](docs/README.md): feature guides and historical records.
+- [Build guide](docs/build-guide.md): commands and verification scope.
+- [Open gaps](docs/GAME-EXPERIENCE-GAPS.md) and [delivery backlog](docs/execution-backlog.md).
+- [Latest verification record](docs/AUDIT-2026-11-20.md).
 
 ## Run locally
 
-From the repository root, install the pinned workspace dependencies and run:
+Use Node 24 or newer and the workspace pnpm lockfile. From this game directory:
 
 ```powershell
-pnpm install
-pnpm --filter @veyminore/arowgo dev --port 4173
+pnpm dev --port 4173
 ```
 
-Open [AROWGO](http://127.0.0.1:4173). The package requires Node >=24.0.0; use the package-manager version pinned in the repository root.
-
-## Play
-
-Tap an arrow whose head has a clear forward path; its body follows like a snake. Keys and anchors add prerequisites. From Level 10, marked barrels introduce move allowances; from Level 25, two deadlines require coordinating routes. The allowance counts successful removals, including its own removal, not seconds. Hold an arrow to preview; keyboard users can focus an arrow and press Enter, or hold P to inspect.
-
-Story has three mistake hearts. Practice has unlimited mistakes but still follows puzzle deadline rules and grants no campaign rewards. Hint selects a safe continuation; confirmed Erase consumes a removal and marks the attempt assisted. Both are currently free. Stars reward completion, zero mistakes and speed separately; assistance does not cap stars. The base speed target is eight seconds per arrow, minimum 60 seconds.
-
-First Story clear grants 25 coins once per level: 2,000 total coins and 240 possible stars. Progress is browser/device-local. Profiles have 15 cosmetic arrow skins and three prototype crates, with coin/gem spending and a Time Boost. These balances are client-controlled prototypes, not verified paid entitlements.
-
-## Development tools
-
-In `pnpm dev`, use the draggable purple **DEV** bug button for an isolated level sandbox, layout outlines and local bug-report downloads. These controls are excluded from production builds. See [Development mode](docs/DEVELOPMENT-MODE.md).
-
-## Checks
+Open http://127.0.0.1:4173 for local gameplay. For account testing, run `pnpm account:server` and `pnpm account:web` in separate terminals and use http://localhost:4173. See [account setup](docs/ACCOUNT-SETUP.md). These origins have separate browser saves; keep the same origin when checking existing progress.
 
 ```powershell
-pnpm --filter @veyminore/arowgo typecheck
-pnpm --filter @veyminore/arowgo test
-pnpm --filter @veyminore/arowgo lint
-pnpm --filter @veyminore/arowgo exec playwright install chromium
-pnpm --filter @veyminore/arowgo test:e2e
-pnpm --filter @veyminore/arowgo build
+pnpm test
+pnpm typecheck
+pnpm build
+pnpm exec playwright test
 ```
 
-Lint is a Prettier formatting check. See the [current audit](docs/AUDIT-2026-11-16.md) for actual outcomes; listing commands does not mean all checks pass. Browser emulation does not certify native devices. No root-workspace-wide validation is claimed.
+## Campaign and rules
 
-## Android
+Bloom Valley 1–20, Verdant Cove 21–40, Frostfall Peaks 41–60, Amber Dunes 61–80 and Amber Sanctum 81–100. First clears award 25 coins once per level: 2,500 total and up to 300 stars. Stars independently reward completion, zero mistakes and meeting the time target.
 
-The native project is in android/; app ID is com.veyminore.arowgo. Run android:sync after building and open it with Capacitor/Android Studio. As of this audit, Java is installed and JAVA_HOME is set. ANDROID_HOME and android/local.properties are absent in this checkout; the standard SDK directory is present. Current native sync and assembleDebug passed using Android Studio’s bundled Java 21; the default Java 17 failed with invalid source release: 21. Historical reports of missing Java no longer describe the current host. Launcher assets exist, but neither asset sync nor generated project files prove a device release is ready.
+Arrows exit head-first and their bodies follow like a snake. Keys, anchor prerequisites, ice, phase gates and removal-count deadlines add ordering decisions. Story has three hearts; Practice allows unlimited mistakes but still respects mechanic deadlines. Hold inspection explains the immediate board state without revealing a winning move.
 
-## Start with these documents
+## Save and service boundaries
 
-- [Current implementation](docs/CURRENT-GAME-STATE.md)
-- [Audit and verification limits](docs/AUDIT-2026-11-16.md)
-- [Backend/account plan](docs/BACKEND-ACCOUNT-PLAN.md)
-- [Planning difficulty](docs/PLANNING-DIFFICULTY.md) and [snake rules](docs/SNAKE-MOVEMENT.md)
-- [Masterplan](MASTERPLAN.md), [execution backlog](docs/execution-backlog.md), [documentation index](docs/README.md)
+Legacy gameplay saves remain local. Optional development Google/PlayFab sign-in and revision-checked cloud snapshots are implemented. A separate reviewed account-wallet preview uses a server SQLite ledger; it is not PlayFab Economy or a production deployment. Account-wallet mode pauses legacy snapshot uploads. See [account services](docs/ACCOUNT-SERVICES.md) and [server economy](docs/SERVER-ECONOMY.md).
 
-Original references remain historical evidence. AROWGO is a working name; release ownership, asset licensing review, native acceptance and production operating gates remain open.
+**Open blocker:** realistic full-campaign histories exceed the cloud packer's 10,700-byte limit. Oversized uploads fail without trimming local progress or currency. Full-history cloud sync is not certified. Physical-device acceptance, production operations, rights review and human difficulty testing also remain open.

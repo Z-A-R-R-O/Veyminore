@@ -1,3 +1,5 @@
+> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](CURRENT-GAME-STATE.md) for present behavior; this history is not a current setup checklist.
+
 # Planning difficulty — content 9
 
 Implemented 16 November 2026. This supersedes the content-8 challenge ramp for Levels 10–40. Levels 1–9 remain identical. No arrows were added or moved: keys, anchors, shapes, grid sizes and arrow counts stay intact.

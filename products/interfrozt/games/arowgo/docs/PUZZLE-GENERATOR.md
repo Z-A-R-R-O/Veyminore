@@ -1,3 +1,7 @@
+> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](CURRENT-GAME-STATE.md) for present behavior; this history is not a current setup checklist.
+
+Current authoring uses generator version 4, static reviewed JSON and up to 28 arrows. See [dense campaign](DENSE-CAMPAIGN.md) and [Sanctum authoring/acceptance](AMBER-SANCTUM.md) for current generation and promotion checks.
+
 Current difficulty: [Planning pass and measured order decisions](PLANNING-DIFFICULTY.md), content 9 for Levels 10–40. Geometry is unchanged from content 8; Levels 1–9 are preserved. Generation is offline; shipped puzzles are solver-verified JSON. The current geometry engine is version 3 under snake movement rules.
 
 The generator history below records earlier iterations. Current contracts are CURRENT-GAME-STATE.md, PLANNING-DIFFICULTY.md and SNAKE-MOVEMENT.md.

@@ -1,3 +1,7 @@
+> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](CURRENT-GAME-STATE.md) for present behavior; this history is not a current setup checklist.
+
+Frostfall 41–60 is now implemented; see [shipped chapter](FROSTFALL-PEAKS.md).
+
 > Update 19 November 2026: Levels 41–60 now ship in [Frostfall Peaks](FROSTFALL-PEAKS.md) using existing keys, anchors and deadlines. Any new mechanics below remain proposals.
 
 # Frostfall Peaks — World 3 proposal

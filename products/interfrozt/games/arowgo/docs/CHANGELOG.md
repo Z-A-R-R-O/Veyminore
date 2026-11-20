@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Current-state cleanup - 20 November 2026
+
+Reconciled the 100-level campaign, account/cloud/wallet boundaries and open capacity gap. Rebuilt navigation, status inventory, roadmap and backlog; labelled superseded rollout material and preserved historical evidence. Added a repeatable relative-link/index check. No gameplay or save changes.
+
 ## Current-state reconciliation — 16 November 2026
 
 Audited the forty-level content-9 game, current local economy, authentication absence and native environment. Rewrote README, masterplan, current state, build guide, backlog and decision register; added the AROWGO-specific backend/account plan, deferred Frostfall Peaks plan, documentation status index and dated audit. Corrected stale rigid-movement/five-level/ten-level/unimplemented-bomb claims. Preserved historical reports and source references. Accounts/cloud now take priority; no backend was provisioned. Actual fresh check outcomes, including failures, are in AUDIT-2026-11-16.md.

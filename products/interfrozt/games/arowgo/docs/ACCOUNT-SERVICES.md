@@ -1,0 +1,33 @@
+# Account services: current contract
+
+Updated 20 November 2026. [Setup](ACCOUNT-SETUP.md) · [Server wallet](SERVER-ECONOMY.md) · [Historical rollout](ACCOUNT-BACKEND-DEV.md).
+
+## Identity
+
+The web client obtains a Google Identity Services ID token with a server-issued, cookie-bound nonce. The backend verifies signature, issuer, audience, expiry and nonce, then uses PlayFab OpenID Connect connection `google-web`. Linking does not force-reassign accounts or merge by email. Tokens and PlayFab tickets stay out of localStorage. Profile Account opens the same-origin sign-in page and refreshes session state on return.
+
+The old Google authorization-code experiment is historical. Live sign-in success was user-confirmed. Signing in or out alone never imports saves or grants currency.
+
+## Legacy PlayFab snapshots
+
+Manual sync uses independent server/client flags; automatic completion upload also needs its own client flag. These are development features. A confirmed manual upload/restore establishes an account/revision anchor before automatic uploads. Story completion uploads only after the local save succeeds; Practice and failed writes do not trigger it.
+
+Snapshots preserve known raw save keys, rewards, balances and archives without currency merging. PlayFab `ExpectedProfileVersion` rejects stale writers. Identical operation retries reconcile with saved bytes; ambiguous outcomes are checked rather than blindly repeated. Account changes/conflicts pause for explicit resolution. Pending uploads survive offline periods and retry on relevant lifecycle events, not an unbounded timer.
+
+Restore requires exclusive cross-tab access, a verified recovery copy and journal before writes. Interrupted restores roll back before gameplay starts. Original bytes are retained for recovery. Automatic sync never rewrites gameplay storage.
+
+### Capacity is not solved
+
+The current envelope accepts up to 512 KiB raw data and 10,700 bytes packed using gzip/Brotli fallbacks. Current/previous snapshots and overflow fragments use revision-checked provider writes and integrity checks. Realistic UUID-rich histories exceed the packed cap already at 80 completed levels. Oversize uploads fail intact; no truncation or partial save is permitted. Compact 100-level fixtures passing is not full-history acceptance.
+
+The user-confirmed real PlayFab probe exercised isolated synthetic write/read/conflict/restore, preserving normal saves. It did not certify realistic full-campaign capacity. See [open gaps](GAME-EXPERIENCE-GAPS.md).
+
+## Reviewed account wallet
+
+This is a separate development mode backed by SQLite, with account-bound balances, inventory, idempotent receipts and canonical completion replay. All 100 campaign IDs are in the reward manifest. First-clear rewards cannot be repeated; stars can improve on replay. Reported elapsed time is not trusted human-play anti-cheat.
+
+Legacy import requires review, exported recovery data and an exact snapshot match. Original legacy keys stay intact; binding occurs last. Account-wallet mode pauses legacy automatic cloud snapshots. An explicit second-device flow restores known clears/stars and equipment, never adds device currency to server funds. Partial boards restart; name/avatar/frame remain local. See [wallet workflow and history](SERVER-ECONOMY.md).
+
+## Operating limits
+
+The account server binds localhost and refuses production mode. The wallet is a local development database, not PlayFab Economy V2. Production sessions, durable hosting, operational backups, monitoring and native authentication acceptance remain separate gates. Do not infer current private flag values from documentation; inspect configuration locally without printing secrets.

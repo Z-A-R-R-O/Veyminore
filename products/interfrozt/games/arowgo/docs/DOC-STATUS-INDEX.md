@@ -1,71 +1,85 @@
 # Documentation status index
 
-Reconciled 16 November 2026. Every Markdown document under docs/ is classified below. Current implementation and dated checks take precedence over older design/verification snapshots. Original references outside docs/ were not rewritten. Root README.md and MASTERPLAN.md are current entry points. Asset provenance records are not legal clearance.
+Reconciled 20 November 2026. Every Markdown file under docs is listed. [Current state](CURRENT-GAME-STATE.md) owns present behavior; historical test counts are evidence for their dates only. Original references are preserved outside this inventory.
 
-| Document                                                               | Role / status                                    |
-| ---------------------------------------------------------------------- | ------------------------------------------------ |
-| [ACCOUNT-BACKEND-DEV.md](ACCOUNT-BACKEND-DEV.md)                       | Current development backend and live-test limits |
-| [ACCOUNT-SETUP.md](ACCOUNT-SETUP.md)                                   | Current provider setup                           |
-| [ACCOUNT-FOUNDATION.md](ACCOUNT-FOUNDATION.md)                         | Current B01 implementation and limits            |
-| [APP-ICON-MONOGRAM.md](APP-ICON-MONOGRAM.md)                           | Current contract/workflow                        |
-| [APP-ICON-PREMIUM.md](APP-ICON-PREMIUM.md)                             | Historical feature/concept/decision              |
-| [APP-ICON.md](APP-ICON.md)                                             | Historical feature/concept/decision              |
-| [AUDIT-2026-11-15.md](AUDIT-2026-11-15.md)                             | Historical verification                          |
-| [AUDIT-2026-11-16.md](AUDIT-2026-11-16.md)                             | Current dated audit                              |
-| [BACKEND-ACCOUNT-PLAN.md](BACKEND-ACCOUNT-PLAN.md)                     | Architecture proposal; B01 foundation started    |
-| [CHALLENGE-RAMP.md](CHALLENGE-RAMP.md)                                 | Historical feature/concept/decision              |
-| [CHANGELOG.md](CHANGELOG.md)                                           | Dated change history                             |
-| [CHEST-AND-SKIN-LAUNCH-PLAN.md](CHEST-AND-SKIN-LAUNCH-PLAN.md)         | Plan — not implemented                           |
-| [CURRENT-GAME-STATE.md](CURRENT-GAME-STATE.md)                         | Current contract/workflow                        |
-| [DOC-STATUS-INDEX.md](DOC-STATUS-INDEX.md)                             | Current document inventory                       |
-| [FROSTFALL-PEAKS-PLAN.md](FROSTFALL-PEAKS-PLAN.md)                     | Plan — not implemented                           |
-| [GAME-EXPERIENCE-GAPS.md](GAME-EXPERIENCE-GAPS.md)                     | Current contract/workflow                        |
-| [GEMS-AND-BOOSTERS.md](GEMS-AND-BOOSTERS.md)                           | Current contract/workflow                        |
-| [KEYS-AND-LOCKS.md](KEYS-AND-LOCKS.md)                                 | Current pointer + historical rollout             |
-| [MILD-DIFFICULTY-RAMP.md](MILD-DIFFICULTY-RAMP.md)                     | Historical feature/concept/decision              |
-| [MOVE-FEEDBACK.md](MOVE-FEEDBACK.md)                                   | Current contract/workflow                        |
-| [PLANNING-DIFFICULTY.md](PLANNING-DIFFICULTY.md)                       | Current contract/workflow                        |
-| [PUZZLE-GENERATOR.md](PUZZLE-GENERATOR.md)                             | Current pointer + historical rollout             |
-| [README.md](README.md)                                                 | Current contract/workflow                        |
-| [SNAKE-MOVEMENT.md](SNAKE-MOVEMENT.md)                                 | Current contract/workflow                        |
-| [UNLOCK-BUBBLE.md](UNLOCK-BUBBLE.md)                                   | Current contract/workflow                        |
-| [VERDANT-COVE.md](VERDANT-COVE.md)                                     | Current pointer + historical rollout             |
-| [assets/bloom-valley.md](assets/bloom-valley.md)                       | Asset provenance                                 |
-| [assets/generated-art.md](assets/generated-art.md)                     | Asset provenance                                 |
-| [build-guide.md](build-guide.md)                                       | Current contract/workflow                        |
-| [crates-and-effects.md](crates-and-effects.md)                         | Historical feature/concept/decision              |
-| [decisions/0001-first-playable.md](decisions/0001-first-playable.md)   | Historical feature/concept/decision              |
-| [decisions/README.md](decisions/README.md)                             | Current contract/workflow                        |
-| [deployment-vercel.md](deployment-vercel.md)                           | Historical feature/concept/decision              |
-| [execution-backlog.md](execution-backlog.md)                           | Current contract/workflow                        |
-| [game-psychology-and-typography.md](game-psychology-and-typography.md) | Historical feature/concept/decision              |
-| [home-and-ambient.md](home-and-ambient.md)                             | Historical feature/concept/decision              |
-| [maintenance.md](maintenance.md)                                       | Current contract/workflow                        |
-| [motion-and-art.md](motion-and-art.md)                                 | Historical feature/concept/decision              |
-| [profile-shop-and-results.md](profile-shop-and-results.md)             | Historical feature/concept/decision              |
-| [reusable-elements.md](reusable-elements.md)                           | Historical feature/concept/decision              |
-| [review-and-recommendations.md](review-and-recommendations.md)         | Historical feature/concept/decision              |
-| [rule-proof.md](rule-proof.md)                                         | Historical feature/concept/decision              |
-| [specs/analytics-and-growth.md](specs/analytics-and-growth.md)         | Imported design/reference baseline               |
-| [specs/architecture-and-data.md](specs/architecture-and-data.md)       | Imported design/reference baseline               |
-| [specs/content-and-generation.md](specs/content-and-generation.md)     | Imported design/reference baseline               |
-| [specs/design-and-screens.md](specs/design-and-screens.md)             | Imported design/reference baseline               |
-| [specs/economy-and-collection.md](specs/economy-and-collection.md)     | Imported design/reference baseline               |
-| [specs/gameplay-rules.md](specs/gameplay-rules.md)                     | Imported design/reference baseline               |
-| [specs/online-and-social.md](specs/online-and-social.md)               | Imported design/reference baseline               |
-| [specs/product-direction.md](specs/product-direction.md)               | Imported design/reference baseline               |
-| [specs/quality-and-release.md](specs/quality-and-release.md)           | Imported design/reference baseline               |
-| [specs/risk-and-publishing.md](specs/risk-and-publishing.md)           | Imported design/reference baseline               |
-| [specs/roadmap-and-delivery.md](specs/roadmap-and-delivery.md)         | Imported design/reference baseline               |
-| [specs/source-decisions.md](specs/source-decisions.md)                 | Imported design/reference baseline               |
-| [specs/source-references.md](specs/source-references.md)               | Imported design/reference baseline               |
-| [templates/decision.md](templates/decision.md)                         | Reusable template                                |
-| [templates/feature.md](templates/feature.md)                           | Reusable template                                |
-| [templates/level-review.md](templates/level-review.md)                 | Reusable template                                |
-| [templates/playtest.md](templates/playtest.md)                         | Reusable template                                |
-| [templates/release.md](templates/release.md)                           | Reusable template                                |
-| [v0.1-prototype.md](v0.1-prototype.md)                                 | Historical feature/concept/decision              |
-| [verification/bloom-motion.md](verification/bloom-motion.md)           | Historical verification                          |
-| [verification/first-playable.md](verification/first-playable.md)       | Historical verification                          |
-| [verification/v0.1.md](verification/v0.1.md)                           | Historical verification                          |
-| [worlds-redesign.md](worlds-redesign.md)                               | Historical feature/concept/decision              |
+| Document | Status |
+| --- | --- |
+| [ACCOUNT-BACKEND-DEV.md](ACCOUNT-BACKEND-DEV.md) | Historical design, rollout or verification; use current-state guide |
+| [ACCOUNT-FOUNDATION.md](ACCOUNT-FOUNDATION.md) | Historical design, rollout or verification; use current-state guide |
+| [ACCOUNT-SERVICES.md](ACCOUNT-SERVICES.md) | Current guide / contract |
+| [ACCOUNT-SETUP.md](ACCOUNT-SETUP.md) | Current guide / contract |
+| [AMBER-DUNES.md](AMBER-DUNES.md) | Implemented feature; dated measurements retain their original scope |
+| [AMBER-SANCTUM.md](AMBER-SANCTUM.md) | Implemented feature; dated measurements retain their original scope |
+| [APP-ICON-MONOGRAM.md](APP-ICON-MONOGRAM.md) | Historical design, rollout or verification; use current-state guide |
+| [APP-ICON-PREMIUM.md](APP-ICON-PREMIUM.md) | Historical design, rollout or verification; use current-state guide |
+| [APP-ICON.md](APP-ICON.md) | Historical design, rollout or verification; use current-state guide |
+| [assets/bloom-valley.md](assets/bloom-valley.md) | Asset provenance; not rights clearance |
+| [assets/generated-art.md](assets/generated-art.md) | Asset provenance; not rights clearance |
+| [AUDIT-2026-11-15.md](AUDIT-2026-11-15.md) | Historical design, rollout or verification; use current-state guide |
+| [AUDIT-2026-11-16.md](AUDIT-2026-11-16.md) | Historical design, rollout or verification; use current-state guide |
+| [AUDIT-2026-11-20.md](AUDIT-2026-11-20.md) | Latest documentation audit; prior runtime evidence explicitly dated |
+| [BACKEND-ACCOUNT-PLAN.md](BACKEND-ACCOUNT-PLAN.md) | Historical design, rollout or verification; use current-state guide |
+| [BADGES.md](BADGES.md) | Implemented feature; dated measurements retain their original scope |
+| [build-guide.md](build-guide.md) | Current guide / contract |
+| [CHALLENGE-RAMP.md](CHALLENGE-RAMP.md) | Historical design, rollout or verification; use current-state guide |
+| [CHANGELOG.md](CHANGELOG.md) | Dated history |
+| [CHEST-AND-SKIN-LAUNCH-PLAN.md](CHEST-AND-SKIN-LAUNCH-PLAN.md) | Proposal; not the shipped catalog |
+| [crates-and-effects.md](crates-and-effects.md) | Historical design, rollout or verification; use current-state guide |
+| [CURRENT-GAME-STATE.md](CURRENT-GAME-STATE.md) | Current guide / contract |
+| [decisions/0001-first-playable.md](decisions/0001-first-playable.md) | Historical design, rollout or verification; use current-state guide |
+| [decisions/README.md](decisions/README.md) | Historical design, rollout or verification; use current-state guide |
+| [DENSE-CAMPAIGN.md](DENSE-CAMPAIGN.md) | Implemented feature; dated measurements retain their original scope |
+| [deployment-vercel.md](deployment-vercel.md) | Historical design, rollout or verification; use current-state guide |
+| [DEVELOPMENT-MODE.md](DEVELOPMENT-MODE.md) | Implemented feature; dated measurements retain their original scope |
+| [DOC-STATUS-INDEX.md](DOC-STATUS-INDEX.md) | Current guide / contract |
+| [execution-backlog.md](execution-backlog.md) | Current guide / contract |
+| [FROSTFALL-PEAKS-PLAN.md](FROSTFALL-PEAKS-PLAN.md) | Historical design, rollout or verification; use current-state guide |
+| [FROSTFALL-PEAKS.md](FROSTFALL-PEAKS.md) | Implemented feature; dated measurements retain their original scope |
+| [FROSTFALL-TIMING.md](FROSTFALL-TIMING.md) | Implemented feature; dated measurements retain their original scope |
+| [GAME-EXPERIENCE-GAPS.md](GAME-EXPERIENCE-GAPS.md) | Current guide / contract |
+| [game-psychology-and-typography.md](game-psychology-and-typography.md) | Historical design, rollout or verification; use current-state guide |
+| [GEMS-AND-BOOSTERS.md](GEMS-AND-BOOSTERS.md) | Implemented feature; dated measurements retain their original scope |
+| [HOLD-PREVIEW.md](HOLD-PREVIEW.md) | Implemented feature; dated measurements retain their original scope |
+| [home-and-ambient.md](home-and-ambient.md) | Historical design, rollout or verification; use current-state guide |
+| [KEYS-AND-LOCKS.md](KEYS-AND-LOCKS.md) | Implemented feature; dated measurements retain their original scope |
+| [LEVELS-40-60-HARDENING.md](LEVELS-40-60-HARDENING.md) | Implemented feature; dated measurements retain their original scope |
+| [maintenance.md](maintenance.md) | Current guide / contract |
+| [MILD-DIFFICULTY-RAMP.md](MILD-DIFFICULTY-RAMP.md) | Historical design, rollout or verification; use current-state guide |
+| [MODES-DESIGN.md](MODES-DESIGN.md) | Implemented feature; dated measurements retain their original scope |
+| [motion-and-art.md](motion-and-art.md) | Historical design, rollout or verification; use current-state guide |
+| [MOVE-FEEDBACK.md](MOVE-FEEDBACK.md) | Implemented feature; dated measurements retain their original scope |
+| [PLANNING-DIFFICULTY.md](PLANNING-DIFFICULTY.md) | Historical design, rollout or verification; use current-state guide |
+| [PROFILE-AVATARS.md](PROFILE-AVATARS.md) | Historical design, rollout or verification; use current-state guide |
+| [profile-shop-and-results.md](profile-shop-and-results.md) | Historical design, rollout or verification; use current-state guide |
+| [PUZZLE-GENERATOR.md](PUZZLE-GENERATOR.md) | Historical design, rollout or verification; use current-state guide |
+| [README.md](README.md) | Current guide / contract |
+| [reusable-elements.md](reusable-elements.md) | Historical design, rollout or verification; use current-state guide |
+| [review-and-recommendations.md](review-and-recommendations.md) | Historical design, rollout or verification; use current-state guide |
+| [rule-proof.md](rule-proof.md) | Historical design, rollout or verification; use current-state guide |
+| [SERVER-ECONOMY.md](SERVER-ECONOMY.md) | Implemented feature; dated measurements retain their original scope |
+| [SNAKE-MOVEMENT.md](SNAKE-MOVEMENT.md) | Implemented feature; dated measurements retain their original scope |
+| [specs/analytics-and-growth.md](specs/analytics-and-growth.md) | Imported design baseline; current implementation takes precedence |
+| [specs/architecture-and-data.md](specs/architecture-and-data.md) | Imported design baseline; current implementation takes precedence |
+| [specs/content-and-generation.md](specs/content-and-generation.md) | Imported design baseline; current implementation takes precedence |
+| [specs/design-and-screens.md](specs/design-and-screens.md) | Imported design baseline; current implementation takes precedence |
+| [specs/economy-and-collection.md](specs/economy-and-collection.md) | Imported design baseline; current implementation takes precedence |
+| [specs/gameplay-rules.md](specs/gameplay-rules.md) | Imported design baseline; current implementation takes precedence |
+| [specs/online-and-social.md](specs/online-and-social.md) | Imported design baseline; current implementation takes precedence |
+| [specs/product-direction.md](specs/product-direction.md) | Imported design baseline; current implementation takes precedence |
+| [specs/quality-and-release.md](specs/quality-and-release.md) | Imported design baseline; current implementation takes precedence |
+| [specs/risk-and-publishing.md](specs/risk-and-publishing.md) | Imported design baseline; current implementation takes precedence |
+| [specs/roadmap-and-delivery.md](specs/roadmap-and-delivery.md) | Imported design baseline; current implementation takes precedence |
+| [specs/source-decisions.md](specs/source-decisions.md) | Imported design baseline; current implementation takes precedence |
+| [specs/source-references.md](specs/source-references.md) | Imported design baseline; current implementation takes precedence |
+| [templates/decision.md](templates/decision.md) | Reusable template |
+| [templates/feature.md](templates/feature.md) | Reusable template |
+| [templates/level-review.md](templates/level-review.md) | Reusable template |
+| [templates/playtest.md](templates/playtest.md) | Reusable template |
+| [templates/release.md](templates/release.md) | Reusable template |
+| [UNLOCK-BUBBLE.md](UNLOCK-BUBBLE.md) | Implemented feature; dated measurements retain their original scope |
+| [v0.1-prototype.md](v0.1-prototype.md) | Historical design, rollout or verification; use current-state guide |
+| [VERDANT-COVE.md](VERDANT-COVE.md) | Implemented feature; dated measurements retain their original scope |
+| [verification/bloom-motion.md](verification/bloom-motion.md) | Historical design, rollout or verification; use current-state guide |
+| [verification/first-playable.md](verification/first-playable.md) | Historical design, rollout or verification; use current-state guide |
+| [verification/v0.1.md](verification/v0.1.md) | Historical design, rollout or verification; use current-state guide |
+| [worlds-redesign.md](worlds-redesign.md) | Historical design, rollout or verification; use current-state guide |

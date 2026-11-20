@@ -1,38 +1,23 @@
 # AROWGO documentation
 
-Updated 16 November 2026. Start here rather than treating an old prototype report as the current product contract.
+Reconciled 20 November 2026. Start with the current summaries; dated rollout notes preserve history rather than override them.
 
-## Current truth
+## Current entry points
 
-- [Current game state](CURRENT-GAME-STATE.md): implemented features, versions, rewards, stack and limitations.
-- [Current audit](AUDIT-2026-11-16.md): fresh checks, known failures, historical evidence and release gaps.
-- [Masterplan](../MASTERPLAN.md), [execution backlog](execution-backlog.md) and [decision register](decisions/README.md): delivery order and implementation/proposal status.
-- [Build guide](build-guide.md): correct checkout, commands, boundaries and native gate.
-- [Documentation status index](DOC-STATUS-INDEX.md): classification of every Markdown document under docs/.
+- [Game state](CURRENT-GAME-STATE.md): 100 levels, behavior, accounts and limitations.
+- [Build guide](build-guide.md): local game/account workflows and checks.
+- [Latest audit](AUDIT-2026-11-20.md): verification scope and documentation reconciliation.
+- [Open gaps](GAME-EXPERIENCE-GAPS.md), [backlog](execution-backlog.md), [masterplan](../MASTERPLAN.md).
+- [Account services](ACCOUNT-SERVICES.md), [setup](ACCOUNT-SETUP.md), [wallet](SERVER-ECONOMY.md).
 
-## Next development priority
+## Gameplay and content
 
-[Backend/account plan](BACKEND-ACCOUNT-PLAN.md): keep the existing client, add guest/Google linking, safe local import, cloud conflicts, protected rewards and recovery. Documented only; no backend is configured. [Frostfall Peaks](FROSTFALL-PEAKS-PLAN.md) is a deferred 41–60 proposal with gates/thawing, not a playable third world.
+[Snake movement](SNAKE-MOVEMENT.md) · [Hold inspection](HOLD-PREVIEW.md) · [Generator](PUZZLE-GENERATOR.md) · [Dense campaign](DENSE-CAMPAIGN.md) · [Keys/locks](KEYS-AND-LOCKS.md) · [Cove](VERDANT-COVE.md) · [Frostfall](FROSTFALL-PEAKS.md) · [Timing](FROSTFALL-TIMING.md) · [Dunes](AMBER-DUNES.md) · [Sanctum](AMBER-SANCTUM.md).
 
-## Implemented systems
+[Profiles/assets](PROFILE-AVATARS.md) · [Badges](BADGES.md) · [Move feedback](MOVE-FEEDBACK.md) · [Gems/boosters](GEMS-AND-BOOSTERS.md) · [Development tools](DEVELOPMENT-MODE.md).
 
-- [Snake movement](SNAKE-MOVEMENT.md), [planning difficulty](PLANNING-DIFFICULTY.md), [generator history and current pointers](PUZZLE-GENERATOR.md)
-- [Keys and locks](KEYS-AND-LOCKS.md), [Verdant Cove](VERDANT-COVE.md)
-- [Gems and Time Boost](GEMS-AND-BOOSTERS.md)
-- [Move feedback](MOVE-FEEDBACK.md), [unlock bubbles](UNLOCK-BUBBLE.md), [applied monogram](APP-ICON-MONOGRAM.md)
+## Plans and preserved history
 
-## Planned systems and historical material
+[Chest/skin proposal](CHEST-AND-SKIN-LAUNCH-PLAN.md) remains a plan; current collection is 15 skins/three crates. Frostfall's original proposal and early account contracts are superseded by implementations. Historical audits keep their original dates and findings. Original [references](../references/README.md) are unchanged.
 
-[Five chest tiers, Ethereal and 100 skins](CHEST-AND-SKIN-LAUNCH-PLAN.md) remain planned; the live game has three crates and fifteen skins. Focused specs in specs/ preserve imported design requirements and are labelled accordingly. Older prototype, visual refresh, deployment and audit reports retain their original evidence, not current certification. [Original references](../references/README.md) remain unchanged.
-
-[Maintenance](maintenance.md) · [Changelog](CHANGELOG.md) · [Feature template](templates/feature.md) · [Decision template](templates/decision.md) · [Playtest template](templates/playtest.md) · [Release template](templates/release.md)
-
-Account work has started: [B01 implementation and remaining integration gates](ACCOUNT-FOUNDATION.md).
-
-- [Frostfall Peaks — implemented Levels 41–60](FROSTFALL-PEAKS.md) (19 November 2026).
-
-- [Frostfall timing mechanics and safe migration](FROSTFALL-TIMING.md).
-
-- [Development mode, draggable dock and local bug reports](DEVELOPMENT-MODE.md).
-
-- [Amber Dunes — Levels 61–80](AMBER-DUNES.md): content, assets, difficulty measurements, cloud compatibility and validation.
+[Complete document status index](DOC-STATUS-INDEX.md) classifies every Markdown document under this directory. [Maintenance](maintenance.md) explains update ownership; [changelog](CHANGELOG.md) records changes.

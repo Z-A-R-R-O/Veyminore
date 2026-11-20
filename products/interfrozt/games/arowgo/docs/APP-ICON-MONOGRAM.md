@@ -1,3 +1,5 @@
+> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](CURRENT-GAME-STATE.md) for present behavior; this history is not a current setup checklist.
+
 # AROWGO monogram concept
 
 Generated with built-in image_gen. Saved at `public/assets/brand/arowgo-monogram-v3.png`. Applied to the shared hub/play headers, PNG favicon, Apple touch icon, and Android launcher resources. Web derivatives are 64, 128, 180, and 512 pixels. Native adaptive icons include safe inset padding. Android assets have not been verified on a device. Output includes a small overlap shadow despite the requested flat treatment; this is concept artwork.
