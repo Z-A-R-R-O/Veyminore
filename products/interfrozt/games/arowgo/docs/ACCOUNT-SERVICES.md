@@ -1,6 +1,6 @@
 # Account services: current contract
 
-Updated 20 November 2026. [Setup](ACCOUNT-SETUP.md) · [Server wallet](SERVER-ECONOMY.md) · [Historical rollout](ACCOUNT-BACKEND-DEV.md).
+Updated 20 November 2026. [Setup](ACCOUNT-SETUP.md) · [Server wallet](SERVER-ECONOMY.md) · [Cloud recovery guide](CLOUD-SAVE-RECOVERY.md) · [Production deployment](DEPLOYMENT-PRODUCTION.md) · [Historical rollout](ACCOUNT-BACKEND-DEV.md).
 
 ## Identity
 

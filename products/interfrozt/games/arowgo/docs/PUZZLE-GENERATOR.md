@@ -1,4 +1,4 @@
-> Status reconciled 20 November 2026: this file preserves rollout/design history. Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](CURRENT-GAME-STATE.md) for present behavior; this history is not a current setup checklist.
+> Historical record. For the current authoring and generation specification, see [generator specification](GENERATOR-SPECIFICATION.md) and [current game state](CURRENT-GAME-STATE.md). Earlier counts, pending gates and UI descriptions below are dated snapshots. Use [current implementation](CURRENT-GAME-STATE.md) for present behavior; this history is not a current setup checklist.
 
 Current authoring uses generator version 4, static reviewed JSON and up to 28 arrows. See [dense campaign](DENSE-CAMPAIGN.md) and [Sanctum authoring/acceptance](AMBER-SANCTUM.md) for current generation and promotion checks.
 

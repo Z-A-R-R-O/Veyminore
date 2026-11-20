@@ -4,6 +4,8 @@ Updated 20 November 2026. [Gap register](GAME-EXPERIENCE-GAPS.md) owns open acce
 
 ## Next: full-history cloud capacity
 
+See [cloud recovery guide](CLOUD-SAVE-RECOVERY.md) for limits, recovery workflows, and current safe failure handling.
+
 1. Reproduce with realistic UUID-bearing transcripts for 100 completed levels plus migration archives and previous snapshot.
 2. Design bounded storage that retains every byte, current/previous atomicity and optimistic concurrency. Do not discard history, rewards or recovery copies to pass quotas.
 3. Implement with legacy-format compatibility, interrupted-write recovery, corrupt/missing-fragment rejection and account isolation.
@@ -12,7 +14,7 @@ Updated 20 November 2026. [Gap register](GAME-EXPERIENCE-GAPS.md) owns open acce
 
 ## Following work
 
-- Production account/ledger infrastructure and operational recovery.
+- Production account/ledger infrastructure and operational recovery; see [production deployment guide](DEPLOYMENT-PRODUCTION.md).
 - Account continuity beyond completed-board restore, with explicit conflict policy.
 - Human playtesting and physical-device release acceptance.
 - Release regression, performance, formatting and rights/privacy checks.

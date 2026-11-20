@@ -40,9 +40,9 @@ There are distinct modes; do not mix their authority or restore behavior:
 
 Google ID tokens are verified server-side and exchanged through PlayFab OIDC `google-web`. The old authorization-code experiment is superseded. Live identity success and an isolated real PlayFab save/restore probe were user-confirmed; those checks do not certify large-history sync or production operation. See [account services](ACCOUNT-SERVICES.md).
 
-The cloud envelope accepts at most 512 KiB raw and 10,700 bytes packed. Realistic UUID-rich histories already exceed the packed cap at 80 completed levels. Oversized saves are rejected without truncation; local data remains intact. Compact synthetic full-campaign fixtures do not establish real capacity. This is the highest current cloud gap.
+The cloud envelope accepts at most 512 KiB raw and 10,700 bytes packed. Realistic UUID-rich histories already exceed the packed cap at 80 completed levels. Oversized saves are rejected without truncation; local data remains intact. Compact synthetic full-campaign fixtures do not establish real capacity. This is the highest current cloud gap. See [cloud recovery guide](CLOUD-SAVE-RECOVERY.md).
 
-The account server is localhost-only and refuses production mode. Its wallet is a development SQLite service, not deployed PlayFab Economy. Signed-in identity alone never authorizes importing legacy balances. Reviewed migration, recovery copies, idempotent receipts and explicit account binding protect existing saves. See [server economy](SERVER-ECONOMY.md).
+The account server is localhost-only and refuses production mode. Its wallet is a development SQLite service, not deployed PlayFab Economy. Signed-in identity alone never authorizes importing legacy balances. Reviewed migration, recovery copies, idempotent receipts and explicit account binding protect existing saves. See [server economy](SERVER-ECONOMY.md) and [production deployment guide](DEPLOYMENT-PRODUCTION.md).
 
 ## Engineering and verification
 

@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Documentation suite and production/cloud audit — 20 November 2026
+
+Added dedicated guides for cloud-save recovery (`CLOUD-SAVE-RECOVERY.md`), production deployment and service boundaries (`DEPLOYMENT-PRODUCTION.md`), generator specification (`GENERATOR-SPECIFICATION.md`), mechanics handbook (`MECHANICS-HANDBOOK.md`), 100-level register (`LEVEL-DIFFICULTY-REGISTER.md`), account and currency flow diagrams (`ACCOUNT-CURRENCY-FLOWS.md`), release checklist (`RELEASE-CHECKLIST.md`), asset catalog (`ASSET-CATALOG.md`), and test coverage map (`TEST-COVERAGE-MAP.md`). Reconciled status index across 90 files and 472 verified links.
+
 ## Current-state cleanup - 20 November 2026
 
 Reconciled the 100-level campaign, account/cloud/wallet boundaries and open capacity gap. Rebuilt navigation, status inventory, roadmap and backlog; labelled superseded rollout material and preserved historical evidence. Added a repeatable relative-link/index check. No gameplay or save changes.

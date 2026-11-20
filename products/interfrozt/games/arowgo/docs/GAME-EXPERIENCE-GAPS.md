@@ -4,8 +4,8 @@ Reconciled 20 November 2026 against the current 100-level implementation. [Curre
 
 | Priority | Gap | Completion evidence required |
 | --- | --- | --- |
-| P0 for full-history cloud sync | 10,700-byte packed cap rejects realistic histories, already at 80 clears | Bounded larger-save format; atomic current/previous versions; stale-writer rejection; exact history/currency recovery; realistic 100-level archives; isolated real PlayFab round-trip. Never trim saves to fit. |
-| P0 for production accounts/economy | Localhost backend, development SQLite, non-production sessions and operations | Chosen production host/storage, durable sessions, backups and tested restore, rate limits, monitoring and recovery ownership. |
+| P0 for full-history cloud sync | 10,700-byte packed cap rejects realistic histories, already at 80 clears; see [cloud recovery guide](CLOUD-SAVE-RECOVERY.md) | Bounded larger-save format; atomic current/previous versions; stale-writer rejection; exact history/currency recovery; realistic 100-level archives; isolated real PlayFab round-trip. Never trim saves to fit. |
+| P0 for production accounts/economy | Localhost backend, development SQLite, non-production sessions and operations; see [production deployment guide](DEPLOYMENT-PRODUCTION.md) | Chosen production host/storage, durable sessions, backups and tested restore, rate limits, monitoring and recovery ownership. |
 | P1 | Account-wallet cross-device continuity is partial | Completed levels/stars/equipment restore exists; explicitly design partial-board and appearance sync, conflicts and account isolation before claiming full continuity. |
 | P1 | Human difficulty and comprehension unmeasured | Observe onboarding and late-game decisions, especially the Level 100 difficulty jump; measure retries/time and readability. Solver success is not human enjoyment. |
 | P1 | Native acceptance incomplete | Signed build and physical-device lifecycle, touch, audio, safe areas, performance and recovery tests. Browser emulation is insufficient. |

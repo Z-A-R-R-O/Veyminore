@@ -1,6 +1,6 @@
 # Amber Sanctum — Levels 81–100
 
-The fifth twenty-level chapter continues the desert-temple setting using the existing Amber artwork. It unlocks after Level 80, appears in the Worlds list, has two ten-stop map pages and is available in the isolated developer level picker. Level 100 leads to the campaign finale. The full campaign offers 300 stars and 2,500 first-clear coins.
+The fifth twenty-level chapter continues the desert-temple setting using the existing Amber artwork. It unlocks after Level 80, appears in the Worlds list, has two ten-stop map pages and is available in the isolated developer level picker. Level 100 leads to the campaign finale. The full campaign offers 300 stars and 2,500 first-clear coins. See [level difficulty register](LEVEL-DIFFICULTY-REGISTER.md), [generator specification](GENERATOR-SPECIFICATION.md), and [mechanics handbook](MECHANICS-HANDBOOK.md).
 
 ## Difficulty and authoring
 
