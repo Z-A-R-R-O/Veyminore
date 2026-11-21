@@ -52,6 +52,17 @@ it("rejects wrong owners and invalid progress", () => {
   r.progress[0].bestStars = 4;
   expect(() => accountRestorePlan("ABC", r)).toThrow();
 });
+it("clamps preference name to 20 characters so readProfile accepts it", async () => {
+  const { readProfile } = await import("../src/storage/profile");
+  const r = remote();
+  (r.preference as Record<string, unknown>).name = "SuperLongNameExceedingTwentyChars";
+  const plan = accountRestorePlan("ABC", r);
+  expect(plan.playerName.length).toBeLessThanOrEqual(20);
+  expect(plan.playerName).toBe("SuperLongNameExceedi");
+  const profileRaw = plan.entries.find((e) => e.key === "arowgo.profile.v1")!.raw;
+  const parsed = readProfile(profileRaw);
+  expect(parsed.name).toBe("SuperLongNameExceedi");
+});
 it("backs up legacy bytes and binds only the isolated restored copy", () => {
   const s = storage(),
     before = captureLegacyBackup(s);

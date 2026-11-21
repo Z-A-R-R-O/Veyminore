@@ -900,6 +900,15 @@
   border-radius: 12px;
   font-size: 15px;
 }
+.portrait-studio .name-char-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: #85699b;
+  text-align: right;
+  margin-top: 2px;
+  margin-right: 2px;
+  line-height: 1;
+}
 .portrait-studio .avatar-category {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -18,7 +18,7 @@ export function ProfileEditor({
   profile: Profile;
   onSave: (p: Profile) => boolean;
 }) {
-  const [name, setName] = useState(profile.name);
+  const [name, setName] = useState(profile.name.slice(0, 20));
   const [avatar, setAvatar] = useState<Avatar>(profile.avatar);
   const [frame, setFrame] = useState<AvatarFrame>(profile.avatarFrame);
   const [tab, setTab] = useState<Category>("avatar");
@@ -35,10 +35,11 @@ export function ProfileEditor({
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          const cleanName = name.trim().slice(0, 20) || "Guest";
           setMessage(
             onSave({
               ...profile,
-              name: name.trim() || "Guest",
+              name: cleanName,
               avatar,
               avatarBackground: "none",
               avatarFrame: frame,
@@ -59,10 +60,11 @@ export function ProfileEditor({
               maxLength={20}
               value={name}
               onChange={(e) => {
-                setName(e.target.value);
+                setName(e.target.value.slice(0, 20));
                 setMessage("");
               }}
             />
+            <small className="name-char-count">{name.length}/20</small>
           </label>
         </div>
         <div className="avatar-category" aria-label="Customize portrait">

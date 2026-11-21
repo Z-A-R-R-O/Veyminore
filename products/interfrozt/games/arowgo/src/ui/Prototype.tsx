@@ -382,7 +382,6 @@ export function Prototype() {
               frame={profile.avatarFrame}
             />
           </span>
-          <span className="header-profile-name">{profile.name}</span>
         </a>
         <div className="hub-coins" aria-label={`${coins} total coins`}>
           <Coin />

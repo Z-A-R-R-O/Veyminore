@@ -87,7 +87,7 @@ export function accountProfile(profile: Profile): Profile {
     name:
       typeof current.preference?.name === "string" &&
       current.preference.name.trim()
-        ? current.preference.name.trim().slice(0, 24)
+        ? current.preference.name.trim().slice(0, 20)
         : profile.name,
     gemGiftClaimed: current.claims.includes("gem-gift"),
     welcomeClaimed: current.claims.includes("welcome-chest"),

@@ -387,7 +387,12 @@ export function openWalletLedger(
             throw Error("preference-conflict");
           const nextAvatar = avatar !== undefined ? avatar : preference.avatar;
           const nextFrame = frame !== undefined ? frame : preference.frame;
-          const nextName = name !== undefined ? name : preference.name;
+          const nextName =
+            name !== undefined
+              ? typeof name === "string"
+                ? name.trim().slice(0, 20)
+                : preference.name
+              : preference.name;
           if (
             nextAvatar === preference.avatar &&
             nextFrame === preference.frame &&

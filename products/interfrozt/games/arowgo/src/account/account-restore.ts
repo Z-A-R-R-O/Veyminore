@@ -70,7 +70,7 @@ export function accountRestorePlan(accountId: string, value: unknown) {
         : guest().avatarFrame,
     name:
       typeof v.preference.name === "string" && v.preference.name.trim()
-        ? v.preference.name.trim().slice(0, 24)
+        ? v.preference.name.trim().slice(0, 20)
         : guest().name,
     gemGiftClaimed: v.claims.includes("gem-gift"),
     welcomeClaimed: v.claims.includes("welcome-chest"),
