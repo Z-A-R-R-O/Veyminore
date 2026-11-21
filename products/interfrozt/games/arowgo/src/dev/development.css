@@ -172,5 +172,40 @@
     font-size: 21px;
   }
 }
-.dev-screenshot { display: grid; gap: 8px; }
-.dev-screenshot img { width: 100%; max-height: 180px; object-fit: contain; border-radius: 12px; background: #eee7f5; }
+.dev-screenshot {
+  display: grid;
+  gap: 8px;
+}
+.dev-screenshot img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #eee7f5;
+}
+
+.dev-difficulty {
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #cdb5e9;
+  border-radius: 16px;
+  background: #f3eaff;
+}
+.dev-difficulty summary {
+  cursor: pointer;
+  font: 700 16px system-ui;
+}
+.dev-difficulty summary strong {
+  font-size: 26px;
+  color: #6932a6;
+}
+.dev-difficulty dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  font-size: 12px;
+}
+.dev-difficulty dd {
+  margin: 0;
+  font-weight: 700;
+}

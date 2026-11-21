@@ -1,3 +1,7 @@
+import ratings from "../../content/difficulty-ratings.json";
+import previews from "../../content/chapter6-preview.json";
+import { validateLevel } from "../domain/rules";
+import { DifficultyCard } from "./DifficultyCard";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Controller } from "../application/controller";
 import { newSession } from "../application/session";
@@ -7,6 +11,8 @@ import { App } from "../ui/App";
 import { clampDock, reportText, type Point } from "./report";
 import { emailDraft, reportRecipient, screenshotError } from "./email";
 import "./development.css";
+const previewLevels = previews.map((p) => validateLevel(p));
+const devLevels = [...levels, ...previewLevels];
 const positionKey = "arowgo.dev.dock.v1";
 function readPosition() {
   try {
@@ -27,7 +33,7 @@ function readPosition() {
   }
 }
 function makeSandbox(index: number) {
-  const level = levels[index],
+  const level = devLevels[index],
     key = "sandbox",
     data = new Map([
       [key, JSON.stringify(newSession(level, crypto.randomUUID(), "practice"))],
@@ -78,7 +84,10 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
   const [screenshot, setScreenshot] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   useEffect(() => {
-    if (!screenshot) { setPreview(""); return; }
+    if (!screenshot) {
+      setPreview("");
+      return;
+    }
     const url = URL.createObjectURL(screenshot);
     setPreview(url);
     return () => URL.revokeObjectURL(url);
@@ -86,12 +95,20 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
   async function draft() {
     try {
       const content = await emailDraft(summary, buildReport(), screenshot);
-      const url = URL.createObjectURL(new Blob([content], { type: "message/rfc822" }));
+      const url = URL.createObjectURL(
+        new Blob([content], { type: "message/rfc822" }),
+      );
       const a = document.createElement("a");
-      a.href = url; a.download = "arowgo-bug-report.eml"; a.click();
+      a.href = url;
+      a.download = "arowgo-bug-report.eml";
+      a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-      setNotice("Email draft downloaded. Open it in your mail app, review and send. If your app opens it read-only, use Forward to the address above.");
-    } catch { setNotice("Could not create the draft. Try again or use Copy report."); }
+      setNotice(
+        "Email draft downloaded. Open it in your mail app, review and send. If your app opens it read-only, use Forward to the address above.",
+      );
+    } catch {
+      setNotice("Could not create the draft. Try again or use Copy report.");
+    }
   }
   const [sandboxKey, setSandboxKey] = useState(0);
   const errorCount = useRef(0);
@@ -157,7 +174,7 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
       scale: devicePixelRatio,
       reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
       errors: errorCount.current,
-      sandboxLevel: sandbox ? levels.indexOf(sandbox.level) + 1 : null,
+      sandboxLevel: sandbox ? devLevels.indexOf(sandbox.level) + 1 : null,
       levelId: current?.levelId,
       contentVersion: current?.contentVersion,
       active: sandbox?.state.active,
@@ -189,7 +206,7 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
           <App
             key={sandboxKey}
             controller={sandbox}
-            levelNumber={levels.indexOf(sandbox.level) + 1}
+            levelNumber={devLevels.indexOf(sandbox.level) + 1}
             devSandbox
             onHome={() => setSandbox(null)}
           />
@@ -197,7 +214,10 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
             className="dev-sandbox-label"
             onClick={() => setSandbox(null)}
           >
-            SANDBOX · No rewards or saves · Exit
+            SANDBOX · Rating{" "}
+            {ratings.find((r) => r.levelId === sandbox.level.levelId)?.score ??
+              "pending"}{" "}
+            · Exit
           </button>
         </>
       ) : (
@@ -327,13 +347,20 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
                 disabled={!enabled}
                 onChange={(e) => setLevel(Number(e.target.value))}
               >
-                {levels.map((l, i) => (
+                {devLevels.map((l, i) => (
                   <option key={l.levelId} value={i + 1}>
-                    {i + 1} · {levelNames[i]}
+                    {i + 1} · {levelNames[i] ?? "Chapter 6 candidate"}
                   </option>
                 ))}
               </select>
             </label>
+            <DifficultyCard
+              rating={ratings.find(
+                (r) =>
+                  r.levelId === devLevels[level - 1].levelId &&
+                  r.contentVersion === devLevels[level - 1].contentVersion,
+              )}
+            />
             <div className="dev-actions">
               <button disabled={!enabled} onClick={launch}>
                 Open sandbox
@@ -384,7 +411,8 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
         ) : (
           <section>
             <p>
-              Send your report to {reportRecipient}. Nothing is sent until you review and send it in your mail app.
+              Send your report to {reportRecipient}. Nothing is sent until you
+              review and send it in your mail app.
             </p>
             <label>
               Summary
@@ -418,26 +446,50 @@ export function DevelopmentShell({ children }: { children: ReactNode }) {
             </label>
             <label>
               Add screenshot (PNG, JPEG or WebP · up to 5 MB)
-              <input type="file" accept="image/png,image/jpeg,image/webp" onChange={(e) => {
-                const file = e.target.files?.[0];
-                e.target.value = "";
-                if (!file) return;
-                const error = screenshotError(file);
-                if (error) { setNotice(error); return; }
-                setScreenshot(file); setNotice("");
-              }} />
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  e.target.value = "";
+                  if (!file) return;
+                  const error = screenshotError(file);
+                  if (error) {
+                    setNotice(error);
+                    return;
+                  }
+                  setScreenshot(file);
+                  setNotice("");
+                }}
+              />
             </label>
-            {screenshot && <div className="dev-screenshot">
-              <img src={preview} alt="Bug report screenshot preview" />
-              <button onClick={() => setScreenshot(null)}>Remove screenshot</button>
-            </div>}
-            <p className="dev-muted">Review your screenshot for private information. It stays in memory until you download the email draft.</p>
+            {screenshot && (
+              <div className="dev-screenshot">
+                <img src={preview} alt="Bug report screenshot preview" />
+                <button onClick={() => setScreenshot(null)}>
+                  Remove screenshot
+                </button>
+              </div>
+            )}
+            <p className="dev-muted">
+              Review your screenshot for private information. It stays in memory
+              until you download the email draft.
+            </p>
             <div className="dev-actions">
-              <button disabled={!summary.trim()} onClick={draft}>Download email with attachments</button>
-              <button disabled={!summary.trim()} onClick={() => {
-                location.href = `mailto:${reportRecipient}?subject=${encodeURIComponent("AROWGO bug: " + summary)}&body=${encodeURIComponent(buildReport())}`;
-                setNotice("Email composer requested. Browser email links cannot attach screenshots; attach your image manually or use the downloaded email draft.");
-              }}>Open email app</button>
+              <button disabled={!summary.trim()} onClick={draft}>
+                Download email with attachments
+              </button>
+              <button
+                disabled={!summary.trim()}
+                onClick={() => {
+                  location.href = `mailto:${reportRecipient}?subject=${encodeURIComponent("AROWGO bug: " + summary)}&body=${encodeURIComponent(buildReport())}`;
+                  setNotice(
+                    "Email composer requested. Browser email links cannot attach screenshots; attach your image manually or use the downloaded email draft.",
+                  );
+                }}
+              >
+                Open email app
+              </button>
             </div>
             <p className="dev-muted">
               Includes screen size, route, level version and error count. No

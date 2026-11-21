@@ -85,6 +85,13 @@ export function evaluatePlanning(level: Level) {
     blockedTargetDecisions,
     exampleDecision: exampleDecision as PlanningDecision | null,
     earliestDecisionMove: decisionStates ? earliestDecisionMove : null,
+    openingChoices: ids
+      .filter((_, i) => !blockers[i] && timingOpen(level.arrows[i], 0))
+      .map((id) => ({
+        id,
+        winning: probability(((1 << n) - 1) & ~bit.get(id)!, 1) > 0,
+      })),
+    analyzedStates: memo.size,
     deadlines: level.arrows
       .filter((a) => a.deadline !== undefined)
       .map((a) => ({

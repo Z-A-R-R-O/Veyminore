@@ -1,5 +1,10 @@
 # Documentation changelog
 
+## DEV difficulty and Chapter 6 first batch - 21 November 2026
+
+Documented the 101-120 progression plan, implemented frozen-baseline structural ratings and an expandable DEV breakdown, and staged five 28-arrow candidates with 90-92 occupied cells. Candidates are ordered 619, 626, 724, 739, 818 and run only in isolated sandbox sessions. Campaign remains 100 levels; no save/reward migration or cloud activation. Human playtesting precedes the remaining fifteen and promotion.
+
+
 ## Shared profile shortcut - 21 November 2026
 
 Added the selected portrait/frame in the top-left position, replacing the app wordmark in hub and play headers. Currency and Settings remain on the right, with 44px profile access. Build passes; isolated browser checks cover six screens, profile navigation and header non-overlap at 320, 390 and 1280px widths. No save schema or currency changes.

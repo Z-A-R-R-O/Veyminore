@@ -49,3 +49,7 @@ The account server is localhost-only and refuses production mode. Its wallet is 
 Node >=24, TypeScript, React, Vite, Phaser, Vitest, Playwright and Capacitor Android. Domain rules are separate from UI and persistence. Developer tools provide isolated level selection through 100 and downloadable screenshot bug reports; reports require manual sending.
 
 Latest recorded runtime evidence: 393 unit tests across 56 files; 10 targeted Desktop Chrome/emulated Pixel 7 checks; typecheck and build passed. This documentation cleanup does not rerun those runtime checks. Full browser-suite, formatting, physical-device, production deployment and human difficulty acceptance are not asserted. See [dated evidence](AUDIT-2026-11-20.md).
+
+## Development addition - 21 November 2026
+
+DEV now displays versioned numeric structural difficulty for the 100 shipped levels and five isolated Chapter 6 candidates (101-105). The latter are not campaign levels and earn no persistent rewards. See [chapter plan and scoring model](CHAPTER-SIX-PLAN.md). The campaign count and production content remain unchanged.

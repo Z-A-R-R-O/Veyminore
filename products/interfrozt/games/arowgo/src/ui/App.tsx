@@ -367,15 +367,17 @@ export function App({
             <span />{" "}
             {lab
               ? "Discover the mechanic"
-              : levelNumber > 20
-                ? levelNumber > 40
-                  ? levelNumber > 60
-                    ? levelNumber > 80
-                      ? "World 5 · Amber Sanctum"
-                      : "World 4 · Amber Dunes"
-                    : "World 3 · Frostfall Peaks"
-                  : "World 2 · Verdant Cove"
-                : "World 1 · Bloom Valley"}{" "}
+              : devSandbox && levelNumber > 100
+                ? "Chapter 6 candidate · DEV"
+                : levelNumber > 20
+                  ? levelNumber > 40
+                    ? levelNumber > 60
+                      ? levelNumber > 80
+                        ? "World 5 · Amber Sanctum"
+                        : "World 4 · Amber Dunes"
+                      : "World 3 · Frostfall Peaks"
+                    : "World 2 · Verdant Cove"
+                  : "World 1 · Bloom Valley"}{" "}
             <span />
           </div>
           <h1>

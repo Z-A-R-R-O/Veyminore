@@ -21,3 +21,7 @@ Reconciled 20 November 2026. Start with the current summaries; dated rollout not
 [Chest/skin proposal](CHEST-AND-SKIN-LAUNCH-PLAN.md) remains a plan; current collection is 15 skins/three crates. Frostfall's original proposal and early account contracts are superseded by implementations. Historical audits keep their original dates and findings. Original [references](../references/README.md) are unchanged.
 
 [Complete document status index](DOC-STATUS-INDEX.md) classifies every Markdown document under this directory. [Maintenance](maintenance.md) explains update ownership; [changelog](CHANGELOG.md) records changes.
+
+## Active development
+
+[Levels 101-120 and numeric DEV difficulty](CHAPTER-SIX-PLAN.md): frozen baseline scoring, first-five isolated candidate playtesting and promotion gates. Campaign remains 100 levels.
