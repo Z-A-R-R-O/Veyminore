@@ -134,112 +134,109 @@ export function ProfilePage({
           <span aria-hidden="true">↗</span>
         </button>
       </header>
-      <section className="profile-links-bar" aria-label="Account and link options">
-        {account ? (
-          <div className="profile-link-card is-connected">
-            <span className="profile-link-icon google-mark">
-              <img
-                src="/assets/google-signin.svg"
-                width="20"
-                height="20"
-                alt=""
-              />
+      <section
+        className="profile-link-card"
+        aria-label="Account and cloud backup"
+      >
+        <div className="link-card-header">
+          <span className="link-card-eyebrow">LINK & BACKUP</span>
+          {account && (
+            <span className="link-card-status">
+              <span className="status-dot" aria-hidden="true" />
+              Connected
             </span>
-            <div className="profile-link-info">
-              <span className="profile-link-title">Google Account</span>
-              <span className="profile-link-status">
-                <span className="status-dot" aria-hidden="true" />
-                Connected ({account.id.slice(0, 8)}…)
-              </span>
-            </div>
+          )}
+        </div>
+        <div className="link-card-grid">
+          {account ? (
             <button
               type="button"
-              className="profile-link-action"
+              className="link-card-item is-connected"
               onClick={() => {
                 setTab("account");
                 setNotice("");
               }}
               aria-label="Manage Google Account"
             >
-              Manage
+              <span className="link-card-icon google-mark">
+                <img
+                  src="/assets/google-signin.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                />
+              </span>
+              <span className="link-card-label">Google</span>
+              <span className="link-card-action">Manage</span>
             </button>
-          </div>
-        ) : (
+          ) : (
+            <a
+              className="link-card-item google-link"
+              href="/account-test.html"
+              aria-label="Connect Google Account"
+            >
+              <span className="link-card-icon google-mark">
+                <img
+                  src="/assets/google-signin.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                />
+              </span>
+              <span className="link-card-label">Google</span>
+              <span className="link-card-action connect-badge">Connect</span>
+            </a>
+          )}
+
           <a
-            className="profile-link-card google-link"
-            href="/account-test.html"
-            aria-label="Connect Google Account"
+            className="link-card-item"
+            href="/cloud-save.html"
+            aria-label="Cloud Save & Snapshots"
           >
-            <span className="profile-link-icon google-mark">
-              <img
-                src="/assets/google-signin.svg"
-                width="20"
-                height="20"
-                alt=""
-              />
+            <span className="link-card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              </svg>
             </span>
-            <div className="profile-link-info">
-              <span className="profile-link-title">Google Account</span>
-              <span className="profile-link-desc">Sign in to sync & backup</span>
-            </div>
-            <span className="profile-link-badge">Connect</span>
+            <span className="link-card-label">Cloud Save</span>
+            <span className="link-card-action">Backup ↗</span>
           </a>
-        )}
 
-        <a
-          className="profile-link-card cloud-link"
-          href="/cloud-save.html"
-          aria-label="Cloud Save & Snapshots"
-        >
-          <span className="profile-link-icon">
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
-            </svg>
-          </span>
-          <div className="profile-link-info">
-            <span className="profile-link-title">Cloud Save</span>
-            <span className="profile-link-desc">Snapshot backup</span>
-          </div>
-          <span className="profile-link-badge">Open ↗</span>
-        </a>
-
-        <a
-          className="profile-link-card device-link"
-          href="/economy.html"
-          aria-label="Device Link and Recovery"
-        >
-          <span className="profile-link-icon">
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <rect x="2" y="4" width="20" height="16" rx="3" />
-              <path d="M2 10h20M7 15h2" />
-            </svg>
-          </span>
-          <div className="profile-link-info">
-            <span className="profile-link-title">Device Link</span>
-            <span className="profile-link-desc">Wallet & recovery</span>
-          </div>
-          <span className="profile-link-badge">Sync ↗</span>
-        </a>
+          <a
+            className="link-card-item"
+            href="/economy.html"
+            aria-label="Device Link & Wallet Recovery"
+          >
+            <span className="link-card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="3" />
+                <path d="M2 10h20M7 15h2" />
+              </svg>
+            </span>
+            <span className="link-card-label">Device Link</span>
+            <span className="link-card-action">Sync ↗</span>
+          </a>
+        </div>
       </section>
       <nav className="player-tabs" aria-label="Profile sections">
         {(["journey", "badges", "collection", "edit", "account"] as const).map(

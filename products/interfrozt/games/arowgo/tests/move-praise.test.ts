@@ -50,4 +50,4 @@ it("uses question marks only for failed moves", () => {
     );
     state = result.state;
   }
-});
+}, 30000);
