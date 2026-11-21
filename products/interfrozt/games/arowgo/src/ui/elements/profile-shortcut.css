@@ -1,0 +1,60 @@
+.profile-shortcut {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 3px;
+  border: 1px solid #fff;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #fff, #e9d8ff);
+  box-shadow:
+    0 3px 0 #b894d455,
+    inset 0 1px 3px #fff;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.profile-shortcut > .game-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: 0;
+}
+.profile-shortcut:active {
+  transform: scale(0.94);
+}
+.profile-shortcut:focus-visible {
+  outline: 3px solid #8949d0;
+  outline-offset: 3px;
+}
+.profile-shortcut[aria-current="page"] {
+  box-shadow: 0 0 0 2px #9850d5;
+}
+@media (max-width: 480px) {
+  .hub-header {
+    gap: 6px;
+  }
+  .hub-header .wordmark {
+    font-size: 0;
+    gap: 0;
+    padding: 4px;
+  }
+  .hub-header .hub-coins,
+  .hub-header .hub-gems {
+    padding-inline: 8px;
+    min-width: 0;
+  }
+  .topbar {
+    gap: 6px;
+  }
+  .topbar .wordmark {
+    font-size: 0;
+    gap: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-shortcut {
+    transition: none;
+  }
+}

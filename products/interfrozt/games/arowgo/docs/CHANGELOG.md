@@ -1,5 +1,10 @@
 # Documentation changelog
 
+## Shared profile shortcut - 21 November 2026
+
+Added the selected portrait/frame beside Settings in hub and play headers. Narrow phone headers use the brand icon to preserve room for currency and 44px profile access. Build passes; isolated browser checks cover six screens, profile navigation and header non-overlap at 320, 390 and 1280px widths. No save schema or currency changes.
+
+
 ## Current-state cleanup - 20 November 2026
 
 Reconciled the 100-level campaign, account/cloud/wallet boundaries and open capacity gap. Rebuilt navigation, status inventory, roadmap and backlog; labelled superseded rollout material and preserved historical evidence. Added a repeatable relative-link/index check. No gameplay or save changes.

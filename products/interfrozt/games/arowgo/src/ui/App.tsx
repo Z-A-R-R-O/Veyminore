@@ -1,3 +1,5 @@
+import { ProfileShortcut } from "./elements/ProfileShortcut";
+import type { Profile } from "../storage/profile";
 import { TimingGuide } from "./TimingGuide";
 import { rateMove, type MovePraise } from "../domain/movePraise";
 import { MovePraiseBubble, FeedbackSymbol } from "./MovePraise";
@@ -23,6 +25,7 @@ import { SaveStatus } from "./SaveStatus";
 
 export function App({
   controller,
+  profile,
   onHome,
   onNext,
   levelNumber = 1,
@@ -35,6 +38,7 @@ export function App({
   devSandbox = false,
 }: {
   controller: Controller;
+  profile?: Profile;
   onHome?: () => void;
   onNext?: () => void;
   levelNumber?: number;
@@ -356,6 +360,7 @@ export function App({
           )}
           {lab && <button onClick={() => showLab(false)}>Play</button>}
         </nav>
+        {profile && <ProfileShortcut profile={profile} />}
         <button
           className="icon-button settings-button"
           aria-label="Settings"

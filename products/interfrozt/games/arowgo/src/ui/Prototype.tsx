@@ -1,3 +1,4 @@
+import { ProfileShortcut } from "./elements/ProfileShortcut";
 import { beforeDensityLevels } from "../domain/campaignBeforeDensity";
 import { beforeHardeningLevels } from "../domain/campaignBeforeHardening";
 import { AvatarArt } from "./elements/AvatarArt";
@@ -238,6 +239,7 @@ export function Prototype() {
         controller={lessonController}
         lesson
         economyNotice={economyOwner() ? walletMessage : undefined}
+        profile={profile}
         skin={profile.equipped}
         otherCoins={coins}
         onHome={() => go("modes")}
@@ -320,6 +322,7 @@ export function Prototype() {
           return true;
         }}
         economyNotice={economyOwner() ? walletMessage : undefined}
+        profile={profile}
         skin={profile.equipped}
         otherCoins={coins - controllers[i].state.coins}
         onHome={() => go("home")}
@@ -371,6 +374,7 @@ export function Prototype() {
           <Gem />
           <strong>{profile.gems}</strong>
         </div>
+        <ProfileShortcut profile={profile} current={page === "profile"} />
         <a
           href="#settings"
           className="icon-button hub-settings"
