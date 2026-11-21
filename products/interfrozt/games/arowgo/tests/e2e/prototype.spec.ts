@@ -1,14 +1,36 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
-const levels = [1, 2, 3, 4, 5].map(
-  (n) =>
-    JSON.parse(readFileSync(`content/levels/bloom-0${n}.json`, "utf8")) as {
-      solution: string[];
-    },
+async function learnSnake(page: Page) {
+  for (const ids of [["A"], ["B", "A"], ["A", "B"]]) {
+    for (const id of ids) {
+      const arrow = page.getByRole("button", {
+        name: `Slide arrow ${id}`,
+        exact: true,
+      });
+      await expect(arrow).toBeEnabled();
+      await arrow.focus();
+      await page.keyboard.press("Enter");
+    }
+    await page
+      .getByRole("button", { name: /Next lesson|Start playing/ })
+      .click();
+  }
+}
+// Each authored campaign file carries its verified solution order.
+const levels = Array.from(
+  { length: 20 },
+  (_, i) =>
+    JSON.parse(
+      readFileSync(
+        `content/levels/bloom-${String(i + 1).padStart(2, "0")}.json`,
+        "utf8",
+      ),
+    ) as { solution: string[] },
 );
-test("v0.1 journey: pages, five levels, rewards and persistence", async ({
+test("Bloom Valley: twenty levels, rewards and persistence", async ({
   page,
 }) => {
+  test.setTimeout(240000);
   await page.goto("/");
   await expect(
     page.getByRole("navigation", { name: "Main navigation" }),
@@ -18,16 +40,36 @@ test("v0.1 journey: pages, five levels, rewards and persistence", async ({
     page.getByRole("button", { name: "Play level 2:", exact: false }),
   ).toBeDisabled();
   await page.getByRole("link", { name: "Settings", exact: true }).click();
-  await page.getByRole("checkbox").check();
+  await page.getByRole("checkbox", { name: /Reduce motion/ }).check();
   await page.getByRole("link", { name: "Home", exact: true }).click();
   await page.getByRole("button", { name: "Play", exact: true }).click();
-  for (let i = 0; i < 5; i++) {
+  await learnSnake(page);
+  for (let i = 0; i < levels.length; i++) {
+    if (i === 9) {
+      await expect(page.getByRole('heading',{name:'Mind the powder'})).toBeVisible();
+      for(const id of ['B','A','C']) {
+        const a=page.getByRole('button',{name:'Slide arrow '+id,exact:true});
+        await expect(a).toBeEnabled();await a.focus();await page.keyboard.press('Enter');
+      }
+      await page.getByRole('button',{name:'Continue to level'}).click();
+    }
+    if (i === 10)
+      await page
+        .getByRole("button", { name: "Play Level 11", exact: true })
+        .click();
     await expect(
-      page.getByRole("heading", { name: `Level 0${i + 1}`, exact: true }),
+      page.getByRole("heading", {
+        name: `Level ${String(i + 1).padStart(2, "0")}`,
+        exact: true,
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("navigation", { name: "Main navigation" }),
     ).toHaveCount(0);
+    if (i >= 5)
+      await page.screenshot({
+        path: `docs/verification/generated-level-${i + 1}.png`,
+      });
     for (const id of levels[i].solution) {
       const arrow = page.getByRole("button", {
         name: `Slide arrow ${id}`,
@@ -42,16 +84,25 @@ test("v0.1 journey: pages, five levels, rewards and persistence", async ({
     ).toBeVisible();
     await page
       .getByRole("button", {
-        name: i < 4 ? "Next level" : "Back to Worlds",
+        name: i < levels.length - 1 ? "Next level" : "Valley complete",
         exact: true,
       })
       .click();
   }
-  await page.getByRole("link", { name: "Profile", exact: true }).click();
-  await expect(page.getByLabel("125 total coins")).toBeVisible();
-  await expect(page.getByText("15 / 15", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Bloom Valley cleared!" }),
+  ).toBeVisible();
+  await expect(page.getByLabel("60 of 60 stars")).toBeVisible();
   await page.reload();
-  await expect(page.getByLabel("125 total coins")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Replay from Level 1" }),
+  ).toBeVisible();
+  await page.screenshot({ path: "docs/verification/campaign-finale.png" });
+  await page.getByRole("link", { name: "Profile", exact: true }).click();
+  await expect(page.getByLabel("500 total coins")).toBeVisible();
+  await expect(page.locator(".player-stats").getByText("60/120", { exact: true })).toBeVisible();
+  await page.reload();
+  await expect(page.getByLabel("500 total coins")).toBeVisible();
   await page.waitForTimeout(400);
   await page.screenshot({ path: "docs/verification/v01-progress.png" });
 });
@@ -131,6 +182,7 @@ test("Practice never unlocks campaign and in-game preferences reach Settings", a
   await page
     .getByRole("button", { name: "Play Practice", exact: true })
     .click();
+  await learnSnake(page);
   await expect(page.getByLabel("Unlimited mistakes")).toBeVisible();
   for (const id of levels[0].solution) {
     const arrow = page.getByRole("button", {
@@ -150,7 +202,9 @@ test("Practice never unlocks campaign and in-game preferences reach Settings", a
   await page.getByRole("button", { name: "Play again", exact: true }).click();
   await page.getByRole("button", { name: "Leave puzzle" }).click();
   await page.getByRole("link", { name: "Settings", exact: true }).click();
-  await expect(page.getByRole("checkbox")).toBeChecked();
+  await expect(
+    page.getByRole("checkbox", { name: /Reduce motion/ }),
+  ).toBeChecked();
   await page.getByRole("link", { name: "Worlds", exact: true }).click();
   await expect(
     page.getByRole("button", { name: "Play level 2:", exact: false }),

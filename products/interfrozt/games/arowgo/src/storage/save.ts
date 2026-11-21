@@ -1,4 +1,4 @@
-import { parseSession, type Session } from "../application/session";
+import { newSession, parseSession, type Session } from "../application/session";
 import type { Level } from "../domain/rules";
 export const SAVE_KEY = "arowgo.slice.v1";
 export interface Store {
@@ -10,6 +10,7 @@ export class SaveStore {
     private store: Store,
     private level: Level,
     private key: string = SAVE_KEY,
+    private previousLevel?: Level | Level[],
   ) {}
   load(): { state?: Session; notice?: string } {
     try {
@@ -20,7 +21,8 @@ export class SaveStore {
         try {
           return { state: parseSession(primary, this.level) };
         } catch {
-          /* Try last valid checkpoint. */
+          const migrated = this.migrate(primary);
+          if (migrated) return migrated;
         }
       }
       if (backup) {
@@ -31,7 +33,8 @@ export class SaveStore {
               "Your last safe checkpoint was recovered. Recent progress may need replaying.",
           };
         } catch {
-          /* Preserve incompatible data until reset. */
+          const migrated = this.migrate(backup);
+          if (migrated) return migrated;
         }
       }
       return {
@@ -62,5 +65,65 @@ export class SaveStore {
     } catch {
       return false;
     }
+  }
+  private migrate(raw: string): { state: Session; notice: string } | undefined {
+    const candidates = Array.isArray(this.previousLevel)
+      ? this.previousLevel
+      : this.previousLevel
+        ? [this.previousLevel]
+        : [];
+    const previousLevel = candidates.find((level) => {
+      if (!level || level.contentVersion === this.level.contentVersion)
+        return false;
+      try {
+        parseSession(raw, level);
+        return true;
+      } catch {
+        return false;
+      }
+    });
+    if (!previousLevel) return;
+    let previous: Session;
+    try {
+      previous = parseSession(raw, previousLevel);
+    } catch {
+      return;
+    }
+    this.store.setItem(
+      `${this.key}.content-${previousLevel.contentVersion}`,
+      raw,
+    );
+    if (
+      JSON.stringify(previousLevel.arrows) ===
+        JSON.stringify(this.level.arrows) &&
+      JSON.stringify(previousLevel.board) === JSON.stringify(this.level.board)
+    ) {
+      try {
+        const state = parseSession(
+          JSON.stringify({
+            ...previous,
+            rulesVersion: this.level.rulesVersion,
+            contentVersion: this.level.contentVersion,
+          }),
+          this.level,
+        );
+        return {
+          state,
+          notice:
+            "Snake movement rules are updated. Your current board and rewards are safe.",
+        };
+      } catch {
+        /* Changed rules require a fresh attempt if the old state no longer validates. */
+      }
+    }
+    return {
+      state: newSession(
+        this.level,
+        `${previous.attemptId}:content-${this.level.contentVersion}`,
+        previous.mode,
+        previous,
+      ),
+      notice: "New puzzle. Coins and best stars kept.",
+    };
   }
 }

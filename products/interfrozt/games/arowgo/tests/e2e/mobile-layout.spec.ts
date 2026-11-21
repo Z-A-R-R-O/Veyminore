@@ -43,6 +43,9 @@ for (const [width, height] of [
       .focus();
     await page.keyboard.press("Enter");
     await expect(page.getByLabel("2 hearts remaining")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "A little hint" }),
+    ).toBeEnabled();
     await page.screenshot({
       path: `docs/verification/mobile-fit-${width}x${height}.png`,
     });
@@ -52,3 +55,36 @@ for (const [width, height] of [
     await context.close();
   });
 }
+
+test("game fits a desktop-width browser with reduced viewport height", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    viewport: { width: 976, height: 757 },
+  });
+  const page = await context.newPage();
+  await page.goto("/#play/1");
+  await page.locator("canvas[data-ready=true]").waitFor();
+  for (const selector of [
+    ".topbar",
+    ".level-heading",
+    ".hud",
+    ".board",
+
+    ".tool-tray",
+    ".card-footer button",
+  ]) {
+    const box = await page.locator(selector).boundingBox();
+    expect(box!.y).toBeGreaterThanOrEqual(0);
+    expect(box!.y + box!.height).toBeLessThanOrEqual(757);
+  }
+  const board = await page.locator(".board").boundingBox();
+  expect(Math.abs(board!.width - board!.height)).toBeLessThan(2);
+  expect(board!.height).toBeGreaterThan(250);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollHeight <= innerHeight,
+    ),
+  ).toBe(true);
+  await context.close();
+});

@@ -1,43 +1,25 @@
 # Execution backlog
 
-> Current implemented release: [v0.1 prototype](v0.1-prototype.md). Five levels and hub navigation supersede the original one-level slice; remaining masterplan features remain future scope.
+Updated 20 November 2026. [Gap register](GAME-EXPERIENCE-GAPS.md) owns open acceptance criteria; [current state](CURRENT-GAME-STATE.md) owns implemented behavior.
 
-[Index](README.md) · [Release gates](specs/quality-and-release.md)
+## Next: native acceptance & human playtest calibration
 
-See the current status below; planned scope remains in the task table. The [build guide](build-guide.md) defines the shared architecture, save contract and first-slice evidence requirements. Owners below are roles to assign, not confirmed staff. A first browser implementation is available; native acceptance remains pending.
+See [release checklist](RELEASE-CHECKLIST.md) and [level difficulty register](LEVEL-DIFFICULTY-REGISTER.md) for criteria.
 
-| ID | Priority | Work / owner role | Depends on | Acceptance evidence |
-| --- | --- | --- | --- | --- |
-| A01 | P0 | Define tiny rule boards / game systems | AW-001 review | 5–10 cases: each direction, bent body blocker, multiple blockers, boundary, invalid geometry |
-| A02 | P0 | Prototype independent checker and domain / engineering | A01 | Deterministic path expansion, occupancy and swept checks; no UI imports |
-| A03 | P0 | Demonstrate and select movement / product + engineering | A02 | Renderer matches checker; rule recorded in ADR; still-image uncertainty closed |
-| A04 | P0 | Verify runtime candidates / engineering | A03 | Dated primary sources, versions and device lifecycle/performance report |
-| A05 | P0 | One-level playable slice / engineering + design | A03, A04 | Load → interact → result → restart; rapid taps commit once |
-| A06 | P1 | Persistence and rewards / engineering | A05 | Save migration, corrupted snapshot fallback, kill/resume and duplicate reward tests |
-| A07 | P1 | Hearts, scoring, tools / product + engineering | A03, A06 | Published provisional semantics; cancel/no-charge/zero-hearts cases verified |
-| A08 | P1 | Tutorial and ~10 levels / content | A03, A07 | Every board validated with no-assist solution; external rule comprehension notes |
-| A09 | P1 | Home, World, Profile, Results, Settings / design + engineering | A05, A06 | Functional routes, selected-level consistency, empty/error/reset states and readable narrow layout |
-| A10 | P1 | Minimal level preview and validation workflow / tools | A08 | Load, preview blockers, replay solution, export reviewed content |
-| A11 | P1 | Expand to 30–40 levels / content + QA | A08, A10 | Stable IDs; per-level review record; independent replay and device review |
-| A12 | P1 | Beta measurement and release readiness / QA + product | A09, A11 | Device/build report, consent/data inventory, actual publisher review, support owner, no blocking defects |
-| A13 | P2 | Earned cosmetics / design | A12 | Equip persists; skin never alters hitbox or readability |
-| A14 | P2 | Generator / game systems | A12 and repeat-play evidence | Versioned seed reproduction, cycle rejection, bounded fallback and human difficulty review |
-| A15 | P2 | Daily and async services / backend | A14 and service owner | Canonical challenge, authenticated replay validation, idempotency and access tests |
+1. Physical-device release acceptance: verify signed build lifecycle, touch target sizing (>= 48px), 60 FPS frame timing, safe-area insets, and audio session management.
+2. Human difficulty & readability: evaluate late-game decision density (especially Level 100 Sanctum climax), solver vs human solve paths, retry pacing, and visual cue clarity.
+3. Rights, privacy, and account operations: verify audio provenance, generated asset rights, data retention/deletion workflows, and player support runbooks.
 
-## Current status — 10 November 2026
+## Following work
 
-| Item | State | Evidence / remaining work |
-| --- | --- | --- |
-| A01–A02 | Implemented and tested | Nine proof fixtures, invalid geometry cases, independent solver comparison |
-| A03 | Implemented; product validation open | Rule lab animates rigid movement; user acceptance of intended mechanic pending |
-| A04 | Partial | Pinned stack and web build; Android sync passes, Java/SDK/device validation outstanding |
-| A05 | Browser slice implemented | One original level, blocked/clear feedback, results, replay and pointer/keyboard input |
-| A06 | Browser persistence implemented | Atomic snapshot, backup, duplicate reward and failure tests; native process-kill checks pending |
-| A07 | Partial | Story hearts, practice, provisional stars and free assisted Hint; Analyze/Erase deferred |
-| A08–A15 | Not started | No campaign expansion, online service or public release |
+- Collection expansion after economy/design review (5 chest tiers, 100 skins); multiplayer remains later work.
 
-See the [first-playable verification report](verification/first-playable.md). These statuses describe implementation evidence, not all-platform acceptance.
+## Delivered milestones
 
-## Evidence and release status
-
-The browser subset of the mechanic gate is demonstrated. Full native/device, external-player and release gates remain open. Attach build/version, device, date, reviewer and actual results to each completed ticket. A checklist alone is not evidence. Apply only gates relevant to enabled systems: offline MVP does not require live multiplayer or billing implementation. Resolve current policy and publisher questions before public release rather than treating imported claims as clearance.
+- **Account continuity and conflict resolution policy**: Implemented cross-device appearance synchronization (`avatar`, `frame`, `name`), optimistic concurrency versioning on preferences (`expectedRevision`), clean restart policy for in-progress attempts on device restore, deterministic conflict resolution matrix (idempotent first-clear coins, monotonic star updates), and strict account namespace isolation (`arowgo.economy.<accountId>`). Verified in `tests/account-continuity.test.ts`. See [account continuity guide](ACCOUNT-CONTINUITY-AND-CONFLICTS.md).
+- **Production account and ledger infrastructure**: Implemented durable SQLite session store (`sessions.sqlite`) with automated TTL pruning and proxy mutation tracking; sliding-window IP rate limiter (`rate-limiter.mjs`); automated atomic ledger backups (`VACUUM INTO`) with SHA-256 manifests and dual-entry balance invariant verification (`backup.mjs`); pre-restore safety snapshots and dry-run restore validation (`restore-ledger.mjs`); and container health probes (`/api/arowgo/v1/health`). Verified in `tests/production-infrastructure.test.js`. See [production infrastructure guide](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md).
+- **Full-history cloud capacity**: Multi-chunk PlayFab object envelope supporting realistic 100-level UUID transcripts, backups, and migration archives up to 150 KB packed / 512 KiB raw, with atomic commits under `ExpectedProfileVersion`, previous-generation rollback preservation, and corruption rejection. Verified in `tests/cloud-capacity.test.js` and `tests/sanctum.test.ts`. See [cloud recovery guide](CLOUD-SAVE-RECOVERY.md).
+- **100-level campaign & dense late boards**: 100 levels across 5 worlds (Bloom Valley, Verdant Cove, Frostfall Peaks, Amber Dunes, Amber Sanctum); snake movement v2, keys & locks, anchors, ice seals, phase gates, removal-count countdowns.
+- **Reviewed account wallet & restore**: SQLite server ledger, idempotent first-clear rewards (2,500 coins total), second-device completion reconstruction, Google OIDC token exchange (`google-web`), and isolated live PlayFab entity probes.
+- **Hold preview & presentation**: 400ms neutral hold inspection, 30 avatars, 30 frames, 15 arrow skins, 3 crate tiers, Satoshi typography, and purple arrow-v4 branding.
+- **Comprehensive documentation suite**: 10 new/updated guides covering cloud recovery, deployment, generator v4, mechanics, level register, currency flows, release checklist, asset catalog, test coverage, and changelog.

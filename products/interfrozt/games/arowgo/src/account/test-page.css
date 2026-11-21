@@ -1,0 +1,626 @@
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-Regular.otf");
+}
+@font-face {
+  font-family: Satoshi;
+  src: url("/fonts/satoshi/Satoshi-Bold.otf");
+  font-weight: 700;
+}
+* {
+  box-sizing: border-box;
+}
+[hidden] {
+  display: none !important;
+}
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse at 10% 20%, #e5dcff, transparent 50%),
+    radial-gradient(ellipse at 90% 90%, #d8eeed, transparent 50%), #f6f5fc;
+  color: #30264a;
+  font:
+    16px Satoshi,
+    system-ui,
+    sans-serif;
+}
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 32px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: inherit;
+}
+.brand img {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+}
+.badge {
+  font-size: 12px;
+  color: #716180;
+  border: 1px solid #dcd3eb;
+  border-radius: 100px;
+  padding: 8px 12px;
+  background: #ffffff80;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  min-height: calc(100dvh - 104px);
+  padding: 48px 0;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: #8260ad;
+}
+h1 {
+  font-size: clamp(36px, 4.6vw, 54px);
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  margin: 20px 0;
+}
+p {
+  line-height: 1.6;
+}
+.intro > p {
+  color: #776789;
+}
+.note {
+  display: flex;
+  gap: 12px;
+  margin: 32px 0;
+  color: #68557c;
+}
+.note > span {
+  font-size: 24px;
+  color: #9c76c6;
+}
+.note p {
+  margin: 0;
+  font-size: 14px;
+}
+.note small {
+  display: block;
+  max-width: 290px;
+  color: #897a98;
+  margin-top: 5px;
+}
+.back {
+  color: #73529b;
+  font-size: 14px;
+  text-decoration: none;
+}
+.card {
+  background: #ffffffdb;
+  border: 1px solid white;
+  padding: 36px;
+  border-radius: 28px;
+  box-shadow: 0 20px 70px #69518c14;
+}
+.state-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  background: #eee6fb;
+  color: #8053b3;
+  border-radius: 16px;
+  font-size: 28px;
+}
+.card h2 {
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  margin: 22px 0 10px;
+}
+#status {
+  font-size: 15px;
+  color: #766683;
+  min-height: 48px;
+  margin: 0;
+}
+.steps {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 26px 0;
+  gap: 8px;
+}
+.steps li {
+  flex: 1;
+  border-top: 3px solid #eee8f4;
+  padding-top: 9px;
+  font-size: 12px;
+  color: #9b8ba9;
+}
+.steps li[data-active="true"] {
+  border-color: #9361c7;
+  color: #654086;
+}
+.steps li[data-done="true"] {
+  border-color: #46a790;
+  color: #34826f;
+}
+#google-button {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+button,
+.primary {
+  font:
+    700 14px Satoshi,
+    system-ui;
+  border: 1px solid #d9c8ea;
+  border-radius: 13px;
+  background: #f5f0fc;
+  color: #7043a0;
+  padding: 13px 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+#login,
+.primary {
+  background: linear-gradient(135deg, #a877d2, #7743b5);
+  color: white;
+  border-color: transparent;
+  flex: 1;
+}
+button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #9f78ca;
+  outline-offset: 4px;
+}
+.help {
+  font-size: 12px;
+  color: #8b7a99;
+  margin: 18px 0;
+}
+details {
+  font-size: 12px;
+  background: #f7f3fc;
+  padding: 12px;
+  border-radius: 10px;
+}
+summary {
+  cursor: pointer;
+}
+#diagnostic {
+  overflow-wrap: anywhere;
+  margin-bottom: 0;
+}
+footer {
+  border-top: 1px solid #eee8f3;
+  padding-top: 20px;
+  margin-top: 24px;
+  font-size: 11px;
+  color: #9585a3;
+}
+footer span {
+  display: block;
+  margin-top: 4px;
+}
+.card[data-state="success"] .state-icon {
+  background: #e3f5ee;
+  color: #31856e;
+}
+.card[data-state="error"] .state-icon {
+  background: #fff0e6;
+  color: #b77944;
+}
+.card[data-state="busy"] .state-icon {
+  animation: breathe 1.5s ease-in-out infinite;
+}
+@keyframes breathe {
+  50% {
+    opacity: 0.45;
+    transform: scale(0.94);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}
+@media (max-width: 720px) {
+  main {
+    padding: 20px;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    min-height: 0;
+    padding: 36px 0;
+  }
+  .intro h1 {
+    font-size: 36px;
+  }
+  .intro > p {
+    margin-bottom: 0;
+  }
+  .note {
+    margin: 20px 0;
+  }
+  .card {
+    padding: 26px;
+  }
+  .badge {
+    font-size: 10px;
+  }
+  .intro .back {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  main {
+    padding: 14px;
+  }
+  .card {
+    padding: 20px;
+  }
+  .badge {
+    padding: 6px 9px;
+  }
+}
+/* Shared account-screen game styling. */
+@font-face {
+  font-family: MatchaWorld;
+  src: url("/fonts/matcha/matcha-world.otf");
+}
+body {
+  background:
+    radial-gradient(ellipse at 15% 40%, #d7c3f6 0, transparent 52%),
+    radial-gradient(ellipse at 85% 15%, #f5e4fc 0, transparent 45%),
+    linear-gradient(145deg, #f0e9fc, #edf4f8);
+  background-attachment: fixed;
+}
+main {
+  max-width: 1160px;
+  padding: 28px 36px;
+}
+.brand {
+  font-family: MatchaWorld, Satoshi, sans-serif;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+.brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+}
+.badge {
+  background: #fff9;
+  border-color: white;
+}
+.layout {
+  gap: 72px;
+  padding: 32px 0;
+  min-height: calc(100dvh - 100px);
+}
+.intro {
+  text-align: center;
+}
+.account-hero-art {
+  display: block;
+  width: min(100%, 310px);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 8px;
+  filter: drop-shadow(0 18px 20px #7c4da523);
+  animation: vault-appear 0.65s ease-out both;
+}
+.intro h1 {
+  font-family: MatchaWorld, Satoshi, sans-serif;
+  letter-spacing: -0.02em;
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.12;
+  margin: 12px 0;
+}
+.intro > p {
+  font-size: 15px;
+  margin: 12px auto;
+  max-width: 340px;
+}
+.intro .note {
+  margin: 20px auto;
+  justify-content: center;
+  text-align: left;
+}
+.intro .back {
+  display: inline-block;
+  margin-top: 6px;
+}
+.card {
+  position: relative;
+  border: 1.5px solid #fff;
+  border-radius: 32px;
+  padding: 34px;
+  background: linear-gradient(150deg, #fffffff5, #f8f0fff0);
+  box-shadow:
+    0 22px 60px #65399819,
+    inset 0 0 0 5px #ffffff54;
+}
+.card h2 {
+  font-size: 28px;
+}
+.state-icon {
+  border: 1px solid white;
+  box-shadow: 0 4px 12px #8153ac14;
+  background: linear-gradient(145deg, #efe2fc, #e4d6f8);
+}
+.steps {
+  gap: 12px;
+  margin: 24px 0;
+}
+.steps li {
+  border-radius: 2px;
+  border-top-width: 4px;
+  font-weight: 700;
+}
+#google-button {
+  padding: 8px 0 14px;
+}
+.actions {
+  gap: 10px;
+}
+.actions button,
+.actions a {
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+  border-radius: 15px;
+  min-height: 44px;
+}
+.actions button:hover:not(:disabled),
+.actions a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px #734d9b1a;
+}
+.actions button:active:not(:disabled),
+.actions a:active {
+  transform: translateY(1px);
+}
+#login,
+.primary,
+#upload,
+#confirm {
+  background: linear-gradient(135deg, #b985e9, #8950c3);
+  box-shadow:
+    inset 0 2px 2px #ffffff55,
+    0 3px 0 #69349d25;
+  border-color: #cfa5f0;
+  color: white;
+}
+.card[data-state="ready"] #login {
+  background: transparent;
+  box-shadow: none;
+  color: #8a719f;
+  font-size: 12px;
+  min-height: 36px;
+  padding: 8px;
+}
+#logout,
+#cancel,
+#refresh,
+#download {
+  background: #ffffff80;
+  color: #77548e;
+  font-size: 12px;
+}
+#help {
+  line-height: 1.5;
+}
+details {
+  border: 1px solid #e9dcf4;
+  background: #fff8;
+}
+.card footer {
+  font-size: 12px;
+}
+.cloud-layout .card > p {
+  font-size: 13px;
+  color: #79628d;
+}
+.cloud-card .actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.cloud-card #upload,
+.cloud-card #restore,
+.cloud-card #confirm {
+  grid-column: 1/-1;
+}
+.cloud-card > a {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 13px;
+  color: #7b509c;
+  text-decoration: none;
+}
+#comparison {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+}
+#comparison p {
+  padding: 16px;
+  margin: 0;
+  border-radius: 18px;
+  background: #ffffffb3;
+  border: 1px solid #dfcfed;
+  font-size: 13px;
+  line-height: 1.65;
+}
+#comparison p:first-child {
+  border-left: 4px solid #ad85d5;
+}
+#comparison p:last-child {
+  border-left: 4px solid #69b4b7;
+}
+.cloud-card #status {
+  padding: 12px;
+  border-radius: 14px;
+  background: #eee4f899;
+  font-size: 13px;
+  min-height: 0;
+}
+@keyframes vault-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 720px) {
+  main {
+    padding: 18px;
+  }
+  .layout {
+    gap: 22px;
+    padding: 22px 0;
+    min-height: 0;
+  }
+  .intro {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    column-gap: 14px;
+    text-align: left;
+    align-items: center;
+  }
+  .account-hero-art {
+    grid-column: 1;
+    grid-row: 1/4;
+    width: 110px;
+    margin: 0;
+  }
+  .intro .eyebrow {
+    font-size: 9px;
+    align-self: end;
+  }
+  .intro h1 {
+    grid-column: 2;
+    font-size: 28px;
+    margin: 5px 0;
+  }
+  .intro > p {
+    grid-column: 2;
+    font-size: 12px;
+    margin: 0;
+    align-self: start;
+  }
+  .intro .note,
+  .intro .back {
+    display: none;
+  }
+  .card {
+    padding: 26px;
+    border-radius: 28px;
+  }
+  .card h2 {
+    font-size: 25px;
+  }
+  .cloud-layout .intro h1 {
+    font-size: 25px;
+  }
+  .badge {
+    font-size: 10px;
+  }
+  .brand {
+    font-size: 19px;
+  }
+  .brand img {
+    width: 34px;
+    height: 34px;
+  }
+}
+@media (max-width: 360px) {
+  main {
+    padding: 12px;
+  }
+  .intro {
+    grid-template-columns: 85px 1fr;
+    gap: 9px;
+  }
+  .account-hero-art {
+    width: 85px;
+  }
+  .intro h1 {
+    font-size: 24px;
+  }
+  .card {
+    padding: 21px;
+  }
+  .brand {
+    font-size: 16px;
+  }
+  .badge {
+    padding: 6px 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .account-hero-art {
+    animation: none;
+  }
+  .actions button,
+  .actions a {
+    transition: none;
+  }
+}
+
+.wallet-review {
+  max-width: 680px;
+  padding: clamp(16px, 4vw, 36px);
+}
+.wallet-review .card {
+  padding: clamp(20px, 4vw, 36px);
+}
+.wallet-review h1 {
+  font-size: clamp(28px, 6vw, 38px);
+}
+.wallet-review-art {
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+.wallet-review button {
+  width: 100%;
+  margin-top: 12px;
+}
+.wallet-review pre {
+  font: inherit;
+  padding: 16px;
+  border-radius: 16px;
+  background: #f0e8fa;
+}

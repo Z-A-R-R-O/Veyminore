@@ -15,7 +15,7 @@ const level = (arrows: Arrow[]): Level => ({
   arrows,
   solution: arrows.map((a) => a.id),
 });
-export const fixtures: RuleFixture[] = [
+export const legacyFixtures: RuleFixture[] = [
   {
     name: "North",
     description: "A straight arrow exits upwards.",
@@ -198,3 +198,24 @@ export const fixtures: RuleFixture[] = [
     ]),
   },
 ];
+
+export const fixtures: RuleFixture[] = legacyFixtures.map((f, i) => ({
+  ...f,
+  name:
+    i === 5
+      ? "Clear beside the body"
+      : i === 6
+        ? "Side obstacles"
+        : i === 7
+          ? "Distant side obstacle"
+          : f.name,
+  level: { ...f.level, rulesVersion: 2 },
+  clear: [5, 6, 7].includes(i) ? true : f.clear,
+  description: [5, 6, 7].includes(i)
+    ? "The head's forward path is clear. The bent body follows its own path past these side obstacles."
+    : i === 1
+      ? "The head exits right and the bent body follows its path."
+      : i === 2
+        ? "The head exits down; the tail follows behind."
+        : f.description,
+}));

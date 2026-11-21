@@ -1,58 +1,26 @@
-# AROWGO — Masterplan 2.3
+# AROWGO delivery plan
 
-> Current implemented release: [v0.1 prototype](docs/v0.1-prototype.md). Five levels and hub navigation supersede the original one-level slice; remaining masterplan features remain future scope.
+Updated 20 November 2026. [Current implementation](docs/CURRENT-GAME-STATE.md) · [Open gaps](docs/GAME-EXPERIENCE-GAPS.md) · [Execution backlog](docs/execution-backlog.md).
 
-**Edition:** Build-ready documentation and consistency corrections, 10 November 2026.\
-**Parent:** InterFrozt / Veyminore.\
-**Status:** First browser mechanic proof and one playable level implemented; campaign and native acceptance remain pending.\
-**Source:** [Original 2.1](references/AROWGO_Advanced_Masterplan_2.1.md), preserved unchanged.
+## Product
 
-## Direction
+A mobile-first snake-arrow puzzle game built around readable rules and deliberate removal order. The campaign now has 100 levels across five chapters. Difficulty must be validated with people as well as solvers. Additional arrow density alone is not a substitute for meaningful choices.
 
-Build a calm, readable bent-arrow logic puzzle. Preserve the blossom landscapes, floating islands, lavender panels and confident purple actions from the references, while keeping dark puzzle paths crisp. Android portrait is the source plan's primary target; a web prototype is the first validation surface.
+## Delivered development baseline
 
-## First release boundary
+Campaign authoring/solver pipeline, progressively combined mechanics, neutral hold inspection, local save migration and recovery, responsive game screens, profiles and collection. Google/PlayFab identity, revisioned legacy cloud snapshots and automatic completion upload exist. A separate reviewed SQLite wallet provides authoritative development rewards/purchases and completed-level restoration.
 
-The working MVP is an offline Story campaign with 30–40 reviewed levels, tutorial, practice replay, local save/resume, results, basic profile and settings. Hint, Analyze and Erase need explicit charge and assisted-result semantics. Start with Home, World and Profile navigation; Modes can be a functional Story/practice entry. A small earned cosmetic collection is optional after the campaign is stable.
+## Delivery order
 
-Online ranking, accounts, cloud saves, procedural endless content, real-money purchases, ads, events and live multiplayer remain deferred. No empty shop or ranking tab is required merely because it appears in the concept art.
+1. Fix realistic full-history cloud capacity without dropping progress, currency or recovery history.
+2. Establish production account/ledger hosting, sessions, backup/restore and operating ownership.
+3. Complete cross-device continuity requirements and account conflict UX.
+4. Validate difficulty with human playtests and the app on physical mobile devices.
+5. Complete release regression, performance, accessibility and asset/privacy review.
+6. Expand skins/chests only after the proposed catalog and earning model are reviewed. Multiplayer and other live services require their own milestones.
 
-## Rule proof before production
+## Architecture and release boundaries
 
-Prototype whole-path rigid translation using integer cells and an independent swept-footprint checker. A still screenshot cannot establish how arrows move. Validate that hypothesis before making a large campaign. Rendering must demonstrate the same movement model as collision; retraction is a different mechanic until proven otherwise.
+Keep domain rules/solver independent of React/Phaser. Ship reviewed static level JSON, retain historical versions for save compatibility, and keep provider credentials server-side. Preserve legacy saves during account migration and never merge balances using max/addition or last-write-wins.
 
-Blocked taps preserve board occupancy but may change the mistake counter. Successful removals, tool spending and rewards need atomic, replay-safe state transitions. All shipped levels must have a verified no-assist solution.
-
-## Documents and precedence
-
-1. The user's games-only InterFrozt organization is implemented.
-2. This masterplan and the [working amendments](docs/decisions/README.md) define the proposed 2.3 baseline. They distinguish implemented organization from provisional design choices.
-3. [Focused specifications](docs/README.md) cover every numbered section from 2.1; revised pages are marked with their working revision. The original remains available for historical wording. Working amendments take precedence over unrevised imported detail.
-4. The original source and screenshots are immutable reference evidence. UI prices, player data, locked labels and source “Locked” statuses do not establish actual production state.
-
-When a conflict remains unresolved, record it in the decision register; do not infer approval. Technical choices and external policy claims from 2.1 still need dated verification at implementation/release.
-
-## Delivery sequence
-
-| Milestone | Output | Exit evidence |
-| --- | --- | --- |
-| Rule proof | 5–10 tiny boards and movement demonstration | Four directions, body-only blockers, geometry rejection and explicit rule selection |
-| Vertical slice | One level from entry through results and resume | No duplicate actions/rewards; touch-device observation |
-| Tutorial alpha | About 10 reviewed levels | New players can explain the rule without coaching |
-| Campaign MVP | 30–40 reviewed levels and functional navigation | Automated validation, device matrix, no blocking defects, save migration tested |
-| Retention learning | External cohort feedback | Cohort size, return-play signal and reasons for stopping documented |
-| Expansion | Generator, daily and then asynchronous competition | Relevant content/server/operations gates passed before each feature |
-
-This reconciles the source's one-level, 10–15-level and 30–40-level targets into distinct milestones. No delivery date or team capacity is assumed.
-
-## Build approach
-
-Follow the [build guide](docs/build-guide.md): one game package with TypeScript rules, a Phaser board, React screens and Vite tooling, packaged with Capacitor during the first Android slice. These are spike candidates, not validated dependencies. Keep state changes in an application controller and local persistence behind an adapter. Add backend services only when a validated feature requires them.
-
-## Current implementation
-
-The first playable implements rigid movement, a ten-arrow level, Story/Practice, Hint, restart/results, local progression and nine interactive rule examples. See the [rule proof](docs/rule-proof.md) and [build evidence](docs/verification/first-playable.md). Android asset sync succeeds; compilation and physical-device gates remain open.
-
-## Start here
-
-Assign owners to the [execution backlog](docs/execution-backlog.md), review the [recommendations](docs/review-and-recommendations.md), and produce evidence for Gate A. Use the [templates and maintenance workflow](docs/maintenance.md) for future changes. The browser prototype is now implemented. Next validate the feel and actual Android behavior before expanding content.
+Localhost account services are not production infrastructure. Compact cloud fixtures do not prove large-history support. Automated solving does not prove fun or fairness, and browser mobile emulation does not prove native acceptance. Record each gate with dated evidence and explicit scope; [latest record](docs/AUDIT-2026-11-20.md).

@@ -1,5 +1,45 @@
 # Documentation changelog
 
+## Account continuity and conflict resolution policy — 20 November 2026
+
+- Implemented cross-device appearance synchronization (`avatar`, `frame`, `name`) in server wallet ledger `preferences` table with optimistic concurrency control (`expectedRevision`).
+- Updated `accountRestorePlan` in `src/account/account-restore.ts` to restore remote appearance attributes into local `arowgo.profile.v1` with validation and fallback to guest defaults.
+- Established clean restart policy for in-progress and mid-puzzle boards: completed levels are restored as finished (`claimed: true, bestStars, coins: 25`); uncompleted levels restart cleanly at move 0 with an empty move log and a fresh unique `attemptId`.
+- Codified deterministic conflict resolution matrix across concurrent first-clears (idempotent 25 coin award), replay star upgrades (`MAX`), time records (`MIN`), appearance updates (optimistic revision locks), and wallet transactions (atomic serializable `BEGIN IMMEDIATE`).
+- Enforced strict account storage isolation between guest (`arowgo.save.v1`, `arowgo.profile.v1`, `arowgo.wallet.v1`) and bound accounts (`arowgo.economy.<accountId>.*`).
+- Added dedicated guide `docs/ACCOUNT-CONTINUITY-AND-CONFLICTS.md` and test suite `tests/account-continuity.test.ts` (5 tests). All 59 test files (407 tests) pass cleanly.
+
+## Production account and ledger infrastructure — 20 November 2026
+
+- Implemented durable SQLite session store in `server/account/session-store.mjs` (`sessions.sqlite`) in WAL mode with automated TTL pruning and transparent mutation synchronization via recursive Proxy wrappers.
+- Implemented sliding-window IP rate limiter in `server/account/rate-limiter.mjs` with standard HTTP 429 and `Retry-After` response headers.
+- Implemented automated atomic ledger backup and restore engine in `server/economy/backup.mjs` using SQLite `VACUUM INTO`, SHA-256 cryptographic audit manifests, dual-entry balance invariant validation, and pre-restore safety copies.
+- Created operational CLI commands: `scripts/backup-ledger.mjs`, `scripts/restore-ledger.mjs`, and `scripts/verify-ledger.mjs`.
+- Added unauthenticated container health probe `GET /api/arowgo/v1/health` for load balancers and container orchestrators.
+- Updated `server/account/start.mjs` to support explicit production boots (`AROWGO_PRODUCTION_SERVER=1`) while strictly guarding against accidental unconfigured production runs.
+- Added dedicated guide `docs/PRODUCTION-ACCOUNT-INFRASTRUCTURE.md` covering architecture, persistence models, SQLite vs Postgres scaling, rate limits, backup retention, and disaster recovery runbooks.
+- Added comprehensive test suite `tests/production-infrastructure.test.js` (5 tests). All 58 test files (402 tests) pass cleanly.
+
+## Full-history cloud capacity resolution — 20 November 2026
+
+- Implemented multi-chunk PlayFab object envelope in `server/account/cloud.mjs` supporting realistic 100-level UUID transcripts, backups, and migration archives up to 150 KB packed / 512 KiB raw.
+- Slices payloads into indexed PlayFab objects (`arowgo-save-v1-chunk-i`) up to 30 chunks, well within PlayFab's 100-object limit and 8,000-byte-per-object limit.
+- Preserves atomic single-request commits under `ExpectedProfileVersion`, full previous-generation rollback copies, corruption rejection, and zero truncation.
+- Backward compatibility maintained for legacy single-overflow saves.
+- Added dedicated test suite `tests/cloud-capacity.test.js` and updated `tests/sanctum.test.ts`. All 57 test files (397 tests) pass.
+
+## Documentation suite and production/cloud audit — 20 November 2026
+
+Added dedicated guides for cloud-save recovery (`CLOUD-SAVE-RECOVERY.md`), production deployment and service boundaries (`DEPLOYMENT-PRODUCTION.md`), generator specification (`GENERATOR-SPECIFICATION.md`), mechanics handbook (`MECHANICS-HANDBOOK.md`), 100-level register (`LEVEL-DIFFICULTY-REGISTER.md`), account and currency flow diagrams (`ACCOUNT-CURRENCY-FLOWS.md`), release checklist (`RELEASE-CHECKLIST.md`), asset catalog (`ASSET-CATALOG.md`), and test coverage map (`TEST-COVERAGE-MAP.md`). Reconciled status index across 90 files and 472 verified links.
+
+## Current-state cleanup - 20 November 2026
+
+Reconciled the 100-level campaign, account/cloud/wallet boundaries and open capacity gap. Rebuilt navigation, status inventory, roadmap and backlog; labelled superseded rollout material and preserved historical evidence. Added a repeatable relative-link/index check. No gameplay or save changes.
+
+## Current-state reconciliation — 16 November 2026
+
+Audited the forty-level content-9 game, current local economy, authentication absence and native environment. Rewrote README, masterplan, current state, build guide, backlog and decision register; added the AROWGO-specific backend/account plan, deferred Frostfall Peaks plan, documentation status index and dated audit. Corrected stale rigid-movement/five-level/ten-level/unimplemented-bomb claims. Preserved historical reports and source references. Accounts/cloud now take priority; no backend was provisioned. Actual fresh check outcomes, including failures, are in AUDIT-2026-11-16.md.
+
 ## Full-viewport mobile layout — 10 November 2026
 
 - Replaced mobile page scrolling with a safe-area-aware dynamic viewport shell.
@@ -7,13 +47,11 @@
 - Added landscape side controls, full-viewport results and internally scrolling Settings.
 - Added five phone size/orientation checks including 320×568 and 844×390.
 
-
 ## Curved recoil and tool animations — 10 November 2026
 
 - Changed blocked presentation to snake advance/reverse along curved paths.
 - Added a travelling hint spark, bulb response and confirmed erase wipe.
 - Removed Analyze from the playable tool tray and updated guidance to two tools.
-
 
 ## Blocked-arrow contact — 10 November 2026
 
@@ -21,13 +59,11 @@
 - Kept both participating arrows stable during render updates; reduced motion skips travel.
 - Added desktop/phone regression coverage for exact return, one-heart deduction and persistence.
 
-
 ## Essential typography — 10 November 2026
 
 - Centered the board and removed decorative side essays, micro-captions and repeated victory text.
 - Increased essential Satoshi labels and actions; kept accessible reward summaries and save errors.
 - Added a thinking-practice motto and a sourced psychology/design rationale without unproven cognitive-benefit claims.
-
 
 ## Reusable rewards and Satoshi — 10 November 2026
 
@@ -36,7 +72,6 @@
 - Added heart-splitting feedback, reassuring retry copy, a welcome and a win good-wish.
 - Kept balance/save semantics intact and documented reuse plus font provenance.
 
-
 ## Victory recognition — 10 November 2026
 
 - Added a staged golden emblem, earned-star reveal and actual first-clear coin count-up after the last arrow exits.
@@ -44,20 +79,17 @@
 - Kept reward logic unchanged, reduced-motion support and immediate settled results on reload.
 - Added desktop/phone victory layout and reload checks.
 
-
 ## Arrow rendering repair — 10 November 2026
 
 - Reproduced two vector layers in the user's live tab, with removed C/H arrows still visible and straight shafts missing due to an old object-bounding-box gradient.
 - Renderer startup now removes stale vector layers owned by its host. Arrow bodies use a solid stroke without shared gradient IDs.
 - Reloaded the user tab and verified one layer with exactly saved active arrows E/F/G/I/J, intact shafts, 25 coins and three hearts.
 
-
 ## Vector arrows and snake exits — 10 November 2026
 
 - Replaced fixed-resolution arrow drawing with SVG, rounded bends and rounded arrowheads.
 - Added constant-length snake exit presentation with 620 ms easing; kept swept collision rules unchanged.
 - Added geometry and browser lifecycle/motion tests; documented the user-requested animation amendment.
-
 
 ## Bloom motion enhancement — 10 November 2026
 
@@ -76,7 +108,6 @@
 - Recorded the missing-Java native compile blocker and kept physical-device/user acceptance gates open.
 - Updated documentation from planned-only status to the actual implemented browser scope.
 
-
 ## 2.3 — 10 November 2026
 
 - Added a practical build guide: one package, framework boundaries, early Android testing, state persistence, asset workflow and first-slice acceptance.
@@ -84,7 +115,6 @@
 - Removed unverified exact framework version claims and the premature multi-package tree from the working architecture; original 2.1 remains unchanged.
 - Clarified first-clear rewards, per-attempt receipts, practice behavior and crash-recovery evidence as proposed defaults.
 - Reused the existing Veyminore Git repository and created a documentation branch. No runtime scaffolding or game implementation is included.
-
 
 ## 2.2 — 10 November 2026
 
@@ -122,3 +152,7 @@ Added a focused Home component with a floating island, prominent Play action, sh
 ## 2026-11-13 — Crates and arrow effects
 
 Replaced direct skin buying with three coin-funded crates, a one-time welcome gift and a decelerating reward reel. Added 15 total arrow designs across five rarities with in-game vector effects, collection filtering, explicit odds and duplicate refunds. Migrated legacy purchases to a v2 spent ledger. See [crate contract](crates-and-effects.md).
+
+## 2026-11-16 — Account foundation started
+
+Added isolated, disabled-by-default account transport, validated session contracts and read-only legacy snapshot capture, with error/race/save-protection tests. No live provider integration, UI activation or local-save migration. B01 remains in progress pending the web/native credential spike.

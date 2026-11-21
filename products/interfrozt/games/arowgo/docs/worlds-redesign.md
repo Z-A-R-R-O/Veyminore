@@ -1,4 +1,8 @@
+> Historical record. For current shipped behavior and open gates, see [current game state](CURRENT-GAME-STATE.md). Test results and implementation statements below apply to their original date.
+
 # Worlds redesign — 13 November 2026
+
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
 
 The supplied screenshot is preserved in `references/2026-11-13-worlds/before.png`. It shows the previous stacked-card map. The earlier six-screen reference collection remains the art direction: floating islands, a luminous winding path, raised level discs, and a clear Play action.
 

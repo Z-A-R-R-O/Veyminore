@@ -1,15 +1,58 @@
 import type { CSSProperties } from "react";
 
-export function Scenery({ rich }: { rich: boolean }) {
+export function Scenery({
+  rich,
+  cove = false,
+  frost = false,
+  amber = false,
+}: {
+  rich: boolean;
+  cove?: boolean;
+  frost?: boolean;
+  amber?: boolean;
+}) {
+  if (amber)
+    return (
+      <div className="scenery amber-scenery" aria-hidden="true">
+        <picture>
+          <source
+            media="(min-aspect-ratio: 4/3)"
+            srcSet="/assets/amber-dunes-wide.webp"
+          />
+          <img src="/assets/amber-dunes.webp" alt="" />
+        </picture>
+        <div className="scenery-wash" />
+      </div>
+    );
+  if (frost)
+    return (
+      <div className="scenery frost-scenery" aria-hidden="true">
+        <img src="/assets/frostfall-peaks.webp" alt="" />
+        <div className="scenery-wash" />
+      </div>
+    );
+  if (cove)
+    return (
+      <div className="scenery cove-scenery" aria-hidden="true">
+        <picture>
+          <source
+            media="(min-aspect-ratio: 4/3)"
+            srcSet="/assets/verdant-cove-landscape.png"
+          />
+          <img src="/assets/verdant-cove.png" alt="" />
+        </picture>
+        <div className="cove-wash" />
+      </div>
+    );
   return (
     <div className="scenery" aria-hidden="true">
       <picture>
         <source
           media="(max-width: 680px)"
-          srcSet="./assets/bloom-valley-portrait.png"
+          srcSet="/assets/bloom-valley-portrait.png"
         />
         <img
-          src="./assets/bloom-valley-landscape.png"
+          src="/assets/bloom-valley-landscape.png"
           alt=""
           fetchPriority="high"
         />

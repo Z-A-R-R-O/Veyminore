@@ -1,0 +1,228 @@
+AROWGO local status audit — 16 November 2026
+Full run: 101 passed / 3 failed; migration 2/2 and isolated Home 2/2 rechecks passed.
+No physical-device, release-signing or cloud-service acceptance claimed.
+
+=== UNIT ===
+$ vitest run
+
+ RUN  v4.1.12 E:/Veyminore-arowgo-preview/products/interfrozt/games/arowgo
+
+
+ Test Files  26 passed (26)
+      Tests  178 passed (178)
+   Start at  19:38:52
+   Duration  24.76s (transform 4.77s, setup 0ms, import 11.54s, tests 68.81s, environment 11ms)
+
+
+
+=== WEB BUILD ===
+$ tsc --noEmit && vite build
+vite v8.3.7 building client environment for production...
+transforming...
+✓ 142 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     1.07 kB │ gzip:   0.52 kB
+dist/assets/index-BsaIMR8q.css    136.04 kB │ gzip:  29.29 kB
+dist/assets/index-WGsK1Szj.js     499.25 kB │ gzip: 131.12 kB
+dist/assets/phaser-C831z-fk.js  1,367.07 kB │ gzip: 357.00 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.36s
+
+
+=== FULL BROWSER RUN ===
+  ok 102 [phone] › tests\e2e\victory.spec.ts:2:1 › victory recognizes mastery, settles, and does not replay on reload (22.1s)
+  ok 103 [phone] › tests\e2e\world-library.spec.ts:2:1 › world name list locks future destinations and compact arrows page the map (11.9s)
+  ok 104 [phone] › tests\e2e\worlds.spec.ts:3:1 › world map fits the viewport and starts the selected level (17.2s)
+
+
+  1) [desktop] › tests\e2e\campaign-migration.spec.ts:23:1 › old cleared campaign keeps awards and unlocks through key upgrade
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Keys & locks' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Keys & locks' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Keys & locks' })
+
+
+      51 |   await expect(
+      52 |     page.getByRole("heading", { name: "Keys & locks" }),
+    > 53 |   ).toBeVisible();
+         |     ^
+      54 |   await page
+      55 |     .getByRole("button", { name: "Play Level 11", exact: true })
+      56 |     .click();
+        at E:\Veyminore-arowgo-preview\products\interfrozt\games\arowgo\tests\e2e\campaign-migration.spec.ts:53:5
+
+    Error Context: test-results\campaign-migration-old-cle-e7b2a-unlocks-through-key-upgrade-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\campaign-migration-old-cle-e7b2a-unlocks-through-key-upgrade-desktop\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\campaign-migration-old-cle-e7b2a-unlocks-through-key-upgrade-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [phone] › tests\e2e\campaign-migration.spec.ts:23:1 › old cleared campaign keeps awards and unlocks through key upgrade
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Keys & locks' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Keys & locks' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Keys & locks' })
+
+
+      51 |   await page.goto("/#play/11");
+      52 |   await page.reload();
+    > 53 |   await expect(
+         |     ^
+      54 |     page.getByRole("heading", { name: "Keys & locks" }),
+      55 |   ).toBeVisible();
+      56 |   await page
+        at E:\Veyminore-arowgo-preview\products\interfrozt\games\arowgo\tests\e2e\campaign-migration.spec.ts:53:5
+
+    Error Context: test-results\campaign-migration-old-cle-e7b2a-unlocks-through-key-upgrade-phone\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\campaign-migration-old-cle-e7b2a-unlocks-through-key-upgrade-phone\trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results\campaign-migration-old-cle-e7b2a-unlocks-through-key-upgrade-phone\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [phone] › tests\e2e\home-refresh.spec.ts:2:1 › Home fits small and landscape screens and respects motion settings
+
+    Error: browserContext.close: ENOENT: no such file or directory, open 'E:\Veyminore-arowgo-preview\products\interfrozt\games\arowgo\test-results\.playwright-artifacts-3\traces\resources\b0e54fc97d8636f112a3a75741a4b3df.jsonl'
+
+    Error: ENOENT: no such file or directory, open 'E:\Veyminore-arowgo-preview\products\interfrozt\games\arowgo\test-results\.playwright-artifacts-3\5cce06a549023f193db928ca9656f5f4.zip'
+
+    Error Context: test-results\home-refresh-Home-fits-sma-ed36c-nd-respects-motion-settings-phone\error-context.md
+
+  3 failed
+    [desktop] › tests\e2e\campaign-migration.spec.ts:23:1 › old cleared campaign keeps awards and unlocks through key upgrade
+    [phone] › tests\e2e\campaign-migration.spec.ts:23:1 › old cleared campaign keeps awards and unlocks through key upgrade
+    [phone] › tests\e2e\home-refresh.spec.ts:2:1 › Home fits small and landscape screens and respects motion settings
+  101 passed (34.1m)
+
+
+=== MIGRATION RECHECK ===
+
+Running 2 tests using 1 worker
+
+(node:23816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\campaign-migration.spec.ts:23:1 › old cleared campaign keeps awards and unlocks through key upgrade (18.0s)
+(node:11212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [phone] › tests\e2e\campaign-migration.spec.ts:23:1 › old cleared campaign keeps awards and unlocks through key upgrade (14.2s)
+
+  2 passed (1.2m)
+
+
+=== HOME ISOLATED RECHECK ===
+
+Running 2 tests using 1 worker
+
+(node:3104) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\home-refresh.spec.ts:2:1 › Home fits small and landscape screens and respects motion settings (16.3s)
+(node:23200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [phone] › tests\e2e\home-refresh.spec.ts:2:1 › Home fits small and landscape screens and respects motion settings (18.7s)
+
+  2 passed (55.8s)
+
+
+=== FORMAT GATE ===
+[warn] veyminore.json
+[warn] index.html
+[warn] Code style issues found in 219 files. Run Prettier with --write to fix.
+[ELIFECYCLE] Command failed with exit code 1.
+
+
+=== NATIVE SYNC ===
+√ Copying web assets from dist to android\app\src\main\assets\public in 224.72ms
+√ Creating capacitor.config.json in android\app\src\main\assets in 7.39ms
+√ copy android in 315.31ms
+√ Updating Android plugins in 23.96ms
+√ update android in 185.62ms
+[info] Sync finished in 0.822s
+
+
+=== JAVA 17 BUILD FAILURE ===
+> Task :app:mergeDebugShaders
+> Task :app:processDebugResources
+> Task :capacitor-android:compileDebugJavaWithJavac FAILED
+
+[Incubating] Problems report is available at: file:///E:/Veyminore-arowgo-preview/products/interfrozt/games/arowgo/android/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':capacitor-android:compileDebugJavaWithJavac'.
+> Java compilation initialization error
+    error: invalid source release: 21
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 6m 5s
+40 actionable tasks: 40 executed
+
+
+=== JAVA 21 BUILD SUCCESS ===
+> Task :capacitor-cordova-android-plugins:mergeDebugJavaResource
+> Task :capacitor-cordova-android-plugins:syncDebugLibJars
+> Task :capacitor-cordova-android-plugins:bundleDebugAar
+> Task :capacitor-cordova-android-plugins:assembleDebug
+
+[Incubating] Problems report is available at: file:///E:/Veyminore-arowgo-preview/products/interfrozt/games/arowgo/android/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 3m 49s
+93 actionable tasks: 54 executed, 39 up-to-date
+
+
+=== PRODUCTION DEPENDENCIES ===
+{
+  "advisories": {},
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "dependencies": 14,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 14
+  }
+}
+
+
+=== DOCUMENT LINKS ===
+{
+  "documents": 64,
+  "broken": []
+}

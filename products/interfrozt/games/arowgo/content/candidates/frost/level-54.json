@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 9,
+  "levelId": "frost-54",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          4,
+          1
+        ],
+        [
+          6,
+          1
+        ]
+      ],
+      "deadline": 15
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          8,
+          3
+        ],
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          1,
+          8
+        ],
+        [
+          0,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          8,
+          0
+        ],
+        [
+          9,
+          0
+        ],
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          7,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          6,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "deadline": 10
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          9,
+          4
+        ],
+        [
+          9,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          6
+        ]
+      ],
+      "anchorRequires": "H"
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          4,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          9,
+          9
+        ],
+        [
+          7,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          4,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "anchorRequires": "H"
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          0
+        ]
+      ],
+      "requires": "D"
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          3,
+          9
+        ],
+        [
+          2,
+          9
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "D",
+    "H",
+    "K",
+    "O",
+    "P",
+    "Q",
+    "N",
+    "G",
+    "L",
+    "I",
+    "M",
+    "J",
+    "E",
+    "C",
+    "B",
+    "F",
+    "A"
+  ],
+  "generation": {
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.03701615267444728,
+      "decisionStates": 68,
+      "blockedTargetDecisions": 66,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "J",
+          "K",
+          "M",
+          "P"
+        ],
+        "safeMove": "D",
+        "unsafeMove": "F"
+      },
+      "earliestDecisionMove": 8,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 10,
+          "deadline": 15,
+          "spareMoves": 4
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 3,
+          "deadline": 10,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.03609616427458754,
+    "difficulty": {
+      "depth": 7,
+      "edges": 25,
+      "bends": 7,
+      "initialChoices": 3,
+      "forcedSteps": 4,
+      "score": 125
+    }
+  }
+}

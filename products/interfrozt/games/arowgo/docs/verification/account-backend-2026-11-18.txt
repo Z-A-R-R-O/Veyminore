@@ -1,0 +1,32 @@
+Development account backend checks, 18 November 2026
+Live owner Google login: pending, not certified.
+Browser smoke: Google script loaded; Ready state; Login enabled true; bootstrap HTTP 200.
+
+$ vitest run
+
+ RUN  v4.1.12 E:/Veyminore-arowgo-preview/products/interfrozt/games/arowgo
+
+
+ Test Files  28 passed (28)
+      Tests  215 passed (215)
+   Start at  19:44:17
+   Duration  15.48s (transform 3.95s, setup 0ms, import 9.42s, tests 45.56s, environment 8ms)
+
+
+$ tsc --noEmit && vite build
+vite v8.3.7 building client environment for production...
+transforming...
+✓ 142 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     1.07 kB │ gzip:   0.52 kB
+dist/assets/index-BsaIMR8q.css    136.04 kB │ gzip:  29.29 kB
+dist/assets/index-WGsK1Szj.js     499.25 kB │ gzip: 131.12 kB
+dist/assets/phaser-C831z-fk.js  1,367.07 kB │ gzip: 357.00 kB
+
+✓ built in 1.76s
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

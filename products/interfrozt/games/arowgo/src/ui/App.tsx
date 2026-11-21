@@ -1,3 +1,6 @@
+import { TimingGuide } from "./TimingGuide";
+import { rateMove, type MovePraise } from "../domain/movePraise";
+import { MovePraiseBubble, FeedbackSymbol } from "./MovePraise";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { skins, type SkinId } from "../storage/profile";
@@ -5,6 +8,7 @@ import type { Controller } from "../application/controller";
 import { stars, type Mode, type Outcome } from "../application/session";
 import { Board, type BoardHandle } from "../game/Board";
 import { checkExit } from "../domain/rules";
+import { levels } from "../domain/campaign";
 import { fixtures } from "../domain/fixtures";
 import { WinMoment } from "./WinMoment";
 import { Coin, CountUp, HeartToken, Encouragement } from "./elements/Rewards";
@@ -12,6 +16,10 @@ import { GameArt } from "./elements/GameArt";
 import { Icon } from "./Icons";
 import { Scenery, Celebration } from "./Scenery";
 import { useMotion } from "./useMotion";
+import { playSound, SoundSetting } from "./Sound";
+import { Gem } from "./elements/Gem";
+import { TIME_BOOST_COST } from "../storage/profile";
+import { SaveStatus } from "./SaveStatus";
 
 export function App({
   controller,
@@ -20,6 +28,11 @@ export function App({
   levelNumber = 1,
   otherCoins = 0,
   skin = "classic",
+  lesson = false,
+  gems = 0,
+  onTimeBoost,
+  economyNotice,
+  devSandbox = false,
 }: {
   controller: Controller;
   onHome?: () => void;
@@ -27,16 +40,36 @@ export function App({
   levelNumber?: number;
   otherCoins?: number;
   skin?: SkinId;
+  lesson?: boolean;
+  gems?: number;
+  onTimeBoost?: () => boolean | Promise<boolean>;
+  economyNotice?: string;
+  devSandbox?: boolean;
 }) {
   const state = useSyncExternalStore(
     controller.subscribe,
     controller.getSnapshot,
   );
   const motion = useMotion();
+  const [praise, setPraise] = useState<{
+    kind: MovePraise;
+    x: number;
+    y: number;
+    id: number;
+  } | null>(null);
+  const lastPraise = useRef(-Infinity);
+  useEffect(() => {
+    setPraise(null);
+    lastPraise.current = -Infinity;
+  }, [state.attemptId]);
   const [lab, setLab] = useState(false),
     [fixture, setFixture] = useState(5);
   const [hints, setHints] = useState<string[]>([]);
-  const [feedback, setFeedback] = useState("Tap an arrow to clear its path.");
+  const [feedback, setFeedback] = useState(
+    lesson
+      ? "Clear a path for the gold key. Clear the key to open the lock."
+      : "",
+  );
   const [busy, setBusy] = useState(false),
     [settings, setSettings] = useState(false);
   const [restart, setRestart] = useState<Mode | null>(null);
@@ -84,7 +117,7 @@ export function App({
   useEffect(() => {
     if (resultVisible)
       document
-        .querySelector<HTMLButtonElement>(".result-layer button")
+        .querySelector<HTMLButtonElement>(".result-layer .primary-button")
         ?.focus({ preventScroll: true });
   }, [resultVisible]);
   useEffect(() => {
@@ -145,25 +178,64 @@ export function App({
       modalOpen
     )
       return;
+    void playSound("click");
     if (eraseMode) {
       setEraseTarget(id);
       return;
     }
     gate();
     clearHints();
+    const before = controller.getSnapshot();
     const result = controller.select(id);
+    const rating = rateMove(level, before, result);
+    setPraise(null);
+    if (
+      rating &&
+      rating !== "perfect" &&
+      (rating === "mistake" ||
+        rating === "blunder" ||
+        (performance.now() - lastPraise.current >= 3500 && !hints.length))
+    ) {
+      const head = level.arrows.find((a) => a.id === id)!.points.at(-1)!;
+      lastPraise.current = performance.now();
+      setPraise({
+        kind: rating,
+        id: Date.now(),
+        x: Math.max(
+          22,
+          Math.min(78, 10 + ((head[0] + 0.5) * 80) / level.board.columns),
+        ),
+        y: Math.max(
+          12,
+          Math.min(83, 10 + ((head[1] + 0.5) * 80) / level.board.rows - 10),
+        ),
+      });
+    }
+    if (result.state.status === "complete") void playSound("win");
+    else if (result.state.status === "failed") void playSound("defeat");
+    else if (result.exit && !result.exit.clear) void playSound("blocked");
     if (result.state.status === "complete") setCelebrating(true);
     if (result.exit?.clear) {
-      setFeedback("Nice move.");
+      setFeedback("");
       setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
     } else if (result.exit) {
-      setFeedback(`A little blocked. Try another path.`);
+      setFeedback(
+        result.exit.reason === "frozen"
+          ? "Clear other arrows to thaw this ice seal."
+          : result.exit.reason === "phase"
+            ? "Gate closed. Clear another arrow to switch the aurora."
+            : result.exit.reason === "anchored"
+              ? "Clear the highlighted anchor arrow to release this arrow."
+              : result.exit.reason === "locked"
+                ? "Clear the gold key arrow to open this lock."
+                : "The highlighted arrow blocks the path ahead of this head. Clear it first.",
+      );
       setPulse((p) => ({ id: p.id + 1, kind: "blocked" }));
     }
     return result;
   }
   function reset(mode: Mode) {
-    controller.restart(mode);
+    controller.restart(lesson ? "practice" : mode);
     setRestart(null);
     setEraseMode(false);
     setEraseTarget(null);
@@ -174,6 +246,9 @@ export function App({
   function assist() {
     setEraseMode(false);
     const result = controller.hint();
+    if (result.hints?.length)
+      setPraise({ kind: "book", id: Date.now(), x: 50, y: 15 });
+    if (result.hints?.length) void playSound("hint");
     setHints(result.hints ?? []);
     setPulse((p) => ({ id: p.id + 1, kind: "hint" }));
     setFeedback(
@@ -188,11 +263,10 @@ export function App({
     if (!eraseTarget) return;
     gate();
     const result = controller.erase(eraseTarget);
+    if (result.state.status === "complete") void playSound("win");
     if (result.state.status === "complete") setCelebrating(true);
     boardRef.current?.animate(result);
-    setFeedback(
-      `Arrow ${eraseTarget} gently erased. This run is now assisted.`,
-    );
+    setFeedback("Arrow gently erased. This run is now assisted.");
     setEraseTarget(null);
     setEraseMode(false);
     clearHints();
@@ -243,25 +317,28 @@ export function App({
       data-effects={motion.rich ? "rich" : "subtle"}
       data-paused={motion.hidden ? "true" : "false"}
     >
-      <Scenery rich={motion.rich} />
+      <Scenery
+        rich={motion.rich}
+        cove={levelNumber > 20}
+        frost={levelNumber > 40}
+        amber={levelNumber > 60}
+      />
       <header className="topbar" inert={modalOpen || resultVisible}>
-        <a
-          className="wordmark"
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            onHome ? onHome() : showLab(false);
-          }}
-        >
-          <span className="brand-icon">
-            <Icon name="arrow" />
-          </span>
-          AROWGO
-        </a>
+        {!lab && (
+          <SaveStatus
+            compact
+            failed={controller.notice.includes("memory only")}
+          />
+        )}
         <nav aria-label="Prototype navigation">
           {onHome && (
-            <button onClick={onHome} aria-label="Leave puzzle">
-              Home
+            <button
+              className="icon-button home-button"
+              onClick={onHome}
+              aria-label="Leave puzzle"
+              title="Home"
+            >
+              <Icon name="home" />
             </button>
           )}
           {lab && <button onClick={() => showLab(false)}>Play</button>}
@@ -282,13 +359,43 @@ export function App({
         )}
         <section className="level-heading">
           <div className="world-label">
-            <span /> {lab ? "Discover the mechanic" : "World 1 · Bloom Valley"}{" "}
+            <span />{" "}
+            {lab
+              ? "Discover the mechanic"
+              : levelNumber > 20
+                ? levelNumber > 40
+                  ? levelNumber > 60
+                    ? levelNumber > 80
+                      ? "World 5 · Amber Sanctum"
+                      : "World 4 · Amber Dunes"
+                    : "World 3 · Frostfall Peaks"
+                  : "World 2 · Verdant Cove"
+                : "World 1 · Bloom Valley"}{" "}
             <span />
           </div>
           <h1>
-            {lab ? "Rule lab" : `Level ${String(levelNumber).padStart(2, "0")}`}
+            {lab
+              ? "Rule lab"
+              : lesson
+                ? "Keys & locks"
+                : `Level ${String(levelNumber).padStart(2, "0")}`}
           </h1>
-          {lab ? (
+          {!lab && !lesson && state.scoringVersion === 2 && (
+            <small className="play-star-goals">
+              ★ Finish · ★ No mistakes · ★ Within {(state.targetMs ?? 0) / 1000}
+              s
+            </small>
+          )}
+          {level.arrows.some(
+            (a) => a.thawAfter !== undefined || a.phase !== undefined,
+          ) ? (
+            <TimingGuide
+              key={level.levelId}
+              level={level}
+              removed={cleared}
+              persist={!devSandbox}
+            />
+          ) : lab ? (
             <p className="level-subtitle">A little room for proof.</p>
           ) : (
             <div
@@ -305,7 +412,19 @@ export function App({
           <section
             className="game-card"
             aria-label={
-              lab ? "Rule proof board" : `Bloom Valley level ${levelNumber}`
+              lab
+                ? "Rule proof board"
+                : `${
+                    levelNumber > 80
+                      ? "Amber Sanctum"
+                      : levelNumber > 60
+                        ? "Amber Dunes"
+                        : levelNumber > 40
+                          ? "Frostfall Peaks"
+                          : levelNumber > 20
+                            ? "Verdant Cove"
+                            : "Bloom Valley"
+                  } level ${levelNumber}`
             }
           >
             {lab ? (
@@ -393,6 +512,13 @@ export function App({
               className={`board-wrap ${eraseMode ? "erase-selection" : ""}`}
             >
               <div className="board-rim" />
+              {praise && !modalOpen && !resultVisible && (
+                <MovePraiseBubble
+                  key={praise.id}
+                  {...praise}
+                  onDone={() => setPraise(null)}
+                />
+              )}
               <Board
                 apiRef={boardRef}
                 key={lab ? `proof-${fixture}` : "campaign"}
@@ -450,14 +576,41 @@ export function App({
                       {state.status === "complete" && (
                         <div className="victory-halo" aria-hidden="true" />
                       )}
-                      <div className="result-symbol">
-                        {state.status === "complete" ? "✦" : "♡"}
+                      <div className="result-level">
+                        {lesson
+                          ? "PRACTICE LESSON"
+                          : `LEVEL ${String(levelNumber).padStart(2, "0")}`}
+                        <SaveStatus
+                          compact
+                          failed={controller.notice.includes("memory only")}
+                        />
                       </div>
-                      <h2>
+                      <img
+                        className="result-title-art"
+                        src={`/assets/results/${state.status === "complete" ? "victory" : "try-again"}.png`}
+                        alt=""
+                        aria-hidden="true"
+                      />
+                      <h2 className="sr-only">
                         {state.status === "complete"
                           ? "Beautifully cleared."
                           : "Take a fresh look."}
                       </h2>
+                      {state.status === "failed" && (
+                        <div className="retry-summary">
+                          <strong>A fresh start awaits</strong>
+                          <span>
+                            {cleared} / {level.arrows.length} arrows cleared
+                          </span>
+                          <span>
+                            {state.failureReason === "keg"
+                              ? "A powder keg ran out of moves. Clear its arrow before the counter reaches zero."
+                              : state.failureReason === "stranded"
+                                ? "No winning route remains. Plan the timing and try a different order."
+                                : "Look for an open path, then try again."}
+                          </span>
+                        </div>
+                      )}
                       {state.status === "complete" &&
                         state.mode === "story" && (
                           <div className="result-stars" aria-hidden="true">
@@ -469,7 +622,11 @@ export function App({
                                   animationDelay: `${0.75 + n * 0.22}s`,
                                 }}
                               >
-                                ★
+                                <img
+                                  className={`game-star ${n <= stars(state) ? "is-earned" : "is-empty"}`}
+                                  src="/assets/results/star-gold.png"
+                                  alt=""
+                                />
                               </span>
                             ))}
                           </div>
@@ -489,17 +646,71 @@ export function App({
                       </p>
                       {state.status === "complete" &&
                         state.mode === "story" && (
-                          <p className={state.reward ? "sr-only" : "reward"}>
-                            {state.reward
-                              ? "+25 coins · First clear reward"
-                              : "First-clear reward already collected"}
+                          <p
+                            className={
+                              economyNotice !== undefined
+                                ? "reward"
+                                : state.reward
+                                  ? "sr-only"
+                                  : "reward"
+                            }
+                          >
+                            {economyNotice ??
+                              (state.reward
+                                ? "+25 coins · First clear reward"
+                                : "First-clear reward already collected")}
                           </p>
                         )}
                       {state.status === "complete" && (
-                        <WinMoment
-                          state={state}
-                          animate={celebrating && !motion.reduced}
-                        />
+                        <>
+                          <WinMoment
+                            state={
+                              economyNotice === undefined
+                                ? state
+                                : { ...state, reward: 0 }
+                            }
+                            animate={celebrating && !motion.reduced}
+                          />
+                        </>
+                      )}
+                      <div
+                        className="result-feedback"
+                        aria-label="Feedback counts for this attempt"
+                      >
+                        {(
+                          [
+                            "brilliant",
+                            "great",
+                            "good",
+                            "book",
+                            "mistake",
+                            "blunder",
+                          ] as const
+                        )
+                          .filter(
+                            (kind) =>
+                              (state.feedbackCounts?.[kind] ?? 0) +
+                                (kind === "good"
+                                  ? (state.feedbackCounts?.perfect ?? 0)
+                                  : 0) >
+                              0,
+                          )
+                          .map((kind) => (
+                            <div key={kind} title={kind}>
+                              <FeedbackSymbol kind={kind} />
+                              <strong>
+                                {(state.feedbackCounts?.[kind] ?? 0) +
+                                  (kind === "good"
+                                    ? (state.feedbackCounts?.perfect ?? 0)
+                                    : 0)}
+                              </strong>
+                            </div>
+                          ))}
+                      </div>
+                      {!state.feedbackCounts && (
+                        <small>
+                          Feedback counts unavailable for this older attempt.
+                        </small>
                       )}
                       <Encouragement
                         kind={state.status === "complete" ? "win" : "retry"}
@@ -507,122 +718,158 @@ export function App({
                       <button
                         className="primary-button"
                         onClick={() =>
-                          state.status === "complete" && onNext
+                          state.status === "complete" &&
+                          onNext &&
+                          (lesson || state.claimed)
                             ? onNext()
                             : reset(state.mode)
                         }
                       >
                         {state.status === "complete"
-                          ? onNext
-                            ? levelNumber < 5
-                              ? "Next level"
-                              : "Back to Worlds"
-                            : "Play again"
+                          ? lesson
+                            ? "Back to Modes"
+                            : onNext && state.claimed
+                              ? levelNumber === 20
+                                ? "Valley complete"
+                                : levelNumber < levels.length
+                                  ? "Next level"
+                                  : "Adventure complete"
+                              : "Play again"
                           : "Try again"}{" "}
                         <span aria-hidden="true">↗</span>
                       </button>
-                      {state.status === "complete" && onNext && (
-                        <button
-                          className="text-button"
-                          onClick={() => reset(state.mode)}
-                        >
-                          Play again
-                        </button>
-                      )}
-                      {state.status === "failed" && (
-                        <button
-                          className="text-button"
-                          onClick={() => reset("practice")}
-                        >
-                          Try Practice
-                        </button>
-                      )}
+                      <div className="result-secondary-actions">
+                        {state.status === "complete" &&
+                          onNext &&
+                          (lesson || state.claimed) && (
+                            <button
+                              className="text-button"
+                              onClick={() => reset(state.mode)}
+                            >
+                              Play again
+                            </button>
+                          )}
+                        {state.status === "failed" && (
+                          <button
+                            className="text-button"
+                            onClick={() => reset("practice")}
+                          >
+                            Try Practice
+                          </button>
+                        )}
+                        {onHome && !lesson && (
+                          <button
+                            className="text-button result-menu"
+                            onClick={onHome}
+                          >
+                            <Icon name="home" /> Main menu
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>,
                   document.body,
                 )}
             </div>
-            <div
-              className={`feedback ${eraseMode ? "choosing" : ""}`}
-              aria-live="polite"
-            >
-              <span className="feedback-icon">
-                {eraseMode ? "◇" : pulse.kind === "blocked" ? "!" : "✧"}
-              </span>
-              {lab
-                ? labMessage
-                : eraseMode
-                  ? "Choose an arrow to erase."
-                  : feedback}
-              {eraseMode && (
-                <button onClick={() => setEraseMode(false)}>Cancel</button>
+            <div className={lab ? "play-support lab-support" : "play-support"}>
+              <div
+                className={`feedback ${eraseMode ? "choosing" : ""}`}
+                aria-live="polite"
+                hidden={!lab && !eraseMode && !feedback}
+              >
+                <span className="feedback-icon">
+                  {eraseMode ? "◇" : pulse.kind === "blocked" ? "!" : "✧"}
+                </span>
+                {lab
+                  ? labMessage
+                  : eraseMode
+                    ? "Choose an arrow to erase."
+                    : feedback}
+                {eraseMode && (
+                  <button onClick={() => setEraseMode(false)}>Cancel</button>
+                )}
+              </div>
+              {lab ? (
+                <div className="lab-explanation glass-panel">
+                  <strong>
+                    Expected: {f.clear ? "clear exit" : "blocked exit"}
+                  </strong>
+                  <p>{f.description}</p>
+                  <small>
+                    Remove blockers and test again. The lab never changes
+                    campaign progress.
+                  </small>
+                </div>
+              ) : (
+                <>
+                  <div className="tool-tray" aria-label="Puzzle tools">
+                    <button
+                      key={`hint-${pulse.kind === "hint" ? pulse.id : 0}`}
+                      className={`tool-card hint-tool ${pulse.kind === "hint" ? "tool-used" : ""}`}
+                      aria-label="A little hint"
+                      disabled={busy || state.status !== "playing"}
+                      onClick={assist}
+                    >
+                      <span className="tool-badge" aria-hidden="true">
+                        ∞
+                      </span>
+                      <span className="tool-art bulb-art">
+                        <GameArt kind="hint" />
+                        <i />
+                      </span>
+                      <strong>Hint</strong>
+                    </button>
+                    <button
+                      className={`tool-card erase-tool ${eraseMode ? "selected" : ""}`}
+                      aria-label="Erase"
+                      aria-pressed={eraseMode}
+                      disabled={busy || state.status !== "playing"}
+                      onClick={() => {
+                        clearHints();
+                        setEraseMode(!eraseMode);
+                      }}
+                    >
+                      <span className="tool-badge" aria-hidden="true">
+                        ∞
+                      </span>
+                      <span className="tool-art erase-art">
+                        <GameArt kind="erase" />
+                      </span>
+                      <strong>Erase</strong>
+                    </button>
+                  </div>
+                  <div
+                    className="card-footer"
+                    hidden={lesson}
+                    style={lesson ? { display: "none" } : undefined}
+                  >
+                    {controller.notice && (
+                      <span role="status">{controller.notice}</span>
+                    )}
+                    <button
+                      className="mode-switch"
+                      onClick={() =>
+                        setRestart(
+                          state.mode === "story" ? "practice" : "story",
+                        )
+                      }
+                    >
+                      <Icon
+                        name={state.mode === "story" ? "leaf" : "gamepad"}
+                      />
+                      <span>
+                        {state.mode === "story"
+                          ? "Switch to Practice"
+                          : "Switch to Story"}
+                      </span>
+                      <span className="mode-switch-chevron" aria-hidden="true">
+                        ›
+                      </span>
+                    </button>
+                  </div>
+                </>
               )}
             </div>
-            {lab ? (
-              <div className="lab-explanation glass-panel">
-                <strong>
-                  Expected: {f.clear ? "clear exit" : "blocked exit"}
-                </strong>
-                <p>{f.description}</p>
-                <small>
-                  Remove blockers and test again. The lab never changes campaign
-                  progress.
-                </small>
-              </div>
-            ) : (
-              <>
-                <div className="tool-tray" aria-label="Puzzle tools">
-                  <button
-                    key={`hint-${pulse.kind === "hint" ? pulse.id : 0}`}
-                    className={`tool-card hint-tool ${pulse.kind === "hint" ? "tool-used" : ""}`}
-                    aria-label="A little hint"
-                    disabled={busy || state.status !== "playing"}
-                    onClick={assist}
-                  >
-                    <span className="tool-badge" aria-hidden="true">
-                      ∞
-                    </span>
-                    <span className="tool-art bulb-art">
-                      <GameArt kind="hint" />
-                      <i />
-                    </span>
-                    <strong>Hint</strong>
-                  </button>
-                  <button
-                    className={`tool-card erase-tool ${eraseMode ? "selected" : ""}`}
-                    aria-label="Erase"
-                    aria-pressed={eraseMode}
-                    disabled={busy || state.status !== "playing"}
-                    onClick={() => {
-                      clearHints();
-                      setEraseMode(!eraseMode);
-                    }}
-                  >
-                    <span className="tool-badge" aria-hidden="true">
-                      ∞
-                    </span>
-                    <span className="tool-art erase-art">
-                      <GameArt kind="erase" />
-                    </span>
-                    <strong>Erase</strong>
-                  </button>
-                </div>
-                <div className="card-footer">
-                  {controller.notice && (
-                    <span role="status">{controller.notice}</span>
-                  )}
-                  <button
-                    onClick={() =>
-                      setRestart(state.mode === "story" ? "practice" : "story")
-                    }
-                  >
-                    {state.mode === "story"
-                      ? "Switch to Practice"
-                      : "Switch to Story"}
-                  </button>
-                </div>
-              </>
-            )}
           </section>
         </div>
       </main>
@@ -661,6 +908,42 @@ export function App({
             </h2>
             {settings ? (
               <>
+                <SoundSetting />
+                {onTimeBoost &&
+                  state.mode === "story" &&
+                  state.scoringVersion === 2 && (
+                    <div className="gem-booster">
+                      <strong>Time Boost · +30 seconds</strong>
+                      <p>
+                        Extends this attempt’s speed-star target once. Balance:{" "}
+                        {gems} gems.
+                      </p>
+                      <button
+                        className="gem-button"
+                        disabled={
+                          state.timeBoost ||
+                          gems < TIME_BOOST_COST ||
+                          state.status !== "playing"
+                        }
+                        onClick={async () => {
+                          if (await onTimeBoost()) {
+                            setSettings(false);
+                            setFeedback(
+                              "Time Boost added 30 seconds to your speed-star target.",
+                            );
+                          } else
+                            setFeedback(
+                              "Time Boost could not be confirmed. Retry to recover its saved receipt.",
+                            );
+                        }}
+                      >
+                        <Gem />
+                        {state.timeBoost
+                          ? "Boost active"
+                          : `Use Time Boost · ${TIME_BOOST_COST} gems`}
+                      </button>
+                    </div>
+                  )}
                 <label className="setting">
                   <span>
                     <strong>Reduce motion</strong>
@@ -697,7 +980,9 @@ export function App({
                 <p>
                   Story has three mistake hearts. Practice has unlimited
                   mistakes and no campaign rewards. Both tools are free in this
-                  prototype and mark a run assisted.
+                  prototype. New runs award stars for completion, zero mistakes,
+                  and the time target. Timing starts on your first action and
+                  includes time away.
                 </p>
                 <button
                   className="text-button"

@@ -1,0 +1,1036 @@
+[
+  {
+    "number": 41,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.07783352012602882,
+      "decisionStates": 83,
+      "blockedTargetDecisions": 68,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "I",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P"
+        ],
+        "safeMove": "O",
+        "unsafeMove": "E"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 5,
+          "deadline": 10,
+          "spareMoves": 4
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 2,
+          "deadline": 9,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.08,
+    "difficulty": {
+      "depth": 6,
+      "edges": 24,
+      "bends": 8,
+      "initialChoices": 4,
+      "forcedSteps": 3,
+      "score": 113
+    }
+  },
+  {
+    "number": 42,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.07719022708762002,
+      "decisionStates": 53,
+      "blockedTargetDecisions": 41,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "K",
+          "L",
+          "N",
+          "O"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "E"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 3,
+          "deadline": 9,
+          "spareMoves": 5
+        },
+        {
+          "id": "H",
+          "prerequisiteCount": 3,
+          "deadline": 11,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.07524941812191095,
+    "difficulty": {
+      "depth": 7,
+      "edges": 21,
+      "bends": 6,
+      "initialChoices": 3,
+      "forcedSteps": 4,
+      "score": 116
+    }
+  },
+  {
+    "number": 43,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.06924461253515685,
+      "decisionStates": 87,
+      "blockedTargetDecisions": 73,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "M",
+          "P"
+        ],
+        "safeMove": "I",
+        "unsafeMove": "D"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 5,
+          "deadline": 11,
+          "spareMoves": 5
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 2,
+          "deadline": 10,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.07078093659607726,
+    "difficulty": {
+      "depth": 7,
+      "edges": 19,
+      "bends": 9,
+      "initialChoices": 4,
+      "forcedSteps": 4,
+      "score": 115
+    }
+  },
+  {
+    "number": 44,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.06448865960506846,
+      "decisionStates": 42,
+      "blockedTargetDecisions": 28,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "G",
+          "J",
+          "K",
+          "M",
+          "O",
+          "P"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "C"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 7,
+          "deadline": 12,
+          "spareMoves": 4
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 4,
+          "deadline": 11,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.06657780366223358,
+    "difficulty": {
+      "depth": 7,
+      "edges": 21,
+      "bends": 10,
+      "initialChoices": 3,
+      "forcedSteps": 3,
+      "score": 117
+    }
+  },
+  {
+    "number": 45,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.062461821630658436,
+      "decisionStates": 24,
+      "blockedTargetDecisions": 18,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "F",
+          "G",
+          "I",
+          "J",
+          "K",
+          "L",
+          "P"
+        ],
+        "safeMove": "F",
+        "unsafeMove": "P"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 6,
+          "deadline": 10,
+          "spareMoves": 3
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 2,
+          "deadline": 8,
+          "spareMoves": 5
+        }
+      ]
+    },
+    "targetWinRate": 0.06262426231772386,
+    "difficulty": {
+      "depth": 9,
+      "edges": 17,
+      "bends": 6,
+      "initialChoices": 2,
+      "forcedSteps": 6,
+      "score": 130
+    }
+  },
+  {
+    "number": 46,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.06037397679551456,
+      "decisionStates": 28,
+      "blockedTargetDecisions": 26,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "G",
+          "J",
+          "L",
+          "M",
+          "N"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 7,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 9,
+          "deadline": 13,
+          "spareMoves": 3
+        },
+        {
+          "id": "M",
+          "prerequisiteCount": 2,
+          "deadline": 8,
+          "spareMoves": 5
+        }
+      ]
+    },
+    "targetWinRate": 0.05890549124653294,
+    "difficulty": {
+      "depth": 7,
+      "edges": 25,
+      "bends": 6,
+      "initialChoices": 4,
+      "forcedSteps": 4,
+      "score": 124
+    }
+  },
+  {
+    "number": 47,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.05758091194058642,
+      "decisionStates": 76,
+      "blockedTargetDecisions": 75,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "K",
+          "L",
+          "M",
+          "O",
+          "P"
+        ],
+        "safeMove": "G",
+        "unsafeMove": "A"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 11,
+          "deadline": 13,
+          "spareMoves": 1
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 5,
+          "deadline": 9,
+          "spareMoves": 3
+        }
+      ]
+    },
+    "targetWinRate": 0.055407549256086534,
+    "difficulty": {
+      "depth": 7,
+      "edges": 21,
+      "bends": 9,
+      "initialChoices": 3,
+      "forcedSteps": 2,
+      "score": 113
+    }
+  },
+  {
+    "number": 48,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.0523472480324074,
+      "decisionStates": 118,
+      "blockedTargetDecisions": 89,
+      "exampleDecision": {
+        "active": [
+          "B",
+          "C",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "O"
+        ],
+        "safeMove": "G",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 2,
+          "deadline": 8,
+          "spareMoves": 5
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 3,
+          "deadline": 11,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.0521173230135204,
+    "difficulty": {
+      "depth": 6,
+      "edges": 23,
+      "bends": 10,
+      "initialChoices": 3,
+      "forcedSteps": 5,
+      "score": 119
+    }
+  },
+  {
+    "number": 49,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.0545483175255356,
+      "decisionStates": 129,
+      "blockedTargetDecisions": 99,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "G",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "Q"
+        ],
+        "safeMove": "J",
+        "unsafeMove": "Q"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 6,
+          "deadline": 12,
+          "spareMoves": 5
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 2,
+          "deadline": 10,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.0490224778854886,
+    "difficulty": {
+      "depth": 6,
+      "edges": 22,
+      "bends": 7,
+      "initialChoices": 4,
+      "forcedSteps": 3,
+      "score": 108
+    }
+  },
+  {
+    "number": 50,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.04586161974076217,
+      "decisionStates": 59,
+      "blockedTargetDecisions": 52,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "N",
+          "O",
+          "P",
+          "Q"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "E"
+      },
+      "earliestDecisionMove": 3,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 5,
+          "deadline": 10,
+          "spareMoves": 4
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 2,
+          "deadline": 9,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.04611141169721582,
+    "difficulty": {
+      "depth": 6,
+      "edges": 27,
+      "bends": 9,
+      "initialChoices": 4,
+      "forcedSteps": 1,
+      "score": 114
+    }
+  },
+  {
+    "number": 51,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.0433553453066058,
+      "decisionStates": 51,
+      "blockedTargetDecisions": 42,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "H",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 2,
+          "deadline": 6,
+          "spareMoves": 3
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 3,
+          "deadline": 9,
+          "spareMoves": 5
+        }
+      ]
+    },
+    "targetWinRate": 0.04337321123744211,
+    "difficulty": {
+      "depth": 7,
+      "edges": 21,
+      "bends": 12,
+      "initialChoices": 4,
+      "forcedSteps": 7,
+      "score": 131
+    }
+  },
+  {
+    "number": 52,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.03998826847217766,
+      "decisionStates": 56,
+      "blockedTargetDecisions": 40,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "N",
+          "O",
+          "P",
+          "Q"
+        ],
+        "safeMove": "O",
+        "unsafeMove": "P"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 5,
+          "deadline": 10,
+          "spareMoves": 4
+        },
+        {
+          "id": "D",
+          "prerequisiteCount": 8,
+          "deadline": 15,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.04079761134620309,
+    "difficulty": {
+      "depth": 8,
+      "edges": 18,
+      "bends": 8,
+      "initialChoices": 3,
+      "forcedSteps": 2,
+      "score": 114
+    }
+  },
+  {
+    "number": 53,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.03982600346984072,
+      "decisionStates": 32,
+      "blockedTargetDecisions": 25,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "L",
+          "M",
+          "N",
+          "P",
+          "Q"
+        ],
+        "safeMove": "F",
+        "unsafeMove": "G"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "I",
+          "prerequisiteCount": 3,
+          "deadline": 8,
+          "spareMoves": 4
+        },
+        {
+          "id": "N",
+          "prerequisiteCount": 5,
+          "deadline": 12,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.038374956432070687,
+    "difficulty": {
+      "depth": 8,
+      "edges": 26,
+      "bends": 10,
+      "initialChoices": 3,
+      "forcedSteps": 2,
+      "score": 132
+    }
+  },
+  {
+    "number": 54,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.03701615267444728,
+      "decisionStates": 68,
+      "blockedTargetDecisions": 66,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "J",
+          "K",
+          "M",
+          "P"
+        ],
+        "safeMove": "D",
+        "unsafeMove": "F"
+      },
+      "earliestDecisionMove": 8,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 10,
+          "deadline": 15,
+          "spareMoves": 4
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 3,
+          "deadline": 10,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.03609616427458754,
+    "difficulty": {
+      "depth": 7,
+      "edges": 25,
+      "bends": 7,
+      "initialChoices": 3,
+      "forcedSteps": 4,
+      "score": 125
+    }
+  },
+  {
+    "number": 55,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.03314941283576389,
+      "decisionStates": 67,
+      "blockedTargetDecisions": 60,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "H",
+          "I",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "Q",
+          "R"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "Q"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 2,
+          "deadline": 7,
+          "spareMoves": 4
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 6,
+          "deadline": 13,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.033952691976195284,
+    "difficulty": {
+      "depth": 9,
+      "edges": 21,
+      "bends": 10,
+      "initialChoices": 4,
+      "forcedSteps": 3,
+      "score": 133
+    }
+  },
+  {
+    "number": 56,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.025546032883816,
+      "decisionStates": 123,
+      "blockedTargetDecisions": 120,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "I",
+          "J",
+          "K",
+          "O",
+          "Q",
+          "R"
+        ],
+        "safeMove": "K",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 12,
+          "deadline": 15,
+          "spareMoves": 2
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 4,
+          "deadline": 9,
+          "spareMoves": 4
+        }
+      ]
+    },
+    "targetWinRate": 0.03193650393601462,
+    "difficulty": {
+      "depth": 8,
+      "edges": 24,
+      "bends": 7,
+      "initialChoices": 4,
+      "forcedSteps": 3,
+      "score": 128
+    }
+  },
+  {
+    "number": 57,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.028103162558808084,
+      "decisionStates": 18,
+      "blockedTargetDecisions": 16,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "M"
+      },
+      "earliestDecisionMove": 2,
+      "deadlines": [
+        {
+          "id": "H",
+          "prerequisiteCount": 4,
+          "deadline": 6,
+          "spareMoves": 1
+        },
+        {
+          "id": "O",
+          "prerequisiteCount": 8,
+          "deadline": 12,
+          "spareMoves": 3
+        }
+      ]
+    },
+    "targetWinRate": 0.030040041725415238,
+    "difficulty": {
+      "depth": 7,
+      "edges": 24,
+      "bends": 8,
+      "initialChoices": 3,
+      "forcedSteps": 5,
+      "score": 127
+    }
+  },
+  {
+    "number": 58,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.02785008806849303,
+      "decisionStates": 75,
+      "blockedTargetDecisions": 68,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "F",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q"
+        ],
+        "safeMove": "I",
+        "unsafeMove": "M"
+      },
+      "earliestDecisionMove": 4,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 2,
+          "deadline": 7,
+          "spareMoves": 4
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 4,
+          "deadline": 11,
+          "spareMoves": 6
+        }
+      ]
+    },
+    "targetWinRate": 0.028256195752442783,
+    "difficulty": {
+      "depth": 8,
+      "edges": 22,
+      "bends": 4,
+      "initialChoices": 3,
+      "forcedSteps": 4,
+      "score": 124
+    }
+  },
+  {
+    "number": 59,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.027193130495452727,
+      "decisionStates": 106,
+      "blockedTargetDecisions": 87,
+      "exampleDecision": {
+        "active": [
+          "B",
+          "C",
+          "E",
+          "F",
+          "G",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "R"
+      },
+      "earliestDecisionMove": 5,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 7,
+          "deadline": 13,
+          "spareMoves": 5
+        },
+        {
+          "id": "O",
+          "prerequisiteCount": 3,
+          "deadline": 11,
+          "spareMoves": 7
+        }
+      ]
+    },
+    "targetWinRate": 0.02657827860887664,
+    "difficulty": {
+      "depth": 9,
+      "edges": 22,
+      "bends": 8,
+      "initialChoices": 3,
+      "forcedSteps": 4,
+      "score": 136
+    }
+  },
+  {
+    "number": 60,
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.024715411902782092,
+      "decisionStates": 183,
+      "blockedTargetDecisions": 143,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "G",
+          "J",
+          "M",
+          "N",
+          "O",
+          "R"
+        ],
+        "safeMove": "G",
+        "unsafeMove": "R"
+      },
+      "earliestDecisionMove": 8,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 4,
+          "deadline": 12,
+          "spareMoves": 7
+        },
+        {
+          "id": "H",
+          "prerequisiteCount": 4,
+          "deadline": 14,
+          "spareMoves": 9
+        }
+      ]
+    },
+    "targetWinRate": 0.025,
+    "difficulty": {
+      "depth": 7,
+      "edges": 25,
+      "bends": 9,
+      "initialChoices": 3,
+      "forcedSteps": 1,
+      "score": 118
+    }
+  }
+]

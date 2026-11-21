@@ -1,0 +1,611 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 12,
+  "levelId": "sanctum-94",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "phase": 1
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "anchorRequires": "AA"
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "deadline": 10
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          1,
+          5
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "anchorRequires": "AA"
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          7,
+          2
+        ]
+      ],
+      "deadline": 5
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          6,
+          0
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "thawAfter": 2
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          3,
+          9
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          4,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "deadline": 5
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "phase": 1
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          2,
+          9
+        ],
+        [
+          1,
+          9
+        ]
+      ],
+      "thawAfter": 3
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          9,
+          1
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "thawAfter": 4
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          9,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "S",
+      "points": [
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          9
+        ]
+      ],
+      "phase": 0
+    },
+    {
+      "id": "T",
+      "points": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "phase": 1
+    },
+    {
+      "id": "U",
+      "points": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "phase": 0
+    },
+    {
+      "id": "V",
+      "points": [
+        [
+          6,
+          5
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "W",
+      "points": [
+        [
+          6,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "X",
+      "points": [
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "Y",
+      "points": [
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "Z",
+      "points": [
+        [
+          9,
+          9
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          9
+        ]
+      ],
+      "requires": "X"
+    },
+    {
+      "id": "AA",
+      "points": [
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "AB",
+      "points": [
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          9
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "U",
+    "T",
+    "I",
+    "K",
+    "H",
+    "P",
+    "O",
+    "N",
+    "D",
+    "X",
+    "S",
+    "Y",
+    "W",
+    "V",
+    "Z",
+    "R",
+    "L",
+    "Q",
+    "M",
+    "J",
+    "AA",
+    "C",
+    "E",
+    "B",
+    "AB",
+    "G",
+    "F",
+    "A"
+  ],
+  "generation": {
+    "sanctumAuthorVersion": 1,
+    "metrics": {
+      "level": 94,
+      "count": 28,
+      "isolated": 0,
+      "emptyQuadrants": 0,
+      "imbalance": 6,
+      "occupiedCells": 88,
+      "depth": 9,
+      "edges": 40,
+      "bends": 28,
+      "initialChoices": 6,
+      "forcedSteps": 4,
+      "score": 192,
+      "rate": 0.00000312578437634677,
+      "target": 0.000002963973068916885
+    },
+    "planning": {
+      "randomLegalWinRate": 0.00000312578437634677,
+      "decisionStates": 36,
+      "blockedTargetDecisions": 17,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "U",
+        "unsafeMove": "S"
+      },
+      "earliestDecisionMove": 1,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 7,
+          "deadline": 10,
+          "spareMoves": 2
+        },
+        {
+          "id": "H",
+          "prerequisiteCount": 4,
+          "deadline": 5,
+          "spareMoves": 0
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        }
+      ]
+    }
+  }
+}

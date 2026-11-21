@@ -5,7 +5,7 @@ test("paid opening saves once, reel lands on its reward, and reload preserves it
   page,
 }) => {
   await page.goto("/#settings");
-  await page.getByRole("checkbox").check();
+  await page.getByRole("checkbox", { name: /Reduce motion/ }).check();
   await page.goto("/#play/1");
   for (const id of ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]) {
     const arrow = page.getByRole("button", {
@@ -20,7 +20,7 @@ test("paid opening saves once, reel lands on its reward, and reload preserves it
     page.getByRole("dialog", { name: "Level result" }),
   ).toBeVisible();
   await page.goto("/#settings");
-  await page.getByRole("checkbox").uncheck();
+  await page.getByRole("checkbox", { name: /Reduce motion/ }).uncheck();
   await page.goto("/#shop");
   await page
     .getByRole("button", { name: "Open · 10 coins", exact: true })
@@ -108,6 +108,8 @@ test("storage failure keeps gift available and reduced motion skips the reel", a
 test("all fifteen arrows render in gameplay with their effects and reduced motion", async ({
   page,
 }) => {
+  // Fifteen full Phaser reloads need a larger budget on shared Windows runners.
+  test.setTimeout(120000);
   await page.goto("/");
   for (const skin of skins) {
     await page.evaluate(
@@ -141,4 +143,44 @@ test("all fifteen arrows render in gameplay with their effects and reduced motio
     "animation-name",
     "none",
   );
+});
+
+test("chest presentation fits phones and skip reveals the saved reward", async ({
+  page,
+}) => {
+  await page.goto("/#shop");
+  await page.getByRole("button", { name: "Open gift", exact: true }).click();
+  await expect(page.locator("dialog .crate-art")).toHaveJSProperty(
+    "complete",
+    true,
+  );
+  expect(
+    await page
+      .locator("dialog .crate-art")
+      .evaluate((img: HTMLImageElement) => img.naturalWidth),
+  ).toBeGreaterThan(0);
+  await page.screenshot({ path: "docs/verification/chest-confirm.png" });
+  await page
+    .getByRole("button", { name: "Open free crate", exact: true })
+    .click();
+  await page.screenshot({ path: "docs/verification/chest-opening.png" });
+  await page
+    .getByRole("button", { name: "Skip animation", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Equip arrow", exact: true }),
+  ).toBeVisible();
+  for (const [width, height] of [
+    [320, 568],
+    [390, 844],
+    [844, 390],
+  ]) {
+    await page.setViewportSize({ width, height });
+    await expect(
+      page.getByRole("button", { name: "Equip arrow", exact: true }),
+    ).toBeInViewport();
+    await page.screenshot({
+      path: `docs/verification/chest-reveal-${width}.png`,
+    });
+  }
 });

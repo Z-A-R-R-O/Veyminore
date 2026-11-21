@@ -1,4 +1,8 @@
+> Historical record. For the current production deployment contract and service boundaries, see [production deployment guide](DEPLOYMENT-PRODUCTION.md) and [current game state](CURRENT-GAME-STATE.md). Test results and implementation statements below apply to their original date.
+
 # Vercel static deployment
+
+> Historical document — status reconciled 20 November 2026. This records earlier iteration, concept and verification scope. [Production deployment guide](DEPLOYMENT-PRODUCTION.md) and [current game state](CURRENT-GAME-STATE.md) take precedence for present deployment behavior and boundaries.
 
 AROWGO is a client-only Vite build. Deploy the compiled site using Vercel Build Output API version 3; source documents, Android files, tests and local settings are not uploaded with this package.
 

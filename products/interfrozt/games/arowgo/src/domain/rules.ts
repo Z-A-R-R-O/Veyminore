@@ -2,10 +2,15 @@ export type Cell = readonly [number, number];
 export interface Arrow {
   id: string;
   points: Cell[];
+  requires?: string;
+  anchorRequires?: string;
+  deadline?: number;
+  thawAfter?: number;
+  phase?: 0 | 1;
 }
 export interface Level {
   schemaVersion: 1;
-  rulesVersion: 1;
+  rulesVersion: 1 | 2;
   contentVersion: number;
   levelId: string;
   board: { columns: number; rows: number };
@@ -14,7 +19,13 @@ export interface Level {
 }
 export type Exit =
   | { clear: true; distance: number }
-  | { clear: false; blocker: string; cell: Cell; step: number };
+  | {
+      clear: false;
+      blocker: string;
+      cell: Cell;
+      step: number;
+      reason?: "locked" | "anchored" | "frozen" | "phase";
+    };
 const key = ([x, y]: Cell) => `${x},${y}`;
 
 export function direction(arrow: Arrow): Cell {
@@ -52,8 +63,8 @@ export function validateLevel(value: unknown): Level {
   const level = value as Level;
   if (
     level.schemaVersion !== 1 ||
-    level.rulesVersion !== 1 ||
-    level.contentVersion !== 1 ||
+    ![1, 2].includes(level.rulesVersion) ||
+    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].includes(level.contentVersion) ||
     typeof level.levelId !== "string" ||
     !level.levelId ||
     !level.board ||
@@ -100,6 +111,18 @@ export function validateLevel(value: unknown): Level {
       if (occupied.has(key(cell))) throw new Error("Initial overlap");
       occupied.add(key(cell));
     }
+    if (level.rulesVersion === 2) {
+      const [hx, hy] = arrow.points.at(-1)!,
+        [dx, dy] = direction(arrow);
+      if (
+        expand(arrow)
+          .slice(0, -1)
+          .some(([x, y]) =>
+            dx ? y === hy && (x - hx) * dx > 0 : x === hx && (y - hy) * dy > 0,
+          )
+      )
+        throw new Error("Snake head ray crosses its own body");
+    }
   }
   if (
     level.solution.length !== ids.size ||
@@ -107,16 +130,68 @@ export function validateLevel(value: unknown): Level {
     level.solution.some((id) => !ids.has(id))
   )
     throw new Error("Solution must contain every arrow exactly once");
+  for (const arrow of level.arrows) {
+    if (
+      arrow.requires !== undefined &&
+      (typeof arrow.requires !== "string" ||
+        !ids.has(arrow.requires) ||
+        arrow.requires === arrow.id)
+    )
+      throw new Error("Invalid key reference");
+  }
+  for (const arrow of level.arrows) {
+    if (
+      arrow.anchorRequires !== undefined &&
+      (typeof arrow.anchorRequires !== "string" ||
+        !ids.has(arrow.anchorRequires) ||
+        arrow.anchorRequires === arrow.id ||
+        arrow.requires)
+    )
+      throw new Error("Invalid anchor reference");
+    if (
+      arrow.deadline !== undefined &&
+      (!Number.isSafeInteger(arrow.deadline) ||
+        arrow.deadline < 1 ||
+        arrow.deadline > level.arrows.length ||
+        level.arrows.length > 28)
+    )
+      throw new Error("Invalid keg deadline");
+    if (
+      (arrow.anchorRequires || arrow.deadline !== undefined) &&
+      (level.rulesVersion !== 2 || level.contentVersion < 7)
+    )
+      throw new Error("Mechanics require content 7");
+  }
+  for (const a of level.arrows) {
+    if (a.phase !== undefined && a.phase !== 0 && a.phase !== 1)
+      throw Error("Invalid phase");
+    if (
+      a.thawAfter !== undefined &&
+      (!Number.isInteger(a.thawAfter) ||
+        a.thawAfter < 1 ||
+        a.thawAfter >= level.arrows.length)
+    )
+      throw Error("Invalid thaw count");
+    if (
+      (a.phase !== undefined || a.thawAfter !== undefined) &&
+      (level.contentVersion < 10 ||
+        level.rulesVersion !== 2 ||
+        level.arrows.length > 28)
+    )
+      throw Error("Timing mechanics require content 10 and at most 28 arrows");
+  }
   let active = [...ids];
   for (const id of level.solution) {
     if (!checkExit(level, active, id).clear)
       throw new Error(`Solution blocked at ${id}`);
     active = active.filter((a) => a !== id);
+    if (expiredKeg(level, active))
+      throw new Error("Solution misses keg deadline");
   }
   return level;
 }
 
-/** Slow, explicit swept-footprint checker. No renderer or mutation. */
+/** Version 2 checks the head ray; version 1 retains rigid sweeps for archived-save validation. */
 export function checkExit(
   level: Level,
   active: readonly string[],
@@ -124,7 +199,36 @@ export function checkExit(
 ): Exit {
   const arrow = level.arrows.find((a) => a.id === id);
   if (!arrow || !active.includes(id)) throw new Error("Arrow is not active");
-  const cells = expand(arrow),
+  const removed = level.arrows.length - active.length;
+  if (!timingOpen(arrow, removed))
+    return {
+      clear: false,
+      blocker: id,
+      cell: arrow.points[0],
+      step: 0,
+      reason: removed < (arrow.thawAfter ?? 0) ? "frozen" : "phase",
+    };
+  if (arrow.anchorRequires && active.includes(arrow.anchorRequires))
+    return {
+      clear: false,
+      blocker: arrow.anchorRequires,
+      cell: level.arrows
+        .find((a) => a.id === arrow.anchorRequires)!
+        .points.at(-1)!,
+      step: 0,
+      reason: "anchored",
+    };
+  if (arrow.requires && active.includes(arrow.requires)) {
+    return {
+      clear: false,
+      blocker: arrow.requires,
+      cell: level.arrows.find((a) => a.id === arrow.requires)!.points.at(-1)!,
+      step: 0,
+      reason: "locked",
+    };
+  }
+  const cells =
+      level.rulesVersion === 2 ? [arrow.points.at(-1)!] : expand(arrow),
     [dx, dy] = direction(arrow);
   const occupancy = new Map<string, string>();
   for (const other of level.arrows)
@@ -150,7 +254,12 @@ export function checkExit(
       const blocker = occupancy.get(key(cell));
       if (blocker) return { clear: false, blocker, cell, step };
     }
-    if (!inside) return { clear: true, distance: step };
+    if (!inside)
+      return {
+        clear: true,
+        distance:
+          step + (level.rulesVersion === 2 ? expand(arrow).length - 1 : 0),
+      };
   }
   throw new Error("Exit bound exceeded");
 }
@@ -161,10 +270,15 @@ export function dependencies(level: Level): Map<string, Set<string>> {
     level.arrows.map((arrow) => {
       const blockers = new Set<string>(),
         [dx, dy] = direction(arrow);
+      if (arrow.requires) blockers.add(arrow.requires);
+      if (arrow.anchorRequires) blockers.add(arrow.anchorRequires);
       for (const other of level.arrows)
         if (other !== arrow) {
           if (
-            expand(arrow).some(([x, y]) =>
+            (level.rulesVersion === 2
+              ? [arrow.points.at(-1)!]
+              : expand(arrow)
+            ).some(([x, y]) =>
               expand(other).some(([ox, oy]) =>
                 dx !== 0
                   ? y === oy && (ox - x) * dx > 0
@@ -179,10 +293,26 @@ export function dependencies(level: Level): Map<string, Set<string>> {
   );
 }
 
+export function timingOpen(a: Arrow, removed: number) {
+  return (
+    removed >= (a.thawAfter ?? 0) &&
+    (a.phase === undefined || removed % 2 === a.phase)
+  );
+}
+export function hasTiming(level: Level) {
+  return level.arrows.some(
+    (a) =>
+      a.deadline !== undefined ||
+      a.phase !== undefined ||
+      a.thawAfter !== undefined,
+  );
+}
+
 export function solve(
   level: Level,
   initial = level.arrows.map((a) => a.id),
 ): string[] | null {
+  if (hasTiming(level)) return solveDeadlines(level, initial);
   const graph = dependencies(level),
     active = new Set(initial),
     result: string[] = [];
@@ -199,4 +329,127 @@ export function solve(
 
 export function legalArrows(level: Level, active: readonly string[]): string[] {
   return active.filter((id) => checkExit(level, active, id).clear);
+}
+
+export function expiredKeg(level: Level, active: readonly string[]): boolean {
+  const removed = level.arrows.length - active.length;
+  return level.arrows.some(
+    (a) =>
+      a.deadline !== undefined &&
+      active.includes(a.id) &&
+      removed >= a.deadline,
+  );
+}
+const timingSolutions = new WeakMap<
+  Level,
+  { signature: string; states: Map<string, string[] | null> }
+>();
+function solveDeadlines(level: Level, initial: string[]): string[] | null {
+  const signature = JSON.stringify([
+    level.board,
+    level.rulesVersion,
+    level.arrows,
+  ]);
+  let cache = timingSolutions.get(level);
+  if (!cache || cache.signature !== signature) {
+    cache = { signature, states: new Map() };
+    timingSolutions.set(level, cache);
+  }
+  const stateKey = JSON.stringify([...initial].sort());
+  if (cache.states.has(stateKey)) {
+    const solution = cache.states.get(stateKey)!;
+    return solution ? [...solution] : null;
+  }
+  if (level.arrows.length > 28)
+    throw new Error("Timing solver supports at most 28 arrows");
+  const ids = level.arrows.map((a) => a.id),
+    graph = dependencies(level);
+  const bits = new Map(ids.map((id, i) => [id, 1 << i]));
+  const blockers = ids.map((id) =>
+    [...graph.get(id)!].reduce((mask, b) => mask | bits.get(b)!, 0),
+  );
+  const ancestors = blockers.map((mask) => {
+    let previous = -1;
+    while (previous !== mask) {
+      previous = mask;
+      for (let i = 0; i < ids.length; i++)
+        if (mask & (1 << i)) mask |= blockers[i];
+    }
+    return mask;
+  });
+  const countBits = (value: number) => {
+    let count = 0;
+    while (value) {
+      value &= value - 1;
+      count++;
+    }
+    return count;
+  };
+  // Removed intermediate blockers (including erased arrows) no longer require their ancestors.
+  const activeAncestors = (index: number, mask: number) => {
+    let result = blockers[index] & mask,
+      previous = -1;
+    while (previous !== result) {
+      previous = result;
+      for (let i = 0; i < ids.length; i++)
+        if (result & (1 << i)) result |= blockers[i] & mask;
+    }
+    return result;
+  };
+  const urgency = ids.map((_, i) =>
+    Math.min(
+      999,
+      ...level.arrows.map((a, j) =>
+        j === i || ancestors[j] & (1 << i) ? (a.deadline ?? 999) : 999,
+      ),
+    ),
+  );
+  const failed = new Set<number>();
+  let visited = 0;
+  function search(mask: number): string[] | null {
+    if (!mask) return [];
+    if (failed.has(mask)) return null;
+    if (++visited > 1100000)
+      throw new Error("Deadline solver budget exhausted");
+    const removed = ids.length - countBits(mask);
+    if (
+      level.arrows.some(
+        (a, i) =>
+          a.deadline !== undefined &&
+          mask & (1 << i) &&
+          removed + countBits(activeAncestors(i, mask)) >= a.deadline,
+      )
+    )
+      return null;
+    const candidates = ids
+      .map((_, i) => i)
+      .filter(
+        (i) =>
+          mask & (1 << i) &&
+          !(blockers[i] & mask) &&
+          timingOpen(level.arrows[i], removed),
+      )
+      .sort((a, b) => urgency[a] - urgency[b]);
+    for (const i of candidates) {
+      const rest = search(mask & ~(1 << i));
+      if (rest) return [ids[i], ...rest];
+    }
+    failed.add(mask);
+    return null;
+  }
+  const result = search(initial.reduce((mask, id) => mask | bits.get(id)!, 0));
+  if (cache.states.size >= 512) cache.states.clear();
+  cache.states.set(stateKey, result ? [...result] : null);
+  return result;
+}
+export function safeArrows(level: Level, active: readonly string[]): string[] {
+  const legal = legalArrows(level, active);
+  if (!hasTiming(level)) return legal;
+  return legal.filter(
+    (id) =>
+      solve(
+        level,
+        active.filter((a) => a !== id),
+      ) !== null,
+  );
 }

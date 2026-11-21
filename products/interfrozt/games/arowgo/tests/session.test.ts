@@ -74,7 +74,7 @@ describe("attempts, progression and persistence", () => {
       r = resolve(level, s, { id: "hint", attemptId: "one", type: "hint" });
     expect(r.hints).toEqual(["A"]);
     expect(r.state.active).toEqual(s.active);
-    expect(stars(complete(r.state))).toBe(1);
+    expect(stars(complete(r.state))).toBe(3);
   });
   it("restart rejects stale commands from the old attempt", () => {
     const s = newSession(level, "new");

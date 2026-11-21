@@ -1,5 +1,6 @@
 import { GameArt } from "./elements/GameArt";
-import { levelNames } from "../domain/campaign";
+import { Star } from "./elements/Star";
+import { levelNames, levels } from "../domain/campaign";
 
 export function Home({
   completed,
@@ -28,7 +29,15 @@ export function Home({
       <div className="bloom-stage" aria-hidden="true">
         <div className="island-halo" />
         <img
-          src="/assets/generated/bloom-island-v1.png"
+          src={
+            next >= 60
+              ? "/assets/generated/amber-home.webp"
+              : next >= 40
+                ? "/assets/generated/frostfall-home.webp"
+                : next >= 20
+                  ? "/assets/generated/verdant-cove-home-v1.png"
+                  : "/assets/generated/bloom-island-v1.png"
+          }
           alt=""
           className="bloom-home-island"
         />
@@ -38,17 +47,19 @@ export function Home({
       <section className="bloom-play-panel" aria-label="Continue your journey">
         <div className="bloom-next">
           <span>
-            {completed === 5
-              ? "VALLEY COMPLETE"
+            {completed === levels.length
+              ? "ADVENTURE COMPLETE"
               : `LEVEL ${String(next + 1).padStart(2, "0")}`}
           </span>
           <strong>
-            {completed === 5 ? "Beautifully done." : levelNames[next]}
+            {completed === levels.length
+              ? "Beautifully done."
+              : levelNames[next]}
           </strong>
         </div>
         <button className="primary-button bloom-play" onClick={onPlay}>
           <span aria-hidden="true">▶</span>
-          {completed === 5 ? "Play again" : "Play"}
+          {completed === levels.length ? "View your stars" : "Play"}
           <span className="play-glint" aria-hidden="true" />
         </button>
       </section>
@@ -68,19 +79,19 @@ export function Home({
       </div>
       <button className="bloom-journey" onClick={() => onNavigate("worlds")}>
         <span className="journey-text">
-          <strong>Bloom Valley</strong>
+          <strong>Adventure · Journey</strong>
           <span>
-            {completed === 5
+            {completed === levels.length
               ? "Every path discovered"
-              : `${completed} of 5 levels cleared`}
+              : `${completed} of ${levels.length} levels cleared`}
           </span>
           <span className="journey-track" aria-hidden="true">
-            <span style={{ width: `${completed * 20}%` }} />
+            <span style={{ width: `${(completed / levels.length) * 100}%` }} />
           </span>
         </span>
         <span className="journey-stars">
-          <span aria-hidden="true">★</span> {stars}
-          <small>/15</small>
+          <Star /> {stars}
+          <small>/{levels.length * 3}</small>
         </span>
         <span className="journey-arrow" aria-hidden="true">
           ↗

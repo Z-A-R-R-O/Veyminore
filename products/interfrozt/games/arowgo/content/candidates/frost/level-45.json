@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 9,
+  "levelId": "frost-45",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "deadline": 10
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          8,
+          6
+        ],
+        [
+          8,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "deadline": 8
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          9,
+          7
+        ],
+        [
+          9,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          9
+        ],
+        [
+          1,
+          9
+        ]
+      ],
+      "anchorRequires": "E"
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          8,
+          4
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          9,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          6,
+          2
+        ],
+        [
+          8,
+          2
+        ]
+      ],
+      "requires": "M"
+    }
+  ],
+  "solution": [
+    "E",
+    "N",
+    "F",
+    "M",
+    "L",
+    "J",
+    "I",
+    "A",
+    "O",
+    "H",
+    "P",
+    "K",
+    "G",
+    "D",
+    "C",
+    "B"
+  ],
+  "generation": {
+    "frostAuthorVersion": 1,
+    "planning": {
+      "randomLegalWinRate": 0.062461821630658436,
+      "decisionStates": 24,
+      "blockedTargetDecisions": 18,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "F",
+          "G",
+          "I",
+          "J",
+          "K",
+          "L",
+          "P"
+        ],
+        "safeMove": "F",
+        "unsafeMove": "P"
+      },
+      "earliestDecisionMove": 6,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 6,
+          "deadline": 10,
+          "spareMoves": 3
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 2,
+          "deadline": 8,
+          "spareMoves": 5
+        }
+      ]
+    },
+    "targetWinRate": 0.06262426231772386,
+    "difficulty": {
+      "depth": 9,
+      "edges": 17,
+      "bends": 6,
+      "initialChoices": 2,
+      "forcedSteps": 6,
+      "score": 130
+    }
+  }
+}

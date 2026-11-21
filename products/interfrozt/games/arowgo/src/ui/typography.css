@@ -1,0 +1,194 @@
+@font-face {
+  font-family: "Matcha Style";
+  src: url("/fonts/matcha/matcha-style.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Matcha World";
+  src: url("/fonts/matcha/matcha-world.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  --font-display: "Matcha World", Satoshi, sans-serif;
+  --font-play: "Matcha Style", Satoshi, sans-serif;
+  --font-reading: Satoshi, sans-serif;
+}
+body {
+  font-family: var(--font-reading);
+}
+h1,
+h2,
+h3,
+.valley-heading h1,
+.bloom-welcome h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.015em;
+  line-height: 1.15;
+  font-synthesis: none;
+}
+.primary-button,
+.secondary-button,
+.tool-button,
+.stop-disc,
+.result-level,
+.bloom-next strong,
+.coin-reveal strong,
+.retry-summary strong {
+  font-family: var(--font-play);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.025em;
+  font-synthesis: none;
+}
+.result-goals strong {
+  font-family: var(--font-reading);
+}
+.game-star {
+  display: inline-block;
+  width: 1.35em;
+  height: 1.35em;
+  object-fit: contain;
+  vertical-align: -0.25em;
+  flex-shrink: 0;
+}
+.game-star.is-empty {
+  filter: grayscale(1);
+  opacity: 0.28;
+}
+.result-layer .result-stars > span {
+  display: inline-flex;
+}
+.result-layer .result-stars .game-star {
+  width: 1em;
+  height: 1em;
+}
+.stop-status .game-star {
+  width: 15px;
+  height: 15px;
+}
+.valley-stars .game-star,
+.journey-stars .game-star {
+  width: 20px;
+  height: 20px;
+}
+
+/* Display, action and reading tiers: decorative letters never crowd small copy. */
+h2,
+h3,
+.valley-selection h2,
+.journey-text > strong,
+.bloom-destinations button,
+.tool-card strong,
+.bottom-nav a,
+.shop-switch button,
+.collection-filters button {
+  font-family: var(--font-play);
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0.015em;
+  line-height: 1.2;
+}
+.wordmark {
+  font-family: var(--font-play);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.025em;
+}
+.page-heading h1 {
+  font-size: clamp(25px, 3.2vw, 36px);
+  line-height: 1.12;
+}
+.page-heading p,
+.setting,
+.feedback,
+.crate-note,
+.profile-message {
+  font-family: var(--font-reading);
+  line-height: 1.45;
+}
+.eyebrow,
+.valley-kicker,
+.world-label,
+.bloom-next > span,
+.valley-selection > span {
+  font-family: var(--font-reading);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.text-button {
+  font-family: var(--font-reading);
+  font-weight: 700;
+}
+
+/* Large game counters share the same numeral shapes as map levels. */
+.hub-gems strong,
+.gem-wallet strong,
+.hub-coins strong,
+.balance .count-up,
+.shop-balance strong,
+.journey-stars,
+.stat-grid strong,
+.progress-orbit > strong,
+.coin-reveal strong,
+.stop-disc,
+.result-level {
+  font-family: var(--font-play);
+  font-weight: 400;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0.015em;
+  line-height: 1.1;
+}
+.hub-gems strong,
+.hub-coins strong,
+.balance .count-up {
+  min-width: 2ch;
+  text-align: center;
+}
+.journey-stars small,
+.stat-grid strong small,
+.progress-orbit strong small {
+  font-family: var(--font-reading);
+  font-weight: 700;
+  font-size: 0.52em;
+  letter-spacing: 0;
+}
+.valley-progress,
+.result-goals span,
+.retry-summary span,
+.crate-odds,
+.shop-balance,
+.count-up {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.result-goals span {
+  font-weight: 600;
+}
+.valley-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.result-level {
+  font-size: 16px;
+  letter-spacing: 0.06em;
+}
+@media (max-width: 380px) {
+  .page-heading h1 {
+    font-size: 25px;
+  }
+  .bottom-nav a {
+    font-size: 12px;
+  }
+  .valley-selection h2 {
+    font-size: 17px;
+  }
+  .journey-text > strong {
+    font-size: 20px;
+  }
+}

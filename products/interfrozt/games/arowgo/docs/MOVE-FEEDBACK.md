@@ -1,0 +1,15 @@
+# Move feedback symbols
+
+Generated with built-in image_gen. Atlas: `public/assets/feedback/symbols.png`. The six cells are displayed as circular CSS sprites; external atlas background is clipped. Earlier word badges are unused concept assets.
+
+Teal !!: opens at least three previously blocked arrows after an original prerequisite chain of depth three or more. Blue !: opens at least two. Green star: opens one, or marks an unassisted zero-mistake completion on the result screen. These are measured unlock effects, not chess engine best-move claims. Orange book: requested hint. Yellow ?: blocked move. Red ??: blocked move ending the attempt.
+
+Positive feedback is suppressed on assisted runs and limited to one every 3.5 seconds. Bubbles last 1.5 seconds, ignore pointer input, have accessible names, and use no movement under reduced motion. No scoring, currency, or save changes. Tests cover campaign unlock classification, clean finishes, assisted suppression, and blocked/failing moves.
+
+## Generation prompt
+
+Create ONE production-ready sprite atlas for AROWGO puzzle-game move feedback. Transparent background. Exact canvas layout: 3 columns by 2 rows of equally sized isolated circular badges, evenly spaced, every cell same size, badge centered in its cell with generous transparent margins. Each badge has a bold ivory-white centered symbol, a thin ivory rim, softly rounded sculpted bevel, restrained candy-like gloss, subtle darker colored lower edge. Premium charming casual puzzle-game UI, highly legible at 32 pixels. Top row LEFT: vibrant mint teal circle with exact symbol !! (two exclamation marks). Top row CENTER: bright sky blue circle with exact symbol !. Top row RIGHT: fresh grass green circle with one bold five-point white star. Bottom row LEFT: warm orange-brown circle with simple ivory open-book symbol. Bottom row CENTER: rich scarlet red circle with exact symbol ?? (two question marks). Bottom row RIGHT: sunny golden yellow circle with exact symbol ?. Symbols nearly fill their circles but keep comfortable margins. All six badges identical size, front-facing, no perspective. Absolutely NO words, labels, captions, titles, flowers, sparkles, outside shadows, or other objects. Only the six badges. Exact uniform grid suitable for CSS sprite slicing. Landscape 3:2 image.
+
+## Result totals and transitions
+Victory and defeat show all six symbol counts for the current attempt. Counts include every qualifying action, including those whose bubble was suppressed by the visual cooldown. Perfect completion contributes one green star entry. Successful hints count as books; the final blocked move counts as red instead of yellow. Counts are saved atomically with controller actions and reset on replay. Legacy saves without counts remain readable; historical actions are not reconstructed. Existing stars, coins, and unlocks are unchanged.
+The backdrop fades in over 420 ms; the card fades and settles by 14px over 520 ms after the final move animation. Reduced motion skips these effects. Result layouts were checked on phone, desktop, and landscape.

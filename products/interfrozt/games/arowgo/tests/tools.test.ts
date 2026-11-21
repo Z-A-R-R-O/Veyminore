@@ -52,7 +52,7 @@ describe("Analyze and confirmed Erase", () => {
         arrowId: id,
       }).state;
     expect(state.status).toBe("complete");
-    expect(stars(state)).toBe(1);
+    expect(stars(state)).toBe(3);
     expect(state.coins).toBe(25);
     expect(parseSession(JSON.stringify(state), level)).toEqual(state);
     expect(

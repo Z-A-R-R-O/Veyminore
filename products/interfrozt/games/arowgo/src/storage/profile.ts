@@ -1,3 +1,10 @@
+import { readAvatarFrame, type AvatarFrame } from "./avatar-frames";
+import {
+  readAvatarBackground,
+  type AvatarBackground,
+} from "./avatar-backgrounds";
+import { isAvatar, type Avatar } from "./avatars";
+export type { Avatar } from "./avatars";
 export const PROFILE_KEY = "arowgo.profile.v1";
 export type Rarity = "common" | "rare" | "epic" | "legendary" | "mythic";
 export const skins = [
@@ -124,7 +131,7 @@ export const skins = [
 ] as const;
 export type SkinId = (typeof skins)[number]["id"];
 export type Skin = (typeof skins)[number];
-export type Avatar = "world" | "modes" | "trophy";
+
 export const rarities: Rarity[] = [
   "common",
   "rare",
@@ -157,15 +164,21 @@ export const crates = [
 ] as const;
 export type CrateId = (typeof crates)[number]["id"];
 export interface Reward {
+  currency?: "coins" | "gems";
   skin: SkinId;
   duplicate: boolean;
   refund: number;
   crate: CrateId;
 }
 export interface Profile {
+  gems: number;
+  gemGiftClaimed: boolean;
+  timeBoosts: string[];
   version: 2;
   name: string;
   avatar: Avatar;
+  avatarBackground: AvatarBackground;
+  avatarFrame: AvatarFrame;
   owned: SkinId[];
   equipped: SkinId;
   spent: number;
@@ -174,9 +187,14 @@ export interface Profile {
   lastReward: Reward | null;
 }
 export const guest = (): Profile => ({
+  gems: 0,
+  gemGiftClaimed: false,
+  timeBoosts: [],
   version: 2,
   name: "Guest",
   avatar: "world",
+  avatarBackground: "none",
+  avatarFrame: "none",
   owned: ["classic"],
   equipped: "classic",
   spent: 0,
@@ -199,7 +217,7 @@ export function readProfile(raw: string | null): Profile {
       typeof p.name !== "string" ||
       !p.name.trim() ||
       p.name.length > 20 ||
-      !["world", "modes", "trophy"].includes(p.avatar) ||
+      !isAvatar(p.avatar) ||
       !Array.isArray(p.owned) ||
       !p.owned.includes("classic") ||
       new Set(p.owned).size !== p.owned.length ||
@@ -213,6 +231,8 @@ export function readProfile(raw: string | null): Profile {
         ...guest(),
         name: p.name,
         avatar: p.avatar,
+        avatarBackground: readAvatarBackground(p.avatarBackground),
+        avatarFrame: readAvatarFrame(p.avatarFrame),
         owned: p.owned,
         equipped: p.equipped,
         spent: p.owned.reduce(
@@ -230,9 +250,22 @@ export function readProfile(raw: string | null): Profile {
     )
       return guest();
     const r = p.lastReward;
+    const gems = p.gems ?? 0,
+      gemGiftClaimed = p.gemGiftClaimed ?? false,
+      timeBoosts = p.timeBoosts ?? [];
+    if (
+      !Number.isSafeInteger(gems) ||
+      gems < 0 ||
+      typeof gemGiftClaimed !== "boolean" ||
+      !Array.isArray(timeBoosts) ||
+      timeBoosts.some((id: unknown) => typeof id !== "string" || !id) ||
+      new Set(timeBoosts).size !== timeBoosts.length
+    )
+      return guest();
     if (
       r !== null &&
       (!r ||
+        (r.currency !== undefined && !["coins", "gems"].includes(r.currency)) ||
         !p.owned.includes(r.skin) ||
         !crates.some((c) => c.id === r.crate) ||
         typeof r.duplicate !== "boolean" ||
@@ -242,9 +275,14 @@ export function readProfile(raw: string | null): Profile {
     )
       return guest();
     return {
+      gems,
+      gemGiftClaimed,
+      timeBoosts,
       version: 2,
       name: p.name,
       avatar: p.avatar,
+      avatarBackground: readAvatarBackground(p.avatarBackground),
+      avatarFrame: readAvatarFrame(p.avatarFrame),
       owned: p.owned,
       equipped: p.equipped,
       spent: p.spent,
@@ -257,6 +295,30 @@ export function readProfile(raw: string | null): Profile {
   }
 }
 export const spentCoins = (p: Profile) => p.spent;
+export const gemPrices: Record<CrateId, number> = {
+  bloom: 1,
+  aurora: 2,
+  celestial: 4,
+};
+export const TIME_BOOST_COST = 3;
+export function claimGemGift(p: Profile): Profile {
+  return p.gemGiftClaimed
+    ? p
+    : { ...p, gems: p.gems + 20, gemGiftClaimed: true };
+}
+export function buyTimeBoost(p: Profile, attemptId: string): Profile {
+  if (
+    !attemptId ||
+    p.gems < TIME_BOOST_COST ||
+    p.timeBoosts.includes(attemptId)
+  )
+    return p;
+  return {
+    ...p,
+    gems: p.gems - TIME_BOOST_COST,
+    timeBoosts: [...p.timeBoosts, attemptId],
+  };
+}
 /** Select rarity first, then an equally likely item in that rarity. Classic never drops. */
 export function rollSkin(
   crateId: CrateId,
@@ -285,25 +347,30 @@ export function openCrate(
   roll: number,
   itemRoll: number,
   welcome = false,
+  currency: "coins" | "gems" = "coins",
 ): Profile {
   const crate = crates.find((c) => c.id === id);
   if (
     !crate ||
     (welcome && (p.welcomeClaimed || id !== "bloom")) ||
-    (!welcome && earned - p.spent < crate.price)
+    (!welcome &&
+      (currency === "gems"
+        ? p.gems < gemPrices[id]
+        : earned - p.spent < crate.price))
   )
     return p;
   const skin = rollSkin(id, roll, itemRoll),
     duplicate = p.owned.includes(skin);
-  const cost = welcome ? 0 : crate.price,
+  const cost = welcome ? 0 : currency === "gems" ? gemPrices[id] : crate.price,
     refund = duplicate ? Math.floor(cost / 2) : 0;
   return {
     ...p,
-    spent: p.spent + cost - refund,
+    spent: p.spent + (currency === "coins" ? cost - refund : 0),
+    gems: p.gems - (currency === "gems" ? cost - refund : 0),
     openings: p.openings + 1,
     welcomeClaimed: p.welcomeClaimed || welcome,
     owned: duplicate ? p.owned : [...p.owned, skin],
-    lastReward: { skin, duplicate, refund, crate: id },
+    lastReward: { skin, duplicate, refund, crate: id, currency },
   };
 }
 export function randomUnit(): number {

@@ -220,6 +220,95 @@ button svg {
     inset 0 2px 2px #ffffff80;
   color: white;
 }
+/* Header Player Profile badge (replaces app name and logo inside game) */
+.header-profile-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  background: #f7efffe8;
+  border: 1px solid #ffffff;
+  padding: 0;
+  text-decoration: none;
+  color: #4b2882;
+  box-shadow: 0 3px 10px #62368c0c;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    background 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  user-select: none;
+}
+.header-profile-link:hover {
+  transform: translateY(-1px);
+  background: #ffffff;
+  border-color: #ebdcfc;
+  box-shadow: 0 5px 14px #62368c18;
+}
+.header-profile-link:active {
+  transform: translateY(0);
+}
+
+.header-profile-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #f3eafd, #eee0ff);
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 6px #62368c18;
+  position: relative;
+}
+.header-profile-avatar img,
+.header-profile-avatar .game-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.header-profile-avatar .framed-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-profile-avatar .framed-avatar-face {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-profile-avatar .avatar-frame-overlay {
+  display: none;
+}
+.header-profile-default-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (max-width: 380px) {
+  .header-profile-link {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+  }
+  .header-profile-avatar {
+    width: 28px;
+    height: 28px;
+  }
+}
 .prototype {
   font-size: 9px;
   font-style: normal;
@@ -3064,6 +3153,118 @@ main {
     min-height: 32px;
   }
 }
+/* Browser chrome can leave a desktop-width game with a phone-like usable height.
+   Keep the complete play loop visible before taking space from the board. */
+@media (min-width: 901px) and (max-height: 820px) {
+  .app-shell {
+    padding-block: 8px;
+  }
+  .app-shell .topbar {
+    height: 44px;
+    min-height: 44px;
+  }
+  .app-shell .level-heading {
+    margin: 2px 0 6px;
+    padding: 5px 12px;
+  }
+  .app-shell .world-label {
+    font-size: 12px;
+  }
+  .app-shell .level-heading h1 {
+    font-size: 27px;
+    margin: 2px;
+  }
+  .app-shell .progress-dots {
+    height: 14px;
+    gap: 8px;
+  }
+  .app-shell .progress-dots span {
+    width: 10px;
+    height: 10px;
+  }
+  .app-shell .game-card {
+    gap: 4px;
+  }
+  .app-shell .hud {
+    height: 50px;
+    min-height: 50px;
+  }
+  .app-shell .feedback {
+    min-height: 26px;
+    padding-block: 3px;
+  }
+  .app-shell .tool-tray {
+    height: 50px;
+  }
+  .app-shell .tool-card {
+    min-height: 50px;
+  }
+  .app-shell .card-footer,
+  .app-shell .card-footer button {
+    min-height: 28px;
+  }
+}
+/* Desktop is a companion layout, not an enlarged phone screen. The board owns
+   the primary column while instructions and tools form a stable side rail. */
+@media (min-width: 901px) {
+  .app-shell[data-view="play"] .play-layout {
+    width: min(100%, 900px);
+    align-items: stretch;
+  }
+  .app-shell[data-view="play"] .game-card {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) 220px;
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "hud hud"
+      "board support";
+    gap: 10px 18px;
+  }
+  .app-shell[data-view="play"] .hud {
+    grid-area: hud;
+    margin: 0;
+  }
+  .app-shell[data-view="play"] .board-wrap {
+    grid-area: board;
+    width: min(100%, calc(100dvh - 190px));
+    aspect-ratio: 1;
+    height: auto;
+    justify-self: center;
+    align-self: center;
+  }
+  .app-shell[data-view="play"] .play-support {
+    grid-area: support;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+  .app-shell[data-view="play"] .play-support .feedback {
+    min-height: 0;
+  }
+  .app-shell[data-view="play"] .tool-tray {
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .app-shell[data-view="play"] .tool-card {
+    width: 100%;
+    min-height: 58px;
+  }
+  .app-shell[data-view="play"] .card-footer {
+    min-height: 0;
+    padding-top: 0;
+    justify-content: center;
+  }
+  .app-shell[data-view="play"] .card-footer button {
+    min-height: 42px;
+    padding-inline: 16px;
+  }
+}
 @media (max-height: 700px) {
   .hub-shell {
     gap: 7px;
@@ -4592,6 +4793,128 @@ main {
   flex: 1 1 0;
   min-height: 0;
   isolation: isolate;
+  background:
+    linear-gradient(180deg, #e8d8ff70, #ba9ee530 45%, #f8cdf06b),
+    url("/assets/bloom-valley-world-map-candy-landscape-v1.png") center / cover;
+  box-shadow:
+    inset 0 0 0 1px #ffffffa8,
+    0 10px 24px #73508c2b;
+}
+@media (max-width: 680px) {
+  .valley-map {
+    background-image:
+      linear-gradient(180deg, #e8d8ff58, #ba9ee51f 45%, #f8cdf058),
+      url("/assets/bloom-valley-world-map-candy-portrait-v1.png");
+    background-position: center;
+  }
+}
+.valley-map-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  overscroll-behavior: contain;
+}
+.page-worlds .valley-heading {
+  padding: 5px 12px;
+}
+.page-worlds .valley-heading h1 {
+  font-size: 28px;
+  margin: 2px 0;
+}
+.page-worlds .valley-launch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+}
+.page-worlds .valley-selection {
+  flex: 1;
+}
+.page-worlds .valley-selection h2 {
+  font-size: 16px;
+  margin: 2px 0;
+}
+.page-worlds .valley-play {
+  width: auto;
+  flex: 0 0 auto;
+  min-height: 44px;
+  font-size: 20px;
+  padding: 6px 18px;
+}
+.valley-map-scroll .valley-map {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  min-height: 0;
+  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png")
+    center / cover;
+}
+.valley-map-scroll .valley-stop {
+  width: clamp(44px, 7vh, 64px);
+  height: clamp(44px, 6vh, 56px);
+}
+.valley-map-scroll .stop-disc {
+  font-size: 23px;
+}
+.valley-map-scroll .valley-trail,
+.valley-map-scroll .valley-discovery {
+  display: none;
+}
+@media (max-height: 480px) and (min-width: 600px) {
+  .valley-map-scroll {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+}
+/* One continuous world scene; controls remain in viewport-sized layout tracks. */
+.worlds-screen {
+  background: url("/assets/bloom-valley-world-map-candy-portrait-v1.png")
+    center / 100% 100%;
+}
+.worlds-screen > .scenery {
+  display: none;
+}
+.worlds-screen .page-worlds {
+  width: 100%;
+  max-width: 900px;
+}
+.worlds-screen .valley-map-scroll,
+.worlds-screen .valley-map-scroll .valley-map {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+.worlds-screen .valley-heading {
+  background: #fff5;
+  border: 0;
+  box-shadow: none;
+}
+.worlds-screen .valley-launch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 1.2fr);
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  background: #f7eaffb8;
+}
+.worlds-screen .valley-selection {
+  min-width: 0;
+}
+.worlds-screen .valley-play.primary-button {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 8px;
+  font-size: clamp(18px, 4vw, 24px);
+  gap: 8px;
+  flex-basis: auto;
+}
+@media (min-aspect-ratio: 4/3) {
+  .worlds-screen {
+    background-image: url("/assets/bloom-valley-world-map-candy-landscape-v1.png");
+  }
 }
 .valley-island {
   position: absolute;
@@ -5843,3 +6166,245 @@ main {
     padding: 9px;
   }
 }
+
+/* Shared AROWGO arrow mark, preserving responsive header dimensions. */
+.brand-icon {
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #37104f;
+}
+.brand-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.board {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.path-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+.path-preview-label {
+  position: absolute;
+  bottom: 3%;
+  left: 5%;
+  right: 5%;
+  z-index: 6;
+  text-align: center;
+  border-radius: 12px;
+  background: #fffefaed;
+  color: #523269;
+  border: 1px solid #d4b9e4;
+  padding: 6px;
+  font: 12px var(--font-reading);
+  pointer-events: none;
+}
+/* Mode-specific accents and an honest non-interactive multiplayer preview. */
+.page-modes .story-card {
+  background: linear-gradient(115deg, #fff4dcf5, #f8e0b4dc);
+  color: #6b431d;
+}
+.page-modes .story-card p,
+.page-modes .story-card .eyebrow {
+  color: #8b6339;
+}
+.page-modes .story-card .primary-button {
+  background: linear-gradient(145deg, #dbab52, #aa712c);
+  border-color: #ffe9be;
+}
+.page-modes .practice-card {
+  background: linear-gradient(115deg, #e4fff1f5, #bce9d9e8);
+  color: #245f53;
+}
+.page-modes .practice-card p,
+.page-modes .practice-card .eyebrow {
+  color: #437e6c;
+}
+.page-modes .practice-card .primary-button {
+  background: linear-gradient(145deg, #62bba1, #328571);
+  border-color: #d8ffee;
+}
+.page-modes .multiplayer-card {
+  background: linear-gradient(115deg, #e4f4fff5, #cad8f8ed);
+  color: #3d5688;
+}
+.page-modes .multiplayer-card p,
+.page-modes .multiplayer-card .eyebrow {
+  color: #586f9a;
+}
+.mode-coming-soon {
+  display: inline-flex;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border: 1px solid #b3c9e9;
+  border-radius: 20px;
+  background: #ffffffa8;
+  font-size: 12px;
+  font-weight: 700;
+  color: #536f9d;
+}
+.page-modes .mode-card {
+  padding: 16px 20px;
+}
+.page-modes .mode-card h2 {
+  margin: 3px 0;
+  font-size: 27px;
+}
+.page-modes .mode-card p {
+  font-size: 13px;
+  margin: 5px 0;
+}
+.page-modes .mode-card .primary-button {
+  margin-top: 9px;
+  min-height: 38px;
+  padding: 7px 15px;
+  font-size: 15px;
+}
+.page-modes .multiplayer-card .mode-art {
+  opacity: 1;
+  transform: none;
+  top: 50%;
+  right: 4px;
+  width: 130px;
+  height: 100px;
+  margin-top: -50px;
+}
+.multiplayer-card .mode-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (max-height: 700px) {
+  .page-modes .page-heading {
+    padding: 10px 15px;
+  }
+  .page-modes .page-heading h1 {
+    font-size: 25px;
+  }
+  .page-modes .page-heading p {
+    display: none;
+  }
+  .page-modes .mode-card {
+    padding: 9px 14px;
+  }
+  .page-modes .mode-card h2 {
+    font-size: 22px;
+  }
+  .page-modes .mode-card .eyebrow {
+    display: none;
+  }
+  .mode-coming-soon {
+    margin-top: 5px;
+    padding: 4px 12px;
+  }
+}
+@media (max-height: 460px) and (min-width: 600px) {
+  .hub-content.page-modes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    width: min(100%, 1000px);
+    max-width: 1000px;
+  }
+  .page-modes .page-heading,
+  .page-modes .mechanic-lessons {
+    grid-column: 1 / -1;
+  }
+  .page-modes .mode-card p {
+    max-width: 100%;
+    font-size: 11px;
+  }
+  .page-modes .mode-art {
+    display: none;
+  }
+  .page-modes .mode-card .primary-button {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+@media (max-height: 700px) and (max-width: 599px) {
+  .hub-content.page-modes {
+    gap: 6px;
+  }
+  .page-modes .page-heading {
+    padding: 7px 12px;
+  }
+  .page-modes .page-heading .eyebrow {
+    display: none;
+  }
+  .page-modes .page-heading h1 {
+    margin: 0;
+    font-size: 23px;
+  }
+  .page-modes .mode-card p {
+    font-size: 11px;
+    line-height: 1.2;
+    margin: 3px 0;
+    max-width: 70%;
+  }
+  .page-modes .mode-card .primary-button {
+    min-height: 32px;
+    margin-top: 5px;
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .page-modes .mechanic-lessons button {
+    font-size: 10px;
+    padding: 4px;
+  }
+  .page-modes .multiplayer-card .mode-art {
+    width: 100px;
+  }
+}
+.timing-help{grid-column:1/-1;justify-self:center;border:0;background:#e8e5fa;color:#493176;border-radius:20px;padding:3px 12px;font:600 12px Satoshi,sans-serif;cursor:pointer;min-height:24px}
+.timing-guide{border:2px solid #fff;border-radius:26px;max-width:440px;width:calc(100% - 32px);max-height:calc(100dvh - 32px);overflow:auto;padding:24px;background:linear-gradient(145deg,#f9fcff,#e9e0fa);color:#35245d;box-shadow:0 20px 60px #24164066}
+.timing-guide::backdrop{background:#21103d99;backdrop-filter:blur(6px)}
+.timing-guide h2{margin-top:0}.timing-guide p{font-size:15px;line-height:1.5}.timing-guide button{min-height:44px;padding:10px 20px;border:1px solid #b8a0df;border-radius:16px;background:#fff;color:#50357c;cursor:pointer}.timing-guide .primary{display:block;width:100%;background:#8550c5;color:white}
+.timing-demo{display:flex;justify-content:center;gap:16px;padding:20px}.timing-demo span{background:#ceefe9;border-radius:18px;padding:12px;color:#135e56}
+.timing-badge{transition:opacity .2s ease}.timing-badge[data-open="false"]{opacity:.94}
+@media(prefers-reduced-motion:reduce){.timing-badge{transition:none}}
+
+/* Move-count badges: breathe only the halo, never the number or hit target. */
+.countdown-badge[data-urgent="true"] .countdown-aura {
+  animation: countdown-warning 1.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes countdown-warning {
+  0%, 100% { opacity: .12; transform: scale(.96); }
+  50% { opacity: .32; transform: scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .countdown-badge[data-urgent="true"] .countdown-aura { animation: none; opacity: .24; }
+}
+/* Hold inspection is neutral: route visibility is not a move recommendation. */
+.hold-preview { position:absolute; inset:0; z-index:5; pointer-events:none; animation:hold-preview-in 180ms ease-out both; }
+.hold-preview[data-closing="true"] { animation:hold-preview-out 150ms ease-in both; }
+.preview-selected,.preview-linked,.preview-blocker {fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.preview-selected {stroke:#9277e8;stroke-width:29;opacity:.38;}
+.preview-linked {stroke:#9573c8;stroke-width:26;stroke-dasharray:3 10;opacity:.65;}
+.preview-blocker {stroke:#e7a444;stroke-width:28;opacity:.6;}
+.preview-route {fill:none;stroke:#7953b1;stroke-width:5;stroke-dasharray:7 9;stroke-linecap:round;animation:preview-route-flow 1.6s linear infinite;}
+.preview-stop circle {fill:#fff5df;stroke:#b77922;stroke-width:3;}
+.preview-stop path {stroke:#b77922;stroke-width:3;stroke-linecap:round;}
+.preview-change {fill:none;stroke:#9277ce;stroke-width:3;stroke-dasharray:3 5;}
+.preview-change-keg {stroke:#c68a2e;}
+.preview-change-ice {stroke:#628ab9;}
+.hold-preview .path-preview-label {bottom:1.5%;left:3%;right:3%;padding:4px 5px;border-radius:10px;box-shadow:0 3px 12px #59358016;font-size:clamp(10px,2.5cqw,12px);line-height:1.2;}
+.path-preview-label strong,.path-preview-label span {display:block;}
+.path-preview-label strong {font-weight:700;}
+.path-preview-label span {margin-top:2px;font-size:.92em;}
+@keyframes hold-preview-in {from {opacity:0;}to {opacity:1;}}
+@keyframes hold-preview-out {from {opacity:1;}to {opacity:0;}}
+@keyframes preview-route-flow {to {stroke-dashoffset:-32;}}
+.hold-preview[data-reduced="true"],.hold-preview[data-reduced="true"] * {animation:none!important;}
+@media(prefers-reduced-motion:reduce){.hold-preview,.hold-preview * {animation:none!important;}}

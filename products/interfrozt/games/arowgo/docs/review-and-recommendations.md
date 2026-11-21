@@ -1,4 +1,8 @@
+> Historical record. For current shipped behavior and open gates, see [current game state](CURRENT-GAME-STATE.md). Test results and implementation statements below apply to their original date.
+
 # Masterplan review and recommendations
+
+> Historical document — status reconciled 16 November 2026. This records an earlier iteration, concept or verification scope. [Current game state](CURRENT-GAME-STATE.md) and the [latest audit](AUDIT-2026-11-16.md) take precedence for present behavior and checks.
 
 Reviewed 10 November 2026 against the supplied Markdown and six images. This is a consistency/design review, not an SDK, legal, market or platform-policy audit. [Index](README.md)
 

@@ -1,0 +1,14 @@
+AROWGO account economy integration — 19 November 2026
+
+Unit suite: 36 files, 280 tests passed.
+TypeScript and production build: passed. Existing Phaser bundle-size warning remains.
+Browser regression coverage: 14 distinct desktop/phone scenarios passed across the final runs and targeted reruns. Coverage includes existing chest flows, all 15 skin renderers, Profile sign-in/logout save preservation, account-service failure recovery, migration activation, canonical puzzle completion against a real isolated SQLite ledger, dropped paid-chest response/retry, persisted inventory/balances, and time boosts.
+
+Fixed during validation: Phaser sizing after responsive layout initialization; migration null-field comparison; chest receipt preservation through wallet refresh failures; durable completion queue; account-specific storage and expected-account checks.
+The final phone economy scenario used a 15-second assertion deadline to match asynchronous account/bootstrap loading on the shared Windows runner. It passed in 30.1 seconds.
+
+Migration page screenshots inspected at desktop and phone sizes; no horizontal overflow. Source snapshots and balances used in tests were synthetic. Original user saves and live PlayFab player data were not imported or charged.
+
+Staged-file review: no known credential-pattern matches; no oversized files; environment files, local databases, review packets and tmp diagnostics excluded. Git whitespace check passed.
+
+Production boundary: opt-in single-host development backend. Production hosting/persistence and account-scoped cross-device progress are not enabled. See docs/SERVER-ECONOMY.md.

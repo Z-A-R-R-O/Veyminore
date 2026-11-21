@@ -79,3 +79,75 @@ it("all crates use published rarity boundaries and every collectible is reachabl
   expect(() => rollSkin("bloom", 1, 0)).toThrow();
   expect(() => rollSkin("bloom", 0, -1)).toThrow();
 });
+
+it("all 30 adventure portraits preserve profile balances and ownership on reload", async () => {
+  const { adventureAvatars } = await import("../src/storage/avatars");
+  expect(adventureAvatars).toHaveLength(30);
+  expect(new Set(adventureAvatars.map((a) => a.id)).size).toBe(30);
+  for (const avatar of [
+    ...adventureAvatars.map((a) => a.id),
+    "world",
+    "modes",
+    "trophy",
+  ]) {
+    const p = {
+      ...guest(),
+      avatar,
+      name: "Keeper",
+      gems: 71,
+      owned: ["classic", "mint"],
+      equipped: "mint",
+      spent: 10,
+    };
+    expect(readProfile(JSON.stringify(p))).toEqual(p);
+  }
+});
+
+it("background migration preserves old saves and invalid cosmetic IDs never reset balances", async () => {
+  const { avatarBackgrounds } = await import(
+    "../src/storage/avatar-backgrounds"
+  );
+  const original = { ...guest(), gems: 88, name: "Keeper" };
+  const { avatarBackground: _, ...legacy } = original;
+  expect(readProfile(JSON.stringify(legacy))).toEqual(original);
+  for (const bg of avatarBackgrounds)
+    expect(
+      readProfile(JSON.stringify({ ...original, avatarBackground: bg.id })),
+    ).toEqual({ ...original, avatarBackground: bg.id });
+  expect(
+    readProfile(JSON.stringify({ ...original, avatarBackground: "invalid" })),
+  ).toEqual(original);
+});
+
+it("all frames round trip and missing or invalid frame IDs preserve existing saves", async () => {
+  const { avatarFrames } = await import("../src/storage/avatar-frames");
+  const p = { ...guest(), gems: 77, name: "Keeper" };
+  const { avatarFrame: _, ...old } = p;
+  expect(readProfile(JSON.stringify(old))).toEqual(p);
+  expect(readProfile(JSON.stringify({ ...p, avatarFrame: "unknown" }))).toEqual(
+    p,
+  );
+  for (const f of avatarFrames)
+    expect(readProfile(JSON.stringify({ ...p, avatarFrame: f.id }))).toEqual({
+      ...p,
+      avatarFrame: f.id,
+    });
+});
+
+it("enforces 20-character lock on player display name", () => {
+  const base = guest();
+  // Exact 20 characters is valid
+  const valid20 = "12345678901234567890";
+  expect(valid20.length).toBe(20);
+  const p20 = readProfile(JSON.stringify({ ...base, name: valid20 }));
+  expect(p20.name).toBe(valid20);
+
+  // 21 characters is rejected back to guest
+  const invalid21 = "123456789012345678901";
+  expect(invalid21.length).toBe(21);
+  expect(readProfile(JSON.stringify({ ...base, name: invalid21 }))).toEqual(guest());
+
+  // Empty or whitespace-only is rejected back to guest
+  expect(readProfile(JSON.stringify({ ...base, name: "" }))).toEqual(guest());
+  expect(readProfile(JSON.stringify({ ...base, name: "   " }))).toEqual(guest());
+});

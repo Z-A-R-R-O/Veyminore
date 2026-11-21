@@ -18,6 +18,36 @@ export function WinMoment({
           : "You found your way.";
   return (
     <div className="win-moment">
+      {state.mode === "story" && state.scoringVersion === 2 && (
+        <div className="result-goals">
+          <div className="achieved">
+            <strong>★ Complete</strong>
+            <span>Board cleared</span>
+          </div>
+          <div className={state.mistakes === 0 ? "achieved" : ""}>
+            <strong>{state.mistakes === 0 ? "★" : "☆"} Accuracy</strong>
+            <span>{state.mistakes} mistakes</span>
+          </div>
+          <div
+            className={
+              (state.elapsedMs ?? Infinity) <= (state.targetMs ?? 0)
+                ? "achieved"
+                : ""
+            }
+          >
+            <strong>
+              {(state.elapsedMs ?? Infinity) <= (state.targetMs ?? 0)
+                ? "★"
+                : "☆"}{" "}
+              Speed
+            </strong>
+            <span>
+              {Math.ceil((state.elapsedMs ?? 0) / 1000)}s /{" "}
+              {(state.targetMs ?? 0) / 1000}s
+            </span>
+          </div>
+        </div>
+      )}
       <div className="mastery-ribbon">
         <span aria-hidden="true">✧</span> {mastery}
       </div>

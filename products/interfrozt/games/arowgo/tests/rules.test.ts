@@ -8,7 +8,7 @@ import {
   validateLevel,
   type Level,
 } from "../src/domain/rules";
-import { fixtures } from "../src/domain/fixtures";
+import { legacyFixtures as fixtures } from "../src/domain/fixtures";
 const level = validateLevel(data);
 describe("rigid-path proof", () => {
   it.each(fixtures)("$name: $description", (f) => {
@@ -82,7 +82,7 @@ describe("rigid-path proof", () => {
         l.arrows[0].points[0] = [-1, 0];
       },
       (l: Level) => {
-        (l as { rulesVersion: number }).rulesVersion = 2;
+        (l as { rulesVersion: number }).rulesVersion = 99;
       },
       (l: Level) => {
         l.solution = ["B", "A", ...l.solution.slice(2)];
