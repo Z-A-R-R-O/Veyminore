@@ -324,19 +324,6 @@ export function App({
         amber={levelNumber > 60}
       />
       <header className="topbar" inert={modalOpen || resultVisible}>
-        <a
-          className="wordmark"
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            onHome ? onHome() : showLab(false);
-          }}
-        >
-          <span className="brand-icon">
-            <img src="/assets/brand/arowgo-arrow-v4-128.png" alt="" />
-          </span>
-          AROWGO
-        </a>
         {!lab && (
           <SaveStatus
             compact

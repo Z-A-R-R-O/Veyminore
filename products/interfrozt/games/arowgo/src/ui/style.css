@@ -220,6 +220,111 @@ button svg {
     inset 0 2px 2px #ffffff80;
   color: white;
 }
+/* Header Player Profile badge (replaces app name and logo inside game) */
+.header-profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f7efffe8;
+  border: 1px solid #ffffff;
+  border-radius: 30px;
+  padding: 4px 14px 4px 5px;
+  text-decoration: none;
+  color: #4b2882;
+  box-shadow: 0 3px 10px #62368c0c;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    background 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+  min-height: 40px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  user-select: none;
+}
+.header-profile-link:hover {
+  transform: translateY(-1px);
+  background: #ffffff;
+  border-color: #ebdcfc;
+  box-shadow: 0 5px 14px #62368c18;
+}
+.header-profile-link:active {
+  transform: translateY(0);
+}
+
+.header-profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #f3eafd, #eee0ff);
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 6px #62368c18;
+  position: relative;
+}
+.header-profile-avatar img,
+.header-profile-avatar .game-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.header-profile-avatar .framed-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-profile-avatar .framed-avatar-face {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-profile-avatar .avatar-frame-overlay {
+  display: none;
+}
+.header-profile-default-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.header-profile-name {
+  font-size: 13.5px;
+  font-weight: 850;
+  color: #4b2882;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+}
+.header-profile-link:hover .header-profile-name {
+  color: #6a32a6;
+}
+
+
+@media (max-width: 380px) {
+  .header-profile-link {
+    gap: 5px;
+    padding: 3px 8px 3px 4px;
+  }
+  .header-profile-avatar {
+    width: 26px;
+    height: 26px;
+  }
+  .header-profile-name {
+    font-size: 12px;
+    max-width: 65px;
+  }
+}
 .prototype {
   font-size: 9px;
   font-style: normal;

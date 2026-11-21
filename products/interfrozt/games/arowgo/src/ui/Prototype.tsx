@@ -365,11 +365,24 @@ export function Prototype() {
         cove={next >= 20 && page !== "worlds" && route !== "finale/bloom"}
       />
       <header className="hub-header">
-        <a href="#home" className="wordmark">
-          <span className="brand-icon">
-            <img src="/assets/brand/arowgo-arrow-v4-128.png" alt="" />
+        <a
+          href="#profile"
+          className="header-profile-link"
+          aria-label={`Player profile: ${profile.name}`}
+          title="Player profile"
+          onClick={(e) => {
+            e.preventDefault();
+            go("profile");
+          }}
+        >
+          <span className="header-profile-avatar">
+            <AvatarArt
+              avatar={profile.avatar}
+              background={profile.avatarBackground}
+              frame={profile.avatarFrame}
+            />
           </span>
-          AROWGO
+          <span className="header-profile-name">{profile.name}</span>
         </a>
         <div className="hub-coins" aria-label={`${coins} total coins`}>
           <Coin />
