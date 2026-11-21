@@ -2,7 +2,7 @@
 
 ## Shared profile shortcut - 21 November 2026
 
-Added the selected portrait/frame beside Settings in hub and play headers. Narrow phone headers use the brand icon to preserve room for currency and 44px profile access. Build passes; isolated browser checks cover six screens, profile navigation and header non-overlap at 320, 390 and 1280px widths. No save schema or currency changes.
+Added the selected portrait/frame in the top-left position, replacing the app wordmark in hub and play headers. Currency and Settings remain on the right, with 44px profile access. Build passes; isolated browser checks cover six screens, profile navigation and header non-overlap at 320, 390 and 1280px widths. No save schema or currency changes.
 
 
 ## Current-state cleanup - 20 November 2026

@@ -328,19 +328,7 @@ export function App({
         amber={levelNumber > 60}
       />
       <header className="topbar" inert={modalOpen || resultVisible}>
-        <a
-          className="wordmark"
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            onHome ? onHome() : showLab(false);
-          }}
-        >
-          <span className="brand-icon">
-            <img src="/assets/brand/arowgo-arrow-v4-128.png" alt="" />
-          </span>
-          AROWGO
-        </a>
+        {profile && <ProfileShortcut profile={profile} />}
         {!lab && (
           <SaveStatus
             compact
@@ -360,7 +348,6 @@ export function App({
           )}
           {lab && <button onClick={() => showLab(false)}>Play</button>}
         </nav>
-        {profile && <ProfileShortcut profile={profile} />}
         <button
           className="icon-button settings-button"
           aria-label="Settings"

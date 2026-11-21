@@ -58,3 +58,5 @@
     transition: none;
   }
 }
+
+.hub-header > .profile-shortcut:first-child { margin-right: auto; }

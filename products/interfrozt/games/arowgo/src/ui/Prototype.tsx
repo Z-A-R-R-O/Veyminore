@@ -360,12 +360,7 @@ export function Prototype() {
         cove={next >= 20 && page !== "worlds" && route !== "finale/bloom"}
       />
       <header className="hub-header">
-        <a href="#home" className="wordmark">
-          <span className="brand-icon">
-            <img src="/assets/brand/arowgo-arrow-v4-128.png" alt="" />
-          </span>
-          AROWGO
-        </a>
+        <ProfileShortcut profile={profile} current={page === "profile"} />
         <div className="hub-coins" aria-label={`${coins} total coins`}>
           <Coin />
           <strong>{coins}</strong>
@@ -374,7 +369,6 @@ export function Prototype() {
           <Gem />
           <strong>{profile.gems}</strong>
         </div>
-        <ProfileShortcut profile={profile} current={page === "profile"} />
         <a
           href="#settings"
           className="icon-button hub-settings"
