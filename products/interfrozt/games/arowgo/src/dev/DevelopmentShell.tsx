@@ -12,7 +12,12 @@ import { clampDock, reportText, type Point } from "./report";
 import { emailDraft, reportRecipient, screenshotError } from "./email";
 import "./development.css";
 const previewLevels = previews.map((p) => validateLevel(p));
-const devLevels = [...levels, ...previewLevels];
+const devLevels = [
+  ...levels,
+  ...previewLevels.filter(
+    (p) => !levels.some((l) => l.levelId === p.levelId) && levels.length < 101,
+  ),
+];
 const positionKey = "arowgo.dev.dock.v1";
 function readPosition() {
   try {

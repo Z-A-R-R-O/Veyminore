@@ -1,10 +1,10 @@
 # AROWGO delivery plan
 
-Updated 20 November 2026. [Current implementation](docs/CURRENT-GAME-STATE.md) · [Open gaps](docs/GAME-EXPERIENCE-GAPS.md) · [Execution backlog](docs/execution-backlog.md).
+Updated 27 November 2026. [Current implementation](docs/CURRENT-GAME-STATE.md) · [Open gaps](docs/GAME-EXPERIENCE-GAPS.md) · [Execution backlog](docs/execution-backlog.md).
 
 ## Product
 
-A mobile-first snake-arrow puzzle game built around readable rules and deliberate removal order. The campaign now has 100 levels across five chapters. Difficulty must be validated with people as well as solvers. Additional arrow density alone is not a substitute for meaningful choices.
+A mobile-first snake-arrow puzzle game built around readable rules and deliberate removal order. The campaign now has 140 levels across six chapters. Difficulty must be validated with people as well as solvers. Additional arrow density alone is not a substitute for meaningful choices.
 
 ## Delivered development baseline
 

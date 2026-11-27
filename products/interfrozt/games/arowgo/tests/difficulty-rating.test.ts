@@ -9,8 +9,8 @@ import ratings from "../content/difficulty-ratings.json";
 import candidates from "../content/chapter6-preview.json";
 import { validateLevel, solve, checkExit } from "../src/domain/rules";
 import { evaluatePlanning } from "../src/domain/planning";
-it("reproduces every exported rating and preserves the 100-level campaign", () => {
-  expect(levels).toHaveLength(100);
+it("reproduces every exported rating and covers the 140-level campaign", () => {
+  expect(levels).toHaveLength(140);
   for (const level of [...levels, ...candidates.map(validateLevel)]) {
     const rating = ratings.find((r) => r.levelId === level.levelId)!;
     expect(rating).toBeDefined();
@@ -24,7 +24,7 @@ it("reproduces every exported rating and preserves the 100-level campaign", () =
     expect(rating.score).toBeGreaterThanOrEqual(0);
     expect(rating.score).toBeLessThanOrEqual(1000);
   }
-}, 30000);
+}, 120000);
 it("does not confuse density with planning risk", () => {
   const l = structuredClone(levels[0]);
   l.arrows = l.arrows.map(({ id, points }) => ({ id, points }));
@@ -33,14 +33,16 @@ it("does not confuse density with planning risk", () => {
   expect(measurement.failureHorizon).toBe(0);
   expect(rateDifficulty(measurement, calibration).contributions.risk).toBe(0);
 });
-it("stages five distinct denser playable candidates without replacing campaign content", () => {
+it("retains the historical five candidates distinct from the original campaign", () => {
   expect(candidates).toHaveLength(5);
   const scores = candidates.map(
     (c) => ratings.find((r) => r.levelId === c.levelId)!.score,
   );
   expect(scores).toEqual([...scores].sort((a, b) => a - b));
   const signatures = new Set(
-    levels.map((l) => JSON.stringify(l.arrows.map((a) => a.points))),
+    levels
+      .slice(0, 100)
+      .map((l) => JSON.stringify(l.arrows.map((a) => a.points))),
   );
   for (const [i, raw] of candidates.entries()) {
     const l = validateLevel(raw);
@@ -62,4 +64,4 @@ it("stages five distinct denser playable candidates without replacing campaign c
     expect(signatures.has(signature)).toBe(false);
     signatures.add(signature);
   }
-}, 30000);
+}, 120000);

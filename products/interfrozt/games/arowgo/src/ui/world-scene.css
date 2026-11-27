@@ -357,38 +357,41 @@
 @media(max-height:500px) and (min-aspect-ratio:4/3) { .worlds-screen .valley-map[data-world="3"] .valley-stop:nth-of-type(10) {top:40%;} }
 
 /* Amber Dunes uses its own full-viewport artwork and matching map coordinates. */
-.hub-shell.worlds-screen:has(.valley-heading:is([data-world="4"], [data-world="5"])) {background-image:url("/assets/amber-dunes.webp");background-color:#f1cfaa;}
-.worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop {left:var(--x);top:var(--y);}
+.hub-shell.worlds-screen:has(.valley-heading:is([data-world="4"], [data-world="5"], [data-world="6"])) {background-image:url("/assets/amber-dunes.webp");background-color:#f1cfaa;}
+.worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop {left:var(--x);top:var(--y);}
 .hub-shell:has(.page-home) .amber-scenery {background:radial-gradient(ellipse at 50% 40%,#fff4dc,#f6debd 60%,#e4cdf0);}
 .hub-shell:has(.page-home) .amber-scenery picture {display:none;}
 .amber-scenery .scenery-wash {background:linear-gradient(180deg,#fff3df44,#f4e6ff99);}
 @media(min-aspect-ratio:4/3){
- .hub-shell.worlds-screen:has(.valley-heading:is([data-world="4"], [data-world="5"])) {background-image:url("/assets/amber-dunes-wide.webp");}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(1){left:7%;top:59%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(2){left:16%;top:54%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(3){left:25%;top:50%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(4){left:35%;top:49%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(5){left:45%;top:44%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(6){left:55%;top:43%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(7){left:64%;top:39%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(8){left:76%;top:37%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(9){left:85%;top:34%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(10){left:93%;top:30%;}
+ .hub-shell.worlds-screen:has(.valley-heading:is([data-world="4"], [data-world="5"], [data-world="6"])) {background-image:url("/assets/amber-dunes-wide.webp");}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(1){left:7%;top:59%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(2){left:16%;top:54%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(3){left:25%;top:50%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(4){left:35%;top:49%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(5){left:45%;top:44%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(6){left:55%;top:43%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(7){left:64%;top:39%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(8){left:76%;top:37%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(9){left:85%;top:34%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(10){left:93%;top:30%;}
 }
 @media(max-height:500px) and (min-aspect-ratio:4/3){
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(10){top:39%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(10){top:39%;}
 }
 @media(max-height:650px) and (max-aspect-ratio:4/3){
- .worlds-screen .valley-heading:is([data-world="4"], [data-world="5"]) {max-width:100%;align-self:center;text-align:center;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(odd){left:28%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(even){left:73%;}
- .worlds-screen .valley-heading:is([data-world="4"], [data-world="5"]) .valley-progress {position:static;flex-direction:row;align-items:center;flex-wrap:nowrap;justify-content:center;gap:10px;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(1),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(2){top:79%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(3),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(4){top:68%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(5),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(6){top:57%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(7),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(8){top:46%;}
- .worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(9),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"]) .valley-stop:nth-of-type(10){top:35%;}
+ .worlds-screen .valley-heading:is([data-world="4"], [data-world="5"], [data-world="6"]) {max-width:100%;align-self:center;text-align:center;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(odd){left:28%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(even){left:73%;}
+ .worlds-screen .valley-heading:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-progress {position:static;flex-direction:row;align-items:center;flex-wrap:nowrap;justify-content:center;gap:10px;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(1),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(2){top:79%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(3),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(4){top:68%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(5),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(6){top:57%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(7),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(8){top:46%;}
+ .worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(9),.worlds-screen .valley-map:is([data-world="4"], [data-world="5"], [data-world="6"]) .valley-stop:nth-of-type(10){top:35%;}
 }
 
 /* Five destinations retain comfortable targets on short landscape screens. */
 @media(max-height:500px){.worlds-dialog{padding:12px}.world-name-list{gap:6px}.worlds-dialog-heading{margin-bottom:6px}.worlds-dialog-heading h2{font-size:22px}}
+
+/* Clockwork keeps the proven map coordinates with a dusk brass palette. */
+.hub-shell.worlds-screen:has([data-world="6"]) {background-blend-mode: multiply;background-color:#b9b2d5;}

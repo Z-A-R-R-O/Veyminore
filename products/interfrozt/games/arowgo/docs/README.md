@@ -1,12 +1,12 @@
 # AROWGO documentation
 
-Reconciled 20 November 2026. Start with the current summaries; dated rollout notes preserve history rather than override them.
+Reconciled 27 November 2026. Start with the current summaries; dated rollout notes preserve history rather than override them.
 
 ## Current entry points
 
-- [Game state](CURRENT-GAME-STATE.md): 100 levels, behavior, accounts and limitations.
+- [Game state](CURRENT-GAME-STATE.md): 140 levels, behavior, accounts and limitations.
 - [Build guide](build-guide.md): local game/account workflows and checks.
-- [Latest audit](AUDIT-2026-11-20.md): verification scope and documentation reconciliation.
+- [Latest audit](AUDIT-2026-11-27.md): verification scope and documentation reconciliation.
 - [Open gaps](GAME-EXPERIENCE-GAPS.md), [backlog](execution-backlog.md), [masterplan](../MASTERPLAN.md).
 - [Account services](ACCOUNT-SERVICES.md), [setup](ACCOUNT-SETUP.md), [wallet](SERVER-ECONOMY.md).
 
@@ -24,4 +24,4 @@ Reconciled 20 November 2026. Start with the current summaries; dated rollout not
 
 ## Active development
 
-[Levels 101-120 and numeric DEV difficulty](CHAPTER-SIX-PLAN.md): frozen baseline scoring, first-five isolated candidate playtesting and promotion gates. Campaign remains 100 levels.
+[Clockwork 101–140 and numeric DEV difficulty](CHAPTER-SIX-PLAN.md): forty-level worlds after 100, three-beat gates, opening windows, and frozen baseline scoring.

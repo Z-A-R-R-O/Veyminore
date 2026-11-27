@@ -1,46 +1,34 @@
-# Levels 101-120 and DEV difficulty
+# Clockwork Citadel — Levels 101–140
 
-Updated 21 November 2026. Status: implementation started; first five candidates are built and staged for playtesting. Campaign remains 100 levels. No existing IDs, saves, rewards or wallet manifests are replaced.
+Updated 27 November 2026. Supersedes the earlier five-candidate / twenty-level proposal.
 
-## Twenty-level progression
+## World policy
 
-- 101-105: denser dependency chains, starting below Level 100's sharp spike but above the regular late-Sanctum baseline.
-- 106-110: interwoven key, anchor and ice prerequisites with fewer forgiving orders.
-- 111-115: phase windows and countdown planning with delayed consequences.
-- 116-120: multi-stage capstones combining existing taught mechanics.
+Levels 1–100 keep five twenty-level worlds and their existing IDs, solutions, rewards and saves. Every world after 100 has forty levels: 101–140, 141–180, and so on. Maps show ten stops per page; Clockwork has four pages.
 
-Retain 10x10 boards and the solver's tested 28-arrow maximum. Aim for 90-92 occupied cells; reject candidates below 89. Packing is bounded and actual density must be reported rather than assumed. Reject unreadable or repetitive filler. A new theme/name/art is not yet selected.
+## Mechanics and progression
 
-## Rating implementation
+- 101–110: one three-beat gate, dense existing key/anchor/ice/phase/countdown combinations.
+- 111–120: two three-beat gates and one opening-window gate, with two moves of scheduling slack around its authored solution position.
+- 121–130: three three-beat gates and two windows, with one move of window slack.
+- 131–140: four three-beat gates and three exact-move windows. These are the mastery puzzles.
 
-DEV displays an offline numeric structural score from 0 to 1000, model version 1. Weights: planning risk 300, failure horizon 250, dependency depth 200, timing pressure 150, density 100. Calibration is frozen from the shipped 100-level baseline: each component uses 1.25 times its 95th-percentile value (floor .01); contributions clamp to their weights. Do not silently recalibrate existing ratings after new levels arrive.
+A three-beat gate opens on its displayed beat (1/3, 2/3, 3/3). Successful removals, including Erase, advance the beat. Mistakes and hints do not. A gold square window gate opens only during its inclusive removal-count interval; its badge counts until opening, then remaining opportunities, then shows ×. Neither attachment guarantees a clear geometric exit. The rules dialog and hold preview explain observable state, never the winning move.
 
-Risk is negative log10 exact random-legal-play success. Failure horizon is the maximum number of legal removals until failure after the earliest witnessed losing choice, including that choice. This is a delayed-consequence proxy, not proven required human lookahead. Timing uses summed inverse structural deadline slack; it does not include phase/ice schedule slack. Density is occupied/total cells. Scores are comparable only within the same rating version and are not human success predictions or IQ.
+Each level has a unique 10×10 layout, 28 arrows and at least 89 occupied cells. This stays within the exact solver's supported 28-arrow bound. Difficulty increases through scheduling constraints, not arbitrary arrow counts. Ten-level blocks are sorted by the frozen version-one structural score; transitions introduce rules and may provide a measured-score breather. Scores are not player IQ or predicted completion times. Human playtesting remains necessary.
 
-The detailed panel shows arrow/cell counts, dependency depth, horizon, opening winning/losing counts, structural slack, probability and component points. It contains no solution IDs. Offline analysis has explicit budgets; exhaustion fails export, never produces an invented score. Missing content-version measurements display “not measured.” No solver runs when opening the DEV panel.
+## Delivery and audit
 
-## Authoring and acceptance
+Canonical files: `content/levels/clockwork/level-101.json` through `level-140.json`. The old five Chapter 6 DEV candidates remain historical source material and are not extra campaign levels. New content uses version 13; old content is unchanged. Backend reward validation must use the same canonical files.
 
-Set AROWGO_RATE=1 and run `pnpm exec vitest run tests/export-difficulty.test.ts` to export ratings. Calibration is reused when it already exists. Set AROWGO_CHAPTER6=1 and run `pnpm exec vitest run tests/author-chapter6.test.ts --maxWorkers=1` to author the first five candidates under content/candidates/chapter6.
+Before completion: validate every solution, recompute ratings, prove losing legal choices exist, replay saves after each move, verify first-clear/replay rewards, test mobile and desktop interaction, and check world boundaries. Record actual results in the audit report. No production deployment is implied by a Git push.
 
-First milestone: score all existing levels, expose DEV details, and make five distinct candidate puzzles available only in isolated DEV Practice. Validate solutions, structural planning decisions, unchanged campaign content, mobile layout and touch interaction. Human review follows before authoring/promoting the remaining fifteen. The plan deliberately does not publish 20 unreviewed campaign levels.
+## Remaining limitations
 
-Promotion requires validated all-twenty content, gradual rating bands and human difficulty review, world/map/finale integration, new stable IDs, backend reward-manifest coverage and save-preservation regressions. Existing full-history cloud capacity is still a separate blocker; this work must not enable sync or truncate snapshots.
+Existing legacy cloud packed-size limits remain a separate issue; adding levels does not fix cloud capacity. Oversized saves must continue to fail safely. Artwork currently reuses the Amber map with a dusk palette; bespoke Clockwork scenery is a later art task.
 
-## First candidate batch
+## Reproduction
 
-Ordered by measured structural score after generation; random-play probability alone does not determine order. All use existing mechanics and temporary Amber scenery.
+The opt-in authoring test uses deterministic geometry and timing seeds; it resumes existing canonical files. `AROWGO_CLOCKWORK=1` runs `tests/author-clockwork.test.ts`. `AROWGO_REPAIR_CLOCKWORK=1` runs `tests/repair-clockwork.test.ts` to separate attachments from key/anchor sources, tighten loose schedules and refresh block ordering. `AROWGO_RATE=1` runs `tests/export-difficulty.test.ts` to regenerate the offline DEV ratings without changing the frozen calibration. Run these only for an intentional content revision, then run the forty-level audit and browser checks. Normal tests do not regenerate content.
 
-| DEV level | Rating v1 | Arrows | Occupied cells | Dependency depth |
-| --- | ---: | ---: | ---: | ---: |
-| 101 | 619 | 28 | 91/100 | 11 |
-| 102 | 626 | 28 | 90/100 | 9 |
-| 103 | 724 | 28 | 90/100 | 10 |
-| 104 | 739 | 28 | 92/100 | 9 |
-| 105 | 818 | 28 | 91/100 | 9 |
-
-## Verification - 21 November 2026
-
-The broad unit run passed 393 tests and hit five timeout failures; rerunning those five files with one worker passed all 138 tests in those files. New rating tests reproduce exported scores, check monotone candidate ordering, verify stored solutions and distinguish density from planning risk. TypeScript/production build passes (existing large-chunk warning).
-
-Desktop keyboard and emulated Pixel 7 touch each completed all five candidates, opened rating details and retained campaign storage byte-for-byte in isolated contexts. An initial browser run targeted another checkout; a subsequent mobile run was interrupted by source hot reload reopening the sandbox tutorial. Final runs used the dedicated preview and unchanged source. Mobile board/panel screenshots were visually reviewed. Physical-device and human difficulty acceptance remain open. Documentation check passes for 82 files and 400 relative file links.
+Primary audit: `tests/clockwork.test.ts`. Browser interaction sample: `tests/e2e/clockwork.spec.ts` (101, 110, 111, 120, 121, 130, 131, 140 on desktop and phone). World boundaries and legacy save preservation: `tests/e2e/clockwork-worlds.spec.ts`.

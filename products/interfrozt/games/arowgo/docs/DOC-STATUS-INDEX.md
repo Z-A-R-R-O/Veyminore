@@ -83,4 +83,6 @@ Reconciled 20 November 2026. Every Markdown file under docs is listed. [Current 
 | [verification/first-playable.md](verification/first-playable.md) | Historical design, rollout or verification; use current-state guide |
 | [verification/v0.1.md](verification/v0.1.md) | Historical design, rollout or verification; use current-state guide |
 | [worlds-redesign.md](worlds-redesign.md) | Historical design, rollout or verification; use current-state guide |
-| [CHAPTER-SIX-PLAN.md](CHAPTER-SIX-PLAN.md) | Active plan and first-five DEV candidate milestone; not shipped campaign |
+| [CHAPTER-SIX-PLAN.md](CHAPTER-SIX-PLAN.md) | Implemented forty-level Clockwork world and future world sizing policy |
+
+| [AUDIT-2026-11-27.md](AUDIT-2026-11-27.md) | Clockwork forty-level audit and verification |

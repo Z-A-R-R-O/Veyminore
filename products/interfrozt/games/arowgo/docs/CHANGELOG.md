@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Clockwork Citadel — 27 November 2026
+
+Added canonical Levels 101–140, three-beat gates and opening windows, four-page world navigation, and matching server reward validation. Worlds after Level 100 now contain forty levels. Existing campaign content and saved currency are preserved. See [audit](AUDIT-2026-11-27.md) for per-level measurements and verification.
+
 ## DEV difficulty and Chapter 6 first batch - 21 November 2026
 
 Documented the 101-120 progression plan, implemented frozen-baseline structural ratings and an expandable DEV breakdown, and staged five 28-arrow candidates with 90-92 occupied cells. Candidates are ordered 619, 626, 724, 739, 818 and run only in isolated sandbox sessions. Campaign remains 100 levels; no save/reward migration or cloud activation. Human playtesting precedes the remaining fifteen and promotion.

@@ -26,6 +26,8 @@ export function inspectArrow(
                     anchorRequires: undefined,
                     thawAfter: undefined,
                     phase: undefined,
+                    pulse: undefined,
+                    window: undefined,
                   }
                 : a,
             ),
@@ -43,7 +45,7 @@ export function inspectArrow(
         .flatMap((a) => {
           const items: {
             id: string;
-            kind: "keg" | "ice" | "phase";
+            kind: "keg" | "ice" | "phase" | "pulse" | "window";
             before: number;
             after: number;
           }[] = [];
@@ -68,6 +70,13 @@ export function inspectArrow(
               before: Number(timingOpen(a, removed)),
               after: Number(timingOpen(a, removed + 1)),
             });
+          if (a.pulse !== undefined || a.window !== undefined)
+            items.push({
+              id: a.id,
+              kind: a.pulse !== undefined ? "pulse" : "window",
+              before: Number(timingOpen(a, removed)),
+              after: Number(timingOpen(a, removed + 1)),
+            });
           return items;
         })
     : [];
@@ -80,7 +89,11 @@ export function inspectArrow(
         : exit.reason === "frozen"
           ? `Ice seal · ${Math.max(0, arrow.thawAfter! - removed)} moves to thaw`
           : exit.reason === "phase"
-            ? "Phase closed · switches after a removal"
+            ? arrow.pulse !== undefined
+              ? `Beat ${arrow.pulse + 1}/3 gate · current beat ${(removed % 3) + 1}/3`
+              : arrow.window
+                ? `Window ${arrow.window[0]}–${arrow.window[1]} removals · now ${removed}${removed > arrow.window[1] ? " · expired" : ""}`
+                : "Phase closed · switches after a removal"
             : "Path blocked · obstacle highlighted";
   const has = (kind: string) => changes.some((c) => c.kind === kind);
   const effects = [
@@ -92,6 +105,8 @@ export function inspectArrow(
           ? "Ice −1"
           : "",
     has("phase") ? "Phases flip" : "",
+    has("pulse") ? "Beat advances" : "",
+    has("window") ? "Windows advance" : "",
     exit.clear && linked.length
       ? `${linked.length} link${linked.length === 1 ? "" : "s"} release`
       : "",

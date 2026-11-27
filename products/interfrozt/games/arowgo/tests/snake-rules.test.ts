@@ -94,7 +94,10 @@ it("dependency solver agrees with an independent cell-by-cell snake simulation",
         const removed = l.arrows.length - active.length;
         const open =
           removed >= (arrow.thawAfter ?? 0) &&
-          (arrow.phase === undefined || removed % 2 === arrow.phase);
+          (arrow.phase === undefined || removed % 2 === arrow.phase) &&
+          (arrow.pulse === undefined || removed % 3 === arrow.pulse) &&
+          (!arrow.window ||
+            (removed >= arrow.window[0] && removed <= arrow.window[1]));
         let clear =
           open &&
           !(arrow.requires && active.includes(arrow.requires)) &&

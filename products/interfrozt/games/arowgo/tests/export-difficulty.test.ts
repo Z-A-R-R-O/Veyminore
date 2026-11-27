@@ -53,4 +53,4 @@ it("exports versioned offline difficulty ratings", () => {
       2,
     ) + "\n",
   );
-}, 180000);
+}, 300000);

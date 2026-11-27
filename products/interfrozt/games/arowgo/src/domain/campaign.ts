@@ -1,3 +1,43 @@
+import clockwork0 from "../../content/levels/clockwork/level-101.json";
+import clockwork1 from "../../content/levels/clockwork/level-102.json";
+import clockwork2 from "../../content/levels/clockwork/level-103.json";
+import clockwork3 from "../../content/levels/clockwork/level-104.json";
+import clockwork4 from "../../content/levels/clockwork/level-105.json";
+import clockwork5 from "../../content/levels/clockwork/level-106.json";
+import clockwork6 from "../../content/levels/clockwork/level-107.json";
+import clockwork7 from "../../content/levels/clockwork/level-108.json";
+import clockwork8 from "../../content/levels/clockwork/level-109.json";
+import clockwork9 from "../../content/levels/clockwork/level-110.json";
+import clockwork10 from "../../content/levels/clockwork/level-111.json";
+import clockwork11 from "../../content/levels/clockwork/level-112.json";
+import clockwork12 from "../../content/levels/clockwork/level-113.json";
+import clockwork13 from "../../content/levels/clockwork/level-114.json";
+import clockwork14 from "../../content/levels/clockwork/level-115.json";
+import clockwork15 from "../../content/levels/clockwork/level-116.json";
+import clockwork16 from "../../content/levels/clockwork/level-117.json";
+import clockwork17 from "../../content/levels/clockwork/level-118.json";
+import clockwork18 from "../../content/levels/clockwork/level-119.json";
+import clockwork19 from "../../content/levels/clockwork/level-120.json";
+import clockwork20 from "../../content/levels/clockwork/level-121.json";
+import clockwork21 from "../../content/levels/clockwork/level-122.json";
+import clockwork22 from "../../content/levels/clockwork/level-123.json";
+import clockwork23 from "../../content/levels/clockwork/level-124.json";
+import clockwork24 from "../../content/levels/clockwork/level-125.json";
+import clockwork25 from "../../content/levels/clockwork/level-126.json";
+import clockwork26 from "../../content/levels/clockwork/level-127.json";
+import clockwork27 from "../../content/levels/clockwork/level-128.json";
+import clockwork28 from "../../content/levels/clockwork/level-129.json";
+import clockwork29 from "../../content/levels/clockwork/level-130.json";
+import clockwork30 from "../../content/levels/clockwork/level-131.json";
+import clockwork31 from "../../content/levels/clockwork/level-132.json";
+import clockwork32 from "../../content/levels/clockwork/level-133.json";
+import clockwork33 from "../../content/levels/clockwork/level-134.json";
+import clockwork34 from "../../content/levels/clockwork/level-135.json";
+import clockwork35 from "../../content/levels/clockwork/level-136.json";
+import clockwork36 from "../../content/levels/clockwork/level-137.json";
+import clockwork37 from "../../content/levels/clockwork/level-138.json";
+import clockwork38 from "../../content/levels/clockwork/level-139.json";
+import clockwork39 from "../../content/levels/clockwork/level-140.json";
 import sanctum0 from "../../content/levels/sanctum/level-81.json";
 import sanctum1 from "../../content/levels/sanctum/level-82.json";
 import sanctum2 from "../../content/levels/sanctum/level-83.json";
@@ -99,7 +139,8 @@ import eighteen from "../../content/levels/bloom-18.json";
 import nineteen from "../../content/levels/bloom-19.json";
 import twenty from "../../content/levels/bloom-20.json";
 import { levelNames as originalNames } from "./legacyCampaign";
-export const LEVELS_PER_WORLD = 20;
+export const LEGACY_LEVELS_PER_WORLD = 20;
+export const LEVELS_PER_WORLD = 40;
 import { validateLevel } from "./rules";
 export const levels = [
   ...[one, two, three, four, five].map(validateLevel),
@@ -204,6 +245,48 @@ export const levels = [
     sanctum18,
     sanctum19,
   ].map(validateLevel),
+  ...[
+    clockwork0,
+    clockwork1,
+    clockwork2,
+    clockwork3,
+    clockwork4,
+    clockwork5,
+    clockwork6,
+    clockwork7,
+    clockwork8,
+    clockwork9,
+    clockwork10,
+    clockwork11,
+    clockwork12,
+    clockwork13,
+    clockwork14,
+    clockwork15,
+    clockwork16,
+    clockwork17,
+    clockwork18,
+    clockwork19,
+    clockwork20,
+    clockwork21,
+    clockwork22,
+    clockwork23,
+    clockwork24,
+    clockwork25,
+    clockwork26,
+    clockwork27,
+    clockwork28,
+    clockwork29,
+    clockwork30,
+    clockwork31,
+    clockwork32,
+    clockwork33,
+    clockwork34,
+    clockwork35,
+    clockwork36,
+    clockwork37,
+    clockwork38,
+    clockwork39,
+  ].map(validateLevel),
 ];
 export const levelNames = [
   ...originalNames,
@@ -297,4 +380,44 @@ export const levelNames = [
   "Last alignment",
   "Master of the sands",
   "Heart of the sanctum",
+  "First chime",
+  "Brass passage",
+  "Pendulum path",
+  "Three beats",
+  "Spare seconds",
+  "Cog crossing",
+  "Winding wheels",
+  "Clock face",
+  "Escapement",
+  "Bell tower",
+  "Opening hour",
+  "Narrow passage",
+  "Window watch",
+  "Borrowed beat",
+  "Twin pendulums",
+  "Timekeeper",
+  "Hourglass turn",
+  "Interlocked",
+  "Clockwork maze",
+  "Midnight watch",
+  "Tight schedule",
+  "Triple cadence",
+  "Measured steps",
+  "Hidden tempo",
+  "Golden minute",
+  "Closing doors",
+  "Crossed clocks",
+  "Precise passage",
+  "Second hand",
+  "Midnight engine",
+  "Final window",
+  "Fourfold rhythm",
+  "Exact moment",
+  "Master gears",
+  "Critical beat",
+  "Last opening",
+  "Clockmaker",
+  "Zero margin",
+  "Grand mechanism",
+  "Heart of time",
 ];

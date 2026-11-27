@@ -7,6 +7,8 @@ export interface Arrow {
   deadline?: number;
   thawAfter?: number;
   phase?: 0 | 1;
+  pulse?: 0 | 1 | 2;
+  window?: [number, number];
 }
 export interface Level {
   schemaVersion: 1;
@@ -64,7 +66,9 @@ export function validateLevel(value: unknown): Level {
   if (
     level.schemaVersion !== 1 ||
     ![1, 2].includes(level.rulesVersion) ||
-    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].includes(level.contentVersion) ||
+    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].includes(
+      level.contentVersion,
+    ) ||
     typeof level.levelId !== "string" ||
     !level.levelId ||
     !level.board ||
@@ -163,6 +167,29 @@ export function validateLevel(value: unknown): Level {
       throw new Error("Mechanics require content 7");
   }
   for (const a of level.arrows) {
+    if (a.pulse !== undefined && ![0, 1, 2].includes(a.pulse))
+      throw Error("Invalid pulse");
+    if (
+      a.window !== undefined &&
+      (!Array.isArray(a.window) ||
+        a.window.length !== 2 ||
+        !a.window.every(Number.isInteger) ||
+        a.window[0] < 0 ||
+        a.window[1] < a.window[0] ||
+        a.window[1] >= level.arrows.length)
+    )
+      throw Error("Invalid opening window");
+    if (
+      (a.pulse !== undefined || a.window !== undefined) &&
+      (level.contentVersion < 13 ||
+        level.rulesVersion !== 2 ||
+        level.arrows.length > 28 ||
+        a.phase !== undefined ||
+        (a.pulse !== undefined && a.window !== undefined))
+    )
+      throw Error(
+        "Clockwork mechanics require content 13 and distinct attachments",
+      );
     if (a.phase !== undefined && a.phase !== 0 && a.phase !== 1)
       throw Error("Invalid phase");
     if (
@@ -296,12 +323,17 @@ export function dependencies(level: Level): Map<string, Set<string>> {
 export function timingOpen(a: Arrow, removed: number) {
   return (
     removed >= (a.thawAfter ?? 0) &&
-    (a.phase === undefined || removed % 2 === a.phase)
+    (a.phase === undefined || removed % 2 === a.phase) &&
+    (a.pulse === undefined || removed % 3 === a.pulse) &&
+    (a.window === undefined ||
+      (removed >= a.window[0] && removed <= a.window[1]))
   );
 }
 export function hasTiming(level: Level) {
   return level.arrows.some(
     (a) =>
+      a.pulse !== undefined ||
+      a.window !== undefined ||
       a.deadline !== undefined ||
       a.phase !== undefined ||
       a.thawAfter !== undefined,
@@ -415,9 +447,11 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
     if (
       level.arrows.some(
         (a, i) =>
-          a.deadline !== undefined &&
           mask & (1 << i) &&
-          removed + countBits(activeAncestors(i, mask)) >= a.deadline,
+          ((a.deadline !== undefined &&
+            removed + countBits(activeAncestors(i, mask)) >= a.deadline) ||
+            (a.window !== undefined &&
+              removed + countBits(activeAncestors(i, mask)) > a.window[1])),
       )
     )
       return null;

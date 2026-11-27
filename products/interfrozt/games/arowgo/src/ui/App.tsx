@@ -368,16 +368,18 @@ export function App({
             {lab
               ? "Discover the mechanic"
               : devSandbox && levelNumber > 100
-                ? "Chapter 6 candidate · DEV"
-                : levelNumber > 20
-                  ? levelNumber > 40
-                    ? levelNumber > 60
-                      ? levelNumber > 80
-                        ? "World 5 · Amber Sanctum"
-                        : "World 4 · Amber Dunes"
-                      : "World 3 · Frostfall Peaks"
-                    : "World 2 · Verdant Cove"
-                  : "World 1 · Bloom Valley"}{" "}
+                ? "World 6 · Clockwork Citadel · DEV"
+                : levelNumber > 100
+                  ? "World 6 · Clockwork Citadel"
+                  : levelNumber > 20
+                    ? levelNumber > 40
+                      ? levelNumber > 60
+                        ? levelNumber > 80
+                          ? "World 5 · Amber Sanctum"
+                          : "World 4 · Amber Dunes"
+                        : "World 3 · Frostfall Peaks"
+                      : "World 2 · Verdant Cove"
+                    : "World 1 · Bloom Valley"}{" "}
             <span />
           </div>
           <h1>
@@ -394,7 +396,11 @@ export function App({
             </small>
           )}
           {level.arrows.some(
-            (a) => a.thawAfter !== undefined || a.phase !== undefined,
+            (a) =>
+              a.thawAfter !== undefined ||
+              a.phase !== undefined ||
+              a.pulse !== undefined ||
+              a.window !== undefined,
           ) ? (
             <TimingGuide
               key={level.levelId}
@@ -421,7 +427,7 @@ export function App({
             aria-label={
               lab
                 ? "Rule proof board"
-                : `${levelNumber > 40 ? "Frostfall Peaks" : levelNumber > 20 ? "Verdant Cove" : "Bloom Valley"} level ${levelNumber}`
+                : `${levelNumber > 40 ? "Frostfall Peaks" : levelNumber > 100 ? "World 6 · Clockwork Citadel" : levelNumber > 20 ? "Verdant Cove" : "Bloom Valley"} level ${levelNumber}`
             }
           >
             {lab ? (

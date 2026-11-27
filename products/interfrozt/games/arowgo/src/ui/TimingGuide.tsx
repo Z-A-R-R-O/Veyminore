@@ -10,8 +10,15 @@ export function TimingGuide({
   removed: number;
   persist?: boolean;
 }) {
+  const clock = level.arrows.some(
+    (a) => a.pulse !== undefined || a.window !== undefined,
+  );
   const gates = level.arrows.some((a) => a.phase !== undefined),
-    key = gates ? "arowgo.lesson.aurora" : "arowgo.lesson.ice";
+    key = clock
+      ? "arowgo.lesson.clockwork"
+      : gates
+        ? "arowgo.lesson.aurora"
+        : "arowgo.lesson.ice";
   const dialog = useRef<HTMLDialogElement>(null);
   const [demo, setDemo] = useState(0);
   useEffect(() => {
@@ -37,7 +44,8 @@ export function TimingGuide({
             : "Frostfall rules"
         }
       >
-        ❄ Ice seals
+        {clock ? `◷ Beat ${(removed % 3) + 1}/3 · ${removed} removed · ` : ""}❄
+        Ice seals
         {gates ? ` · ${removed % 2 === 0 ? "☀ Sun" : "☾ Moon"} phase` : ""} ·
         Rules
       </button>
@@ -48,12 +56,26 @@ export function TimingGuide({
           aria-labelledby="timing-title"
         >
           <h2 id="timing-title">
-            {gates ? "Follow the aurora" : "Break the ice"}
+            {clock
+              ? "Plan the clockwork"
+              : gates
+                ? "Follow the aurora"
+                : "Break the ice"}
           </h2>
           <p>
             Ice numbers count down after each successful arrow removal. At zero,
             the seal thaws. Its path must still be clear.
           </p>
+          {clock && (
+            <p>
+              Three-beat gates show 1/3, 2/3, or 3/3. They open only on that
+              beat. Every removal advances 1 → 2 → 3 → 1. Square gold window
+              gates count down until opening, then show how many removal
+              opportunities remain; × means closed permanently. Green means
+              open, but the exit must still be clear. Keep spare moves to reach
+              the right beat.
+            </p>
+          )}
           {gates && (
             <p>
               Sun gates open in the Sun phase; Moon gates open in the Moon
@@ -63,6 +85,19 @@ export function TimingGuide({
           )}
           <div className="timing-demo" aria-live="polite">
             <span>❄ {Math.max(0, 2 - demo) || "Thawed"}</span>
+            {clock && (
+              <>
+                <span>◷ Beat {(demo % 3) + 1}/3</span>
+                <span>
+                  ▣ Window:{" "}
+                  {demo < 2
+                    ? `opens in ${2 - demo}`
+                    : demo <= 4
+                      ? `${5 - demo} opportunities`
+                      : "closed"}
+                </span>
+              </>
+            )}
             {gates && (
               <span>{demo % 2 === 0 ? "☀ Sun open" : "☾ Moon open"}</span>
             )}

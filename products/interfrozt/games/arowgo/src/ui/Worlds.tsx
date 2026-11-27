@@ -1,16 +1,15 @@
+import {
+  worldNames,
+  worldStart,
+  worldSize,
+  worldForLevel,
+} from "../domain/worldLayout";
 import { useState, useRef, type CSSProperties } from "react";
 import { levelNames } from "../domain/campaign";
 import { GameArt } from "./elements/GameArt";
 import { Star } from "./elements/Star";
 
 type Progress = { available: boolean; cleared: boolean; stars: number };
-const worldNames = [
-  "Bloom Valley",
-  "Verdant Cove",
-  "Frostfall Peaks",
-  "Amber Dunes",
-  "Amber Sanctum",
-];
 const amberStops = [
   [68, 79],
   [27, 70],
@@ -79,9 +78,9 @@ export function Worlds({
   const chooser = useRef<HTMLDialogElement>(null);
   const [selected, setSelected] = useState(next);
   const [section, setSection] = useState(Math.floor(next / 10));
-  const world = Math.floor(section / 2),
-    offset = world * 20;
-  const worldProgress = progress.slice(offset, offset + 20);
+  const world = worldForLevel(section * 10),
+    offset = worldStart(world);
+  const worldProgress = progress.slice(offset, offset + worldSize(world));
   const cleared = worldProgress.filter((p) => p.cleared).length;
   const stars = worldProgress.reduce((n, p) => n + p.stars, 0);
   const title = worldNames[world];
@@ -209,7 +208,7 @@ export function Worlds({
           <div className="map-pager" aria-label="Map section">
             <button
               aria-label="Previous levels"
-              disabled={section === world * 2}
+              disabled={section === offset / 10}
               onClick={() => {
                 setSection(section - 1);
                 setSelected((section - 1) * 10);
@@ -224,7 +223,7 @@ export function Worlds({
             </span>
             <button
               aria-label="Next levels"
-              disabled={section === world * 2 + 1}
+              disabled={section === (offset + worldSize(world)) / 10 - 1}
               onClick={() => {
                 setSection(section + 1);
                 setSelected((section + 1) * 10);
@@ -272,7 +271,7 @@ export function Worlds({
         <div className="world-name-list">
           {worldNames.map((name, w) => {
             const placeholder = w >= worldNames.length;
-            const locked = placeholder || !progress[w * 20]?.available;
+            const locked = placeholder || !progress[worldStart(w)]?.available;
             return (
               <button
                 key={w}
@@ -290,12 +289,12 @@ export function Worlds({
                 onClick={() => {
                   const first = progress.findIndex(
                     (p, i) =>
-                      i >= w * 20 &&
-                      i < w * 20 + 20 &&
+                      i >= worldStart(w) &&
+                      i < worldStart(w) + worldSize(w) &&
                       p.available &&
                       !p.cleared,
                   );
-                  const target = first < 0 ? w * 20 : first;
+                  const target = first < 0 ? worldStart(w) : first;
                   setSelected(target);
                   setSection(Math.floor(target / 10));
                   chooser.current?.close();

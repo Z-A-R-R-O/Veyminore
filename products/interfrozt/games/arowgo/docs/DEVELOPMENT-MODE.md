@@ -31,4 +31,4 @@ Bug-report email: `interfrozt.vym@gmail.com`. Add one PNG/JPEG/WebP screenshot (
 
 ## Numeric difficulty - 21 November 2026
 
-The level selector shows an offline structural rating with a detailed component breakdown. Sandbox also shows its rating in the exit strip. Missing measurements are explicitly unmeasured. Candidate Levels 101-105 are isolated DEV previews; they grant no campaign progress or rewards. See [rating model and chapter plan](CHAPTER-SIX-PLAN.md). Ratings are not IQ or human difficulty measurements.
+The level selector shows an offline structural rating with a detailed component breakdown. Sandbox also shows its rating in the exit strip. Missing measurements are explicitly unmeasured. Levels 101–140 are canonical Clockwork content. All 140 levels can be opened in the reward-free DEV sandbox. The older five candidates are historical and are not appended to the selector. See [rating model and chapter plan](CHAPTER-SIX-PLAN.md). Ratings are not IQ or human difficulty measurements.

@@ -1,0 +1,650 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 13,
+  "levelId": "clockwork-102",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          6,
+          9
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          6,
+          8
+        ]
+      ],
+      "deadline": 27
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          1,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          8,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          6,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          4,
+          8
+        ],
+        [
+          4,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          5,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "phase": 1
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "phase": 1
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          6,
+          7
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          8
+        ]
+      ],
+      "anchorRequires": "AB"
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          0,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          2,
+          5
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "anchorRequires": "AB"
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          4,
+          7
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          8
+        ]
+      ],
+      "thawAfter": 4
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          9,
+          2
+        ],
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "thawAfter": 5
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          7,
+          2
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          8,
+          1
+        ]
+      ],
+      "deadline": 8
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "thawAfter": 4
+    },
+    {
+      "id": "S",
+      "points": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "T",
+      "points": [
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "phase": 0
+    },
+    {
+      "id": "U",
+      "points": [
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "V",
+      "points": [
+        [
+          7,
+          5
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "W",
+      "points": [
+        [
+          7,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ]
+      ],
+      "phase": 0
+    },
+    {
+      "id": "X",
+      "points": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "Y",
+      "points": [
+        [
+          9,
+          8
+        ],
+        [
+          9,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "Z",
+      "points": [
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "pulse": 0
+    },
+    {
+      "id": "AA",
+      "points": [
+        [
+          8,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "requires": "S"
+    },
+    {
+      "id": "AB",
+      "points": [
+        [
+          9,
+          4
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ]
+    }
+  ],
+  "solution": [
+    "Z",
+    "U",
+    "AB",
+    "E",
+    "W",
+    "S",
+    "AA",
+    "P",
+    "H",
+    "J",
+    "L",
+    "N",
+    "O",
+    "R",
+    "T",
+    "F",
+    "X",
+    "G",
+    "M",
+    "K",
+    "I",
+    "Q",
+    "C",
+    "A",
+    "D",
+    "Y",
+    "V",
+    "B"
+  ],
+  "generation": {
+    "clockworkAuthorVersion": 1,
+    "metrics": {
+      "level": 102,
+      "count": 28,
+      "isolated": 0,
+      "emptyQuadrants": 0,
+      "imbalance": 2,
+      "occupiedCells": 90,
+      "depth": 9,
+      "edges": 39,
+      "bends": 25,
+      "initialChoices": 6,
+      "forcedSteps": 3,
+      "score": 184,
+      "rate": 9.417023672328188e-07,
+      "target": 3.817790119519684e-06
+    },
+    "planning": {
+      "randomLegalWinRate": 9.417023672328188e-07,
+      "decisionStates": 964,
+      "blockedTargetDecisions": 963,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "AB",
+        "unsafeMove": "X"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "E",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 13557,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 23,
+          "deadline": 27,
+          "spareMoves": 3
+        },
+        {
+          "id": "P",
+          "prerequisiteCount": 6,
+          "deadline": 8,
+          "spareMoves": 1
+        }
+      ]
+    },
+    "sourceLevelId": "clockwork-101",
+    "rating": {
+      "version": 1,
+      "status": "exact",
+      "score": 636,
+      "contributions": {
+        "risk": 260,
+        "horizon": 78,
+        "dependency": 144,
+        "timing": 72,
+        "density": 82
+      },
+      "components": {
+        "risk": 6.026086337858029,
+        "horizon": 7,
+        "dependency": 9,
+        "timing": 0.75,
+        "density": 0.9
+      },
+      "solvable": true,
+      "arrows": 28,
+      "occupiedCells": 90,
+      "cells": 100,
+      "dependencyDepth": 9,
+      "failureHorizon": 7,
+      "randomLegalWinRate": 9.417023672328188e-07,
+      "openingLegal": 6,
+      "openingWinning": 6,
+      "openingLosing": 0,
+      "minimumSlack": 1,
+      "analyzedStates": 13557
+    }
+  }
+}

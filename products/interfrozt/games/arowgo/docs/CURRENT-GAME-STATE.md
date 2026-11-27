@@ -1,6 +1,6 @@
 # Current game state
 
-Updated 20 November 2026. This is the current implementation summary; older design documents and dated test reports are not competing contracts. [Index](README.md) · [Verification](AUDIT-2026-11-20.md) · [Open gaps](GAME-EXPERIENCE-GAPS.md).
+Updated 27 November 2026. This is the current implementation summary; older design documents and dated test reports are not competing contracts. [Index](README.md) · [Verification](AUDIT-2026-11-27.md) · [Open gaps](GAME-EXPERIENCE-GAPS.md).
 
 ## Campaign
 
@@ -11,8 +11,9 @@ Updated 20 November 2026. This is the current implementation summary; older desi
 | Frostfall Peaks | 41–60 | [Frostfall](FROSTFALL-PEAKS.md), [timing](FROSTFALL-TIMING.md) |
 | Amber Dunes | 61–80 | [Dunes](AMBER-DUNES.md) |
 | Amber Sanctum | 81–100 | [Sanctum](AMBER-SANCTUM.md) |
+| Clockwork Citadel | 101–140 | [Clockwork](CHAPTER-SIX-PLAN.md) |
 
-The campaign has 100 stable level IDs, 300 available stars and 2,500 first-clear coins. Worlds unlock sequentially and show ten level markers per map page. Level 80 continues to 81; Level 100 reaches the finale. Sanctum reuses Amber artwork. Canonical content is checked-in JSON selected by `src/domain/campaign.ts`; generation does not run on entering a level.
+The campaign has 140 stable level IDs, 420 available stars and 3,500 first-clear coins. Worlds unlock sequentially and show ten level markers per map page. Level 80 continues to 81; Level 100 continues to 101; Level 140 reaches the finale. Worlds after 100 contain forty levels each. Sanctum reuses Amber artwork. Canonical content is checked-in JSON selected by `src/domain/campaign.ts`; generation does not run on entering a level.
 
 Generator version 4 supports dense authoring. Levels 30–80 use the content-12 density pass; Sanctum uses content 12, 28 arrows on 10×10 boards, with keys, anchors, ice, phase gates and removal-count deadlines. Versions differ across earlier content; do not relabel the whole campaign as one content version. [Dense campaign](DENSE-CAMPAIGN.md) and [Sanctum](AMBER-SANCTUM.md) record acceptance measurements. Solver probability measures arbitrary legal-play outcomes, not human success or IQ. Human tuning remains necessary.
 
@@ -46,10 +47,12 @@ The account server is localhost-only and refuses production mode. Its wallet is 
 
 ## Engineering and verification
 
-Node >=24, TypeScript, React, Vite, Phaser, Vitest, Playwright and Capacitor Android. Domain rules are separate from UI and persistence. Developer tools provide isolated level selection through 100 and downloadable screenshot bug reports; reports require manual sending.
+Node >=24, TypeScript, React, Vite, Phaser, Vitest, Playwright and Capacitor Android. Domain rules are separate from UI and persistence. Developer tools provide isolated level selection through 140 and downloadable screenshot bug reports; reports require manual sending.
 
-Latest recorded runtime evidence: 393 unit tests across 56 files; 10 targeted Desktop Chrome/emulated Pixel 7 checks; typecheck and build passed. This documentation cleanup does not rerun those runtime checks. Full browser-suite, formatting, physical-device, production deployment and human difficulty acceptance are not asserted. See [dated evidence](AUDIT-2026-11-20.md).
+Latest recorded runtime evidence: 393 unit tests across 56 files; 10 targeted Desktop Chrome/emulated Pixel 7 checks; typecheck and build passed. This documentation cleanup does not rerun those runtime checks. Full browser-suite, formatting, physical-device, production deployment and human difficulty acceptance are not asserted. See [dated evidence](AUDIT-2026-11-27.md).
 
 ## Development addition - 21 November 2026
 
-DEV now displays versioned numeric structural difficulty for the 100 shipped levels and five isolated Chapter 6 candidates (101-105). The latter are not campaign levels and earn no persistent rewards. See [chapter plan and scoring model](CHAPTER-SIX-PLAN.md). The campaign count and production content remain unchanged.
+DEV displays versioned numeric structural difficulty for all 140 campaign levels. DEV play stays memory-only and reward-free. The five earlier Chapter 6 candidates remain historical artifacts. See [Clockwork design](CHAPTER-SIX-PLAN.md).
+
+Clockwork uses content 13, three-beat gates and inclusive opening windows. It retains 28 arrows per dense board. The frozen structural rating remains version 1; its risk analysis sees the new rules, while its timing component remains a keg-slack measure. Clockwork currently reuses Amber scenery with a dusk palette.

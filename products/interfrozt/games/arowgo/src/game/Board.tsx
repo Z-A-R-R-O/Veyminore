@@ -249,21 +249,26 @@ export function Board({
                 className="arrow-control"
                 aria-label={`Slide arrow ${a.id}`}
                 aria-description={
-                  a.thawAfter !== undefined
-                    ? `Ice seal. ${Math.max(0, a.thawAfter - (level.arrows.length - active.length))} successful moves until thawed.`
-                    : a.phase !== undefined
-                      ? `Aurora gate. ${timingOpen(a, level.arrows.length - active.length) ? "Open" : "Closed"}. Toggles after each successful removal.`
-                      : a.deadline !== undefined
-                        ? `Powder keg. ${Math.max(0, a.deadline - (level.arrows.length - active.length))} successful moves remaining. Hold P to inspect.`
-                        : a.anchorRequires && active.includes(a.anchorRequires)
-                          ? "Anchored. Clear the matching anchor arrow first."
-                          : a.requires && active.includes(a.requires)
-                            ? "Locked. Clear its key arrow first."
-                            : level.arrows.some(
-                                  (other) => other.requires === a.id,
-                                )
-                              ? "Key arrow. Clear it to open the matching lock."
-                              : undefined
+                  a.pulse !== undefined
+                    ? `Three-beat gate. Opens on beat ${a.pulse + 1}. Current beat ${((level.arrows.length - active.length) % 3) + 1}.`
+                    : a.window
+                      ? `Opening window after ${a.window[0]} through ${a.window[1]} removals.`
+                      : a.thawAfter !== undefined
+                        ? `Ice seal. ${Math.max(0, a.thawAfter - (level.arrows.length - active.length))} successful moves until thawed.`
+                        : a.phase !== undefined
+                          ? `Aurora gate. ${timingOpen(a, level.arrows.length - active.length) ? "Open" : "Closed"}. Toggles after each successful removal.`
+                          : a.deadline !== undefined
+                            ? `Powder keg. ${Math.max(0, a.deadline - (level.arrows.length - active.length))} successful moves remaining. Hold P to inspect.`
+                            : a.anchorRequires &&
+                                active.includes(a.anchorRequires)
+                              ? "Anchored. Clear the matching anchor arrow first."
+                              : a.requires && active.includes(a.requires)
+                                ? "Locked. Clear its key arrow first."
+                                : level.arrows.some(
+                                      (other) => other.requires === a.id,
+                                    )
+                                  ? "Key arrow. Clear it to open the matching lock."
+                                  : undefined
                 }
                 disabled={disabled}
                 style={{
@@ -600,7 +605,12 @@ class PuzzleScene extends Phaser.Scene {
       );
       const anchored =
         arrow.anchorRequires && active.includes(arrow.anchorRequires);
-      if (arrow.thawAfter !== undefined || arrow.phase !== undefined) {
+      if (
+        arrow.thawAfter !== undefined ||
+        arrow.phase !== undefined ||
+        arrow.pulse !== undefined ||
+        arrow.window !== undefined
+      ) {
         const badge = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "g",
@@ -608,21 +618,51 @@ class PuzzleScene extends Phaser.Scene {
         const removed = this.level.arrows.length - active.length,
           open = timingOpen(arrow, removed);
         badge.classList.add("timing-badge");
-        badge.dataset.kind = arrow.phase !== undefined ? "aurora" : "ice";
+        badge.dataset.kind =
+          arrow.pulse !== undefined
+            ? "pulse"
+            : arrow.window
+              ? "window"
+              : arrow.phase !== undefined
+                ? "aurora"
+                : "ice";
         badge.dataset.open = String(open);
         badge.setAttribute(
           "transform",
           `translate(${points[0][0]} ${points[0][1]})`,
         );
         const symbol =
-          arrow.phase !== undefined
-            ? arrow.phase === 0
-              ? "☀"
-              : "☾"
-            : open
-              ? "❄"
-              : String(arrow.thawAfter! - removed);
-        badge.innerHTML = `<circle r="21" fill="${open ? "#c9ffe8" : "#d8eaff"}" stroke="${open ? "#168060" : "#6562bb"}" stroke-width="3"/><circle r="17" fill="none" stroke="#fff" opacity=".7"/><text text-anchor="middle" y="8" font-family="Arial" font-weight="bold" font-size="25" fill="${open ? "#086148" : "#42417f"}">${symbol}</text>`;
+          arrow.pulse !== undefined
+            ? `${arrow.pulse + 1}/3`
+            : arrow.window
+              ? removed < arrow.window[0]
+                ? String(arrow.window[0] - removed)
+                : removed > arrow.window[1]
+                  ? "×"
+                  : String(arrow.window[1] - removed + 1)
+              : arrow.phase !== undefined
+                ? arrow.phase === 0
+                  ? "☀"
+                  : "☾"
+                : open
+                  ? "❄"
+                  : String(arrow.thawAfter! - removed);
+        badge.innerHTML = `<circle r="21" fill="${open ? "#c9ffe8" : "#d8eaff"}" stroke="${open ? "#168060" : "#6562bb"}" stroke-width="3"/><circle r="17" fill="none" stroke="#fff" opacity=".7"/><text text-anchor="middle" y="8" font-family="Arial" font-weight="bold" font-size="${arrow.pulse !== undefined ? 18 : 25}" fill="${open ? "#086148" : "#42417f"}">${symbol}</text>`;
+        if (arrow.window) {
+          const ring = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "rect",
+          );
+          ring.setAttribute("x", "-22");
+          ring.setAttribute("y", "-22");
+          ring.setAttribute("width", "44");
+          ring.setAttribute("height", "44");
+          ring.setAttribute("rx", "8");
+          ring.setAttribute("fill", "none");
+          ring.setAttribute("stroke", "#a96b13");
+          ring.setAttribute("stroke-width", "3");
+          badge.append(ring);
+        }
         element.append(badge);
       }
       if (isAnchor || anchored || arrow.deadline !== undefined) {
@@ -975,7 +1015,7 @@ function PathPreview({
       : null;
   const detail = changes
     .map((c) =>
-      c.kind === "phase"
+      c.kind === "phase" || c.kind === "pulse" || c.kind === "window"
         ? `Phase ${c.before ? "open" : "closed"} to ${c.after ? "open" : "closed"}`
         : `${c.kind === "keg" ? "Countdown" : "Ice"} ${c.before} to ${c.after}`,
     )

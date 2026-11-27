@@ -272,7 +272,11 @@ export function parseSession(raw: string, level: Level): Session {
   // Alternating gates are non-monotone: validate the actual move history,
   // not a hypothetical reinsertion at the final phase.
   const dynamic = level.arrows.some(
-    (a) => a.phase !== undefined || a.thawAfter !== undefined,
+    (a) =>
+      a.phase !== undefined ||
+      a.thawAfter !== undefined ||
+      a.pulse !== undefined ||
+      a.window !== undefined,
   );
   if (dynamic) {
     if (!s.moveLog) throw Error("Timing saves require a move record");

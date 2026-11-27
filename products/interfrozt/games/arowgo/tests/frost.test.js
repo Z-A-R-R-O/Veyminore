@@ -24,7 +24,7 @@ it("Frostfall puzzles have distinct geometry and consequential planning choices"
   expect(signatures.size).toBe(20);
 }, 30000);
 it("compact 100-level fixtures with recovery copies fit the supported cloud envelope", () => {
-  const entries = levels.flatMap((level, i) => {
+  const entries = levels.slice(0, 100).flatMap((level, i) => {
     let state = newSession(level, `restore-${i}`);
     for (const id of level.solution)
       state = resolve(level, state, {
