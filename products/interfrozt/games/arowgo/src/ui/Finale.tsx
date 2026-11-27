@@ -10,7 +10,14 @@ export function Finale({
   onReplay,
   onWorlds,
 }: {
-  world?: "bloom" | "cove" | "frost" | "amber" | "sanctum" | "clockwork";
+  world?:
+    | "bloom"
+    | "cove"
+    | "frost"
+    | "amber"
+    | "sanctum"
+    | "clockwork"
+    | "astral";
   onContinue?: () => void;
   scores: number[];
   onReplay: (index: number) => void;
@@ -35,15 +42,17 @@ export function Finale({
       <h1 id="finale-title" ref={title} tabIndex={-1}>
         {world === "bloom"
           ? "Bloom Valley cleared!"
-          : world === "clockwork"
-            ? "Clockwork Citadel cleared!"
-            : world === "sanctum"
-              ? "Amber Sanctum cleared!"
-              : world === "amber"
-                ? "Amber Dunes cleared!"
-                : world === "frost"
-                  ? "Frostfall Peaks cleared!"
-                  : "Verdant Cove cleared!"}
+          : world === "astral"
+            ? "Astral Observatory cleared!"
+            : world === "clockwork"
+              ? "Clockwork Citadel cleared!"
+              : world === "sanctum"
+                ? "Amber Sanctum cleared!"
+                : world === "amber"
+                  ? "Amber Dunes cleared!"
+                  : world === "frost"
+                    ? "Frostfall Peaks cleared!"
+                    : "Verdant Cove cleared!"}
       </h1>
       <p>Every path discovered. All {scores.length} levels complete.</p>
       <div

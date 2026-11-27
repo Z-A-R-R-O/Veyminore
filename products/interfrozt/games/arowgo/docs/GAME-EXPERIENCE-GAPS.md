@@ -1,6 +1,6 @@
 # Open game and release gaps
 
-Reconciled 27 November 2026 against the current 140-level implementation. [Current state](CURRENT-GAME-STATE.md) owns delivered behavior; this file owns unresolved acceptance gaps.
+Reconciled 27 November 2026 against the current 180-level implementation. [Current state](CURRENT-GAME-STATE.md) owns delivered behavior; this file owns unresolved acceptance gaps.
 
 | Priority | Gap | Completion evidence required |
 | --- | --- | --- |
@@ -14,4 +14,4 @@ Reconciled 27 November 2026 against the current 140-level implementation. [Curre
 | P2 | Finite collection/earning loop | Review the proposed chest tiers and 100-skin catalog, asset quality and earning balance before implementation. Current 15 skins/three crates stay the source of truth. |
 | Later | Multiplayer, social, rankings, daily/endless | Separate implementation and operating plans; placeholders are not delivered network features. |
 
-Delivered work includes Google/PlayFab sign-in, cloud conflict/recovery flows, automatic completion uploads, reviewed server-wallet migration, account restore, 140 levels and neutral hold inspection. Do not reopen those as “not implemented”; address their limits above. Free Hint/Erase and assistance-compatible stars are current behavior, not undiscovered defects.
+Delivered work includes Google/PlayFab sign-in, cloud conflict/recovery flows, automatic completion uploads, reviewed server-wallet migration, account restore, 180 levels and neutral hold inspection. Do not reopen those as “not implemented”; address their limits above. Free Hint/Erase and assistance-compatible stars are current behavior, not undiscovered defects.

@@ -4,7 +4,7 @@ Reconciled 27 November 2026. Start with the current summaries; dated rollout not
 
 ## Current entry points
 
-- [Game state](CURRENT-GAME-STATE.md): 140 levels, behavior, accounts and limitations.
+- [Game state](CURRENT-GAME-STATE.md): 180 levels, behavior, accounts and limitations.
 - [Build guide](build-guide.md): local game/account workflows and checks.
 - [Latest audit](AUDIT-2026-11-27.md): verification scope and documentation reconciliation.
 - [Open gaps](GAME-EXPERIENCE-GAPS.md), [backlog](execution-backlog.md), [masterplan](../MASTERPLAN.md).
@@ -25,3 +25,5 @@ Reconciled 27 November 2026. Start with the current summaries; dated rollout not
 ## Active development
 
 [Clockwork 101–140 and numeric DEV difficulty](CHAPTER-SIX-PLAN.md): forty-level worlds after 100, three-beat gates, opening windows, and frozen baseline scoring.
+
+[Astral Observatory 141–180](ASTRAL-OBSERVATORY.md): forty additional dense timing puzzles and new world artwork.

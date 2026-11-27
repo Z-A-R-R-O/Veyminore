@@ -11,16 +11,16 @@ import { newSession, resolve, parseSession } from "../src/application/session";
 // @ts-expect-error Server ESM integration.
 import { verifyClear, rewardLevels } from "../server/economy/rewards.mjs";
 it("audits all forty Clockwork levels, decisions, restores and rewards", () => {
-  expect(levels).toHaveLength(140);
-  expect(levelNames).toHaveLength(140);
-  expect(rewardLevels).toHaveLength(140);
+  expect(levels).toHaveLength(180);
+  expect(levelNames).toHaveLength(180);
+  expect(rewardLevels).toHaveLength(180);
   const signatures = new Set(
     levels
       .slice(0, 100)
       .map((l) => JSON.stringify(l.arrows.map((a) => a.points))),
   );
   let lastScore = 0;
-  for (const [i, l] of levels.slice(100).entries()) {
+  for (const [i, l] of levels.slice(100, 140).entries()) {
     expect(validateLevel(l)).toBe(l);
     expect(l.levelId).toBe(`clockwork-${101 + i}`);
     const signature = JSON.stringify(l.arrows.map((a) => a.points));

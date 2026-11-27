@@ -1,3 +1,4 @@
+import { worldNames, worldForLevel } from "../domain/worldLayout";
 import { ProfileShortcut } from "./elements/ProfileShortcut";
 import type { Profile } from "../storage/profile";
 import { TimingGuide } from "./TimingGuide";
@@ -326,6 +327,7 @@ export function App({
         cove={levelNumber > 20}
         frost={levelNumber > 40}
         amber={levelNumber > 60}
+        astral={levelNumber > 140}
       />
       <header className="topbar" inert={modalOpen || resultVisible}>
         {profile && <ProfileShortcut profile={profile} />}
@@ -367,19 +369,7 @@ export function App({
             <span />{" "}
             {lab
               ? "Discover the mechanic"
-              : devSandbox && levelNumber > 100
-                ? "World 6 · Clockwork Citadel · DEV"
-                : levelNumber > 100
-                  ? "World 6 · Clockwork Citadel"
-                  : levelNumber > 20
-                    ? levelNumber > 40
-                      ? levelNumber > 60
-                        ? levelNumber > 80
-                          ? "World 5 · Amber Sanctum"
-                          : "World 4 · Amber Dunes"
-                        : "World 3 · Frostfall Peaks"
-                      : "World 2 · Verdant Cove"
-                    : "World 1 · Bloom Valley"}{" "}
+              : `World ${worldForLevel(levelNumber - 1) + 1} · ${worldNames[worldForLevel(levelNumber - 1)]}${devSandbox ? " · DEV" : ""}`}{" "}
             <span />
           </div>
           <h1>
@@ -427,7 +417,7 @@ export function App({
             aria-label={
               lab
                 ? "Rule proof board"
-                : `${levelNumber > 40 ? "Frostfall Peaks" : levelNumber > 100 ? "World 6 · Clockwork Citadel" : levelNumber > 20 ? "Verdant Cove" : "Bloom Valley"} level ${levelNumber}`
+                : `${worldNames[worldForLevel(levelNumber - 1)]} level ${levelNumber}`
             }
           >
             {lab ? (

@@ -4,7 +4,7 @@ Updated 27 November 2026. [Current implementation](docs/CURRENT-GAME-STATE.md) Â
 
 ## Product
 
-A mobile-first snake-arrow puzzle game built around readable rules and deliberate removal order. The campaign now has 140 levels across six chapters. Difficulty must be validated with people as well as solvers. Additional arrow density alone is not a substitute for meaningful choices.
+A mobile-first snake-arrow puzzle game built around readable rules and deliberate removal order. The campaign now has 180 levels across seven chapters. Difficulty must be validated with people as well as solvers. Additional arrow density alone is not a substitute for meaningful choices.
 
 ## Delivered development baseline
 

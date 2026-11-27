@@ -3,8 +3,8 @@ import { levels } from "../src/domain/campaign";
 import { checkExit, solve } from "../src/domain/rules";
 import { Controller } from "../src/application/controller";
 import { SaveStore } from "../src/storage/save";
-it("contains five twenty-level worlds and a forty-level world", () => {
-  expect(levels).toHaveLength(140);
+it("contains five twenty-level worlds and two forty-level worlds", () => {
+  expect(levels).toHaveLength(180);
   expect(levels.map((level) => level.levelId)).toEqual([
     "bloom-01",
     "bloom-02",
@@ -22,6 +22,7 @@ it("contains five twenty-level worlds and a forty-level world", () => {
     ...Array.from({ length: 20 }, (_, i) => `amber-${i + 61}`),
     ...Array.from({ length: 20 }, (_, i) => `sanctum-${i + 81}`),
     ...Array.from({ length: 40 }, (_, i) => `clockwork-${i + 101}`),
+    ...Array.from({ length: 40 }, (_, i) => `astral-${i + 141}`),
   ]);
 });
 it.each(levels)("$levelId has a legal complete solution", (level) => {
@@ -33,7 +34,7 @@ it.each(levels)("$levelId has a legal complete solution", (level) => {
   expect(active).toEqual([]);
   expect(solve(level)).toBeTruthy();
 });
-it("isolates one hundred forty saves, restores attempts, and awards exactly 3500 total coins", () => {
+it("isolates one hundred eighty saves, restores attempts, and awards exactly 4500 total coins", () => {
   const values = new Map<string, string>();
   const store = {
     getItem: (k: string) => values.get(k) ?? null,
@@ -56,5 +57,5 @@ it("isolates one hundred forty saves, restores attempts, and awards exactly 3500
     expect(restored.state.bestStars).toBe(3);
     total += restored.state.coins;
   });
-  expect(total).toBe(3500);
+  expect(total).toBe(4500);
 }, 120000);

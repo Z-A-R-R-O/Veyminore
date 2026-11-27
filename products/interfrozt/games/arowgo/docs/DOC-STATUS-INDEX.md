@@ -84,5 +84,6 @@ Reconciled 20 November 2026. Every Markdown file under docs is listed. [Current 
 | [verification/v0.1.md](verification/v0.1.md) | Historical design, rollout or verification; use current-state guide |
 | [worlds-redesign.md](worlds-redesign.md) | Historical design, rollout or verification; use current-state guide |
 | [CHAPTER-SIX-PLAN.md](CHAPTER-SIX-PLAN.md) | Implemented forty-level Clockwork world and future world sizing policy |
-
 | [AUDIT-2026-11-27.md](AUDIT-2026-11-27.md) | Clockwork forty-level audit and verification |
+| [ASTRAL-OBSERVATORY.md](ASTRAL-OBSERVATORY.md) | Implemented World 7, Levels 141–180 and artwork |
+| [ASTRAL-AUDIT-2026-11-27.md](ASTRAL-AUDIT-2026-11-27.md) | Astral verification and per-level measurements |

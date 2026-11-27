@@ -5,12 +5,27 @@ export function Scenery({
   cove = false,
   frost = false,
   amber = false,
+  astral = false,
 }: {
   rich: boolean;
   cove?: boolean;
   frost?: boolean;
   amber?: boolean;
+  astral?: boolean;
 }) {
+  if (astral)
+    return (
+      <div className="scenery astral-scenery" aria-hidden="true">
+        <picture>
+          <source
+            media="(min-aspect-ratio:4/3)"
+            srcSet="/assets/astral-observatory-wide-v1.webp"
+          />
+          <img src="/assets/astral-observatory-map-v1.webp" alt="" />
+        </picture>
+        <div className="scenery-wash" />
+      </div>
+    );
   if (amber)
     return (
       <div className="scenery amber-scenery" aria-hidden="true">

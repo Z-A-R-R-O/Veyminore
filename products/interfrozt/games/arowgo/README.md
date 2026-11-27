@@ -1,6 +1,6 @@
 # AROWGO
 
-A mobile-first snake-arrow puzzle game. Current development status: **27 November 2026**, 140 campaign levels across six chapters. This is a development preview, not a production launch certification.
+A mobile-first snake-arrow puzzle game. Current development status: **27 November 2026**, 180 campaign levels across seven chapters. This is a development preview, not a production launch certification.
 
 ## Start here
 
@@ -8,7 +8,7 @@ A mobile-first snake-arrow puzzle game. Current development status: **27 Novembe
 - [Documentation index](docs/README.md): feature guides and historical records.
 - [Build guide](docs/build-guide.md): commands and verification scope.
 - [Open gaps](docs/GAME-EXPERIENCE-GAPS.md) and [delivery backlog](docs/execution-backlog.md).
-- [Latest verification record](docs/AUDIT-2026-11-27.md).
+- [Latest verification record](docs/ASTRAL-AUDIT-2026-11-27.md).
 
 ## Run locally
 
@@ -29,7 +29,7 @@ pnpm exec playwright test
 
 ## Campaign and rules
 
-Bloom Valley 1–20, Verdant Cove 21–40, Frostfall Peaks 41–60, Amber Dunes 61–80 , Amber Sanctum 81–100 and Clockwork Citadel 101–140. First clears award 25 coins once per level: 3,500 total and up to 420 stars. Stars independently reward completion, zero mistakes and meeting the time target.
+Bloom Valley 1–20, Verdant Cove 21–40, Frostfall Peaks 41–60, Amber Dunes 61–80, Amber Sanctum 81–100, Clockwork Citadel 101–140 and Astral Observatory 141–180. First clears award 25 coins once per level: 4,500 total and up to 540 stars. Stars independently reward completion, zero mistakes and meeting the time target.
 
 Arrows exit head-first and their bodies follow like a snake. Keys, anchor prerequisites, ice, phase gates and removal-count deadlines add ordering decisions. Story has three hearts; Practice allows unlimited mistakes but still respects mechanic deadlines. Hold inspection explains the immediate board state without revealing a winning move.
 

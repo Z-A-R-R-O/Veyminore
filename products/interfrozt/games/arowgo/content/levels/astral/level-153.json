@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 13,
+  "levelId": "astral-153",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [1, 7],
+        [2, 7],
+        [2, 6],
+        [0, 6],
+        [0, 5]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [9, 3],
+        [8, 3],
+        [8, 2],
+        [9, 2]
+      ],
+      "anchorRequires": "AA"
+    },
+    {
+      "id": "C",
+      "points": [
+        [2, 3],
+        [2, 4],
+        [1, 4]
+      ]
+    },
+    {
+      "id": "D",
+      "points": [
+        [1, 9],
+        [2, 9],
+        [2, 8],
+        [1, 8]
+      ],
+      "anchorRequires": "AA"
+    },
+    {
+      "id": "E",
+      "points": [
+        [4, 6],
+        [3, 6],
+        [3, 7]
+      ],
+      "phase": 1
+    },
+    {
+      "id": "F",
+      "points": [
+        [0, 4],
+        [0, 3]
+      ]
+    },
+    {
+      "id": "G",
+      "points": [
+        [1, 1],
+        [2, 1]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [4, 2],
+        [5, 2],
+        [5, 1],
+        [6, 1],
+        [6, 2]
+      ],
+      "window": [8, 10]
+    },
+    {
+      "id": "I",
+      "points": [
+        [8, 0],
+        [8, 1],
+        [9, 1],
+        [9, 0]
+      ],
+      "thawAfter": 3
+    },
+    {
+      "id": "J",
+      "points": [
+        [6, 6],
+        [6, 7],
+        [7, 7],
+        [7, 6]
+      ],
+      "pulse": 0
+    },
+    {
+      "id": "K",
+      "points": [
+        [1, 5],
+        [2, 5]
+      ],
+      "deadline": 19
+    },
+    {
+      "id": "L",
+      "points": [
+        [8, 5],
+        [7, 5],
+        [7, 4]
+      ],
+      "deadline": 8
+    },
+    {
+      "id": "M",
+      "points": [
+        [3, 5],
+        [5, 5],
+        [5, 6]
+      ],
+      "window": [12, 14]
+    },
+    {
+      "id": "N",
+      "points": [
+        [7, 3],
+        [7, 0],
+        [6, 0]
+      ],
+      "deadline": 6
+    },
+    {
+      "id": "O",
+      "points": [
+        [3, 1],
+        [4, 1],
+        [4, 0],
+        [3, 0]
+      ],
+      "pulse": 2
+    },
+    {
+      "id": "P",
+      "points": [
+        [4, 7],
+        [5, 7],
+        [5, 8]
+      ],
+      "window": [11, 13]
+    },
+    {
+      "id": "Q",
+      "points": [
+        [4, 8],
+        [4, 9],
+        [5, 9]
+      ],
+      "requires": "G"
+    },
+    {
+      "id": "R",
+      "points": [
+        [5, 3],
+        [3, 3],
+        [3, 2],
+        [2, 2]
+      ]
+    },
+    {
+      "id": "S",
+      "points": [
+        [2, 0],
+        [1, 0]
+      ],
+      "pulse": 1
+    },
+    {
+      "id": "T",
+      "points": [
+        [8, 4],
+        [9, 4],
+        [9, 5]
+      ]
+    },
+    {
+      "id": "U",
+      "points": [
+        [8, 9],
+        [9, 9]
+      ],
+      "thawAfter": 4
+    },
+    {
+      "id": "V",
+      "points": [
+        [3, 8],
+        [3, 9]
+      ],
+      "phase": 0
+    },
+    {
+      "id": "W",
+      "points": [
+        [6, 9],
+        [6, 8],
+        [7, 8],
+        [7, 9]
+      ],
+      "phase": 0
+    },
+    {
+      "id": "X",
+      "points": [
+        [8, 8],
+        [9, 8]
+      ],
+      "window": [13, 15]
+    },
+    {
+      "id": "Y",
+      "points": [
+        [0, 1],
+        [0, 0]
+      ],
+      "pulse": 0
+    },
+    {
+      "id": "Z",
+      "points": [
+        [1, 3],
+        [1, 2],
+        [0, 2]
+      ]
+    },
+    {
+      "id": "AA",
+      "points": [
+        [9, 7],
+        [8, 7],
+        [8, 6],
+        [9, 6]
+      ]
+    },
+    {
+      "id": "AB",
+      "points": [
+        [0, 7],
+        [0, 9]
+      ]
+    }
+  ],
+  "solution": [
+    "Y",
+    "S",
+    "O",
+    "N",
+    "L",
+    "I",
+    "J",
+    "U",
+    "W",
+    "H",
+    "G",
+    "Q",
+    "P",
+    "M",
+    "X",
+    "AA",
+    "T",
+    "K",
+    "B",
+    "Z",
+    "F",
+    "A",
+    "C",
+    "R",
+    "V",
+    "E",
+    "AB",
+    "D"
+  ],
+  "generation": {
+    "astralAuthorVersion": 1,
+    "metrics": {
+      "level": 153,
+      "count": 28,
+      "isolated": 0,
+      "emptyQuadrants": 0,
+      "imbalance": 4,
+      "occupiedCells": 93,
+      "depth": 12,
+      "edges": 38,
+      "bends": 31,
+      "initialChoices": 6,
+      "forcedSteps": 2,
+      "score": 209,
+      "rate": 2.372696834223719e-10,
+      "target": 2.1820915001692326e-10
+    },
+    "planning": {
+      "randomLegalWinRate": 2.372696834223719e-10,
+      "decisionStates": 153,
+      "blockedTargetDecisions": 149,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "Y",
+        "unsafeMove": "V"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "W",
+          "winning": false
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": false
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 11855,
+      "deadlines": [
+        {
+          "id": "K",
+          "prerequisiteCount": 17,
+          "deadline": 19,
+          "spareMoves": 1
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 4,
+          "deadline": 8,
+          "spareMoves": 3
+        },
+        {
+          "id": "N",
+          "prerequisiteCount": 3,
+          "deadline": 6,
+          "spareMoves": 2
+        }
+      ]
+    },
+    "sourceLevelId": "astral-156",
+    "rating": {
+      "version": 1,
+      "status": "exact",
+      "score": 748,
+      "contributions": {
+        "risk": 300,
+        "horizon": 67,
+        "dependency": 192,
+        "timing": 104,
+        "density": 85
+      },
+      "components": {
+        "risk": 9.624757749197268,
+        "horizon": 6,
+        "dependency": 12,
+        "timing": 1.0833333333333333,
+        "density": 0.93
+      },
+      "solvable": true,
+      "arrows": 28,
+      "occupiedCells": 93,
+      "cells": 100,
+      "dependencyDepth": 12,
+      "failureHorizon": 6,
+      "randomLegalWinRate": 2.372696834223719e-10,
+      "openingLegal": 6,
+      "openingWinning": 1,
+      "openingLosing": 5,
+      "minimumSlack": 1,
+      "analyzedStates": 11855
+    }
+  }
+}

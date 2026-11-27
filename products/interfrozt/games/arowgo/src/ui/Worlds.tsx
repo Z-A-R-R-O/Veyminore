@@ -10,6 +10,30 @@ import { GameArt } from "./elements/GameArt";
 import { Star } from "./elements/Star";
 
 type Progress = { available: boolean; cleared: boolean; stars: number };
+const astralWideStops = [
+  [15, 79],
+  [28, 66],
+  [70, 74],
+  [52, 63],
+  [73, 56],
+  [85, 43],
+  [68, 33],
+  [51, 40],
+  [32, 35],
+  [21, 25],
+].map(([x, y]) => ({ x, y }));
+const astralStops = [
+  [28, 77],
+  [72, 79],
+  [28, 61],
+  [73, 65],
+  [24, 48],
+  [74, 52],
+  [30, 37],
+  [76, 39],
+  [49, 29],
+  [77, 29],
+].map(([x, y]) => ({ x, y }));
 const amberStops = [
   [68, 79],
   [27, 70],
@@ -139,10 +163,10 @@ export function Worlds({
                   className={`valley-stop ${p.cleared ? "is-cleared" : ""} ${selected === i ? "is-selected" : ""}`}
                   style={
                     {
-                      "--x": `${(world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
-                      "--y": `${(world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
-                      "--wide-x": `${coveWideStops[localIndex].x}%`,
-                      "--wide-y": `${coveWideStops[localIndex].y}%`,
+                      "--x": `${(world === 6 ? astralStops : world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
+                      "--y": `${(world === 6 ? astralStops : world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
+                      "--wide-x": `${(world === 6 ? astralWideStops : coveWideStops)[localIndex].x}%`,
+                      "--wide-y": `${(world === 6 ? astralWideStops : coveWideStops)[localIndex].y}%`,
                     } as CSSProperties
                   }
                   disabled={!p.available}

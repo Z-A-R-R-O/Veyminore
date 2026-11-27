@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Astral Observatory — 27 November 2026
+
+Added World 7, Levels 141–180, with four difficulty bands combining taught mechanics, generated portrait/wide maps and a matching home island. Campaign, DEV ratings, finale and server reward validation cover all 180 levels. Earlier content and saves remain unchanged. See [design](ASTRAL-OBSERVATORY.md) and [audit](ASTRAL-AUDIT-2026-11-27.md).
+
 ## Clockwork Citadel — 27 November 2026
 
 Added canonical Levels 101–140, three-beat gates and opening windows, four-page world navigation, and matching server reward validation. Worlds after Level 100 now contain forty levels. Existing campaign content and saved currency are preserved. See [audit](AUDIT-2026-11-27.md) for per-level measurements and verification.

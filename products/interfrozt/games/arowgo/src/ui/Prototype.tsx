@@ -355,6 +355,7 @@ export function Prototype() {
     >
       <Scenery
         rich={motion.rich}
+        astral={next >= 140 && page !== "worlds" && route !== "finale/bloom"}
         amber={next >= 60 && page !== "worlds" && route !== "finale/bloom"}
         frost={next >= 40 && page !== "worlds" && route !== "finale/bloom"}
         cove={next >= 20 && page !== "worlds" && route !== "finale/bloom"}
@@ -399,7 +400,7 @@ export function Prototype() {
               ? controllers.slice(0, 20)
               : controllers
             ).map((c) => c.state.bestStars)}
-            world={route === "finale/bloom" ? "bloom" : "clockwork"}
+            world={route === "finale/bloom" ? "bloom" : "astral"}
             onContinue={route === "finale/bloom" ? () => play(20) : undefined}
             onReplay={(i) => play(i, true, "story")}
             onWorlds={() => go("worlds")}

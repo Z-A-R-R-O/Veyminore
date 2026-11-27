@@ -395,3 +395,31 @@
 
 /* Clockwork keeps the proven map coordinates with a dusk brass palette. */
 .hub-shell.worlds-screen:has([data-world="6"]) {background-blend-mode: multiply;background-color:#b9b2d5;}
+
+/* Astral map uses its own terrace coordinates and celestial artwork. */
+.hub-shell.worlds-screen:has([data-world="7"]) {background-image:url("/assets/astral-observatory-map-v1.webp");background-color:#29204f;}
+.worlds-screen .valley-heading[data-world="7"] {color:#fff3d2;text-shadow:0 2px 8px #29204f;}
+.worlds-screen .valley-map[data-world="7"] .valley-stop {left:var(--x);top:var(--y);}
+.astral-scenery .scenery-wash {background:linear-gradient(135deg,#c7bcf5aa,#e4e3ffb8);}
+
+@media (min-aspect-ratio:4/3) {
+ .hub-shell.worlds-screen:has([data-world="7"]) {background-image:url("/assets/astral-observatory-wide-v1.webp");}
+ .worlds-screen .valley-map[data-world="7"] .valley-stop {left:var(--wide-x);top:var(--wide-y);}
+}
+/* Keep celestial headings legible and out of the summit controls. */
+.worlds-screen .valley-heading[data-world="7"] h1,
+.worlds-screen .valley-heading[data-world="7"] .valley-kicker,
+.worlds-screen .valley-heading[data-world="7"] .valley-stars {color:#fff3d2;}
+.worlds-screen .valley-heading[data-world="7"] .valley-progress {position:static;flex-direction:row;align-items:center;flex-wrap:nowrap;justify-content:center;gap:10px;}
+.hub-shell:has(.page-home) .astral-scenery {background:radial-gradient(ellipse at 50% 40%,#e9e4ff,#c7c1f0 60%,#a6b9e5);}
+.hub-shell:has(.page-home) .astral-scenery picture {display:none;}
+@media (min-aspect-ratio:4/3) {
+ .worlds-screen .valley-heading[data-world="7"] {align-self:flex-end;margin-right:24px;}
+}
+@media (max-height:650px) and (max-aspect-ratio:4/3) {
+ .hub-shell.worlds-screen:has([data-world="7"]) {background-position:center 40px;background-size:100% calc(100% - 200px);}
+ .worlds-screen:has([data-world="7"]) .valley-map-scroll {top:40px;}
+ .worlds-screen .valley-heading[data-world="7"] h1 {font-size:20px;}
+}
+
+.worlds-screen .valley-heading[data-world="7"] .valley-stars span {color:inherit;}

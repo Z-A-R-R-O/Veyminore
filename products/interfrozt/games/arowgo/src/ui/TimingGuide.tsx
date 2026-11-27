@@ -39,7 +39,7 @@ export function TimingGuide({
         className="timing-help"
         onClick={() => dialog.current?.showModal()}
         aria-label={
-          level.levelId.startsWith("amber-")
+          clock || level.levelId.startsWith("amber-")
             ? "Timing rules"
             : "Frostfall rules"
         }

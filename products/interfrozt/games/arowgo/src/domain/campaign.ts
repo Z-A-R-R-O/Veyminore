@@ -1,3 +1,43 @@
+import astral0 from "../../content/levels/astral/level-141.json";
+import astral1 from "../../content/levels/astral/level-142.json";
+import astral2 from "../../content/levels/astral/level-143.json";
+import astral3 from "../../content/levels/astral/level-144.json";
+import astral4 from "../../content/levels/astral/level-145.json";
+import astral5 from "../../content/levels/astral/level-146.json";
+import astral6 from "../../content/levels/astral/level-147.json";
+import astral7 from "../../content/levels/astral/level-148.json";
+import astral8 from "../../content/levels/astral/level-149.json";
+import astral9 from "../../content/levels/astral/level-150.json";
+import astral10 from "../../content/levels/astral/level-151.json";
+import astral11 from "../../content/levels/astral/level-152.json";
+import astral12 from "../../content/levels/astral/level-153.json";
+import astral13 from "../../content/levels/astral/level-154.json";
+import astral14 from "../../content/levels/astral/level-155.json";
+import astral15 from "../../content/levels/astral/level-156.json";
+import astral16 from "../../content/levels/astral/level-157.json";
+import astral17 from "../../content/levels/astral/level-158.json";
+import astral18 from "../../content/levels/astral/level-159.json";
+import astral19 from "../../content/levels/astral/level-160.json";
+import astral20 from "../../content/levels/astral/level-161.json";
+import astral21 from "../../content/levels/astral/level-162.json";
+import astral22 from "../../content/levels/astral/level-163.json";
+import astral23 from "../../content/levels/astral/level-164.json";
+import astral24 from "../../content/levels/astral/level-165.json";
+import astral25 from "../../content/levels/astral/level-166.json";
+import astral26 from "../../content/levels/astral/level-167.json";
+import astral27 from "../../content/levels/astral/level-168.json";
+import astral28 from "../../content/levels/astral/level-169.json";
+import astral29 from "../../content/levels/astral/level-170.json";
+import astral30 from "../../content/levels/astral/level-171.json";
+import astral31 from "../../content/levels/astral/level-172.json";
+import astral32 from "../../content/levels/astral/level-173.json";
+import astral33 from "../../content/levels/astral/level-174.json";
+import astral34 from "../../content/levels/astral/level-175.json";
+import astral35 from "../../content/levels/astral/level-176.json";
+import astral36 from "../../content/levels/astral/level-177.json";
+import astral37 from "../../content/levels/astral/level-178.json";
+import astral38 from "../../content/levels/astral/level-179.json";
+import astral39 from "../../content/levels/astral/level-180.json";
 import clockwork0 from "../../content/levels/clockwork/level-101.json";
 import clockwork1 from "../../content/levels/clockwork/level-102.json";
 import clockwork2 from "../../content/levels/clockwork/level-103.json";
@@ -287,7 +327,50 @@ export const levels = [
     clockwork38,
     clockwork39,
   ].map(validateLevel),
+  ...[
+    astral0,
+    astral1,
+    astral2,
+    astral3,
+    astral4,
+    astral5,
+    astral6,
+    astral7,
+    astral8,
+    astral9,
+    astral10,
+    astral11,
+    astral12,
+    astral13,
+    astral14,
+    astral15,
+    astral16,
+    astral17,
+    astral18,
+    astral19,
+    astral20,
+    astral21,
+    astral22,
+    astral23,
+    astral24,
+    astral25,
+    astral26,
+    astral27,
+    astral28,
+    astral29,
+    astral30,
+    astral31,
+    astral32,
+    astral33,
+    astral34,
+    astral35,
+    astral36,
+    astral37,
+    astral38,
+    astral39,
+  ].map(validateLevel),
 ];
+
 export const levelNames = [
   ...originalNames,
   "Morning mist",
@@ -420,4 +503,44 @@ export const levelNames = [
   "Zero margin",
   "Grand mechanism",
   "Heart of time",
+  "Starlit arrival",
+  "Crystal crossing",
+  "Orbit path",
+  "Lunar steps",
+  "First alignment",
+  "Silver passage",
+  "Celestial turn",
+  "Nebula bridge",
+  "Observatory gate",
+  "Star chart",
+  "Double orbit",
+  "Telescope trail",
+  "Comet crossing",
+  "Lunar lattice",
+  "Radiant corridor",
+  "Twilight alignment",
+  "Four windows",
+  "Astral chamber",
+  "Stellar crossroads",
+  "Celestial clock",
+  "Exact orbit",
+  "Prism passage",
+  "Fivefold rhythm",
+  "Eclipse watch",
+  "Starbound strategy",
+  "Crystal labyrinth",
+  "Narrow constellation",
+  "Lunar reckoning",
+  "Comet window",
+  "Gravity of choice",
+  "Final alignment",
+  "Celestial precision",
+  "Fading starlight",
+  "Orbit master",
+  "Stellar engine",
+  "Last constellation",
+  "Astral paradox",
+  "Event horizon",
+  "Beyond the stars",
+  "Heart of the cosmos",
 ];
