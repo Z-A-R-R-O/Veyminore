@@ -90,3 +90,58 @@ test("legacy saves unlock four Astral pages without changing balances", async ({
     .toBeGreaterThan(0);
   await page.screenshot({ path: "tmp/astral-home-phone.png" });
 });
+const oldAstral: unknown[] = JSON.parse(
+  readFileSync("content/levels/astral-before-hardening.json", "utf8"),
+);
+import { guest } from "../../src/storage/profile";
+test("old Astral completion keeps stars, coins and gems after content migration", async ({
+  page,
+}) => {
+  test.setTimeout(120000);
+  const saves = [...levels, ...oldAstral.slice(0, 3).map(validateLevel)].map(
+    (level, i) => {
+      let state = newSession(level, "old-content");
+      for (const id of level.solution)
+        state = resolve(level, state, {
+          id,
+          type: "select",
+          arrowId: id,
+          attemptId: state.attemptId,
+        }).state;
+      return [
+        i === 0 ? "arowgo.slice.v1" : `arowgo.level.${level.levelId}.v1`,
+        JSON.stringify(state),
+      ];
+    },
+  );
+  const profile = JSON.stringify({ ...guest(), gems: 73 });
+  await page.addInitScript(
+    ({ saves, profile }) => {
+      for (const [k, v] of saves) localStorage.setItem(k, v);
+      localStorage.setItem("arowgo.profile.v1", profile);
+      localStorage.setItem("arowgo.tutorial.snake.v2", "seen");
+    },
+    { saves, profile },
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#worlds");
+  await expect(
+    page.getByRole("heading", { name: "Astral Observatory", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".valley-progress")).toContainText(
+    "3 / 40 cleared",
+  );
+  await expect(page.locator(".hub-coins")).toContainText("3575");
+  await expect(page.locator(".hub-gems")).toContainText("73");
+  for (const [key, raw] of saves.slice(140)) {
+    expect(
+      await page.evaluate((k) => localStorage.getItem(k + ".content-13"), key),
+    ).toBe(raw);
+    expect(await page.evaluate((k) => localStorage.getItem(k), key)).toBe(raw);
+  }
+  expect(
+    JSON.parse(
+      (await page.evaluate(() => localStorage.getItem("arowgo.profile.v1")))!,
+    ).gems,
+  ).toBe(73);
+});

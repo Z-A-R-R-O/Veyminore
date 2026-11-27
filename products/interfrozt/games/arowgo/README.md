@@ -8,7 +8,7 @@ A mobile-first snake-arrow puzzle game. Current development status: **27 Novembe
 - [Documentation index](docs/README.md): feature guides and historical records.
 - [Build guide](docs/build-guide.md): commands and verification scope.
 - [Open gaps](docs/GAME-EXPERIENCE-GAPS.md) and [delivery backlog](docs/execution-backlog.md).
-- [Latest verification record](docs/ASTRAL-AUDIT-2026-11-27.md).
+- [Latest verification record](docs/ASTRAL-HARDENING.md).
 
 ## Run locally
 

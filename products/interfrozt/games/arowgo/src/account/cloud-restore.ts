@@ -1,3 +1,4 @@
+import { beforeAstralHardeningLevels } from "../domain/campaignBeforeAstralHardening";
 import { beforeDensityLevels } from "../domain/campaignBeforeDensity";
 import { beforeHardeningLevels } from "../domain/campaignBeforeHardening";
 import { beforeTimingLevels } from "../domain/campaignBeforeTiming";
@@ -12,6 +13,7 @@ function compatibleSession(raw: string, level: Level) {
     return parseSession(raw, level);
   } catch (error) {
     for (const old of [
+      ...beforeAstralHardeningLevels,
       ...beforeDensityLevels,
       ...beforeHardeningLevels,
       ...beforeTimingLevels,

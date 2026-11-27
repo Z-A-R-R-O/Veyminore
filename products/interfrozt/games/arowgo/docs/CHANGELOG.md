@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Astral difficulty hardening — 27 November 2026
+
+Content 14 strengthens and globally orders Levels 141–180 above the previous campaign rating peak. Archived content 13 supports local migration, cloud-restore validation and historical reward proofs. See [hardening audit](ASTRAL-HARDENING.md).
+
 ## Astral Observatory — 27 November 2026
 
 Added World 7, Levels 141–180, with four difficulty bands combining taught mechanics, generated portrait/wide maps and a matching home island. Campaign, DEV ratings, finale and server reward validation cover all 180 levels. Earlier content and saves remain unchanged. See [design](ASTRAL-OBSERVATORY.md) and [audit](ASTRAL-AUDIT-2026-11-27.md).

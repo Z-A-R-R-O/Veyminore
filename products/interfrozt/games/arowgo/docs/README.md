@@ -27,3 +27,5 @@ Reconciled 27 November 2026. Start with the current summaries; dated rollout not
 [Clockwork 101–140 and numeric DEV difficulty](CHAPTER-SIX-PLAN.md): forty-level worlds after 100, three-beat gates, opening windows, and frozen baseline scoring.
 
 [Astral Observatory 141–180](ASTRAL-OBSERVATORY.md): forty additional dense timing puzzles and new world artwork.
+
+[Astral difficulty hardening](ASTRAL-HARDENING.md): current content-14 curve, historical save compatibility and measured comparisons.

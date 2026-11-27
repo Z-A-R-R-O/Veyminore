@@ -1,5 +1,7 @@
 # Astral Observatory audit — 27 November 2026
 
+This is the original content-13 audit. The current revision is documented in [Astral hardening](ASTRAL-HARDENING.md).
+
 ## Scope
 
 World 7 adds Levels 141–180, following the forty-level world policy. Campaign totals are 180 levels, 540 stars and 4,500 first-clear coins. Existing Levels 1–140 retain their IDs and content. Astral unlocks after Level 140 and has four ten-stop map pages.

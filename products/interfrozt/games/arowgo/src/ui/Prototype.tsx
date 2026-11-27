@@ -1,3 +1,4 @@
+import { beforeAstralHardeningLevels } from "../domain/campaignBeforeAstralHardening";
 import { ProfileShortcut } from "./elements/ProfileShortcut";
 import { beforeDensityLevels } from "../domain/campaignBeforeDensity";
 import { beforeHardeningLevels } from "../domain/campaignBeforeHardening";
@@ -67,6 +68,9 @@ const controllers = levels.map(
         level,
         i === 0 ? SAVE_KEY : `arowgo.level.${level.levelId}.v1`,
         [
+          ...beforeAstralHardeningLevels.filter(
+            (p) => p.levelId === level.levelId,
+          ),
           ...beforeDensityLevels.filter((p) => p.levelId === level.levelId),
           ...beforeHardeningLevels.filter((p) => p.levelId === level.levelId),
           ...beforeTimingLevels.filter((p) => p.levelId === level.levelId),

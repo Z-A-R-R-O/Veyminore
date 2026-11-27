@@ -1,6 +1,6 @@
 # Current game state
 
-Updated 27 November 2026. This is the current implementation summary; older design documents and dated test reports are not competing contracts. [Index](README.md) · [Verification](ASTRAL-AUDIT-2026-11-27.md) · [Open gaps](GAME-EXPERIENCE-GAPS.md).
+Updated 27 November 2026. This is the current implementation summary; older design documents and dated test reports are not competing contracts. [Index](README.md) · [Verification](ASTRAL-HARDENING.md) · [Open gaps](GAME-EXPERIENCE-GAPS.md).
 
 ## Campaign
 
@@ -50,7 +50,7 @@ The account server is localhost-only and refuses production mode. Its wallet is 
 
 Node >=24, TypeScript, React, Vite, Phaser, Vitest, Playwright and Capacitor Android. Domain rules are separate from UI and persistence. Developer tools provide isolated level selection through 180 and downloadable screenshot bug reports; reports require manual sending.
 
-Latest verification: 487 tests across 65 files, typecheck and production build passed. Eight Astral levels completed on both Desktop Chrome and emulated Pixel 7; responsive map checks pass at 320px, 390px and desktop widths. See the [Astral audit](ASTRAL-AUDIT-2026-11-27.md) for the targeted gameplay scope and remaining limits. Full browser-suite, physical-device, production deployment and human difficulty acceptance are not asserted.
+Latest verification: 492 tests across 68 files, typecheck and production build passed. Eight Astral levels completed on both Desktop Chrome and emulated Pixel 7; responsive map checks pass at 320px, 390px and desktop widths. See the [Astral audit](ASTRAL-HARDENING.md) for the targeted gameplay scope and remaining limits. Full browser-suite, physical-device, production deployment and human difficulty acceptance are not asserted.
 
 ## Development tools
 
@@ -59,3 +59,5 @@ DEV displays versioned numeric structural difficulty for all 180 campaign levels
 Clockwork uses content 13, three-beat gates and inclusive opening windows. It retains 28 arrows per dense board. The frozen structural rating remains version 1; its risk analysis sees the new rules, while its timing component remains a keg-slack measure. Clockwork currently reuses Amber scenery with a dusk palette.
 
 Astral Observatory adds forty dense puzzles with progressively tighter combinations of taught timing rules. It has generated portrait/wide maps and a matching home island. See [Astral design](ASTRAL-OBSERVATORY.md).
+
+Astral content 14 uses a globally nondecreasing 862–951 curve, above the previous campaign peak. Content-13 Astral saves migrate with coins and best stars preserved; changed boards restart their current attempt. See [hardening](ASTRAL-HARDENING.md).

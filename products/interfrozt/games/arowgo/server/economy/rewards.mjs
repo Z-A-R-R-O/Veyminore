@@ -46,10 +46,20 @@ const archivedDensity = JSON.parse(
     "utf8",
   ),
 ).map(validateLevel);
+const archivedAstral = JSON.parse(
+  readFileSync(
+    new URL(
+      "../../content/levels/astral-before-hardening.json",
+      import.meta.url,
+    ),
+    "utf8",
+  ),
+).map(validateLevel);
 /** Server-owned content; neither balances nor a client's completion flag are accepted. */
 export function verifyClear(levelId, contentVersion, moves, details = false) {
   const level = [
     ...rewardLevels,
+    ...archivedAstral,
     ...archivedDensity,
     ...archivedFrost,
     ...archivedHardening,

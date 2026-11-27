@@ -37,16 +37,18 @@ it("audits all forty Astral levels, decisions, restores and rewards", () => {
       (a) => a.pulse !== undefined || a.window !== undefined,
     ))
       expect(sources.has(a.id)).toBe(false);
-    if (i % 10 === 0) lastScore = 0;
+
     expect(rating.score).toBeGreaterThanOrEqual(lastScore);
-    expect(rating.score).toBeGreaterThanOrEqual(700 + Math.floor(i / 10) * 20);
+    expect(rating.score).toBeGreaterThanOrEqual(860);
     lastScore = rating.score;
-    expect(l.arrows.filter((a) => a.pulse !== undefined)).toHaveLength(
-      i >= 20 ? 5 : 4,
-    );
-    expect(l.arrows.filter((a) => a.window !== undefined)).toHaveLength(
-      i >= 10 ? 4 : 3,
-    );
+    expect(l.contentVersion).toBe(14);
+    expect(m.failureHorizon).toBeGreaterThanOrEqual(12);
+    expect(
+      l.arrows.filter((a) => a.pulse !== undefined).length,
+    ).toBeGreaterThanOrEqual(4);
+    expect(
+      l.arrows.filter((a) => a.window !== undefined).length,
+    ).toBeGreaterThanOrEqual(3);
     const p = evaluatePlanning(l);
     expect(p.randomLegalWinRate).toBeGreaterThan(0);
     expect(p.randomLegalWinRate).toBeLessThan(0.001);
