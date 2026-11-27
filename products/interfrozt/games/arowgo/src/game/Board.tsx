@@ -7,7 +7,7 @@ import {
 } from "react";
 import Phaser from "phaser";
 import { roundedPath, snake, length, type Point } from "./arrowGeometry";
-import { timingOpen, direction, type Level } from "../domain/rules";
+import { timingOpen, switchOpen, direction, type Level } from "../domain/rules";
 import { inspectArrow } from "../domain/preview";
 import type { Outcome } from "../application/session";
 export interface BoardHandle {
@@ -249,26 +249,30 @@ export function Board({
                 className="arrow-control"
                 aria-label={`Slide arrow ${a.id}`}
                 aria-description={
-                  a.pulse !== undefined
-                    ? `Three-beat gate. Opens on beat ${a.pulse + 1}. Current beat ${((level.arrows.length - active.length) % 3) + 1}.`
-                    : a.window
-                      ? `Opening window after ${a.window[0]} through ${a.window[1]} removals.`
-                      : a.thawAfter !== undefined
-                        ? `Ice seal. ${Math.max(0, a.thawAfter - (level.arrows.length - active.length))} successful moves until thawed.`
-                        : a.phase !== undefined
-                          ? `Aurora gate. ${timingOpen(a, level.arrows.length - active.length) ? "Open" : "Closed"}. Toggles after each successful removal.`
-                          : a.deadline !== undefined
-                            ? `Powder keg. ${Math.max(0, a.deadline - (level.arrows.length - active.length))} successful moves remaining. Hold P to inspect.`
-                            : a.anchorRequires &&
-                                active.includes(a.anchorRequires)
-                              ? "Anchored. Clear the matching anchor arrow first."
-                              : a.requires && active.includes(a.requires)
-                                ? "Locked. Clear its key arrow first."
-                                : level.arrows.some(
-                                      (other) => other.requires === a.id,
-                                    )
-                                  ? "Key arrow. Clear it to open the matching lock."
-                                  : undefined
+                  a.switchGroup !== undefined
+                    ? `Switch ${a.switchGroup}. Removal toggles every matching gate.`
+                    : a.gate
+                      ? `Gate ${a.gate.group}. ${switchOpen(level, active, a.id) ? "Open" : "Closed"}. Only matching switches toggle it.`
+                      : a.pulse !== undefined
+                        ? `Three-beat gate. Opens on beat ${a.pulse + 1}. Current beat ${((level.arrows.length - active.length) % 3) + 1}.`
+                        : a.window
+                          ? `Opening window after ${a.window[0]} through ${a.window[1]} removals.`
+                          : a.thawAfter !== undefined
+                            ? `Ice seal. ${Math.max(0, a.thawAfter - (level.arrows.length - active.length))} successful moves until thawed.`
+                            : a.phase !== undefined
+                              ? `Aurora gate. ${timingOpen(a, level.arrows.length - active.length) ? "Open" : "Closed"}. Toggles after each successful removal.`
+                              : a.deadline !== undefined
+                                ? `Powder keg. ${Math.max(0, a.deadline - (level.arrows.length - active.length))} successful moves remaining. Hold P to inspect.`
+                                : a.anchorRequires &&
+                                    active.includes(a.anchorRequires)
+                                  ? "Anchored. Clear the matching anchor arrow first."
+                                  : a.requires && active.includes(a.requires)
+                                    ? "Locked. Clear its key arrow first."
+                                    : level.arrows.some(
+                                          (other) => other.requires === a.id,
+                                        )
+                                      ? "Key arrow. Clear it to open the matching lock."
+                                      : undefined
                 }
                 disabled={disabled}
                 style={{
@@ -600,6 +604,39 @@ class PuzzleScene extends Phaser.Scene {
         </g>`;
         element.appendChild(badge);
       }
+      if (arrow.switchGroup !== undefined || arrow.gate) {
+        const badge = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "g",
+          ),
+          group = arrow.switchGroup ?? arrow.gate!.group,
+          open = switchOpen(this.level, active, arrow.id);
+        badge.classList.add("switch-badge");
+        badge.dataset.kind = arrow.gate ? "gate" : "switch";
+        badge.dataset.group = String(group);
+        badge.dataset.open = String(open);
+        const diameter = Math.min(40, this.cell * 0.82);
+        badge.dataset.size = String(diameter);
+        badge.setAttribute("pointer-events", "none");
+        badge.setAttribute(
+          "transform",
+          `translate(${points[0][0]} ${points[0][1]}) scale(${diameter / 48})`,
+        );
+        const color = group === 1 ? "#087b68" : "#a55d09";
+        badge.innerHTML = `${arrow.gate ? '<rect x="-22" y="-22" width="44" height="44" rx="9" fill="#fff4d2"/>' : '<path d="M0 -24 24 0 0 24 -24 0Z" fill="#fff4d2"/>'}${arrow.gate ? `<rect x="-18" y="-18" width="36" height="36" rx="5" fill="${color}"/>` : `<path d="M0 -20 20 0 0 20 -20 0Z" fill="${color}"/>`}<text x="0" y="0" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="19" fill="white">${group}</text>${arrow.gate ? `<path class="gate-bars" d="${open ? "M-12 13 -16 4 M12 13 16 4" : "M-12 13 -12 4 M0 13 0 4 M12 13 12 4"}" stroke="white" stroke-width="3" fill="none"/>` : '<path d="M-10 12H10 M0 12 8 4" stroke="white" stroke-width="3" fill="none"/><circle cx="8" cy="4" r="3" fill="#ffd364"/>'}`;
+        element.append(badge);
+        if (
+          arrow.gate &&
+          !this.reduced &&
+          previousActive.length &&
+          switchOpen(this.level, previousActive, arrow.id) !== open
+        ) {
+          badge.animate([{ opacity: 0.35 }, { opacity: 1 }], {
+            duration: 420,
+            easing: "ease-out",
+          });
+        }
+      }
       const isAnchor = this.level.arrows.some(
         (other) => other.anchorRequires === arrow.id,
       );
@@ -788,7 +825,9 @@ class PuzzleScene extends Phaser.Scene {
     this.animating.add(id);
     if (result.exit.clear || result.erased)
       (shape.getData("vector") as SVGGElement)
-        .querySelectorAll(".mechanic-badge, .cove-mechanic, .timing-badge")
+        .querySelectorAll(
+          ".mechanic-badge, .cove-mechanic, .timing-badge, .switch-badge",
+        )
         .forEach((badge) => badge.remove());
     const arrow = this.level.arrows.find((a) => a.id === id)!;
     const [hx, hy] = arrow.points.at(-1)!;
@@ -1015,9 +1054,11 @@ function PathPreview({
       : null;
   const detail = changes
     .map((c) =>
-      c.kind === "phase" || c.kind === "pulse" || c.kind === "window"
-        ? `Phase ${c.before ? "open" : "closed"} to ${c.after ? "open" : "closed"}`
-        : `${c.kind === "keg" ? "Countdown" : "Ice"} ${c.before} to ${c.after}`,
+      c.kind === "switch"
+        ? `Linked gate ${c.before ? "open" : "closed"} to ${c.after ? "open" : "closed"}`
+        : c.kind === "phase" || c.kind === "pulse" || c.kind === "window"
+          ? `Phase ${c.before ? "open" : "closed"} to ${c.after ? "open" : "closed"}`
+          : `${c.kind === "keg" ? "Countdown" : "Ice"} ${c.before} to ${c.after}`,
     )
     .join(". ");
   return (

@@ -11,16 +11,16 @@ import { newSession, resolve, parseSession } from "../src/application/session";
 // @ts-expect-error Server ESM integration.
 import { verifyClear, rewardLevels } from "../server/economy/rewards.mjs";
 it("audits all forty Astral levels, decisions, restores and rewards", () => {
-  expect(levels).toHaveLength(180);
-  expect(levelNames).toHaveLength(180);
-  expect(rewardLevels).toHaveLength(180);
+  expect(levels).toHaveLength(220);
+  expect(levelNames).toHaveLength(220);
+  expect(rewardLevels).toHaveLength(220);
   const signatures = new Set(
     levels
       .slice(0, 140)
       .map((l) => JSON.stringify(l.arrows.map((a) => a.points))),
   );
   let lastScore = 0;
-  for (const [i, l] of levels.slice(140).entries()) {
+  for (const [i, l] of levels.slice(140, 180).entries()) {
     expect(validateLevel(l)).toBe(l);
     expect(l.levelId).toBe(`astral-${141 + i}`);
     const signature = JSON.stringify(l.arrows.map((a) => a.points));

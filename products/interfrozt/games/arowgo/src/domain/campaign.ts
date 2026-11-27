@@ -1,3 +1,43 @@
+import foundry20 from "../../content/levels/foundry/level-201.json";
+import foundry21 from "../../content/levels/foundry/level-202.json";
+import foundry22 from "../../content/levels/foundry/level-203.json";
+import foundry23 from "../../content/levels/foundry/level-204.json";
+import foundry24 from "../../content/levels/foundry/level-205.json";
+import foundry25 from "../../content/levels/foundry/level-206.json";
+import foundry26 from "../../content/levels/foundry/level-207.json";
+import foundry27 from "../../content/levels/foundry/level-208.json";
+import foundry28 from "../../content/levels/foundry/level-209.json";
+import foundry29 from "../../content/levels/foundry/level-210.json";
+import foundry30 from "../../content/levels/foundry/level-211.json";
+import foundry31 from "../../content/levels/foundry/level-212.json";
+import foundry32 from "../../content/levels/foundry/level-213.json";
+import foundry33 from "../../content/levels/foundry/level-214.json";
+import foundry34 from "../../content/levels/foundry/level-215.json";
+import foundry35 from "../../content/levels/foundry/level-216.json";
+import foundry36 from "../../content/levels/foundry/level-217.json";
+import foundry37 from "../../content/levels/foundry/level-218.json";
+import foundry38 from "../../content/levels/foundry/level-219.json";
+import foundry39 from "../../content/levels/foundry/level-220.json";
+import foundry0 from "../../content/levels/foundry/level-181.json";
+import foundry1 from "../../content/levels/foundry/level-182.json";
+import foundry2 from "../../content/levels/foundry/level-183.json";
+import foundry3 from "../../content/levels/foundry/level-184.json";
+import foundry4 from "../../content/levels/foundry/level-185.json";
+import foundry5 from "../../content/levels/foundry/level-186.json";
+import foundry6 from "../../content/levels/foundry/level-187.json";
+import foundry7 from "../../content/levels/foundry/level-188.json";
+import foundry8 from "../../content/levels/foundry/level-189.json";
+import foundry9 from "../../content/levels/foundry/level-190.json";
+import foundry10 from "../../content/levels/foundry/level-191.json";
+import foundry11 from "../../content/levels/foundry/level-192.json";
+import foundry12 from "../../content/levels/foundry/level-193.json";
+import foundry13 from "../../content/levels/foundry/level-194.json";
+import foundry14 from "../../content/levels/foundry/level-195.json";
+import foundry15 from "../../content/levels/foundry/level-196.json";
+import foundry16 from "../../content/levels/foundry/level-197.json";
+import foundry17 from "../../content/levels/foundry/level-198.json";
+import foundry18 from "../../content/levels/foundry/level-199.json";
+import foundry19 from "../../content/levels/foundry/level-200.json";
 import astral0 from "../../content/levels/astral/level-141.json";
 import astral1 from "../../content/levels/astral/level-142.json";
 import astral2 from "../../content/levels/astral/level-143.json";
@@ -368,6 +408,46 @@ export const levels = [
     astral37,
     astral38,
     astral39,
+    foundry0,
+    foundry1,
+    foundry2,
+    foundry3,
+    foundry4,
+    foundry5,
+    foundry6,
+    foundry7,
+    foundry8,
+    foundry9,
+    foundry10,
+    foundry11,
+    foundry12,
+    foundry13,
+    foundry14,
+    foundry15,
+    foundry16,
+    foundry17,
+    foundry18,
+    foundry19,
+    foundry20,
+    foundry21,
+    foundry22,
+    foundry23,
+    foundry24,
+    foundry25,
+    foundry26,
+    foundry27,
+    foundry28,
+    foundry29,
+    foundry30,
+    foundry31,
+    foundry32,
+    foundry33,
+    foundry34,
+    foundry35,
+    foundry36,
+    foundry37,
+    foundry38,
+    foundry39,
   ].map(validateLevel),
 ];
 
@@ -543,4 +623,44 @@ export const levelNames = [
   "Event horizon",
   "Beyond the stars",
   "Heart of the cosmos",
+  "First ignition",
+  "Emerald lever",
+  "Golden gate",
+  "Return current",
+  "Open circuit",
+  "Jade crossing",
+  "Forge passage",
+  "Last switch",
+  "Molten choice",
+  "Foundry apprentice",
+  "Twin circuits",
+  "Copper crossroads",
+  "Separate currents",
+  "Amber relay",
+  "Crossed levers",
+  "Dual furnace",
+  "Gate keeper",
+  "Pressure chamber",
+  "Circuit maze",
+  "Master of two",
+  "Closing loop",
+  "Furnace window",
+  "Emerald matrix",
+  "Switchback engine",
+  "Three gate crossing",
+  "Obsidian lattice",
+  "Golden interval",
+  "Circuit breaker",
+  "Narrow current",
+  "Eclipse chamber",
+  "Critical ignition",
+  "Four furnaces",
+  "Last safe window",
+  "Entangled circuits",
+  "Emerald crucible",
+  "Molten labyrinth",
+  "Precision forge",
+  "Final relay",
+  "Eclipse master",
+  "Heart of the Foundry",
 ];

@@ -269,10 +269,12 @@ export function parseSession(raw: string, level: Level): Session {
     (expiredKeg(level, s.active) || !solve(level, s.active))
   )
     throw new Error("Impossible keg state");
-  // Alternating gates are non-monotone: validate the actual move history,
+  // Timing and linked gates are non-monotone: validate the actual move history,
   // not a hypothetical reinsertion at the final phase.
   const dynamic = level.arrows.some(
     (a) =>
+      a.switchGroup !== undefined ||
+      a.gate !== undefined ||
       a.phase !== undefined ||
       a.thawAfter !== undefined ||
       a.pulse !== undefined ||

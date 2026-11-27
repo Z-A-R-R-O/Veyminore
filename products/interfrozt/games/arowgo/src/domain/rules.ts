@@ -9,6 +9,8 @@ export interface Arrow {
   phase?: 0 | 1;
   pulse?: 0 | 1 | 2;
   window?: [number, number];
+  switchGroup?: 1 | 2;
+  gate?: { group: 1 | 2; initiallyOpen: boolean };
 }
 export interface Level {
   schemaVersion: 1;
@@ -26,7 +28,7 @@ export type Exit =
       blocker: string;
       cell: Cell;
       step: number;
-      reason?: "locked" | "anchored" | "frozen" | "phase";
+      reason?: "locked" | "anchored" | "frozen" | "phase" | "switch";
     };
 const key = ([x, y]: Cell) => `${x},${y}`;
 
@@ -66,7 +68,7 @@ export function validateLevel(value: unknown): Level {
   if (
     level.schemaVersion !== 1 ||
     ![1, 2].includes(level.rulesVersion) ||
-    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].includes(
+    ![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].includes(
       level.contentVersion,
     ) ||
     typeof level.levelId !== "string" ||
@@ -207,6 +209,37 @@ export function validateLevel(value: unknown): Level {
     )
       throw Error("Timing mechanics require content 10 and at most 28 arrows");
   }
+  for (const a of level.arrows) {
+    if (a.switchGroup === undefined && a.gate === undefined) continue;
+    if (
+      level.contentVersion < 15 ||
+      level.rulesVersion !== 2 ||
+      level.arrows.length > 28 ||
+      (a.switchGroup !== undefined && ![1, 2].includes(a.switchGroup)) ||
+      (a.gate !== undefined &&
+        (!a.gate ||
+          ![1, 2].includes(a.gate.group) ||
+          typeof a.gate.initiallyOpen !== "boolean")) ||
+      (a.switchGroup !== undefined && a.gate !== undefined) ||
+      a.requires ||
+      a.anchorRequires ||
+      a.deadline !== undefined ||
+      a.thawAfter !== undefined ||
+      a.phase !== undefined ||
+      a.pulse !== undefined ||
+      a.window !== undefined ||
+      level.arrows.some(
+        (other) => other.requires === a.id || other.anchorRequires === a.id,
+      )
+    )
+      throw Error("Invalid switch attachment");
+    const group = a.switchGroup ?? a.gate!.group;
+    if (
+      !level.arrows.some((other) => other.switchGroup === group) ||
+      !level.arrows.some((other) => other.gate?.group === group)
+    )
+      throw Error("Unmatched switch group");
+  }
   let active = [...ids];
   for (const id of level.solution) {
     if (!checkExit(level, active, id).clear)
@@ -227,6 +260,14 @@ export function checkExit(
   const arrow = level.arrows.find((a) => a.id === id);
   if (!arrow || !active.includes(id)) throw new Error("Arrow is not active");
   const removed = level.arrows.length - active.length;
+  if (!switchOpen(level, active, id))
+    return {
+      clear: false,
+      blocker: id,
+      cell: arrow.points[0],
+      step: 0,
+      reason: "switch",
+    };
   if (!timingOpen(arrow, removed))
     return {
       clear: false,
@@ -320,6 +361,40 @@ export function dependencies(level: Level): Map<string, Set<string>> {
   );
 }
 
+/** Gate state is derived from removed switches: replay/restore needs no mutable toggle state. */
+export function switchChecker(level: Level) {
+  const sources = new Map<number, number>();
+  level.arrows.forEach((a, i) => {
+    if (a.switchGroup !== undefined)
+      sources.set(a.switchGroup, (sources.get(a.switchGroup) ?? 0) | (1 << i));
+  });
+  return (index: number, activeMask: number): boolean => {
+    const gate = level.arrows[index].gate;
+    if (!gate) return true;
+    let removed = (sources.get(gate.group) ?? 0) & ~activeMask,
+      parity = 0;
+    while (removed) {
+      parity ^= 1;
+      removed &= removed - 1;
+    }
+    return gate.initiallyOpen !== (parity === 1);
+  };
+}
+export function switchOpen(
+  level: Level,
+  active: readonly string[],
+  id: string,
+): boolean {
+  const index = level.arrows.findIndex((a) => a.id === id);
+  if (!level.arrows[index]?.gate) return true;
+  const set = new Set(active),
+    mask = level.arrows.reduce(
+      (m, a, i) => (set.has(a.id) ? m | (1 << i) : m),
+      0,
+    );
+  return switchChecker(level)(index, mask);
+}
+
 export function timingOpen(a: Arrow, removed: number) {
   return (
     removed >= (a.thawAfter ?? 0) &&
@@ -332,6 +407,8 @@ export function timingOpen(a: Arrow, removed: number) {
 export function hasTiming(level: Level) {
   return level.arrows.some(
     (a) =>
+      a.switchGroup !== undefined ||
+      a.gate !== undefined ||
       a.pulse !== undefined ||
       a.window !== undefined ||
       a.deadline !== undefined ||
@@ -438,6 +515,7 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
   );
   const failed = new Set<number>();
   let visited = 0;
+  const gateOpen = switchChecker(level);
   function search(mask: number): string[] | null {
     if (!mask) return [];
     if (failed.has(mask)) return null;
@@ -461,7 +539,8 @@ function solveDeadlines(level: Level, initial: string[]): string[] | null {
         (i) =>
           mask & (1 << i) &&
           !(blockers[i] & mask) &&
-          timingOpen(level.arrows[i], removed),
+          timingOpen(level.arrows[i], removed) &&
+          gateOpen(i, mask),
       )
       .sort((a, b) => urgency[a] - urgency[b]);
     for (const i of candidates) {

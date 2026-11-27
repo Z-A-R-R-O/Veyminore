@@ -4,7 +4,7 @@ Updated 20 November 2026. [Gap register](GAME-EXPERIENCE-GAPS.md) owns open acce
 
 ## Next: full-history cloud capacity
 
-1. Reproduce with realistic UUID-bearing transcripts for 180 completed levels plus migration archives and previous snapshot.
+1. Reproduce with realistic UUID-bearing transcripts for 220 completed levels plus migration archives and previous snapshot.
 2. Design bounded storage that retains every byte, current/previous atomicity and optimistic concurrency. Do not discard history, rewards or recovery copies to pass quotas.
 3. Implement with legacy-format compatibility, interrupted-write recovery, corrupt/missing-fragment rejection and account isolation.
 4. Test exact restores and unchanged balances with synthetic fixtures in isolated storage; then verify against real PlayFab test objects.
@@ -20,4 +20,4 @@ Updated 20 November 2026. [Gap register](GAME-EXPERIENCE-GAPS.md) owns open acce
 
 ## Delivered milestones
 
-180-level campaign; snake movement and ordering mechanics; dense late boards; hold preview; profiles/badges; Google OIDC integration; legacy snapshot conflict protection and completion uploads; reviewed account wallet, idempotent rewards/purchases, and second-device completion restore. These are development implementations, not a declaration that all launch gates have passed.
+220-level campaign; snake movement and ordering mechanics; dense late boards; hold preview; profiles/badges; Google OIDC integration; legacy snapshot conflict protection and completion uploads; reviewed account wallet, idempotent rewards/purchases, and second-device completion restore. These are development implementations, not a declaration that all launch gates have passed.

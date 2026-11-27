@@ -88,3 +88,6 @@ Reconciled 20 November 2026. Every Markdown file under docs is listed. [Current 
 | [ASTRAL-OBSERVATORY.md](ASTRAL-OBSERVATORY.md) | Implemented World 7, Levels 141–180 and artwork |
 | [ASTRAL-AUDIT-2026-11-27.md](ASTRAL-AUDIT-2026-11-27.md) | Astral verification and per-level measurements |
 | [ASTRAL-HARDENING.md](ASTRAL-HARDENING.md) | Content-14 difficulty curve, migration and verification |
+
+| [ECLIPSE-FOUNDRY.md](ECLIPSE-FOUNDRY.md) | World 8 rules, authoring, assets and save contract |
+| [ECLIPSE-FOUNDRY-AUDIT.md](ECLIPSE-FOUNDRY-AUDIT.md) | Foundry acceptance and verification |

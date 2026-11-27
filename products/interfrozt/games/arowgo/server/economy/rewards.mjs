@@ -17,6 +17,7 @@ const paths = [
   ...Array.from({ length: 20 }, (_, i) => `sanctum/level-${i + 81}.json`),
   ...Array.from({ length: 40 }, (_, i) => `clockwork/level-${i + 101}.json`),
   ...Array.from({ length: 40 }, (_, i) => `astral/level-${i + 141}.json`),
+  ...Array.from({ length: 40 }, (_, i) => `foundry/level-${i + 181}.json`),
 ];
 export const rewardLevels = paths.map((path) =>
   validateLevel(

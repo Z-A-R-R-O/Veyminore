@@ -11,9 +11,9 @@ import { newSession, resolve, parseSession } from "../src/application/session";
 // @ts-expect-error Server ESM integration.
 import { verifyClear, rewardLevels } from "../server/economy/rewards.mjs";
 it("audits all forty Clockwork levels, decisions, restores and rewards", () => {
-  expect(levels).toHaveLength(180);
-  expect(levelNames).toHaveLength(180);
-  expect(rewardLevels).toHaveLength(180);
+  expect(levels).toHaveLength(220);
+  expect(levelNames).toHaveLength(220);
+  expect(rewardLevels).toHaveLength(220);
   const signatures = new Set(
     levels
       .slice(0, 100)

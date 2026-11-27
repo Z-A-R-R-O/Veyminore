@@ -1,0 +1,643 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 15,
+  "levelId": "foundry-216",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          3,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "deadline": 27
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "window": [
+        26,
+        27
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          2,
+          8
+        ],
+        [
+          4,
+          8
+        ]
+      ],
+      "deadline": 23
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "phase": 0
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "deadline": 24
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          4,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ],
+      "requires": "J"
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          4,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "deadline": 9
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          8,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          6,
+          8
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          5,
+          9
+        ]
+      ],
+      "pulse": 0
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          8,
+          6
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "gate": {
+        "group": 1,
+        "initiallyOpen": false
+      }
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "switchGroup": 1
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "gate": {
+        "group": 1,
+        "initiallyOpen": true
+      }
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          9,
+          7
+        ],
+        [
+          9,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      "thawAfter": 11
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          7,
+          2
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "anchorRequires": "AA"
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "window": [
+        8,
+        9
+      ]
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "switchGroup": 1
+    },
+    {
+      "id": "S",
+      "points": [
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "anchorRequires": "AA"
+    },
+    {
+      "id": "T",
+      "points": [
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          9,
+          9
+        ]
+      ],
+      "switchGroup": 2
+    },
+    {
+      "id": "U",
+      "points": [
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "gate": {
+        "group": 1,
+        "initiallyOpen": true
+      }
+    },
+    {
+      "id": "V",
+      "points": [
+        [
+          4,
+          9
+        ],
+        [
+          3,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "W",
+      "points": [
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "gate": {
+        "group": 2,
+        "initiallyOpen": false
+      }
+    },
+    {
+      "id": "X",
+      "points": [
+        [
+          2,
+          9
+        ],
+        [
+          1,
+          9
+        ]
+      ],
+      "thawAfter": 1
+    },
+    {
+      "id": "Y",
+      "points": [
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "gate": {
+        "group": 2,
+        "initiallyOpen": true
+      }
+    },
+    {
+      "id": "Z",
+      "points": [
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          9
+        ]
+      ],
+      "gate": {
+        "group": 2,
+        "initiallyOpen": true
+      }
+    },
+    {
+      "id": "AA",
+      "points": [
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "AB",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "switchGroup": 2
+    }
+  ],
+  "solution": [
+    "Z",
+    "X",
+    "V",
+    "I",
+    "H",
+    "G",
+    "T",
+    "U",
+    "Q",
+    "W",
+    "AA",
+    "S",
+    "P",
+    "O",
+    "N",
+    "J",
+    "F",
+    "AB",
+    "Y",
+    "L",
+    "K",
+    "E",
+    "C",
+    "R",
+    "D",
+    "A",
+    "B",
+    "M"
+  ],
+  "generation": {
+    "foundryAuthorVersion": 1,
+    "seed": 792890,
+    "trial": 10,
+    "band": 3,
+    "groups": 2,
+    "gateCount": 3,
+    "rating": 917,
+    "measurement": {
+      "components": {
+        "risk": 8.313324138096167,
+        "horizon": 20,
+        "dependency": 10,
+        "timing": 1.75,
+        "density": 0.94
+      },
+      "solvable": true,
+      "arrows": 28,
+      "occupiedCells": 94,
+      "cells": 100,
+      "dependencyDepth": 10,
+      "failureHorizon": 20,
+      "randomLegalWinRate": 4.860443084168009e-9,
+      "openingLegal": 5,
+      "openingWinning": 3,
+      "openingLosing": 2,
+      "minimumSlack": 0,
+      "analyzedStates": 1015
+    },
+    "traps": [
+      {
+        "group": 2,
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "R",
+          "S",
+          "W",
+          "Y",
+          "AA",
+          "AB"
+        ],
+        "move": "AB",
+        "gate": "W"
+      },
+      {
+        "group": 1,
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "K",
+          "M",
+          "R"
+        ],
+        "move": "R",
+        "gate": "K"
+      }
+    ],
+    "sourceLevelId": "foundry-213"
+  }
+}

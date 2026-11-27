@@ -1,0 +1,26 @@
+[
+  {
+    "file": "public/assets/eclipse-foundry-home-v1.png",
+    "bytes": 1552126,
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "sha256": "1f6eb1bed55b6c7da60213eb32f478ad48ae3c27571ce515ba113baa0daf41b8"
+  },
+  {
+    "file": "public/assets/eclipse-foundry-map-v1.webp",
+    "bytes": 314226,
+    "width": 1024,
+    "height": 1536,
+    "mode": "RGB",
+    "sha256": "e51cf310fe47fee47e2b3e0b835ca49bc1b5196ed58494d5f7c1bcd30e9256bd"
+  },
+  {
+    "file": "public/assets/eclipse-foundry-wide-v1.webp",
+    "bytes": 355082,
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "sha256": "eb48347ad14e0d25284d71b1d69fa5b9ea0ccf252cacc1acfb85328937c98f8d"
+  }
+]

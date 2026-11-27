@@ -66,8 +66,9 @@ it("the nearest head-ray obstacle is reported and the next remains after removal
     step: 4,
   });
 });
-it("dependency solver agrees with an independent cell-by-cell snake simulation", () => {
-  for (const l of levels) {
+it.each(levels)(
+  "$levelId agrees with an independent cell-by-cell snake simulation",
+  (l) => {
     const ids = l.arrows.map((a) => a.id),
       graph = dependencies(l);
     const masks =
@@ -92,7 +93,17 @@ it("dependency solver agrees with an independent cell-by-cell snake simulation",
             .map((c) => c.join(",")),
         );
         const removed = l.arrows.length - active.length;
+        const matchingRemoved = l.arrows.filter(
+          (a) =>
+            a.switchGroup === arrow.gate?.group &&
+            a.switchGroup !== undefined &&
+            !active.includes(a.id),
+        ).length;
+        const gateOpen =
+          !arrow.gate ||
+          arrow.gate.initiallyOpen !== (matchingRemoved % 2 === 1);
         const open =
+          gateOpen &&
           removed >= (arrow.thawAfter ?? 0) &&
           (arrow.phase === undefined || removed % 2 === arrow.phase) &&
           (arrow.pulse === undefined || removed % 3 === arrow.pulse) &&
@@ -122,8 +133,9 @@ it("dependency solver agrees with an independent cell-by-cell snake simulation",
         ).toBe(clear);
       }
     }
-  }
-}, 30000);
+  },
+  30000,
+);
 it("rejects authored self-crossing head routes", () => {
   const l = {
     ...levels[0],

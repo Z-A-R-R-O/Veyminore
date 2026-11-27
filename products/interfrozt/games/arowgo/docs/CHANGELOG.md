@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Eclipse Foundry — 27 November 2026
+
+World 8 adds Levels 181–220, numbered switch/gate groups, an interactive lesson, neutral hold effects, a measured difficulty ramp and generated emerald/gold world assets. Existing content, save keys and currency remain unchanged. See [rules](ECLIPSE-FOUNDRY.md) and [verification](ECLIPSE-FOUNDRY-AUDIT.md).
+
 ## Astral difficulty hardening — 27 November 2026
 
 Content 14 strengthens and globally orders Levels 141–180 above the previous campaign rating peak. Archived content 13 supports local migration, cloud-restore validation and historical reward proofs. See [hardening audit](ASTRAL-HARDENING.md).

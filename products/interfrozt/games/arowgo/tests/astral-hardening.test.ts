@@ -91,7 +91,7 @@ it("places every new world puzzle above the previous world's peak structural sco
 });
 
 it("keeps a verified step up for every retuned source puzzle", () => {
-  for (const l of levels.slice(140)) {
+  for (const l of levels.slice(140, 180)) {
     const raw = JSON.parse(
       readFileSync(
         `content/levels/astral/level-${Number(l.levelId.split("-")[1])}.json`,

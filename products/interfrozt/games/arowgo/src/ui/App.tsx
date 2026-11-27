@@ -1,3 +1,4 @@
+import { SwitchGuide } from "./SwitchGuide";
 import { worldNames, worldForLevel } from "../domain/worldLayout";
 import { ProfileShortcut } from "./elements/ProfileShortcut";
 import type { Profile } from "../storage/profile";
@@ -225,15 +226,17 @@ export function App({
       setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
     } else if (result.exit) {
       setFeedback(
-        result.exit.reason === "frozen"
-          ? "Clear other arrows to thaw this ice seal."
-          : result.exit.reason === "phase"
-            ? "Gate closed. Clear another arrow to switch the aurora."
-            : result.exit.reason === "anchored"
-              ? "Clear the highlighted anchor arrow to release this arrow."
-              : result.exit.reason === "locked"
-                ? "Clear the gold key arrow to open this lock."
-                : "The highlighted arrow blocks the path ahead of this head. Clear it first.",
+        result.exit.reason === "switch"
+          ? "Gate closed. Only a matching numbered switch changes this gate."
+          : result.exit.reason === "frozen"
+            ? "Clear other arrows to thaw this ice seal."
+            : result.exit.reason === "phase"
+              ? "Gate closed. Clear another arrow to switch the aurora."
+              : result.exit.reason === "anchored"
+                ? "Clear the highlighted anchor arrow to release this arrow."
+                : result.exit.reason === "locked"
+                  ? "Clear the gold key arrow to open this lock."
+                  : "The highlighted arrow blocks the path ahead of this head. Clear it first.",
       );
       setPulse((p) => ({ id: p.id + 1, kind: "blocked" }));
     }
@@ -327,6 +330,7 @@ export function App({
         cove={levelNumber > 20}
         frost={levelNumber > 40}
         amber={levelNumber > 60}
+        foundry={levelNumber > 180}
         astral={levelNumber > 140}
       />
       <header className="topbar" inert={modalOpen || resultVisible}>
@@ -385,13 +389,19 @@ export function App({
               s
             </small>
           )}
-          {level.arrows.some(
-            (a) =>
-              a.thawAfter !== undefined ||
-              a.phase !== undefined ||
-              a.pulse !== undefined ||
-              a.window !== undefined,
-          ) ? (
+          {level.arrows.some((a) => a.switchGroup !== undefined) ? (
+            <SwitchGuide
+              key={level.levelId}
+              level={level}
+              persist={!devSandbox}
+            />
+          ) : level.arrows.some(
+              (a) =>
+                a.thawAfter !== undefined ||
+                a.phase !== undefined ||
+                a.pulse !== undefined ||
+                a.window !== undefined,
+            ) ? (
             <TimingGuide
               key={level.levelId}
               level={level}
@@ -599,7 +609,11 @@ export function App({
                             {state.failureReason === "keg"
                               ? "A powder keg ran out of moves. Clear its arrow before the counter reaches zero."
                               : state.failureReason === "stranded"
-                                ? "No winning route remains. Plan the timing and try a different order."
+                                ? level.arrows.some(
+                                    (a) => a.switchGroup !== undefined,
+                                  )
+                                  ? "No winning route remains. Recheck the numbered switches and timing counters, then try a different order."
+                                  : "No winning route remains. Plan the timing and try a different order."
                                 : "Look for an open path, then try again."}
                           </span>
                         </div>

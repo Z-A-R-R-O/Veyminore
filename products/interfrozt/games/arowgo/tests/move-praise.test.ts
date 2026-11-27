@@ -31,7 +31,7 @@ it("rates actual unlocks and clean finishes across the campaign", () => {
     }
   }
   expect(praised).toBeGreaterThan(0);
-}, 15000);
+}, 60000);
 it("uses question marks only for failed moves", () => {
   const level = levels[0];
   let state = newSession(level, "p");

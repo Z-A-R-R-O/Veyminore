@@ -7,6 +7,7 @@ export const worldNames = [
   "Amber Sanctum",
   "Clockwork Citadel",
   "Astral Observatory",
+  "Eclipse Foundry",
 ];
 export const worldStart = (world: number) =>
   world < 5 ? world * 20 : 100 + (world - 5) * 40;

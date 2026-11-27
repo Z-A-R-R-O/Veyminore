@@ -9,8 +9,8 @@ import ratings from "../content/difficulty-ratings.json";
 import candidates from "../content/chapter6-preview.json";
 import { validateLevel, solve, checkExit } from "../src/domain/rules";
 import { evaluatePlanning } from "../src/domain/planning";
-it("reproduces every exported rating and covers the 180-level campaign", () => {
-  expect(levels).toHaveLength(180);
+it("reproduces every exported rating and covers the 220-level campaign", () => {
+  expect(levels).toHaveLength(220);
   for (const level of [...levels, ...candidates.map(validateLevel)]) {
     const rating = ratings.find((r) => r.levelId === level.levelId)!;
     expect(rating).toBeDefined();

@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": 2,
+  "contentVersion": 15,
+  "levelId": "foundry-187",
+  "board": {
+    "columns": 10,
+    "rows": 10
+  },
+  "arrows": [
+    {
+      "id": "A",
+      "points": [
+        [
+          8,
+          5
+        ],
+        [
+          9,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "points": [
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "points": [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "deadline": 18
+    },
+    {
+      "id": "D",
+      "points": [
+        [
+          2,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "points": [
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "anchorRequires": "A"
+    },
+    {
+      "id": "F",
+      "points": [
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "deadline": 15
+    },
+    {
+      "id": "G",
+      "points": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          9,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "H",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "I",
+      "points": [
+        [
+          8,
+          4
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          9,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "J",
+      "points": [
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          0
+        ]
+      ],
+      "anchorRequires": "A"
+    },
+    {
+      "id": "K",
+      "points": [
+        [
+          9,
+          9
+        ],
+        [
+          8,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "L",
+      "points": [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "M",
+      "points": [
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "N",
+      "points": [
+        [
+          6,
+          7
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "O",
+      "points": [
+        [
+          3,
+          9
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          4,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "P",
+      "points": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "Q",
+      "points": [
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "thawAfter": 8
+    },
+    {
+      "id": "R",
+      "points": [
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "S",
+      "points": [
+        [
+          9,
+          2
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "switchGroup": 1
+    },
+    {
+      "id": "T",
+      "points": [
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "gate": {
+        "group": 1,
+        "initiallyOpen": false
+      }
+    },
+    {
+      "id": "U",
+      "points": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "V",
+      "points": [
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "switchGroup": 1
+    },
+    {
+      "id": "W",
+      "points": [
+        [
+          8,
+          3
+        ],
+        [
+          8,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "X",
+      "points": [
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "Y",
+      "points": [
+        [
+          5,
+          9
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          6,
+          9
+        ]
+      ],
+      "gate": {
+        "group": 1,
+        "initiallyOpen": true
+      }
+    },
+    {
+      "id": "Z",
+      "points": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "AA",
+      "points": [
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "AB",
+      "points": [
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "requires": "W"
+    }
+  ],
+  "solution": [
+    "M",
+    "R",
+    "X",
+    "W",
+    "Z",
+    "L",
+    "P",
+    "U",
+    "AA",
+    "AB",
+    "Q",
+    "N",
+    "H",
+    "F",
+    "D",
+    "C",
+    "A",
+    "J",
+    "E",
+    "O",
+    "S",
+    "I",
+    "T",
+    "V",
+    "B",
+    "Y",
+    "K",
+    "G"
+  ],
+  "generation": {
+    "foundryAuthorVersion": 1,
+    "seed": 737519,
+    "trial": 4,
+    "band": 0,
+    "groups": 1,
+    "gateCount": 2,
+    "rating": 762,
+    "measurement": {
+      "components": {
+        "risk": 6.517363316814218,
+        "horizon": 14,
+        "dependency": 10,
+        "timing": 0.8333333333333333,
+        "density": 0.93
+      },
+      "solvable": true,
+      "arrows": 28,
+      "occupiedCells": 93,
+      "cells": 100,
+      "dependencyDepth": 10,
+      "failureHorizon": 14,
+      "randomLegalWinRate": 3.0383421827143254e-7,
+      "openingLegal": 9,
+      "openingWinning": 9,
+      "openingLosing": 0,
+      "minimumSlack": 1,
+      "analyzedStates": 34681
+    },
+    "traps": [
+      {
+        "group": 1,
+        "active": [
+          "B",
+          "G",
+          "K",
+          "T",
+          "V",
+          "Y"
+        ],
+        "move": "V",
+        "gate": "T"
+      }
+    ],
+    "sourceLevelId": "foundry-190"
+  }
+}

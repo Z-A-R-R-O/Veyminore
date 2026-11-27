@@ -1,3 +1,4 @@
+import { switchChecker } from "./rules";
 import { evaluatePlanning } from "./planning";
 import { evaluateDifficulty, evaluateLayout } from "./generator";
 import { dependencies, timingOpen, type Level } from "./rules";
@@ -15,6 +16,7 @@ export type Components = Record<keyof typeof weights, number>;
 /** Longest legal survival after the earliest witnessed losing choice.
  * This is a failure horizon, NOT a proof of required human lookahead. */
 export function measureDifficulty(level: Level) {
+  const gateOpen = switchChecker(level);
   const planning = evaluatePlanning(level);
   const geometry = evaluateDifficulty(level);
   const layout = evaluateLayout(level);
@@ -48,7 +50,8 @@ export function measureDifficulty(level: Level) {
         if (
           mask & (1 << i) &&
           !(mask & masks[i]) &&
-          timingOpen(level.arrows[i], removed)
+          timingOpen(level.arrows[i], removed) &&
+          gateOpen(i, mask)
         )
           longest = Math.max(longest, 1 + walk(mask & ~(1 << i), removed + 1));
       memo.set(mask, longest);

@@ -30,15 +30,17 @@ export function Home({
         <div className="island-halo" />
         <img
           src={
-            next >= 140
-              ? "/assets/astral-observatory-home-v1.png"
-              : next >= 60
-                ? "/assets/generated/amber-home.webp"
-                : next >= 40
-                  ? "/assets/generated/frostfall-home.webp"
-                  : next >= 20
-                    ? "/assets/generated/verdant-cove-home-v1.png"
-                    : "/assets/generated/bloom-island-v1.png"
+            next >= 180
+              ? "/assets/eclipse-foundry-home-v1.png"
+              : next >= 140
+                ? "/assets/astral-observatory-home-v1.png"
+                : next >= 60
+                  ? "/assets/generated/amber-home.webp"
+                  : next >= 40
+                    ? "/assets/generated/frostfall-home.webp"
+                    : next >= 20
+                      ? "/assets/generated/verdant-cove-home-v1.png"
+                      : "/assets/generated/bloom-island-v1.png"
           }
           alt=""
           className="bloom-home-island"

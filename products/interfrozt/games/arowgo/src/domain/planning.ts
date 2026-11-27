@@ -1,3 +1,4 @@
+import { switchChecker } from "./rules";
 import { timingOpen, dependencies, type Level } from "./rules";
 
 export interface PlanningDecision {
@@ -11,6 +12,7 @@ export interface PlanningDecision {
  * A planning decision has both a winning and a losing legal continuation.
  */
 export function evaluatePlanning(level: Level) {
+  const gateOpen = switchChecker(level);
   const n = level.arrows.length;
   if (n > 28) throw new Error("Planning analysis supports at most 28 arrows");
   const graph = dependencies(level);
@@ -43,7 +45,8 @@ export function evaluatePlanning(level: Level) {
         (i) =>
           mask & (1 << i) &&
           !(blockers[i] & mask) &&
-          timingOpen(level.arrows[i], removed),
+          timingOpen(level.arrows[i], removed) &&
+          gateOpen(i, mask),
       );
     const outcomes = legal.map((i) =>
       probability(mask & ~(1 << i), removed + 1),
@@ -86,7 +89,12 @@ export function evaluatePlanning(level: Level) {
     exampleDecision: exampleDecision as PlanningDecision | null,
     earliestDecisionMove: decisionStates ? earliestDecisionMove : null,
     openingChoices: ids
-      .filter((_, i) => !blockers[i] && timingOpen(level.arrows[i], 0))
+      .filter(
+        (_, i) =>
+          !blockers[i] &&
+          timingOpen(level.arrows[i], 0) &&
+          gateOpen(i, (1 << n) - 1),
+      )
       .map((id) => ({
         id,
         winning: probability(((1 << n) - 1) & ~bit.get(id)!, 1) > 0,

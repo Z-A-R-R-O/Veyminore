@@ -10,8 +10,6 @@ import {
 it("accepts authenticated old-version attempt replays and validates new timing completions", () => {
   for (const old of beforeTimingLevels)
     expect(verifyClear(old.levelId, 9, old.solution)).toBe(true);
-  for (const level of levels.slice(40))
-    expect(verifyClear(level.levelId, level.contentVersion, level.solution)).toBe(true);
   expect(() => verifyClear("frost-41", 8, [])).toThrow();
 });
 it("old cloud save remains restorable with its earned coins and stars", () => {
@@ -35,3 +33,12 @@ it("old cloud save remains restorable with its earned coins and stars", () => {
     "1 levels cleared · 3 stars · 25 coins",
   );
 });
+
+it.each(levels.slice(40))(
+  "$levelId validates its current completion on the server",
+  (level) => {
+    expect(
+      verifyClear(level.levelId, level.contentVersion, level.solution),
+    ).toBe(true);
+  },
+);

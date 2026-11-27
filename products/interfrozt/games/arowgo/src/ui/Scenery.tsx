@@ -6,13 +6,28 @@ export function Scenery({
   frost = false,
   amber = false,
   astral = false,
+  foundry = false,
 }: {
   rich: boolean;
   cove?: boolean;
   frost?: boolean;
   amber?: boolean;
   astral?: boolean;
+  foundry?: boolean;
 }) {
+  if (foundry)
+    return (
+      <div className="scenery foundry-scenery" aria-hidden="true">
+        <picture>
+          <source
+            media="(min-aspect-ratio:4/3)"
+            srcSet="/assets/eclipse-foundry-wide-v1.webp"
+          />
+          <img src="/assets/eclipse-foundry-map-v1.webp" alt="" />
+        </picture>
+        <div className="scenery-wash" />
+      </div>
+    );
   if (astral)
     return (
       <div className="scenery astral-scenery" aria-hidden="true">

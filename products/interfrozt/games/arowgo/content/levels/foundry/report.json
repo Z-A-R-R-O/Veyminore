@@ -1,0 +1,4305 @@
+[
+  {
+    "level": 181,
+    "rating": 710,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 91,
+    "depth": 10,
+    "edges": 42,
+    "bends": 26,
+    "initialChoices": 10,
+    "forcedSteps": 3,
+    "score": 199,
+    "planning": {
+      "randomLegalWinRate": 1.961230176332941e-8,
+      "decisionStates": 1974,
+      "blockedTargetDecisions": 1959,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "R",
+        "unsafeMove": "Q"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "O",
+          "winning": true
+        },
+        {
+          "id": "Q",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 13683,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 18,
+          "deadline": 22,
+          "spareMoves": 3
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 8,
+          "deadline": 11,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 182,
+    "rating": 713,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 7,
+    "occupiedCells": 89,
+    "depth": 9,
+    "edges": 44,
+    "bends": 22,
+    "initialChoices": 7,
+    "forcedSteps": 2,
+    "score": 188,
+    "planning": {
+      "randomLegalWinRate": 2.5883648847841673e-7,
+      "decisionStates": 518,
+      "blockedTargetDecisions": 517,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "T"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "Q",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": false
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 10028,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 10,
+          "deadline": 14,
+          "spareMoves": 3
+        },
+        {
+          "id": "G",
+          "prerequisiteCount": 13,
+          "deadline": 17,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 183,
+    "rating": 715,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 93,
+    "depth": 9,
+    "edges": 39,
+    "bends": 28,
+    "initialChoices": 9,
+    "forcedSteps": 2,
+    "score": 184,
+    "planning": {
+      "randomLegalWinRate": 5.9444537653829684e-8,
+      "decisionStates": 2350,
+      "blockedTargetDecisions": 2339,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "L",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 3,
+      "openingChoices": [
+        {
+          "id": "L",
+          "winning": true
+        },
+        {
+          "id": "Q",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 29264,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 18,
+          "deadline": 21,
+          "spareMoves": 2
+        },
+        {
+          "id": "D",
+          "prerequisiteCount": 10,
+          "deadline": 13,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 184,
+    "rating": 732,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 42,
+    "bends": 29,
+    "initialChoices": 6,
+    "forcedSteps": 7,
+    "score": 206,
+    "planning": {
+      "randomLegalWinRate": 0.00001752015376566927,
+      "decisionStates": 343,
+      "blockedTargetDecisions": 127,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "X",
+        "unsafeMove": "W"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 2381,
+      "deadlines": [
+        {
+          "id": "H",
+          "prerequisiteCount": 3,
+          "deadline": 6,
+          "spareMoves": 2
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 6,
+          "deadline": 10,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 185,
+    "rating": 733,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 37,
+    "bends": 28,
+    "initialChoices": 10,
+    "forcedSteps": 4,
+    "score": 186,
+    "planning": {
+      "randomLegalWinRate": 1.5593808175358604e-9,
+      "decisionStates": 454,
+      "blockedTargetDecisions": 359,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "V",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "L",
+          "winning": false
+        },
+        {
+          "id": "M",
+          "winning": false
+        },
+        {
+          "id": "N",
+          "winning": false
+        },
+        {
+          "id": "O",
+          "winning": false
+        },
+        {
+          "id": "T",
+          "winning": false
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": false
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 7412,
+      "deadlines": [
+        {
+          "id": "I",
+          "prerequisiteCount": 6,
+          "deadline": 7,
+          "spareMoves": 0
+        },
+        {
+          "id": "R",
+          "prerequisiteCount": 14,
+          "deadline": 17,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 186,
+    "rating": 739,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 35,
+    "bends": 28,
+    "initialChoices": 8,
+    "forcedSteps": 4,
+    "score": 182,
+    "planning": {
+      "randomLegalWinRate": 2.732820114159286e-7,
+      "decisionStates": 160,
+      "blockedTargetDecisions": 153,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "L",
+          "winning": false
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 3882,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 10,
+          "deadline": 12,
+          "spareMoves": 1
+        },
+        {
+          "id": "R",
+          "prerequisiteCount": 5,
+          "deadline": 7,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 187,
+    "rating": 762,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 93,
+    "depth": 10,
+    "edges": 36,
+    "bends": 22,
+    "initialChoices": 9,
+    "forcedSteps": 4,
+    "score": 186,
+    "planning": {
+      "randomLegalWinRate": 3.0383421827143254e-7,
+      "decisionStates": 1596,
+      "blockedTargetDecisions": 1509,
+      "exampleDecision": {
+        "active": [
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "M",
+        "unsafeMove": "J"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "A",
+          "winning": true
+        },
+        {
+          "id": "M",
+          "winning": true
+        },
+        {
+          "id": "O",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 34681,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 15,
+          "deadline": 18,
+          "spareMoves": 2
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 13,
+          "deadline": 15,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 188,
+    "rating": 768,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 43,
+    "bends": 32,
+    "initialChoices": 10,
+    "forcedSteps": 2,
+    "score": 196,
+    "planning": {
+      "randomLegalWinRate": 8.656469250827858e-7,
+      "decisionStates": 8084,
+      "blockedTargetDecisions": 8082,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "J",
+        "unsafeMove": "AB"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "O",
+          "winning": true
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 26261,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 23,
+          "deadline": 25,
+          "spareMoves": 1
+        },
+        {
+          "id": "D",
+          "prerequisiteCount": 16,
+          "deadline": 19,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 189,
+    "rating": 774,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 93,
+    "depth": 10,
+    "edges": 41,
+    "bends": 31,
+    "initialChoices": 7,
+    "forcedSteps": 2,
+    "score": 199,
+    "planning": {
+      "randomLegalWinRate": 8.692152962537923e-9,
+      "decisionStates": 506,
+      "blockedTargetDecisions": 485,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "X",
+        "unsafeMove": "V"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 5994,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 11,
+          "deadline": 13,
+          "spareMoves": 1
+        },
+        {
+          "id": "S",
+          "prerequisiteCount": 18,
+          "deadline": 20,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 190,
+    "rating": 789,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 90,
+    "depth": 9,
+    "edges": 37,
+    "bends": 27,
+    "initialChoices": 9,
+    "forcedSteps": 2,
+    "score": 179,
+    "planning": {
+      "randomLegalWinRate": 6.7112914716015495e-9,
+      "decisionStates": 2353,
+      "blockedTargetDecisions": 2349,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "I",
+        "unsafeMove": "T"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "I",
+          "winning": true
+        },
+        {
+          "id": "O",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 51764,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 19,
+          "deadline": 21,
+          "spareMoves": 1
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 14,
+          "deadline": 16,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 191,
+    "rating": 800,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 92,
+    "depth": 9,
+    "edges": 37,
+    "bends": 31,
+    "initialChoices": 8,
+    "forcedSteps": 4,
+    "score": 189,
+    "planning": {
+      "randomLegalWinRate": 1.3711081536482792e-12,
+      "decisionStates": 154,
+      "blockedTargetDecisions": 136,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "X",
+        "unsafeMove": "B"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "B",
+          "winning": false
+        },
+        {
+          "id": "P",
+          "winning": false
+        },
+        {
+          "id": "Q",
+          "winning": false
+        },
+        {
+          "id": "R",
+          "winning": false
+        },
+        {
+          "id": "T",
+          "winning": false
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 2673,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 15,
+          "deadline": 18,
+          "spareMoves": 2
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 10,
+          "deadline": 11,
+          "spareMoves": 0
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 7,
+          "deadline": 9,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 192,
+    "rating": 810,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 92,
+    "depth": 9,
+    "edges": 41,
+    "bends": 24,
+    "initialChoices": 8,
+    "forcedSteps": 4,
+    "score": 190,
+    "planning": {
+      "randomLegalWinRate": 1.0045731609455022e-9,
+      "decisionStates": 398,
+      "blockedTargetDecisions": 382,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "S",
+        "unsafeMove": "V"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 3653,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 14,
+          "deadline": 16,
+          "spareMoves": 1
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 16,
+          "deadline": 20,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 193,
+    "rating": 812,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 94,
+    "depth": 9,
+    "edges": 41,
+    "bends": 30,
+    "initialChoices": 10,
+    "forcedSteps": 4,
+    "score": 196,
+    "planning": {
+      "randomLegalWinRate": 5.8513433337672555e-9,
+      "decisionStates": 256,
+      "blockedTargetDecisions": 66,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "L",
+          "winning": false
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "W",
+          "winning": false
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": false
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 14330,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 11,
+          "deadline": 12,
+          "spareMoves": 0
+        },
+        {
+          "id": "D",
+          "prerequisiteCount": 10,
+          "deadline": 12,
+          "spareMoves": 1
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 6,
+          "deadline": 10,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 194,
+    "rating": 821,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 1,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 36,
+    "bends": 26,
+    "initialChoices": 8,
+    "forcedSteps": 1,
+    "score": 173,
+    "planning": {
+      "randomLegalWinRate": 4.2105784373994643e-8,
+      "decisionStates": 193,
+      "blockedTargetDecisions": 191,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "R",
+        "unsafeMove": "N"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "N",
+          "winning": false
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": false
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 8881,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 25,
+          "deadline": 28,
+          "spareMoves": 2
+        },
+        {
+          "id": "C",
+          "prerequisiteCount": 12,
+          "deadline": 13,
+          "spareMoves": 0
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 2,
+          "deadline": 6,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 195,
+    "rating": 821,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 38,
+    "bends": 30,
+    "initialChoices": 7,
+    "forcedSteps": 2,
+    "score": 184,
+    "planning": {
+      "randomLegalWinRate": 3.583003285028491e-11,
+      "decisionStates": 164,
+      "blockedTargetDecisions": 141,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "V",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "L",
+          "winning": false
+        },
+        {
+          "id": "O",
+          "winning": false
+        },
+        {
+          "id": "R",
+          "winning": false
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 12013,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 17,
+          "deadline": 19,
+          "spareMoves": 1
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 12,
+          "deadline": 13,
+          "spareMoves": 0
+        },
+        {
+          "id": "M",
+          "prerequisiteCount": 6,
+          "deadline": 10,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 196,
+    "rating": 825,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 89,
+    "depth": 11,
+    "edges": 44,
+    "bends": 24,
+    "initialChoices": 6,
+    "forcedSteps": 2,
+    "score": 206,
+    "planning": {
+      "randomLegalWinRate": 3.2120630902311053e-8,
+      "decisionStates": 212,
+      "blockedTargetDecisions": 181,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "U",
+        "unsafeMove": "Q"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "Q",
+          "winning": false
+        },
+        {
+          "id": "S",
+          "winning": false
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 1906,
+      "deadlines": [
+        {
+          "id": "K",
+          "prerequisiteCount": 11,
+          "deadline": 14,
+          "spareMoves": 2
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 7,
+          "deadline": 9,
+          "spareMoves": 1
+        },
+        {
+          "id": "O",
+          "prerequisiteCount": 3,
+          "deadline": 6,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 197,
+    "rating": 829,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 89,
+    "depth": 9,
+    "edges": 33,
+    "bends": 26,
+    "initialChoices": 7,
+    "forcedSteps": 2,
+    "score": 170,
+    "planning": {
+      "randomLegalWinRate": 6.254276268514077e-9,
+      "decisionStates": 1102,
+      "blockedTargetDecisions": 1090,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "D",
+        "unsafeMove": "AB"
+      },
+      "earliestDecisionMove": 2,
+      "openingChoices": [
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 18070,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 18,
+          "deadline": 21,
+          "spareMoves": 2
+        },
+        {
+          "id": "G",
+          "prerequisiteCount": 17,
+          "deadline": 19,
+          "spareMoves": 1
+        },
+        {
+          "id": "Q",
+          "prerequisiteCount": 5,
+          "deadline": 9,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 198,
+    "rating": 836,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 2,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 35,
+    "bends": 28,
+    "initialChoices": 9,
+    "forcedSteps": 2,
+    "score": 176,
+    "planning": {
+      "randomLegalWinRate": 1.0591245391119821e-10,
+      "decisionStates": 527,
+      "blockedTargetDecisions": 525,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "C",
+        "unsafeMove": "T"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "C",
+          "winning": true
+        },
+        {
+          "id": "M",
+          "winning": true
+        },
+        {
+          "id": "O",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": false
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 8353,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 22,
+          "deadline": 24,
+          "spareMoves": 1
+        },
+        {
+          "id": "G",
+          "prerequisiteCount": 13,
+          "deadline": 17,
+          "spareMoves": 3
+        },
+        {
+          "id": "R",
+          "prerequisiteCount": 5,
+          "deadline": 7,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 199,
+    "rating": 839,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 92,
+    "depth": 9,
+    "edges": 35,
+    "bends": 29,
+    "initialChoices": 9,
+    "forcedSteps": 4,
+    "score": 183,
+    "planning": {
+      "randomLegalWinRate": 7.057274823242861e-7,
+      "decisionStates": 2192,
+      "blockedTargetDecisions": 180,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "H",
+        "unsafeMove": "W"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "H",
+          "winning": true
+        },
+        {
+          "id": "M",
+          "winning": true
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 7641,
+      "deadlines": [
+        {
+          "id": "J",
+          "prerequisiteCount": 6,
+          "deadline": 10,
+          "spareMoves": 3
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 4,
+          "deadline": 8,
+          "spareMoves": 3
+        },
+        {
+          "id": "S",
+          "prerequisiteCount": 3,
+          "deadline": 5,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 200,
+    "rating": 843,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 92,
+    "depth": 9,
+    "edges": 39,
+    "bends": 25,
+    "initialChoices": 7,
+    "forcedSteps": 3,
+    "score": 184,
+    "planning": {
+      "randomLegalWinRate": 1.1324085675942336e-11,
+      "decisionStates": 1280,
+      "blockedTargetDecisions": 1276,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "O",
+        "unsafeMove": "Y"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "O",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 20354,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 20,
+          "deadline": 23,
+          "spareMoves": 2
+        },
+        {
+          "id": "E",
+          "prerequisiteCount": 2,
+          "deadline": 4,
+          "spareMoves": 1
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 15,
+          "deadline": 19,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 201,
+    "rating": 853,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 89,
+    "depth": 9,
+    "edges": 32,
+    "bends": 24,
+    "initialChoices": 6,
+    "forcedSteps": 3,
+    "score": 169,
+    "planning": {
+      "randomLegalWinRate": 3.076457931291446e-11,
+      "decisionStates": 96,
+      "blockedTargetDecisions": 89,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "T",
+        "unsafeMove": "S"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "S",
+          "winning": false
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 2729,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 19,
+          "deadline": 22,
+          "spareMoves": 2
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 6,
+          "deadline": 9,
+          "spareMoves": 2
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 15,
+          "deadline": 16,
+          "spareMoves": 0
+        }
+      ]
+    }
+  },
+  {
+    "level": 202,
+    "rating": 860,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 1,
+    "occupiedCells": 91,
+    "depth": 9,
+    "edges": 41,
+    "bends": 29,
+    "initialChoices": 6,
+    "forcedSteps": 3,
+    "score": 192,
+    "planning": {
+      "randomLegalWinRate": 4.398774583401787e-9,
+      "decisionStates": 266,
+      "blockedTargetDecisions": 246,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "AB"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 3667,
+      "deadlines": [
+        {
+          "id": "H",
+          "prerequisiteCount": 16,
+          "deadline": 17,
+          "spareMoves": 0
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 13,
+          "deadline": 17,
+          "spareMoves": 3
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 5,
+          "deadline": 9,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 203,
+    "rating": 863,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 2,
+    "occupiedCells": 95,
+    "depth": 10,
+    "edges": 33,
+    "bends": 31,
+    "initialChoices": 8,
+    "forcedSteps": 2,
+    "score": 183,
+    "planning": {
+      "randomLegalWinRate": 4.143614697553018e-10,
+      "decisionStates": 108,
+      "blockedTargetDecisions": 101,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "M",
+        "unsafeMove": "Q"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "M",
+          "winning": true
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "Q",
+          "winning": false
+        },
+        {
+          "id": "T",
+          "winning": false
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 5240,
+      "deadlines": [
+        {
+          "id": "I",
+          "prerequisiteCount": 16,
+          "deadline": 19,
+          "spareMoves": 2
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 14,
+          "deadline": 15,
+          "spareMoves": 0
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 2,
+          "deadline": 6,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 204,
+    "rating": 863,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 94,
+    "depth": 10,
+    "edges": 40,
+    "bends": 33,
+    "initialChoices": 7,
+    "forcedSteps": 4,
+    "score": 205,
+    "planning": {
+      "randomLegalWinRate": 2.538223313057455e-9,
+      "decisionStates": 719,
+      "blockedTargetDecisions": 712,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "L",
+        "unsafeMove": "U"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "L",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 5411,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 18,
+          "deadline": 21,
+          "spareMoves": 2
+        },
+        {
+          "id": "M",
+          "prerequisiteCount": 7,
+          "deadline": 10,
+          "spareMoves": 2
+        },
+        {
+          "id": "N",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 205,
+    "rating": 863,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 89,
+    "depth": 10,
+    "edges": 41,
+    "bends": 27,
+    "initialChoices": 5,
+    "forcedSteps": 4,
+    "score": 201,
+    "planning": {
+      "randomLegalWinRate": 1.5283601905477292e-8,
+      "decisionStates": 313,
+      "blockedTargetDecisions": 212,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "M",
+        "unsafeMove": "U"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "M",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "X",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 2850,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 14,
+          "deadline": 18,
+          "spareMoves": 3
+        },
+        {
+          "id": "G",
+          "prerequisiteCount": 6,
+          "deadline": 10,
+          "spareMoves": 3
+        },
+        {
+          "id": "H",
+          "prerequisiteCount": 4,
+          "deadline": 8,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 206,
+    "rating": 865,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 91,
+    "depth": 11,
+    "edges": 41,
+    "bends": 26,
+    "initialChoices": 9,
+    "forcedSteps": 1,
+    "score": 199,
+    "planning": {
+      "randomLegalWinRate": 2.7306788855621763e-12,
+      "decisionStates": 307,
+      "blockedTargetDecisions": 306,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "J",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "J",
+          "winning": true
+        },
+        {
+          "id": "L",
+          "winning": false
+        },
+        {
+          "id": "M",
+          "winning": false
+        },
+        {
+          "id": "O",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": false
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 20830,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 23,
+          "deadline": 24,
+          "spareMoves": 0
+        },
+        {
+          "id": "E",
+          "prerequisiteCount": 18,
+          "deadline": 21,
+          "spareMoves": 2
+        },
+        {
+          "id": "G",
+          "prerequisiteCount": 15,
+          "deadline": 16,
+          "spareMoves": 0
+        }
+      ]
+    }
+  },
+  {
+    "level": 207,
+    "rating": 866,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 2,
+    "occupiedCells": 92,
+    "depth": 10,
+    "edges": 40,
+    "bends": 32,
+    "initialChoices": 6,
+    "forcedSteps": 6,
+    "score": 210,
+    "planning": {
+      "randomLegalWinRate": 9.804368269335018e-9,
+      "decisionStates": 74,
+      "blockedTargetDecisions": 69,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "U",
+        "unsafeMove": "P"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "P",
+          "winning": false
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 2104,
+      "deadlines": [
+        {
+          "id": "E",
+          "prerequisiteCount": 11,
+          "deadline": 13,
+          "spareMoves": 1
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 15,
+          "deadline": 17,
+          "spareMoves": 1
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 14,
+          "deadline": 16,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 208,
+    "rating": 872,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 91,
+    "depth": 11,
+    "edges": 38,
+    "bends": 22,
+    "initialChoices": 6,
+    "forcedSteps": 3,
+    "score": 195,
+    "planning": {
+      "randomLegalWinRate": 6.490693798976108e-7,
+      "decisionStates": 503,
+      "blockedTargetDecisions": 450,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "R",
+        "unsafeMove": "C"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "C",
+          "winning": false
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 1898,
+      "deadlines": [
+        {
+          "id": "I",
+          "prerequisiteCount": 18,
+          "deadline": 22,
+          "spareMoves": 3
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 3,
+          "deadline": 5,
+          "spareMoves": 1
+        },
+        {
+          "id": "O",
+          "prerequisiteCount": 2,
+          "deadline": 6,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 209,
+    "rating": 880,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 89,
+    "depth": 10,
+    "edges": 38,
+    "bends": 30,
+    "initialChoices": 8,
+    "forcedSteps": 2,
+    "score": 192,
+    "planning": {
+      "randomLegalWinRate": 1.7288918092648112e-12,
+      "decisionStates": 110,
+      "blockedTargetDecisions": 106,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "L"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "L",
+          "winning": false
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 18587,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 23,
+          "deadline": 25,
+          "spareMoves": 1
+        },
+        {
+          "id": "D",
+          "prerequisiteCount": 16,
+          "deadline": 17,
+          "spareMoves": 0
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 12,
+          "deadline": 16,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 210,
+    "rating": 889,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 92,
+    "depth": 9,
+    "edges": 38,
+    "bends": 29,
+    "initialChoices": 10,
+    "forcedSteps": 1,
+    "score": 180,
+    "planning": {
+      "randomLegalWinRate": 5.329987142279591e-11,
+      "decisionStates": 342,
+      "blockedTargetDecisions": 335,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "G"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "G",
+          "winning": false
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 20256,
+      "deadlines": [
+        {
+          "id": "F",
+          "prerequisiteCount": 18,
+          "deadline": 19,
+          "spareMoves": 0
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 17,
+          "deadline": 21,
+          "spareMoves": 3
+        },
+        {
+          "id": "Q",
+          "prerequisiteCount": 4,
+          "deadline": 6,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 211,
+    "rating": 900,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 7,
+    "occupiedCells": 92,
+    "depth": 9,
+    "edges": 32,
+    "bends": 28,
+    "initialChoices": 9,
+    "forcedSteps": 3,
+    "score": 173,
+    "planning": {
+      "randomLegalWinRate": 2.2811594836685266e-11,
+      "decisionStates": 186,
+      "blockedTargetDecisions": 185,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "R",
+        "unsafeMove": "U"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 6400,
+      "deadlines": [
+        {
+          "id": "C",
+          "prerequisiteCount": 20,
+          "deadline": 21,
+          "spareMoves": 0
+        },
+        {
+          "id": "F",
+          "prerequisiteCount": 16,
+          "deadline": 20,
+          "spareMoves": 3
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 13,
+          "deadline": 16,
+          "spareMoves": 2
+        },
+        {
+          "id": "N",
+          "prerequisiteCount": 10,
+          "deadline": 13,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 212,
+    "rating": 900,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 95,
+    "depth": 9,
+    "edges": 41,
+    "bends": 29,
+    "initialChoices": 7,
+    "forcedSteps": 2,
+    "score": 189,
+    "planning": {
+      "randomLegalWinRate": 3.455756387381379e-9,
+      "decisionStates": 391,
+      "blockedTargetDecisions": 387,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "Z"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "N",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "T",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 3230,
+      "deadlines": [
+        {
+          "id": "B",
+          "prerequisiteCount": 22,
+          "deadline": 25,
+          "spareMoves": 2
+        },
+        {
+          "id": "E",
+          "prerequisiteCount": 13,
+          "deadline": 17,
+          "spareMoves": 3
+        },
+        {
+          "id": "H",
+          "prerequisiteCount": 10,
+          "deadline": 13,
+          "spareMoves": 2
+        },
+        {
+          "id": "V",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 213,
+    "rating": 903,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 89,
+    "depth": 9,
+    "edges": 32,
+    "bends": 24,
+    "initialChoices": 7,
+    "forcedSteps": 5,
+    "score": 175,
+    "planning": {
+      "randomLegalWinRate": 5.127263495568456e-10,
+      "decisionStates": 395,
+      "blockedTargetDecisions": 241,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "Q",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "O",
+          "winning": false
+        },
+        {
+          "id": "Q",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 13855,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 15,
+          "deadline": 17,
+          "spareMoves": 1
+        },
+        {
+          "id": "C",
+          "prerequisiteCount": 12,
+          "deadline": 16,
+          "spareMoves": 3
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 5,
+          "deadline": 8,
+          "spareMoves": 2
+        },
+        {
+          "id": "P",
+          "prerequisiteCount": 2,
+          "deadline": 6,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 214,
+    "rating": 911,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 2,
+    "occupiedCells": 92,
+    "depth": 9,
+    "edges": 42,
+    "bends": 27,
+    "initialChoices": 9,
+    "forcedSteps": 4,
+    "score": 195,
+    "planning": {
+      "randomLegalWinRate": 5.559740493106375e-8,
+      "decisionStates": 2388,
+      "blockedTargetDecisions": 2387,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "N",
+        "unsafeMove": "AB"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "N",
+          "winning": true
+        },
+        {
+          "id": "Q",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 11290,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 26,
+          "deadline": 27,
+          "spareMoves": 0
+        },
+        {
+          "id": "B",
+          "prerequisiteCount": 26,
+          "deadline": 28,
+          "spareMoves": 1
+        },
+        {
+          "id": "E",
+          "prerequisiteCount": 18,
+          "deadline": 24,
+          "spareMoves": 5
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 215,
+    "rating": 912,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 93,
+    "depth": 9,
+    "edges": 36,
+    "bends": 29,
+    "initialChoices": 8,
+    "forcedSteps": 2,
+    "score": 179,
+    "planning": {
+      "randomLegalWinRate": 1.1643889866373038e-12,
+      "decisionStates": 108,
+      "blockedTargetDecisions": 101,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "O"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "O",
+          "winning": false
+        },
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "V",
+          "winning": false
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": false
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 11605,
+      "deadlines": [
+        {
+          "id": "F",
+          "prerequisiteCount": 20,
+          "deadline": 21,
+          "spareMoves": 0
+        },
+        {
+          "id": "G",
+          "prerequisiteCount": 16,
+          "deadline": 18,
+          "spareMoves": 1
+        },
+        {
+          "id": "K",
+          "prerequisiteCount": 11,
+          "deadline": 13,
+          "spareMoves": 1
+        },
+        {
+          "id": "L",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 216,
+    "rating": 917,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 1,
+    "occupiedCells": 94,
+    "depth": 10,
+    "edges": 46,
+    "bends": 29,
+    "initialChoices": 5,
+    "forcedSteps": 2,
+    "score": 207,
+    "planning": {
+      "randomLegalWinRate": 4.860443084168009e-9,
+      "decisionStates": 164,
+      "blockedTargetDecisions": 163,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "U",
+        "unsafeMove": "T"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "T",
+          "winning": false
+        },
+        {
+          "id": "U",
+          "winning": true
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 1015,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 23,
+          "deadline": 27,
+          "spareMoves": 3
+        },
+        {
+          "id": "C",
+          "prerequisiteCount": 22,
+          "deadline": 23,
+          "spareMoves": 0
+        },
+        {
+          "id": "E",
+          "prerequisiteCount": 20,
+          "deadline": 24,
+          "spareMoves": 3
+        },
+        {
+          "id": "G",
+          "prerequisiteCount": 5,
+          "deadline": 9,
+          "spareMoves": 3
+        }
+      ]
+    }
+  },
+  {
+    "level": 217,
+    "rating": 917,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 4,
+    "occupiedCells": 94,
+    "depth": 10,
+    "edges": 40,
+    "bends": 23,
+    "initialChoices": 8,
+    "forcedSteps": 3,
+    "score": 192,
+    "planning": {
+      "randomLegalWinRate": 1.1339670053037566e-9,
+      "decisionStates": 345,
+      "blockedTargetDecisions": 336,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "V",
+        "unsafeMove": "F"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "F",
+          "winning": false
+        },
+        {
+          "id": "O",
+          "winning": false
+        },
+        {
+          "id": "S",
+          "winning": false
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": false
+        },
+        {
+          "id": "Z",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 1585,
+      "deadlines": [
+        {
+          "id": "D",
+          "prerequisiteCount": 17,
+          "deadline": 21,
+          "spareMoves": 3
+        },
+        {
+          "id": "P",
+          "prerequisiteCount": 5,
+          "deadline": 9,
+          "spareMoves": 3
+        },
+        {
+          "id": "U",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        },
+        {
+          "id": "W",
+          "prerequisiteCount": 2,
+          "deadline": 4,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 218,
+    "rating": 925,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 1,
+    "occupiedCells": 89,
+    "depth": 9,
+    "edges": 42,
+    "bends": 29,
+    "initialChoices": 6,
+    "forcedSteps": 1,
+    "score": 188,
+    "planning": {
+      "randomLegalWinRate": 7.797661419742592e-9,
+      "decisionStates": 436,
+      "blockedTargetDecisions": 436,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "P",
+        "unsafeMove": "U"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "P",
+          "winning": true
+        },
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "W",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 2006,
+      "deadlines": [
+        {
+          "id": "A",
+          "prerequisiteCount": 26,
+          "deadline": 28,
+          "spareMoves": 1
+        },
+        {
+          "id": "C",
+          "prerequisiteCount": 23,
+          "deadline": 25,
+          "spareMoves": 1
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 11,
+          "deadline": 15,
+          "spareMoves": 3
+        },
+        {
+          "id": "N",
+          "prerequisiteCount": 3,
+          "deadline": 6,
+          "spareMoves": 2
+        }
+      ]
+    }
+  },
+  {
+    "level": 219,
+    "rating": 925,
+    "isolated": 0,
+    "emptyQuadrants": 0,
+    "imbalance": 5,
+    "occupiedCells": 89,
+    "depth": 9,
+    "edges": 32,
+    "bends": 29,
+    "initialChoices": 7,
+    "forcedSteps": 2,
+    "score": 171,
+    "planning": {
+      "randomLegalWinRate": 7.417327436763628e-11,
+      "decisionStates": 188,
+      "blockedTargetDecisions": 140,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "V",
+        "unsafeMove": "U"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "U",
+          "winning": false
+        },
+        {
+          "id": "V",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": false
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "Y",
+          "winning": true
+        },
+        {
+          "id": "AA",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": false
+        }
+      ],
+      "analyzedStates": 1670,
+      "deadlines": [
+        {
+          "id": "H",
+          "prerequisiteCount": 8,
+          "deadline": 10,
+          "spareMoves": 1
+        },
+        {
+          "id": "I",
+          "prerequisiteCount": 5,
+          "deadline": 7,
+          "spareMoves": 1
+        },
+        {
+          "id": "J",
+          "prerequisiteCount": 2,
+          "deadline": 5,
+          "spareMoves": 2
+        },
+        {
+          "id": "R",
+          "prerequisiteCount": 17,
+          "deadline": 19,
+          "spareMoves": 1
+        }
+      ]
+    }
+  },
+  {
+    "level": 220,
+    "rating": 947,
+    "isolated": 1,
+    "emptyQuadrants": 0,
+    "imbalance": 3,
+    "occupiedCells": 94,
+    "depth": 13,
+    "edges": 41,
+    "bends": 28,
+    "initialChoices": 7,
+    "forcedSteps": 2,
+    "score": 220,
+    "planning": {
+      "randomLegalWinRate": 2.8104610034005282e-11,
+      "decisionStates": 526,
+      "blockedTargetDecisions": 505,
+      "exampleDecision": {
+        "active": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I",
+          "J",
+          "K",
+          "L",
+          "M",
+          "N",
+          "O",
+          "P",
+          "Q",
+          "R",
+          "S",
+          "T",
+          "U",
+          "V",
+          "W",
+          "X",
+          "Y",
+          "Z",
+          "AA",
+          "AB"
+        ],
+        "safeMove": "M",
+        "unsafeMove": "F"
+      },
+      "earliestDecisionMove": 1,
+      "openingChoices": [
+        {
+          "id": "F",
+          "winning": false
+        },
+        {
+          "id": "M",
+          "winning": true
+        },
+        {
+          "id": "R",
+          "winning": true
+        },
+        {
+          "id": "S",
+          "winning": true
+        },
+        {
+          "id": "W",
+          "winning": false
+        },
+        {
+          "id": "X",
+          "winning": true
+        },
+        {
+          "id": "AB",
+          "winning": true
+        }
+      ],
+      "analyzedStates": 4385,
+      "deadlines": [
+        {
+          "id": "J",
+          "prerequisiteCount": 19,
+          "deadline": 22,
+          "spareMoves": 2
+        },
+        {
+          "id": "O",
+          "prerequisiteCount": 17,
+          "deadline": 20,
+          "spareMoves": 2
+        },
+        {
+          "id": "P",
+          "prerequisiteCount": 16,
+          "deadline": 20,
+          "spareMoves": 3
+        },
+        {
+          "id": "Z",
+          "prerequisiteCount": 10,
+          "deadline": 14,
+          "spareMoves": 3
+        }
+      ]
+    }
+  }
+]

@@ -1,6 +1,6 @@
 # Current game state
 
-Updated 27 November 2026. This is the current implementation summary; older design documents and dated test reports are not competing contracts. [Index](README.md) · [Verification](ASTRAL-HARDENING.md) · [Open gaps](GAME-EXPERIENCE-GAPS.md).
+Updated 27 November 2026. This is the current implementation summary; older design documents and dated test reports are not competing contracts. [Index](README.md) · [Verification](ECLIPSE-FOUNDRY-AUDIT.md) · [Open gaps](GAME-EXPERIENCE-GAPS.md).
 
 ## Campaign
 
@@ -13,8 +13,9 @@ Updated 27 November 2026. This is the current implementation summary; older desi
 | Amber Sanctum | 81–100 | [Sanctum](AMBER-SANCTUM.md) |
 | Clockwork Citadel | 101–140 | [Clockwork](CHAPTER-SIX-PLAN.md) |
 | Astral Observatory | 141–180 | [Astral](ASTRAL-OBSERVATORY.md) |
+| Eclipse Foundry | 181–220 | [Foundry](ECLIPSE-FOUNDRY.md) |
 
-The campaign has 180 stable level IDs, 540 available stars and 4,500 first-clear coins. Worlds unlock sequentially and show ten level markers per map page. Level 80 continues to 81; Level 100 continues to 101; Level 140 continues to 141; Level 180 reaches the finale. Worlds after 100 contain forty levels each. Sanctum reuses Amber artwork. Canonical content is checked-in JSON selected by `src/domain/campaign.ts`; generation does not run on entering a level.
+The campaign has 220 stable level IDs, 660 available stars and 5,500 first-clear coins. Worlds unlock sequentially and show ten level markers per map page. Level 80 continues to 81; Level 100 continues to 101; Level 140 continues to 141; Level 180 continues to 181; Level 220 reaches the finale. Worlds after 100 contain forty levels each. Sanctum reuses Amber artwork. Canonical content is checked-in JSON selected by `src/domain/campaign.ts`; generation does not run on entering a level.
 
 Generator version 4 supports dense authoring. Levels 30–80 use the content-12 density pass; Sanctum uses content 12, 28 arrows on 10×10 boards, with keys, anchors, ice, phase gates and removal-count deadlines. Versions differ across earlier content; do not relabel the whole campaign as one content version. [Dense campaign](DENSE-CAMPAIGN.md) and [Sanctum](AMBER-SANCTUM.md) record acceptance measurements. Solver probability measures arbitrary legal-play outcomes, not human success or IQ. Human tuning remains necessary.
 
@@ -48,16 +49,18 @@ The account server is localhost-only and refuses production mode. Its wallet is 
 
 ## Engineering and verification
 
-Node >=24, TypeScript, React, Vite, Phaser, Vitest, Playwright and Capacitor Android. Domain rules are separate from UI and persistence. Developer tools provide isolated level selection through 180 and downloadable screenshot bug reports; reports require manual sending.
+Node >=24, TypeScript, React, Vite, Phaser, Vitest, Playwright and Capacitor Android. Domain rules are separate from UI and persistence. Developer tools provide isolated level selection through 220 and downloadable screenshot bug reports; reports require manual sending.
 
-Latest verification: 492 tests across 68 files, typecheck and production build passed. Eight Astral levels completed on both Desktop Chrome and emulated Pixel 7; responsive map checks pass at 320px, 390px and desktop widths. See the [Astral audit](ASTRAL-HARDENING.md) for the targeted gameplay scope and remaining limits. Full browser-suite, physical-device, production deployment and human difficulty acceptance are not asserted.
+Latest verification: 940 tests across 71 files, typecheck and production build passed. Eight Foundry levels completed on both Desktop Chrome and emulated Pixel 7; four-page map and prior-save checks pass at 320px, 390px and desktop widths. Short-phone switch lesson and reduced-motion checks also pass. See the [Foundry audit](ECLIPSE-FOUNDRY-AUDIT.md) for the targeted gameplay scope and remaining limits. Full browser-suite, physical-device, production deployment and human difficulty acceptance are not asserted.
 
 ## Development tools
 
-DEV displays versioned numeric structural difficulty for all 180 campaign levels. DEV play stays memory-only and reward-free. The five earlier Chapter 6 candidates remain historical artifacts. See [Clockwork design](CHAPTER-SIX-PLAN.md).
+DEV displays versioned numeric structural difficulty for all 220 campaign levels. DEV play stays memory-only and reward-free. The five earlier Chapter 6 candidates remain historical artifacts. See [Clockwork design](CHAPTER-SIX-PLAN.md).
 
 Clockwork uses content 13, three-beat gates and inclusive opening windows. It retains 28 arrows per dense board. The frozen structural rating remains version 1; its risk analysis sees the new rules, while its timing component remains a keg-slack measure. Clockwork currently reuses Amber scenery with a dusk palette.
 
 Astral Observatory adds forty dense puzzles with progressively tighter combinations of taught timing rules. It has generated portrait/wide maps and a matching home island. See [Astral design](ASTRAL-OBSERVATORY.md).
 
 Astral content 14 uses a globally nondecreasing 862–951 curve, above the previous campaign peak. Content-13 Astral saves migrate with coins and best stars preserved; changed boards restart their current attempt. See [hardening](ASTRAL-HARDENING.md).
+
+Foundry content 15 adds numbered linked switches and gates. Removing a matching switch toggles gates; ordinary moves do not. The gate state is derived from active arrows, preserving the existing save schema. Levels 1–180 are unchanged. See [Foundry rules and authoring](ECLIPSE-FOUNDRY.md).

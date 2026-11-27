@@ -4,7 +4,7 @@ Reconciled 27 November 2026. Start with the current summaries; dated rollout not
 
 ## Current entry points
 
-- [Game state](CURRENT-GAME-STATE.md): 180 levels, behavior, accounts and limitations.
+- [Game state](CURRENT-GAME-STATE.md): 220 levels, behavior, accounts and limitations.
 - [Build guide](build-guide.md): local game/account workflows and checks.
 - [Latest audit](AUDIT-2026-11-27.md): verification scope and documentation reconciliation.
 - [Open gaps](GAME-EXPERIENCE-GAPS.md), [backlog](execution-backlog.md), [masterplan](../MASTERPLAN.md).
@@ -29,3 +29,5 @@ Reconciled 27 November 2026. Start with the current summaries; dated rollout not
 [Astral Observatory 141–180](ASTRAL-OBSERVATORY.md): forty additional dense timing puzzles and new world artwork.
 
 [Astral difficulty hardening](ASTRAL-HARDENING.md): current content-14 curve, historical save compatibility and measured comparisons.
+
+[Eclipse Foundry 181–220](ECLIPSE-FOUNDRY.md): linked switches, new artwork and a measured gradual ramp. [Foundry audit](ECLIPSE-FOUNDRY-AUDIT.md).

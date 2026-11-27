@@ -10,6 +10,30 @@ import { GameArt } from "./elements/GameArt";
 import { Star } from "./elements/Star";
 
 type Progress = { available: boolean; cleared: boolean; stars: number };
+const foundryStops = [
+  [20, 73],
+  [40, 73],
+  [66, 62],
+  [85, 62],
+  [17, 53],
+  [36, 53],
+  [73, 45],
+  [29, 38],
+  [73, 31],
+  [39, 26],
+].map(([x, y]) => ({ x, y }));
+const foundryWideStops = [
+  [14, 81],
+  [44, 72],
+  [71, 68],
+  [84, 55],
+  [59, 49],
+  [34, 51],
+  [16, 42],
+  [35, 31],
+  [58, 30],
+  [82, 28],
+].map(([x, y]) => ({ x, y }));
 const astralWideStops = [
   [15, 79],
   [28, 66],
@@ -163,10 +187,10 @@ export function Worlds({
                   className={`valley-stop ${p.cleared ? "is-cleared" : ""} ${selected === i ? "is-selected" : ""}`}
                   style={
                     {
-                      "--x": `${(world === 6 ? astralStops : world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
-                      "--y": `${(world === 6 ? astralStops : world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
-                      "--wide-x": `${(world === 6 ? astralWideStops : coveWideStops)[localIndex].x}%`,
-                      "--wide-y": `${(world === 6 ? astralWideStops : coveWideStops)[localIndex].y}%`,
+                      "--x": `${(world === 7 ? foundryStops : world === 6 ? astralStops : world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].x}%`,
+                      "--y": `${(world === 7 ? foundryStops : world === 6 ? astralStops : world >= 3 ? amberStops : world === 2 ? frostStops : world ? coveStops : stops)[localIndex].y}%`,
+                      "--wide-x": `${(world === 7 ? foundryWideStops : world === 6 ? astralWideStops : coveWideStops)[localIndex].x}%`,
+                      "--wide-y": `${(world === 7 ? foundryWideStops : world === 6 ? astralWideStops : coveWideStops)[localIndex].y}%`,
                     } as CSSProperties
                   }
                   disabled={!p.available}
