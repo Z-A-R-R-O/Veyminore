@@ -1,6 +1,9 @@
 import { levels } from "../domain/campaign";
 import { newSession, parseSession } from "../application/session";
 import { guest, skins, type SkinId } from "../storage/profile";
+import { isAvatar } from "../storage/avatars";
+import { readAvatarFrame } from "../storage/avatar-frames";
+
 export function accountRestorePlan(accountId: string, value: unknown) {
   const v = value as {
     accountId: string;
@@ -10,7 +13,13 @@ export function accountRestorePlan(accountId: string, value: unknown) {
     progress: Array<{ levelId: string; bestStars: number }>;
     inventory: SkinId[];
     claims: string[];
-    preference: { equipped: SkinId; revision: number };
+    preference: {
+      equipped: SkinId;
+      revision: number;
+      avatar?: string | null;
+      frame?: string | null;
+      name?: string | null;
+    };
   };
   const int = (n: unknown) => Number.isSafeInteger(n) && Number(n) >= 0;
   if (
@@ -51,6 +60,18 @@ export function accountRestorePlan(accountId: string, value: unknown) {
     ...guest(),
     owned: v.inventory,
     equipped: v.preference.equipped,
+    avatar:
+      v.preference.avatar && isAvatar(v.preference.avatar)
+        ? v.preference.avatar
+        : guest().avatar,
+    avatarFrame:
+      v.preference.frame && readAvatarFrame(v.preference.frame)
+        ? readAvatarFrame(v.preference.frame)
+        : guest().avatarFrame,
+    name:
+      typeof v.preference.name === "string" && v.preference.name.trim()
+        ? v.preference.name.trim().slice(0, 20)
+        : guest().name,
     gemGiftClaimed: v.claims.includes("gem-gift"),
     welcomeClaimed: v.claims.includes("welcome-chest"),
   };
@@ -81,5 +102,9 @@ export function accountRestorePlan(accountId: string, value: unknown) {
     completed: v.cleared.length,
     stars: v.progress.reduce((s, p) => s + p.bestStars, 0),
     equipped: v.preference.equipped,
+    avatar: profile.avatar,
+    avatarFrame: profile.avatarFrame,
+    name: profile.name,
+    playerName: profile.name,
   };
 }

@@ -1,6 +1,6 @@
 # Account services: current contract
 
-Updated 20 November 2026. [Setup](ACCOUNT-SETUP.md) · [Server wallet](SERVER-ECONOMY.md) · [Historical rollout](ACCOUNT-BACKEND-DEV.md).
+Updated 20 November 2026. [Setup](ACCOUNT-SETUP.md) · [Server wallet](SERVER-ECONOMY.md) · [Cloud recovery guide](CLOUD-SAVE-RECOVERY.md) · [Production deployment](DEPLOYMENT-PRODUCTION.md) · [Historical rollout](ACCOUNT-BACKEND-DEV.md).
 
 ## Identity
 
@@ -16,18 +16,16 @@ Snapshots preserve known raw save keys, rewards, balances and archives without c
 
 Restore requires exclusive cross-tab access, a verified recovery copy and journal before writes. Interrupted restores roll back before gameplay starts. Original bytes are retained for recovery. Automatic sync never rewrites gameplay storage.
 
-### Capacity is not solved
+### Multi-chunk cloud capacity
 
-The current envelope accepts up to 512 KiB raw data and 10,700 bytes packed using gzip/Brotli fallbacks. Current/previous snapshots and overflow fragments use revision-checked provider writes and integrity checks. Realistic UUID-rich histories exceed the packed cap already at 80 completed levels. Oversize uploads fail intact; no truncation or partial save is permitted. Compact 100-level fixtures passing is not full-history acceptance.
-
-The user-confirmed real PlayFab probe exercised isolated synthetic write/read/conflict/restore, preserving normal saves. It did not certify realistic full-campaign capacity. See [open gaps](GAME-EXPERIENCE-GAPS.md).
+The cloud envelope accepts up to 512 KiB raw data and 150,000 bytes packed using gzip/Brotli compression and multi-chunk PlayFab object fragmentation (up to 30 indexed chunk objects). Realistic UUID-rich move histories for 100 completed levels, backups, and migration archives fit losslessly within capacity. Current and previous snapshots preserve atomic single-request commits and integrity checks under `ExpectedProfileVersion`. Oversized uploads fail intact; zero data truncation is permitted. See [cloud recovery guide](CLOUD-SAVE-RECOVERY.md).
 
 ## Reviewed account wallet
 
-This is a separate development mode backed by SQLite, with account-bound balances, inventory, idempotent receipts and canonical completion replay. All 100 campaign IDs are in the reward manifest. First-clear rewards cannot be repeated; stars can improve on replay. Reported elapsed time is not trusted human-play anti-cheat.
+This mode uses an authoritative SQLite server ledger, with account-bound balances, inventory, idempotent receipts and canonical completion replay. All 100 campaign IDs are in the reward manifest. First-clear rewards cannot be repeated; stars can improve on replay. Reported elapsed time is not trusted human-play anti-cheat.
 
-Legacy import requires review, exported recovery data and an exact snapshot match. Original legacy keys stay intact; binding occurs last. Account-wallet mode pauses legacy automatic cloud snapshots. An explicit second-device flow restores known clears/stars and equipment, never adds device currency to server funds. Partial boards restart; name/avatar/frame remain local. See [wallet workflow and history](SERVER-ECONOMY.md).
+Legacy import requires review, exported recovery data and an exact snapshot match. Original legacy keys stay intact; binding occurs last. Account-wallet mode pauses legacy automatic cloud snapshots. An explicit second-device flow restores known clears/stars, equipped skins, and appearance; partial boards restart cleanly at move 0 with a fresh attempt ID. See [wallet workflow and history](SERVER-ECONOMY.md) and [account continuity & conflict policy](ACCOUNT-CONTINUITY-AND-CONFLICTS.md).
 
-## Operating limits
+## Production infrastructure
 
-The account server binds localhost and refuses production mode. The wallet is a local development database, not PlayFab Economy V2. Production sessions, durable hosting, operational backups, monitoring and native authentication acceptance remain separate gates. Do not infer current private flag values from documentation; inspect configuration locally without printing secrets.
+The account service supports both localhost development and containerized production modes (`AROWGO_PRODUCTION_SERVER=1`). Production features include durable SQLite session storage (`sessions.sqlite`), sliding-window IP rate limiting (`rate-limiter.mjs`), automated point-in-time database backups (`VACUUM INTO`), cryptographic manifests, ledger balance invariant verification, and container health probes (`/api/arowgo/v1/health`). See [production infrastructure guide](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md) and [production deployment guide](DEPLOYMENT-PRODUCTION.md).

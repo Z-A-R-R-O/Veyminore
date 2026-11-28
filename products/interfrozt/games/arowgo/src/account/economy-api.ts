@@ -11,7 +11,13 @@ export type EconomyState = {
   transactions: unknown[];
   lastReward?: Reward | null;
   progress?: Array<{ levelId: string; bestStars: number }>;
-  preference?: { equipped: Profile["equipped"]; revision: number };
+  preference?: {
+    equipped: Profile["equipped"];
+    revision: number;
+    avatar?: string | null;
+    frame?: string | null;
+    name?: string | null;
+  };
 };
 export async function economyRequest(
   accountId: string,

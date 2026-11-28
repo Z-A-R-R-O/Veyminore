@@ -39,9 +39,11 @@ export function TimingGuide({
         className="timing-help"
         onClick={() => dialog.current?.showModal()}
         aria-label={
-          clock || level.levelId.startsWith("amber-")
-            ? "Timing rules"
-            : "Frostfall rules"
+          level.levelId.startsWith("sanctum-")
+            ? "Sanctum timing rules"
+            : clock || level.levelId.startsWith("amber-")
+              ? "Timing rules"
+              : "Frostfall rules"
         }
       >
         {clock ? `◷ Beat ${(removed % 3) + 1}/3 · ${removed} removed · ` : ""}❄

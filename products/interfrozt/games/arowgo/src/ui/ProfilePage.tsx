@@ -1,12 +1,15 @@
 import { ProfileIcon } from "./elements/ProfileIcon";
 import { BadgeCollection } from "./BadgeCollection";
 import { AvatarArt } from "./elements/AvatarArt";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProfileEditor } from "./ProfileShop";
 import { ArrowPreview } from "./Shop";
 import { skins, type Profile } from "../storage/profile";
 import "./profile.css";
 import { ProfileAccount } from "./ProfileAccount";
+import { WebAccountApi } from "../account/web-api";
+import { developmentAccountConfig } from "../account/development-config";
+import type { AccountIdentity } from "../account/contracts";
 
 export function ProfilePage({
   profile,
@@ -39,6 +42,40 @@ export function ProfilePage({
         : "journey",
   );
   const [notice, setNotice] = useState("");
+  const isAccountEnabled =
+    import.meta.env.DEV &&
+    (location.origin === developmentAccountConfig.webOrigin ||
+      location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1");
+  const [account, setAccount] = useState<AccountIdentity | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    if (isAccountEnabled) {
+      new WebAccountApi(true)
+        .session()
+        .then((s) => {
+          if (alive) setAccount(s.account);
+        })
+        .catch(() => {});
+    }
+    const onFocus = () => {
+      if (isAccountEnabled) {
+        new WebAccountApi(true)
+          .session()
+          .then((s) => {
+            if (alive) setAccount(s.account);
+          })
+          .catch(() => {});
+      }
+    };
+    window.addEventListener("focus", onFocus);
+    return () => {
+      alive = false;
+      window.removeEventListener("focus", onFocus);
+    };
+  }, [isAccountEnabled]);
+
   const equipped = skins.find((s) => s.id === profile.equipped)!;
   const milestones = [
     { name: "First bloom", target: 1 },
@@ -97,6 +134,110 @@ export function ProfilePage({
           <span aria-hidden="true">↗</span>
         </button>
       </header>
+      <section
+        className="profile-link-card"
+        aria-label="Account and cloud backup"
+      >
+        <div className="link-card-header">
+          <span className="link-card-eyebrow">LINK & BACKUP</span>
+          {account && (
+            <span className="link-card-status">
+              <span className="status-dot" aria-hidden="true" />
+              Connected
+            </span>
+          )}
+        </div>
+        <div className="link-card-grid">
+          {account ? (
+            <button
+              type="button"
+              className="link-card-item is-connected"
+              onClick={() => {
+                setTab("account");
+                setNotice("");
+              }}
+              aria-label="Manage Google Account"
+            >
+              <span className="link-card-icon google-mark">
+                <img
+                  src="/assets/google-signin.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                />
+              </span>
+              <span className="link-card-label">Google</span>
+              <span className="link-card-action">Manage</span>
+            </button>
+          ) : (
+            <a
+              className="link-card-item google-link"
+              href="/account-test.html"
+              aria-label="Connect Google Account"
+            >
+              <span className="link-card-icon google-mark">
+                <img
+                  src="/assets/google-signin.svg"
+                  width="18"
+                  height="18"
+                  alt=""
+                />
+              </span>
+              <span className="link-card-label">Google</span>
+              <span className="link-card-action connect-badge">Connect</span>
+            </a>
+          )}
+
+          <a
+            className="link-card-item"
+            href="/cloud-save.html"
+            aria-label="Cloud Save & Snapshots"
+          >
+            <span className="link-card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              </svg>
+            </span>
+            <span className="link-card-label">Cloud Save</span>
+            <span className="link-card-action">Backup ↗</span>
+          </a>
+
+          <a
+            className="link-card-item"
+            href="/economy.html"
+            aria-label="Device Link & Wallet Recovery"
+          >
+            <span className="link-card-icon">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="3" />
+                <path d="M2 10h20M7 15h2" />
+              </svg>
+            </span>
+            <span className="link-card-label">Device Link</span>
+            <span className="link-card-action">Sync ↗</span>
+          </a>
+        </div>
+      </section>
       <nav className="player-tabs" aria-label="Profile sections">
         {(["journey", "badges", "collection", "edit", "account"] as const).map(
           (t) => (

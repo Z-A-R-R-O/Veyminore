@@ -33,9 +33,12 @@ export function openWalletLedger(
  CREATE TABLE IF NOT EXISTS boosts(account TEXT NOT NULL,attempt TEXT NOT NULL,PRIMARY KEY(account,attempt));
  CREATE TABLE IF NOT EXISTS progress(account TEXT NOT NULL,level TEXT NOT NULL,stars INTEGER NOT NULL CHECK(stars BETWEEN 1 AND 3),PRIMARY KEY(account,level));
  CREATE TABLE IF NOT EXISTS attempt_scores(attempt TEXT PRIMARY KEY,stars INTEGER NOT NULL CHECK(stars BETWEEN 1 AND 3));
- CREATE TABLE IF NOT EXISTS preferences(account TEXT PRIMARY KEY,equipped TEXT NOT NULL,revision INTEGER NOT NULL);
+ CREATE TABLE IF NOT EXISTS preferences(account TEXT PRIMARY KEY,equipped TEXT NOT NULL,avatar TEXT,frame TEXT,name TEXT,revision INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS imports(account TEXT PRIMARY KEY,approval TEXT NOT NULL,manifest TEXT NOT NULL,backup TEXT NOT NULL,created INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS ledger(sequence INTEGER PRIMARY KEY AUTOINCREMENT,account TEXT NOT NULL,operation TEXT NOT NULL,reason TEXT NOT NULL,coins INTEGER NOT NULL,gems INTEGER NOT NULL,created INTEGER NOT NULL,UNIQUE(account,operation));`);
+  try { db.exec("ALTER TABLE preferences ADD COLUMN avatar TEXT;"); } catch {}
+  try { db.exec("ALTER TABLE preferences ADD COLUMN frame TEXT;"); } catch {}
+  try { db.exec("ALTER TABLE preferences ADD COLUMN name TEXT;"); } catch {}
   const query = (sql, ...args) => db.prepare(sql).get(...args);
   const run = (sql, ...args) => db.prepare(sql).run(...args);
   function seedReviewed(account, backup, replacing = false) {
@@ -87,8 +90,8 @@ export function openWalletLedger(
     }
     run(
       replacing
-        ? "INSERT INTO preferences VALUES(?,?,0) ON CONFLICT(account) DO UPDATE SET equipped=excluded.equipped WHERE preferences.revision=0"
-        : "INSERT OR IGNORE INTO preferences VALUES(?,?,0)",
+        ? "INSERT INTO preferences(account,equipped,revision) VALUES(?,?,0) ON CONFLICT(account) DO UPDATE SET equipped=excluded.equipped WHERE preferences.revision=0"
+        : "INSERT OR IGNORE INTO preferences(account,equipped,revision) VALUES(?,?,0)",
       account,
       equipped,
     );
@@ -99,7 +102,7 @@ export function openWalletLedger(
     for (const row of db.prepare("SELECT account,backup FROM imports").all())
       seedReviewed(row.account, JSON.parse(row.backup));
     db.exec(
-      "INSERT OR IGNORE INTO progress SELECT account,level,1 FROM clears; INSERT OR IGNORE INTO preferences SELECT account,'classic',0 FROM wallets; COMMIT;",
+      "INSERT OR IGNORE INTO progress SELECT account,level,1 FROM clears; INSERT OR IGNORE INTO preferences(account,equipped,revision) SELECT account,'classic',0 FROM wallets; COMMIT;",
     );
   } catch (error) {
     db.exec("ROLLBACK");
@@ -325,25 +328,97 @@ export function openWalletLedger(
           )
             throw Error("skin-not-owned");
           const preference = query(
-            "SELECT equipped,revision FROM preferences WHERE account=?",
+            "SELECT equipped,avatar,frame,name,revision FROM preferences WHERE account=?",
             account,
-          ) ?? { equipped: "classic", revision: 0 };
+          ) ?? {
+            equipped: "classic",
+            avatar: null,
+            frame: null,
+            name: null,
+            revision: 0,
+          };
           if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0)
             throw Error("invalid-preference");
           if (preference.equipped === skin) return preference;
           if (preference.revision !== expectedRevision)
             throw Error("preference-conflict");
           run(
-            "INSERT INTO preferences VALUES(?,?,?) ON CONFLICT(account) DO UPDATE SET equipped=excluded.equipped,revision=excluded.revision",
+            "INSERT INTO preferences VALUES(?,?,?,?,?,?) ON CONFLICT(account) DO UPDATE SET equipped=excluded.equipped,avatar=excluded.avatar,frame=excluded.frame,name=excluded.name,revision=excluded.revision",
             account,
             skin,
+            preference.avatar,
+            preference.frame,
+            preference.name,
             preference.revision + 1,
           );
           run(
             "UPDATE wallets SET revision=revision+1 WHERE account=?",
             account,
           );
-          return { equipped: skin, revision: preference.revision + 1 };
+          return {
+            equipped: skin,
+            revision: preference.revision + 1,
+            ...(preference.avatar ? { avatar: preference.avatar } : {}),
+            ...(preference.frame ? { frame: preference.frame } : {}),
+            ...(preference.name ? { name: preference.name } : {}),
+          };
+        },
+      );
+    },
+    appearance(account, operation, { avatar, frame, name, expectedRevision }) {
+      return transact(
+        account,
+        operation,
+        { type: "appearance", avatar, frame, name, expectedRevision },
+        () => {
+          const preference = query(
+            "SELECT equipped,avatar,frame,name,revision FROM preferences WHERE account=?",
+            account,
+          ) ?? {
+            equipped: "classic",
+            avatar: null,
+            frame: null,
+            name: null,
+            revision: 0,
+          };
+          if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0)
+            throw Error("invalid-preference");
+          if (preference.revision !== expectedRevision)
+            throw Error("preference-conflict");
+          const nextAvatar = avatar !== undefined ? avatar : preference.avatar;
+          const nextFrame = frame !== undefined ? frame : preference.frame;
+          const nextName =
+            name !== undefined
+              ? typeof name === "string"
+                ? name.trim().slice(0, 20)
+                : preference.name
+              : preference.name;
+          if (
+            nextAvatar === preference.avatar &&
+            nextFrame === preference.frame &&
+            nextName === preference.name
+          )
+            return preference;
+          run(
+            "INSERT INTO preferences VALUES(?,?,?,?,?,?) ON CONFLICT(account) DO UPDATE SET equipped=excluded.equipped,avatar=excluded.avatar,frame=excluded.frame,name=excluded.name,revision=excluded.revision",
+            account,
+            preference.equipped,
+            nextAvatar,
+            nextFrame,
+            nextName,
+            preference.revision + 1,
+          );
+          run(
+            "UPDATE wallets SET revision=revision+1 WHERE account=?",
+            account,
+          );
+          return {
+            equipped: preference.equipped,
+            revision: preference.revision + 1,
+            ...(nextAvatar ? { avatar: nextAvatar } : {}),
+            ...(nextFrame ? { frame: nextFrame } : {}),
+            ...(nextName ? { name: nextName } : {}),
+          };
         },
       );
     },
@@ -591,10 +666,20 @@ export function openWalletLedger(
             "SELECT level AS levelId,stars AS bestStars FROM progress WHERE account=? ORDER BY level",
           )
           .all(account),
-        preference: query(
-          "SELECT equipped,revision FROM preferences WHERE account=?",
-          account,
-        ) ?? { equipped: "classic", revision: 0 },
+        preference: (() => {
+          const row = query(
+            "SELECT equipped,avatar,frame,name,revision FROM preferences WHERE account=?",
+            account,
+          );
+          if (!row) return { equipped: "classic", revision: 0 };
+          return {
+            equipped: row.equipped,
+            revision: row.revision,
+            ...(row.avatar ? { avatar: row.avatar } : {}),
+            ...(row.frame ? { frame: row.frame } : {}),
+            ...(row.name ? { name: row.name } : {}),
+          };
+        })(),
         lastReward: (() => {
           const row = query(
             "SELECT result FROM operations WHERE account=? AND json_extract(result, '$.reward.skin') IS NOT NULL ORDER BY rowid DESC LIMIT 1",

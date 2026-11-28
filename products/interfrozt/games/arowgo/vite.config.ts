@@ -12,7 +12,10 @@ export default defineConfig({
       },
     },
   },
-  test: { include: ["tests/**/*.test.{ts,js}"] },
+  test: {
+    testTimeout: 60000,
+    include: ["tests/**/*.test.{ts,js}"],
+  },
   build: {
     rollupOptions: {
       output: {

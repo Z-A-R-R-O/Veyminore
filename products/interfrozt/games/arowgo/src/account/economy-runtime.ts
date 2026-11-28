@@ -6,6 +6,8 @@ import {
 } from "./economy-api";
 import type { Profile, SkinId } from "../storage/profile";
 import type { Session } from "../application/session";
+import { isAvatar } from "../storage/avatars";
+import { readAvatarFrame } from "../storage/avatar-frames";
 export const ECONOMY_BINDING = "arowgo.economy.binding.v1";
 let owner: string | null = null;
 let current: EconomyState | null = null;
@@ -74,6 +76,19 @@ export function accountProfile(profile: Profile): Profile {
     )
       ? (current.preference?.equipped ?? profile.equipped)
       : "classic",
+    avatar:
+      current.preference?.avatar && isAvatar(current.preference.avatar)
+        ? current.preference.avatar
+        : profile.avatar,
+    avatarFrame:
+      current.preference?.frame !== undefined && current.preference.frame !== null
+        ? readAvatarFrame(current.preference.frame)
+        : profile.avatarFrame,
+    name:
+      typeof current.preference?.name === "string" &&
+      current.preference.name.trim()
+        ? current.preference.name.trim().slice(0, 20)
+        : profile.name,
     gemGiftClaimed: current.claims.includes("gem-gift"),
     welcomeClaimed: current.claims.includes("welcome-chest"),
   };
@@ -250,6 +265,40 @@ export async function equipSkin(skin: SkinId): Promise<boolean> {
       message =
         "Your equipped skin changed on the account. Choose again to replace it.";
     } else message = "Skin selection pending. Retry to confirm your selection.";
+    emit();
+    return false;
+  }
+}
+
+export async function updateAppearance(appearance: {
+  avatar?: string;
+  frame?: string;
+  name?: string;
+}): Promise<boolean> {
+  if (!owner) return false;
+  try {
+    await client.run(
+      "appearance",
+      {
+        action: "appearance",
+        ...appearance,
+        expectedRevision: current?.preference?.revision ?? 0,
+      },
+      true,
+    );
+    await refreshEconomy();
+    client.acknowledge("appearance");
+    message = "Appearance saved to your account";
+    emit();
+    return true;
+  } catch (error) {
+    if (error instanceof Error && error.message === "preference-conflict") {
+      await refreshEconomy().catch(() => {});
+      message =
+        "Your appearance changed on another device. Refresh to view latest.";
+    } else {
+      message = "Appearance update pending. Retry to confirm.";
+    }
     emit();
     return false;
   }

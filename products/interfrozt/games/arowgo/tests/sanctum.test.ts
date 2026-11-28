@@ -10,7 +10,7 @@ import { beforeDensityLevels } from "../src/domain/campaignBeforeDensity";
 // @ts-expect-error Server ESM integration.
 import { verifyClear } from "../server/economy/rewards.mjs";
 // @ts-expect-error Server ESM integration.
-import { packSnapshot } from "../server/account/cloud.mjs";
+import { packSnapshot, unpackSnapshot } from "../server/account/cloud.mjs";
 
 it("Sanctum has twenty unique dense puzzles with a verified harder planning curve", () => {
   expect(levelNames.slice(0, 100)).toHaveLength(100);
@@ -118,8 +118,11 @@ it("restores 100 completed saves and recovery copies without losing earlier hist
   };
   const before = JSON.stringify(snapshot);
   const restored = validatePlayableRestore(JSON.parse(before));
-  // Known cloud-capacity gap: never silently drop recovery history to make it fit.
-  expect(() => packSnapshot(snapshot)).toThrow("save-too-large");
+  // Cloud capacity resolved: 100-level histories with recovery copies fit and unpack losslessly.
+  const packed = packSnapshot(snapshot);
+  expect(typeof packed.data).toBe("string");
+  const unpacked = unpackSnapshot(packed);
+  expect(unpacked.entries).toEqual(restored.entries);
   expect(JSON.stringify(snapshot)).toBe(before);
   expect(restored.entries).toEqual(
     [...entries].sort((a, b) => a.key.localeCompare(b.key)),

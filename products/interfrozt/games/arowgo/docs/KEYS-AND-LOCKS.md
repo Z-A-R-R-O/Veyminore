@@ -1,4 +1,4 @@
-Current movement update: [Snake movement contract](SNAKE-MOVEMENT.md). Live campaign uses rules 2 / content 5 / generator 3. The older version and rigid-geometry descriptions below are historical; the snake contract supersedes them.
+Current movement update: [Snake movement contract](SNAKE-MOVEMENT.md) and [mechanics handbook](MECHANICS-HANDBOOK.md). Live campaign uses rules 2 / content versions up to 12 / generator 4. The older version and rigid-geometry descriptions below are historical; the snake contract supersedes them.
 
 # Keys and locks
 

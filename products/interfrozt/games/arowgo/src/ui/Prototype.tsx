@@ -15,6 +15,7 @@ import {
   timeBoost,
   flushCompletions,
   equipSkin,
+  updateAppearance,
 } from "../account/economy-runtime";
 import { beforeTimingLevels } from "../domain/campaignBeforeTiming";
 import { beforePlanningLevels } from "../domain/campaignBeforePlanning";
@@ -53,12 +54,34 @@ import {
   randomUnit,
   type Profile,
 } from "../storage/profile";
+import {
+  DAILY_STORAGE_KEY,
+  DAILY_REWARD_COINS,
+  DAILY_REWARD_GEMS,
+  getTodayDateString,
+  getDailyLevel,
+  readDailyProgress,
+  recordDailyCompletion,
+  defaultDailyProgress,
+  type DailyProgress,
+  formatDailyDate,
+  dayDifference,
+} from "../storage/daily";
 import { useMotion } from "./useMotion";
 import { SoundSetting } from "./Sound";
 const store = {
   getItem: (key: string) => gameStorage.getItem(key),
   setItem: (key: string, value: string) => gameStorage.setItem(key, value),
 };
+const dailyLevel = getDailyLevel();
+const dailyController = new Controller(
+  dailyLevel,
+  new SaveStore(
+    store,
+    dailyLevel,
+    "arowgo.daily." + getTodayDateString() + ".v1",
+  ),
+);
 const controllers = levels.map(
   (level, i) =>
     new Controller(
@@ -133,6 +156,56 @@ export function Prototype() {
   const walletMessage = useSyncExternalStore(subscribeEconomy, economyMessage);
   const profile = accountProfile(localProfile);
   const [profileNotice, setProfileNotice] = useState("");
+  const [dailyProgress, setDailyProgress] = useState<DailyProgress>(() => {
+    try {
+      return readDailyProgress(gameStorage.getItem(DAILY_STORAGE_KEY));
+    } catch {
+      return defaultDailyProgress();
+    }
+  });
+
+  function handleDailyComplete() {
+    try {
+      const previous = readDailyProgress(
+        gameStorage.getItem(DAILY_STORAGE_KEY),
+      );
+      const result = recordDailyCompletion(previous, getTodayDateString());
+      if (!result.isFirstClearToday) return;
+      const oldProfile = gameStorage.getItem(PROFILE_KEY);
+      const nextProfile = {
+        ...readProfile(oldProfile),
+        gems:
+          readProfile(oldProfile).gems +
+          (economyOwner() ? 0 : result.gemsEarned),
+      };
+      gameStorage.setItem(PROFILE_KEY, JSON.stringify(nextProfile));
+      try {
+        gameStorage.setItem(DAILY_STORAGE_KEY, JSON.stringify(result.progress));
+      } catch (error) {
+        gameStorage.setItem(
+          PROFILE_KEY,
+          oldProfile ?? JSON.stringify(readProfile(null)),
+        );
+        throw error;
+      }
+      setProfile(nextProfile);
+      setDailyProgress(result.progress);
+    } catch {
+      setProfileNotice(
+        "Daily progress could not be saved. Please retry when storage is available.",
+      );
+    }
+  }
+
+  useEffect(() => {
+    const unsub = dailyController.subscribe(() => {
+      refresh((v) => v + 1);
+      if (dailyController.state.status === "complete") {
+        handleDailyComplete();
+      }
+    });
+    return unsub;
+  }, []);
   useEffect(() => {
     for (const c of controllers)
       if (
@@ -146,6 +219,13 @@ export function Prototype() {
       gameStorage.setItem(PROFILE_KEY, JSON.stringify(next));
       setProfile(next);
       setProfileNotice("");
+      if (economyOwner()) {
+        void updateAppearance({
+          avatar: next.avatar,
+          frame: next.avatarFrame,
+          name: next.name,
+        });
+      }
       return true;
     } catch {
       setProfileNotice("Profile storage is unavailable. Purchases are paused.");
@@ -168,7 +248,10 @@ export function Prototype() {
     location.hash = path;
     setRoute(path);
   };
-  const earnedCoins = controllers.reduce((v, c) => v + c.state.coins, 0);
+  const dailyBonusCoins =
+    dailyProgress.completedDates.length * DAILY_REWARD_COINS;
+  const earnedCoins =
+    controllers.reduce((v, c) => v + c.state.coins, 0) + dailyBonusCoins;
   const coins =
     remote?.wallet?.coins ?? Math.max(0, earnedCoins - spentCoins(profile));
   useEffect(() => {
@@ -224,6 +307,38 @@ export function Prototype() {
         }}
       />
     );
+  if (route === "daily") {
+    const today = getTodayDateString();
+    const isCompleteToday = dailyProgress.lastCompletedDate === today;
+    const projectedStreak = isCompleteToday
+      ? dailyProgress.currentStreak
+      : dailyProgress.lastCompletedDate &&
+          dayDifference(dailyProgress.lastCompletedDate, today) === 1
+        ? dailyProgress.currentStreak + 1
+        : 1;
+
+    return (
+      <App
+        key="daily"
+        controller={dailyController}
+        levelNumber={1}
+        profile={profile}
+        isDaily
+        dailyTitle={`Daily · ${formatDailyDate(today)}`}
+        dailyContext={{
+          streak: projectedStreak,
+          isFirstClear: !isCompleteToday,
+          coins: economyOwner() ? 0 : DAILY_REWARD_COINS,
+          gems: economyOwner() ? 0 : DAILY_REWARD_GEMS,
+        }}
+        gems={profile.gems}
+        skin={profile.equipped}
+        otherCoins={coins}
+        onHome={() => go("home")}
+        onNext={() => go("home")}
+      />
+    );
+  }
   const match = /^play\/(\d+)$/.exec(route);
   if (route === "preview/keys")
     return (
@@ -417,9 +532,17 @@ export function Prototype() {
             stars={stars}
             next={next}
             name={profile.name}
+            dailyProgress={dailyProgress}
+            dailyRewards={!economyOwner()}
             onPlay={() =>
               completed === levels.length ? go("finale") : play(next)
             }
+            onDaily={() => {
+              if (dailyController.state.status !== "playing") {
+                dailyController.restart("story");
+              }
+              go("daily");
+            }}
             onNavigate={go}
           />
         )}

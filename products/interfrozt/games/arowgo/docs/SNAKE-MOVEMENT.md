@@ -1,6 +1,6 @@
 # Snake movement contract
 
-Implemented 14 November 2026. Current campaign uses rules version 2, content versions 5/8/9; geometry generator version 3. Lessons have separate versioned definitions. See PLANNING-DIFFICULTY.md for the current deadline layer. Supersedes the rigid swept-footprint player rule in historical documents.
+Implemented 14 November 2026. Current campaign uses rules version 2, content versions 5/8/9/12; geometry generator version 4. See [mechanics handbook](MECHANICS-HANDBOOK.md) for complete mechanic examples, and [planning difficulty](PLANNING-DIFFICULTY.md) for the deadline layer. Supersedes the rigid swept-footprint player rule in historical documents.
 
 ## One player rule
 

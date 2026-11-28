@@ -60,7 +60,7 @@ Use the actual compatible JDK/SDK paths on another machine. The debug APK is and
 
 ## Release evidence
 
-Capture dated command results, browser project/viewport scope, device model/OS for native checks, unresolved warnings/failures and migration behavior. Generated art and supplied audio/fonts require a release rights review. Account/billing features additionally require secure identity, server authority, receipt recovery and operating ownership before activation.
+Capture dated command results, browser project/viewport scope, device model/OS for native checks, unresolved warnings/failures and migration behavior. Generated art and supplied audio/fonts require a release rights review. Account/billing features additionally require secure identity, server authority, receipt recovery and operating ownership before activation. See [production deployment guide](DEPLOYMENT-PRODUCTION.md) for the prebuilt Vercel release pipeline and [cloud recovery guide](CLOUD-SAVE-RECOVERY.md) for storage envelope constraints.
 
 ## Account preview
 

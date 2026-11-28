@@ -105,8 +105,9 @@ export function createAccountService({
   economy,
   verifyIdentity,
   now = Date.now,
+  sessionStore,
 }) {
-  const sessions = new Map();
+  const sessions = sessionStore ?? new Map();
   const ttl = 60 * 60 * 1000;
   function prune() {
     for (const [id, s] of sessions) if (s.expires <= now()) sessions.delete(id);
@@ -179,6 +180,13 @@ export function createAccountService({
             body.skin,
             body.expectedRevision,
           );
+        if (body?.action === "appearance")
+          return economy.appearance(s.account.id, body.operationId, {
+            avatar: body.avatar,
+            frame: body.frame,
+            name: body.name,
+            expectedRevision: body.expectedRevision,
+          });
         if (body?.action === "gift")
           return economy.gift(s.account.id, body.operationId);
         if (body?.action === "chest")
@@ -345,6 +353,9 @@ export function createAccountService({
       sessions.delete(id);
       const next = create();
       return { id: next.id, data: view(next.s) };
+    },
+    isEconomyEnabled() {
+      return !!economy;
     },
   };
 }

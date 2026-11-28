@@ -133,3 +133,21 @@ it("all frames round trip and missing or invalid frame IDs preserve existing sav
       avatarFrame: f.id,
     });
 });
+
+it("enforces 20-character lock on player display name", () => {
+  const base = guest();
+  // Exact 20 characters is valid
+  const valid20 = "12345678901234567890";
+  expect(valid20.length).toBe(20);
+  const p20 = readProfile(JSON.stringify({ ...base, name: valid20 }));
+  expect(p20.name).toBe(valid20);
+
+  // 21 characters is rejected back to guest
+  const invalid21 = "123456789012345678901";
+  expect(invalid21.length).toBe(21);
+  expect(readProfile(JSON.stringify({ ...base, name: invalid21 }))).toEqual(guest());
+
+  // Empty or whitespace-only is rejected back to guest
+  expect(readProfile(JSON.stringify({ ...base, name: "" }))).toEqual(guest());
+  expect(readProfile(JSON.stringify({ ...base, name: "   " }))).toEqual(guest());
+});

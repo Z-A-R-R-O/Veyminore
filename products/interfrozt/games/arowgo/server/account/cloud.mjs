@@ -62,7 +62,7 @@ export function packSnapshot(value) {
       params: { [constants.BROTLI_PARAM_QUALITY]: 11 },
     }).toString("base64");
   }
-  if (Buffer.byteLength(JSON.stringify(packed)) > 10700)
+  if (Buffer.byteLength(JSON.stringify(packed)) > 150000)
     throw new AuthError(413, "save-too-large");
   return packed;
 }
@@ -71,7 +71,7 @@ export function unpackSnapshot(packed) {
     if (
       !["gzip-base64", "brotli-base64"].includes(packed?.encoding) ||
       typeof packed.data !== "string" ||
-      packed.data.length > 11000
+      packed.data.length > 160000
     )
       throw Error();
     const decode =
@@ -138,6 +138,48 @@ export function cloudProvider({
       throw new AuthError(502, "cloud-unavailable");
     return data;
   }
+  function reassemble(rawRecord, targetName, allObjects) {
+    if (!rawRecord) return null;
+    if (rawRecord.snapshot?.overflow !== true) return rawRecord;
+    if (
+      Number.isSafeInteger(rawRecord.snapshot?.chunkCount) &&
+      rawRecord.snapshot.chunkCount >= 1
+    ) {
+      if (rawRecord.snapshot.chunkCount > 30)
+        throw new AuthError(502, "invalid-cloud-save");
+      let fullData = rawRecord.snapshot.data;
+      for (let i = 1; i <= rawRecord.snapshot.chunkCount; i++) {
+        const chunk = allObjects?.[`${targetName}-chunk-${i}`]?.DataObject;
+        if (
+          chunk?.schemaVersion !== 1 ||
+          chunk?.operationId !== rawRecord.operationId ||
+          chunk?.chunkIndex !== i ||
+          typeof chunk?.data !== "string" ||
+          chunk.data.length > 7500
+        )
+          throw new AuthError(502, "invalid-cloud-save");
+        fullData += chunk.data;
+      }
+      const { overflow: marker, chunkCount, ...snapshot } = rawRecord.snapshot;
+      return {
+        ...rawRecord,
+        snapshot: { ...snapshot, data: fullData },
+      };
+    }
+    const overflow = allObjects?.[overflowName]?.DataObject;
+    const tail = overflow?.records?.[rawRecord.operationId];
+    if (
+      overflow?.schemaVersion !== 1 ||
+      typeof tail !== "string" ||
+      tail.length > 4000
+    )
+      throw new AuthError(502, "invalid-cloud-save");
+    const { overflow: marker, ...snapshot } = rawRecord.snapshot;
+    return {
+      ...rawRecord,
+      snapshot: { ...snapshot, data: snapshot.data + tail },
+    };
+  }
   async function read(e) {
     const data = await call(
       "Object/GetObjects",
@@ -146,22 +188,8 @@ export function cloudProvider({
     );
     if (!Number.isSafeInteger(data?.ProfileVersion) || data.ProfileVersion < 0)
       throw new AuthError(502, "invalid-cloud-save");
-    let record = data.Objects?.[name]?.DataObject;
-    if (record?.snapshot?.overflow === true) {
-      const overflow = data.Objects?.[overflowName]?.DataObject;
-      const tail = overflow?.records?.[record.operationId];
-      if (
-        overflow?.schemaVersion !== 1 ||
-        typeof tail !== "string" ||
-        tail.length > 4000
-      )
-        throw new AuthError(502, "invalid-cloud-save");
-      const { overflow: marker, ...snapshot } = record.snapshot;
-      record = {
-        ...record,
-        snapshot: { ...snapshot, data: snapshot.data + tail },
-      };
-    }
+    const allObjects = data.Objects || {};
+    let record = reassemble(allObjects[name]?.DataObject, name, allObjects);
     if (
       record &&
       (record.schemaVersion !== 1 ||
@@ -213,33 +241,68 @@ export function cloudProvider({
         operationId,
         snapshot: packed,
       };
-      // Keep both complete generations within three entity objects. All fragments
-      // are written under the same ExpectedProfileVersion, never in separate requests.
+      // Keep complete generations within atomic entity objects. Fragments are
+      // written under the same ExpectedProfileVersion, never in separate requests.
+      const objects = [];
       const overflow = { schemaVersion: 1, records: {} };
-      const fragment = (value) => {
+      const fragment = (value, prefix) => {
         if (Buffer.byteLength(JSON.stringify(value)) <= 8000) return value;
-        overflow.records[value.operationId] = value.snapshot.data.slice(7000);
+        const data = value.snapshot.data;
+        const head = data.slice(0, 7000);
+        const remaining = data.slice(7000);
+        if (
+          remaining.length <= 4000 &&
+          Buffer.byteLength(JSON.stringify(overflow)) + remaining.length + 100 <=
+            8000
+        ) {
+          overflow.records[value.operationId] = remaining;
+          return {
+            ...value,
+            snapshot: {
+              ...value.snapshot,
+              data: head,
+              overflow: true,
+            },
+          };
+        }
+        const chunkSize = 7000;
+        const chunkCount = Math.ceil(remaining.length / chunkSize);
+        if (chunkCount > 30) throw new AuthError(413, "save-too-large");
+        for (let i = 1; i <= chunkCount; i++) {
+          const chunkData = remaining.slice((i - 1) * chunkSize, i * chunkSize);
+          objects.push({
+            ObjectName: `${prefix}-chunk-${i}`,
+            DataObject: {
+              schemaVersion: 1,
+              operationId: value.operationId,
+              chunkIndex: i,
+              data: chunkData,
+            },
+          });
+        }
         return {
           ...value,
           snapshot: {
             ...value.snapshot,
-            data: value.snapshot.data.slice(0, 7000),
+            data: head,
             overflow: true,
+            chunkCount,
           },
         };
       };
-      const objects = [{ ObjectName: name, DataObject: fragment(record) }];
+      objects.push({ ObjectName: name, DataObject: fragment(record, name) });
       // Preserve the previous complete save with the same atomic profile-version update.
       if (current.record)
         objects.push({
           ObjectName: previousName,
-          DataObject: fragment(current.record),
+          DataObject: fragment(current.record, previousName),
         });
       if (Object.keys(overflow.records).length)
         objects.push({ ObjectName: overflowName, DataObject: overflow });
       for (const object of objects)
         if (Buffer.byteLength(JSON.stringify(object.DataObject)) > 8000)
           throw new AuthError(413, "save-too-large");
+      if (objects.length > 70) throw new AuthError(413, "save-too-large");
       const result = await call(
         "Object/SetObjects",
         {

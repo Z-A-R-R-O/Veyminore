@@ -38,7 +38,7 @@ Old in-progress saves without a move transcript must be replayed to validate a n
 
 ## Deployment boundary
 
-This is a single-host development ledger, not PlayFab Economy V2 or a deployed production wallet. The account server still refuses production mode. Before a paid launch: select production hosting/storage, implement automated ledger backup/restore and monitoring, account-scoped progress synchronization, durable authentication sessions, rate limiting and operational recovery. Legal-move replay validates puzzle transitions; it is not proof of human play. Current prices/odds match the existing 15-skin prototype; the proposed 100-skin catalog is a separate roadmap item.
+The account server supports both development and containerized production modes (`AROWGO_PRODUCTION_SERVER=1`). Production infrastructure provides automated ledger snapshots (`VACUUM INTO`), cryptographic manifest generation, dual-entry balance invariant verification, dry-run and safety-copy restore tools, sliding-window rate limiting, durable sessions, and container health probes. See [production infrastructure guide](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md) and [production deployment guide](DEPLOYMENT-PRODUCTION.md). Physical-device testing and production container provisioning remain separate launch gates. Current prices/odds match the existing 15-skin prototype; the proposed 100-skin catalog is a separate roadmap item.
 
 ## Verification
 

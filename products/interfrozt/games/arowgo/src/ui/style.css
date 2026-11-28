@@ -220,6 +220,95 @@ button svg {
     inset 0 2px 2px #ffffff80;
   color: white;
 }
+/* Header Player Profile badge (replaces app name and logo inside game) */
+.header-profile-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  background: #f7efffe8;
+  border: 1px solid #ffffff;
+  padding: 0;
+  text-decoration: none;
+  color: #4b2882;
+  box-shadow: 0 3px 10px #62368c0c;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease,
+    background 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  user-select: none;
+}
+.header-profile-link:hover {
+  transform: translateY(-1px);
+  background: #ffffff;
+  border-color: #ebdcfc;
+  box-shadow: 0 5px 14px #62368c18;
+}
+.header-profile-link:active {
+  transform: translateY(0);
+}
+
+.header-profile-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #f3eafd, #eee0ff);
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 6px #62368c18;
+  position: relative;
+}
+.header-profile-avatar img,
+.header-profile-avatar .game-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.header-profile-avatar .framed-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-profile-avatar .framed-avatar-face {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-profile-avatar .avatar-frame-overlay {
+  display: none;
+}
+.header-profile-default-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+@media (max-width: 380px) {
+  .header-profile-link {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+  }
+  .header-profile-avatar {
+    width: 28px;
+    height: 28px;
+  }
+}
 .prototype {
   font-size: 9px;
   font-style: normal;
@@ -5284,6 +5373,136 @@ main {
   transform: skewX(-25deg);
   animation: home-glint 9s ease-in-out infinite;
 }
+
+/* Daily Challenge & Streak Card on Home */
+.bloom-daily-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ffffffeb, #f5eaffeb 60%, #eee0ff);
+  border: 1.5px solid #ffffff;
+  border-radius: 24px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 16px #6a3a9c14, inset 0 1px 2px #ffffff;
+  margin: 6px 0 10px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  box-sizing: border-box;
+}
+.bloom-daily-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px #6a3a9c1e, inset 0 1px 2px #ffffff;
+}
+.daily-card-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #fff2db, #ffe0b3);
+  border: 1.5px solid #ffffff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 3px 8px #d9770624;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.daily-card-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+.daily-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.daily-eyebrow {
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  color: #7b599c;
+  text-transform: uppercase;
+}
+.daily-streak-pill {
+  font-size: 11px;
+  font-weight: 750;
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+  color: #c2410c;
+  border: 1px solid #f9731640;
+  border-radius: 12px;
+  padding: 2px 8px;
+  line-height: 1.2;
+}
+.daily-date-title {
+  font-size: 15px;
+  font-weight: 850;
+  color: #43226a;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.daily-subtitle {
+  font-size: 11.5px;
+  color: #785a96;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.daily-card-btn {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1.5px solid #ffffff;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.daily-card-btn.is-action {
+  background: linear-gradient(135deg, #9333ea, #7e22ce);
+  color: #ffffff;
+  box-shadow: 0 4px 12px #7e22ce40;
+}
+.daily-card-btn.is-replay {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  color: #6b21a8;
+  box-shadow: 0 3px 8px #6b21a818;
+}
+.daily-card-btn:hover {
+  transform: translateY(-1px);
+}
+.daily-card-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 400px) {
+  .bloom-daily-card {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .daily-card-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 20px;
+  }
+  .daily-date-title {
+    font-size: 14px;
+  }
+  .daily-card-btn {
+    padding: 6px 12px;
+    font-size: 12.5px;
+  }
+}
+
 .bloom-destinations {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

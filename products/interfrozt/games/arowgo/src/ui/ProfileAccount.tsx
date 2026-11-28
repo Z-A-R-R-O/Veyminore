@@ -21,7 +21,9 @@ export function ProfileAccount() {
   const syncMessage = useSyncExternalStore(subscribeAutoSync, autoSyncStatus);
   const enabled =
     import.meta.env.DEV &&
-    location.origin === developmentAccountConfig.webOrigin;
+    (location.origin === developmentAccountConfig.webOrigin ||
+      location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1");
   const [api] = useState(() => new WebAccountApi(enabled));
   const [account, setAccount] = useState<AccountIdentity | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "error">("loading");

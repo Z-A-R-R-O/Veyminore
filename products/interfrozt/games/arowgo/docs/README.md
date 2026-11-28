@@ -5,12 +5,21 @@ Reconciled 27 November 2026. Start with the current summaries; dated rollout not
 ## Current entry points
 
 - [Game state](CURRENT-GAME-STATE.md): 220 levels, behavior, accounts and limitations.
+- [Production deployment](DEPLOYMENT-PRODUCTION.md): Vercel CDN live release and service boundaries.
+- [Production infrastructure](PRODUCTION-ACCOUNT-INFRASTRUCTURE.md): durable sessions, rate limiting, ledger backups and recovery runbooks.
+- [Cloud-save recovery](CLOUD-SAVE-RECOVERY.md): envelope size limits, failed uploads, conflicts and recovery.
+- [Account continuity & conflicts](ACCOUNT-CONTINUITY-AND-CONFLICTS.md): cross-device appearance sync, clean in-progress restarts, and deterministic conflict policy.
+- [Account & currency flows](ACCOUNT-CURRENCY-FLOWS.md): balance ownership across local, cloud and server wallet.
+- [Release checklist](RELEASE-CHECKLIST.md): physical devices, performance, accessibility and production gates.
+- [Test coverage map](TEST-COVERAGE-MAP.md): automated, mocked, live provider and physical device tiers.
 - [Build guide](build-guide.md): local game/account workflows and checks.
 - [Latest audit](AUDIT-2026-11-27.md): verification scope and documentation reconciliation.
 - [Open gaps](GAME-EXPERIENCE-GAPS.md), [backlog](execution-backlog.md), [masterplan](../MASTERPLAN.md).
 - [Account services](ACCOUNT-SERVICES.md), [setup](ACCOUNT-SETUP.md), [wallet](SERVER-ECONOMY.md).
 
 ## Gameplay and content
+
+[Mechanics handbook](MECHANICS-HANDBOOK.md) · [Generator specification](GENERATOR-SPECIFICATION.md) · [Level register](LEVEL-DIFFICULTY-REGISTER.md) · [Asset catalog](ASSET-CATALOG.md).
 
 [Snake movement](SNAKE-MOVEMENT.md) · [Hold inspection](HOLD-PREVIEW.md) · [Generator](PUZZLE-GENERATOR.md) · [Dense campaign](DENSE-CAMPAIGN.md) · [Keys/locks](KEYS-AND-LOCKS.md) · [Cove](VERDANT-COVE.md) · [Frostfall](FROSTFALL-PEAKS.md) · [Timing](FROSTFALL-TIMING.md) · [Dunes](AMBER-DUNES.md) · [Sanctum](AMBER-SANCTUM.md).
 

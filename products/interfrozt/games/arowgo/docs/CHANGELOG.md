@@ -1,5 +1,9 @@
 # Documentation changelog
 
+## Daily/account branch integration — 28 November 2026
+
+Merged `cloud_save_and_deployment_docs` through `696d769` into the 220-level preview branch. Preserved Foundry rules, dynamic world labels and shared profile shortcuts. Added Daily Challenge, streaks, account continuity and multi-chunk cloud infrastructure. Daily reward callbacks are deduplicated and clock rollback cannot reclaim a date. Daily currency is local-only; bound server wallets do not yet support daily rewards. The new cloud capacity fixtures cover 100 levels; full 220-level live-provider capacity acceptance remains open.
+
 ## Eclipse Foundry — 27 November 2026
 
 World 8 adds Levels 181–220, numbered switch/gate groups, an interactive lesson, neutral hold effects, a measured difficulty ramp and generated emerald/gold world assets. Existing content, save keys and currency remain unchanged. See [rules](ECLIPSE-FOUNDRY.md) and [verification](ECLIPSE-FOUNDRY-AUDIT.md).
@@ -25,6 +29,37 @@ Documented the 101-120 progression plan, implemented frozen-baseline structural 
 
 Added the selected portrait/frame in the top-left position, replacing the app wordmark in hub and play headers. Currency and Settings remain on the right, with 44px profile access. Build passes; isolated browser checks cover six screens, profile navigation and header non-overlap at 320, 390 and 1280px widths. No save schema or currency changes.
 
+## Account continuity and conflict resolution policy — 20 November 2026
+
+- Implemented cross-device appearance synchronization (`avatar`, `frame`, `name`) in server wallet ledger `preferences` table with optimistic concurrency control (`expectedRevision`).
+- Updated `accountRestorePlan` in `src/account/account-restore.ts` to restore remote appearance attributes into local `arowgo.profile.v1` with validation and fallback to guest defaults.
+- Established clean restart policy for in-progress and mid-puzzle boards: completed levels are restored as finished (`claimed: true, bestStars, coins: 25`); uncompleted levels restart cleanly at move 0 with an empty move log and a fresh unique `attemptId`.
+- Codified deterministic conflict resolution matrix across concurrent first-clears (idempotent 25 coin award), replay star upgrades (`MAX`), time records (`MIN`), appearance updates (optimistic revision locks), and wallet transactions (atomic serializable `BEGIN IMMEDIATE`).
+- Enforced strict account storage isolation between guest (`arowgo.save.v1`, `arowgo.profile.v1`, `arowgo.wallet.v1`) and bound accounts (`arowgo.economy.<accountId>.*`).
+- Added dedicated guide `docs/ACCOUNT-CONTINUITY-AND-CONFLICTS.md` and test suite `tests/account-continuity.test.ts` (5 tests). All 59 test files (407 tests) pass cleanly.
+
+## Production account and ledger infrastructure — 20 November 2026
+
+- Implemented durable SQLite session store in `server/account/session-store.mjs` (`sessions.sqlite`) in WAL mode with automated TTL pruning and transparent mutation synchronization via recursive Proxy wrappers.
+- Implemented sliding-window IP rate limiter in `server/account/rate-limiter.mjs` with standard HTTP 429 and `Retry-After` response headers.
+- Implemented automated atomic ledger backup and restore engine in `server/economy/backup.mjs` using SQLite `VACUUM INTO`, SHA-256 cryptographic audit manifests, dual-entry balance invariant validation, and pre-restore safety copies.
+- Created operational CLI commands: `scripts/backup-ledger.mjs`, `scripts/restore-ledger.mjs`, and `scripts/verify-ledger.mjs`.
+- Added unauthenticated container health probe `GET /api/arowgo/v1/health` for load balancers and container orchestrators.
+- Updated `server/account/start.mjs` to support explicit production boots (`AROWGO_PRODUCTION_SERVER=1`) while strictly guarding against accidental unconfigured production runs.
+- Added dedicated guide `docs/PRODUCTION-ACCOUNT-INFRASTRUCTURE.md` covering architecture, persistence models, SQLite vs Postgres scaling, rate limits, backup retention, and disaster recovery runbooks.
+- Added comprehensive test suite `tests/production-infrastructure.test.js` (5 tests). All 58 test files (402 tests) pass cleanly.
+
+## Full-history cloud capacity resolution — 20 November 2026
+
+- Implemented multi-chunk PlayFab object envelope in `server/account/cloud.mjs` supporting realistic 100-level UUID transcripts, backups, and migration archives up to 150 KB packed / 512 KiB raw.
+- Slices payloads into indexed PlayFab objects (`arowgo-save-v1-chunk-i`) up to 30 chunks, well within PlayFab's 100-object limit and 8,000-byte-per-object limit.
+- Preserves atomic single-request commits under `ExpectedProfileVersion`, full previous-generation rollback copies, corruption rejection, and zero truncation.
+- Backward compatibility maintained for legacy single-overflow saves.
+- Added dedicated test suite `tests/cloud-capacity.test.js` and updated `tests/sanctum.test.ts`. All 57 test files (397 tests) pass.
+
+## Documentation suite and production/cloud audit — 20 November 2026
+
+Added dedicated guides for cloud-save recovery (`CLOUD-SAVE-RECOVERY.md`), production deployment and service boundaries (`DEPLOYMENT-PRODUCTION.md`), generator specification (`GENERATOR-SPECIFICATION.md`), mechanics handbook (`MECHANICS-HANDBOOK.md`), 100-level register (`LEVEL-DIFFICULTY-REGISTER.md`), account and currency flow diagrams (`ACCOUNT-CURRENCY-FLOWS.md`), release checklist (`RELEASE-CHECKLIST.md`), asset catalog (`ASSET-CATALOG.md`), and test coverage map (`TEST-COVERAGE-MAP.md`). Reconciled status index across 90 files and 472 verified links.
 
 ## Current-state cleanup - 20 November 2026
 
