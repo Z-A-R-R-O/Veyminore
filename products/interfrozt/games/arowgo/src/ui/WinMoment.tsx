@@ -1,12 +1,22 @@
 import { Coin, CountUp } from "./elements/Rewards";
+import { Gem } from "./elements/Gem";
 import type { Session } from "../application/session";
+
+export interface DailyWinContext {
+  streak: number;
+  isFirstClear: boolean;
+  coins: number;
+  gems: number;
+}
 
 export function WinMoment({
   state,
   animate,
+  dailyContext,
 }: {
   state: Session;
   animate: boolean;
+  dailyContext?: DailyWinContext;
 }) {
   const mastery =
     state.mode === "practice"
@@ -18,6 +28,38 @@ export function WinMoment({
           : "You found your way.";
   return (
     <div className="win-moment">
+      {dailyContext && (
+        <div
+          className="daily-victory-streak"
+          aria-label={`${dailyContext.streak} day streak`}
+        >
+          <span className="streak-fire-anim" aria-hidden="true">
+            🔥
+          </span>
+          <div className="streak-badge-text">
+            <strong>{dailyContext.streak}-Day Streak!</strong>
+            <small>
+              {dailyContext.isFirstClear
+                ? "Streak extended today"
+                : "Streak preserved"}
+            </small>
+          </div>
+        </div>
+      )}
+      {dailyContext && dailyContext.isFirstClear && (
+        <div className="daily-prize-reveal">
+          <div className="daily-prize-item">
+            <Coin variant="prize" />
+            <strong>+{dailyContext.coins}</strong>
+            <span>coins</span>
+          </div>
+          <div className="daily-prize-item">
+            <Gem />
+            <strong>+{dailyContext.gems}</strong>
+            <span>gems</span>
+          </div>
+        </div>
+      )}
       {state.mode === "story" && state.scoringVersion === 2 && (
         <div className="result-goals">
           <div className="achieved">
@@ -51,7 +93,7 @@ export function WinMoment({
       <div className="mastery-ribbon">
         <span aria-hidden="true">✧</span> {mastery}
       </div>
-      {state.mode === "story" && state.reward > 0 && (
+      {!dailyContext && state.mode === "story" && state.reward > 0 && (
         <div className="coin-reveal" aria-hidden="true">
           <Coin variant="prize" />
           <strong>

@@ -10,7 +10,7 @@ import { Board, type BoardHandle } from "../game/Board";
 import { checkExit } from "../domain/rules";
 import { levels } from "../domain/campaign";
 import { fixtures } from "../domain/fixtures";
-import { WinMoment } from "./WinMoment";
+import { WinMoment, type DailyWinContext } from "./WinMoment";
 import { Coin, CountUp, HeartToken, Encouragement } from "./elements/Rewards";
 import { GameArt } from "./elements/GameArt";
 import { Icon } from "./Icons";
@@ -25,6 +25,7 @@ export function App({
   controller,
   onHome,
   onNext,
+  onComplete,
   levelNumber = 1,
   otherCoins = 0,
   skin = "classic",
@@ -33,10 +34,14 @@ export function App({
   onTimeBoost,
   economyNotice,
   devSandbox = false,
+  isDaily = false,
+  dailyTitle,
+  dailyContext,
 }: {
   controller: Controller;
   onHome?: () => void;
   onNext?: () => void;
+  onComplete?: () => void;
   levelNumber?: number;
   otherCoins?: number;
   skin?: SkinId;
@@ -45,6 +50,9 @@ export function App({
   onTimeBoost?: () => boolean | Promise<boolean>;
   economyNotice?: string;
   devSandbox?: boolean;
+  isDaily?: boolean;
+  dailyTitle?: string;
+  dailyContext?: DailyWinContext;
 }) {
   const state = useSyncExternalStore(
     controller.subscribe,
@@ -214,7 +222,10 @@ export function App({
     if (result.state.status === "complete") void playSound("win");
     else if (result.state.status === "failed") void playSound("defeat");
     else if (result.exit && !result.exit.clear) void playSound("blocked");
-    if (result.state.status === "complete") setCelebrating(true);
+    if (result.state.status === "complete") {
+      setCelebrating(true);
+      onComplete?.();
+    }
     if (result.exit?.clear) {
       setFeedback("");
       setPulse((p) => ({ id: p.id + 1, kind: "clear" }));
@@ -264,7 +275,10 @@ export function App({
     gate();
     const result = controller.erase(eraseTarget);
     if (result.state.status === "complete") void playSound("win");
-    if (result.state.status === "complete") setCelebrating(true);
+    if (result.state.status === "complete") {
+      setCelebrating(true);
+      onComplete?.();
+    }
     boardRef.current?.animate(result);
     setFeedback("Arrow gently erased. This run is now assisted.");
     setEraseTarget(null);
@@ -360,25 +374,29 @@ export function App({
         <section className="level-heading">
           <div className="world-label">
             <span />{" "}
-            {lab
-              ? "Discover the mechanic"
-              : levelNumber > 20
-                ? levelNumber > 40
-                  ? levelNumber > 60
-                    ? levelNumber > 80
-                      ? "World 5 · Amber Sanctum"
-                      : "World 4 · Amber Dunes"
-                    : "World 3 · Frostfall Peaks"
-                  : "World 2 · Verdant Cove"
-                : "World 1 · Bloom Valley"}{" "}
+            {isDaily
+              ? "Daily Challenge"
+              : lab
+                ? "Discover the mechanic"
+                : levelNumber > 20
+                  ? levelNumber > 40
+                    ? levelNumber > 60
+                      ? levelNumber > 80
+                        ? "World 5 · Amber Sanctum"
+                        : "World 4 · Amber Dunes"
+                      : "World 3 · Frostfall Peaks"
+                    : "World 2 · Verdant Cove"
+                  : "World 1 · Bloom Valley"}{" "}
             <span />
           </div>
           <h1>
-            {lab
-              ? "Rule lab"
-              : lesson
-                ? "Keys & locks"
-                : `Level ${String(levelNumber).padStart(2, "0")}`}
+            {isDaily
+              ? (dailyTitle ?? "Daily Puzzle")
+              : lab
+                ? "Rule lab"
+                : lesson
+                  ? "Keys & locks"
+                  : `Level ${String(levelNumber).padStart(2, "0")}`}
           </h1>
           {!lab && !lesson && state.scoringVersion === 2 && (
             <small className="play-star-goals">
@@ -577,9 +595,11 @@ export function App({
                         <div className="victory-halo" aria-hidden="true" />
                       )}
                       <div className="result-level">
-                        {lesson
-                          ? "PRACTICE LESSON"
-                          : `LEVEL ${String(levelNumber).padStart(2, "0")}`}
+                        {isDaily
+                          ? "DAILY CHALLENGE"
+                          : lesson
+                            ? "PRACTICE LESSON"
+                            : `LEVEL ${String(levelNumber).padStart(2, "0")}`}
                         <SaveStatus
                           compact
                           failed={controller.notice.includes("memory only")}
@@ -670,6 +690,7 @@ export function App({
                                 : { ...state, reward: 0 }
                             }
                             animate={celebrating && !motion.reduced}
+                            dailyContext={dailyContext}
                           />
                         </>
                       )}
@@ -718,30 +739,33 @@ export function App({
                       <button
                         className="primary-button"
                         onClick={() =>
-                          state.status === "complete" &&
-                          onNext &&
-                          (lesson || state.claimed)
+                          isDaily && onNext
                             ? onNext()
-                            : reset(state.mode)
+                            : state.status === "complete" &&
+                              onNext &&
+                              (lesson || state.claimed)
+                              ? onNext()
+                              : reset(state.mode)
                         }
                       >
                         {state.status === "complete"
-                          ? lesson
-                            ? "Back to Modes"
-                            : onNext && state.claimed
-                              ? levelNumber === 20
-                                ? "Valley complete"
-                                : levelNumber < levels.length
-                                  ? "Next level"
-                                  : "Adventure complete"
-                              : "Play again"
+                          ? isDaily
+                            ? "Back to Hub"
+                            : lesson
+                              ? "Back to Modes"
+                              : onNext && state.claimed
+                                ? levelNumber === 20
+                                  ? "Valley complete"
+                                  : levelNumber < levels.length
+                                    ? "Next level"
+                                    : "Adventure complete"
+                                : "Play again"
                           : "Try again"}{" "}
                         <span aria-hidden="true">↗</span>
                       </button>
                       <div className="result-secondary-actions">
                         {state.status === "complete" &&
-                          onNext &&
-                          (lesson || state.claimed) && (
+                          ((onNext && (lesson || state.claimed)) || isDaily) && (
                             <button
                               className="text-button"
                               onClick={() => reset(state.mode)}

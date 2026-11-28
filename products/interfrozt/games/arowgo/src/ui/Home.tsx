@@ -1,22 +1,35 @@
 import { GameArt } from "./elements/GameArt";
 import { Star } from "./elements/Star";
 import { levelNames, levels } from "../domain/campaign";
+import {
+  type DailyProgress,
+  getTodayDateString,
+  formatDailyDate,
+} from "../storage/daily";
 
 export function Home({
   completed,
   stars,
   next,
   name,
+  dailyProgress,
   onPlay,
+  onDaily,
   onNavigate,
 }: {
   completed: number;
   stars: number;
   next: number;
   name: string;
+  dailyProgress?: DailyProgress;
   onPlay: () => void;
+  onDaily?: () => void;
   onNavigate: (path: string) => void;
 }) {
+  const todayStr = getTodayDateString();
+  const isCompletedToday = dailyProgress?.lastCompletedDate === todayStr;
+  const currentStreak = dailyProgress?.currentStreak ?? 0;
+
   return (
     <div className="bloom-home">
       <section className="bloom-welcome">
@@ -61,6 +74,32 @@ export function Home({
           <span aria-hidden="true">▶</span>
           {completed === levels.length ? "View your stars" : "Play"}
           <span className="play-glint" aria-hidden="true" />
+        </button>
+      </section>
+
+      <section className="bloom-daily-card" aria-label="Daily challenge">
+        <div className="daily-card-icon" aria-hidden="true">
+          <span>🔥</span>
+        </div>
+        <div className="daily-card-content">
+          <div className="daily-card-header">
+            <span className="daily-eyebrow">DAILY CHALLENGE</span>
+            <span className="daily-streak-pill">
+              🔥 {currentStreak > 0 ? `${currentStreak}-Day Streak` : "Start Streak"}
+            </span>
+          </div>
+          <strong className="daily-date-title">{formatDailyDate(todayStr)}</strong>
+          <span className="daily-subtitle">
+            {isCompletedToday
+              ? "Completed today · Streak secured"
+              : "+50 Coins · +5 Gems on first clear"}
+          </span>
+        </div>
+        <button
+          className={`daily-card-btn ${isCompletedToday ? "is-replay" : "is-action"}`}
+          onClick={onDaily ?? (() => onNavigate("daily"))}
+        >
+          {isCompletedToday ? "Replay ↺" : "Play ▶"}
         </button>
       </section>
       <div className="bloom-destinations">

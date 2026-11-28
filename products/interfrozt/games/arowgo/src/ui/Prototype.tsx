@@ -52,12 +52,30 @@ import {
   randomUnit,
   type Profile,
 } from "../storage/profile";
+import {
+  DAILY_STORAGE_KEY,
+  DAILY_REWARD_COINS,
+  DAILY_REWARD_GEMS,
+  getTodayDateString,
+  getDailyLevel,
+  readDailyProgress,
+  recordDailyCompletion,
+  defaultDailyProgress,
+  type DailyProgress,
+  formatDailyDate,
+  dayDifference,
+} from "../storage/daily";
 import { useMotion } from "./useMotion";
 import { SoundSetting } from "./Sound";
 const store = {
   getItem: (key: string) => gameStorage.getItem(key),
   setItem: (key: string, value: string) => gameStorage.setItem(key, value),
 };
+const dailyLevel = getDailyLevel();
+const dailyController = new Controller(
+  dailyLevel,
+  new SaveStore(store, dailyLevel, "arowgo.daily." + getTodayDateString() + ".v1"),
+);
 const controllers = levels.map(
   (level, i) =>
     new Controller(
@@ -129,6 +147,48 @@ export function Prototype() {
   const walletMessage = useSyncExternalStore(subscribeEconomy, economyMessage);
   const profile = accountProfile(localProfile);
   const [profileNotice, setProfileNotice] = useState("");
+  const [dailyProgress, setDailyProgress] = useState<DailyProgress>(() => {
+    try {
+      return readDailyProgress(gameStorage.getItem(DAILY_STORAGE_KEY));
+    } catch {
+      return defaultDailyProgress();
+    }
+  });
+
+  function handleDailyComplete() {
+    const today = getTodayDateString();
+    setDailyProgress((prev) => {
+      const result = recordDailyCompletion(prev, today);
+      if (result.isFirstClearToday) {
+        try {
+          gameStorage.setItem(
+            DAILY_STORAGE_KEY,
+            JSON.stringify(result.progress),
+          );
+        } catch {}
+        setTimeout(() => {
+          setProfile((p) => {
+            const next = { ...p, gems: p.gems + result.gemsEarned };
+            try {
+              gameStorage.setItem(PROFILE_KEY, JSON.stringify(next));
+            } catch {}
+            return next;
+          });
+        }, 0);
+      }
+      return result.progress;
+    });
+  }
+
+  useEffect(() => {
+    const unsub = dailyController.subscribe(() => {
+      refresh((v) => v + 1);
+      if (dailyController.state.status === "complete") {
+        handleDailyComplete();
+      }
+    });
+    return unsub;
+  }, []);
   useEffect(() => {
     for (const c of controllers)
       if (
@@ -171,7 +231,10 @@ export function Prototype() {
     location.hash = path;
     setRoute(path);
   };
-  const earnedCoins = controllers.reduce((v, c) => v + c.state.coins, 0);
+  const dailyBonusCoins =
+    dailyProgress.completedDates.length * DAILY_REWARD_COINS;
+  const earnedCoins =
+    controllers.reduce((v, c) => v + c.state.coins, 0) + dailyBonusCoins;
   const coins =
     remote?.wallet?.coins ?? Math.max(0, earnedCoins - spentCoins(profile));
   useEffect(() => {
@@ -227,6 +290,38 @@ export function Prototype() {
         }}
       />
     );
+  if (route === "daily") {
+    const today = getTodayDateString();
+    const isCompleteToday = dailyProgress.lastCompletedDate === today;
+    const projectedStreak = isCompleteToday
+      ? dailyProgress.currentStreak
+      : dailyProgress.lastCompletedDate &&
+          dayDifference(dailyProgress.lastCompletedDate, today) === 1
+        ? dailyProgress.currentStreak + 1
+        : 1;
+
+    return (
+      <App
+        key="daily"
+        controller={dailyController}
+        levelNumber={0}
+        isDaily
+        dailyTitle={`Daily · ${formatDailyDate(today)}`}
+        dailyContext={{
+          streak: projectedStreak,
+          isFirstClear: !isCompleteToday,
+          coins: DAILY_REWARD_COINS,
+          gems: DAILY_REWARD_GEMS,
+        }}
+        onComplete={handleDailyComplete}
+        gems={profile.gems}
+        skin={profile.equipped}
+        otherCoins={coins}
+        onHome={() => go("home")}
+        onNext={() => go("home")}
+      />
+    );
+  }
   const match = /^play\/(\d+)$/.exec(route);
   if (route === "preview/keys")
     return (
@@ -433,9 +528,16 @@ export function Prototype() {
             stars={stars}
             next={next}
             name={profile.name}
+            dailyProgress={dailyProgress}
             onPlay={() =>
               completed === levels.length ? go("finale") : play(next)
             }
+            onDaily={() => {
+              if (dailyController.state.status !== "playing") {
+                dailyController.restart("story");
+              }
+              go("daily");
+            }}
             onNavigate={go}
           />
         )}

@@ -178,6 +178,74 @@
 .result-goals strong {
   font-size: 13px;
 }
+
+/* Daily challenge streak & prize badge in victory modal */
+.daily-victory-streak {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border: 1.5px solid #fed7aa;
+  border-radius: 20px;
+  padding: 8px 18px;
+  box-shadow: 0 4px 14px #ea580c1e;
+  margin: 4px 0 8px;
+}
+.streak-fire-anim {
+  font-size: 26px;
+  display: inline-block;
+  animation: streak-flicker 1.4s ease-in-out infinite alternate;
+}
+@keyframes streak-flicker {
+  0% { transform: scale(0.95) rotate(-4deg); }
+  100% { transform: scale(1.18) rotate(4deg); }
+}
+.streak-badge-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.streak-badge-text strong {
+  font-size: 15px;
+  font-weight: 850;
+  color: #c2410c;
+  line-height: 1.1;
+}
+.streak-badge-text small {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9a3412;
+}
+
+.daily-prize-reveal {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin: 4px 0 8px;
+}
+.daily-prize-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1.5px solid #e9d5ff;
+  border-radius: 16px;
+  padding: 6px 14px;
+  box-shadow: 0 3px 10px #7e22ce14;
+}
+.daily-prize-item strong {
+  font-size: 16px;
+  font-weight: 850;
+  color: #4b2882;
+}
+.daily-prize-item span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7e5a9b;
+}
+
 .result-layer .retry-summary {
   display: flex;
   flex-direction: column;
